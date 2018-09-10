@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = {version = "*", extras = ["bcrypt"]}
+graphene = "*"
+graphene-django = "*"
+django-graphql-jwt = "*"
+python-decouple = "*"
+django-cors-headers = "*"
+gunicorn = "*"
+dj-database-url = "*"
+whitenoise = "*"
+"psycopg2-binary" = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3"
