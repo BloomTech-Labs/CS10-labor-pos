@@ -73,7 +73,7 @@ class Account(models.Model):
     zipcode = models.CharField(max_length=10, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=False)
     modified_at = models.DateTimeField(auto_now=True, blank=False)
-    deadline = models.DateField(blank=True)
-    notes = models.TextField(blank=True)
+    deadline = models.DateField(blank=True, default='')
+    notes = models.TextField(blank=True, default='')
 
 
