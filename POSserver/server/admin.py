@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Tag, Job_Note
 
-
 # Register your models here.
 class Tag_Admin(admin.ModelAdmin):
     pass
