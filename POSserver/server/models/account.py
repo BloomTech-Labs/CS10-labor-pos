@@ -65,21 +65,15 @@ class Account(models.Model):
         ('VI','Virgin Islands'),
         ('GU','Guam')
     )
+    state = models.CharField(
+        max_length=2,
+        choices=state_choices,
+        default=Alabama
+    )
     zipcode = models.CharField(max_length=10, null=False, blank=False)
-    created_at = models.DateTime
-    modified_at =
-    deadline = 
+    created_at = models.DateTimeField(auto_now_add=True, blank=False)
+    modified_at = models.DateTimeField(auto_now=True, blank=False)
+    deadline = models.DateField(blank=True)
+    notes = models.TextField(blank=True)
 
 
-Account
-contractor id r
-tag id r
-name r
-email char field r emailField
-address r
-zipcode r
-notes - textfield o
-created at r
-modified at r
-deadline - datetimefield o
-select account where contractor id = x select account where job id = x
