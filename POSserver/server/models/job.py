@@ -11,7 +11,7 @@ class Job(models.Model):
     name = models.CharField(max_length=200)
     notes = models.TextField(blank=True)
     complete = models.BooleanField(default=False)
-    labor = models.DecimalField(null=True)
+    labor = models.DecimalField(decimal_places=2, max_digits=5, null=True)
     description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
