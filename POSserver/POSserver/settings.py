@@ -27,22 +27,32 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
-
+CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",  # Added for whitenoise
+    "django.contrib.staticfiles",  # Added for handling static files
     "django.contrib.admin",
     "django.contrib.auth",
+    "graphene_django",  # Added for doing GraphQL
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",  # Added corsheaders
+    "server",
 ]
 
 MIDDLEWARE = [
+    "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Added for helping with serving static files
+    "corsheaders.middleware.CorsMiddleware",  # Added for cross origin resource
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
