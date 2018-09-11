@@ -18,3 +18,4 @@ class Account_Job_Admin(admin.ModelAdmin):
 admin.site.register(Tag, Tag_Admin)
 admin.site.register(Job_Note, Job_Note_Admin)
 admin.site.register(Account_Job, Account_Job_Admin)
+
