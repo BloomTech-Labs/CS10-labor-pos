@@ -97,13 +97,11 @@ DATABASES = {
             + "@127.0.0.1:5432/posserver"
         ),
     )
-    # "ENGINE": "django.db.backends.postgresql",
-    # "NAME": "posserver",
-    # "USER": config("USER"),
-    # "PASSWORD": config("PASSWORD"),
-    # "HOST": "127.0.0.1",
-    # "PORT": "5432",
+    # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
+    # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
+    # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
 }
+
 
 # Authentication Backends - adding for JWT with GraphQL
 AUTHENTICATION_BACKENDS = [
