@@ -12,14 +12,6 @@ class TagAdmin(admin.ModelAdmin):
     pass
 
 
-# class Job_Note_Admin(admin.ModelAdmin):
-#     pass
-
-
-# class Account_Job_Admin(admin.ModelAdmin):
-#     pass
-
-
 class AccountAdmin(admin.ModelAdmin):
     pass
 
@@ -36,20 +28,13 @@ class PartAdmin(admin.ModelAdmin):
     pass
 
 
-# class Account_Note_Admin(admin.ModelAdmin):
-#     pass
-
-
 class JobAdmin(admin.ModelAdmin):
     pass
 
 
 admin.site.register(Tag, TagAdmin)
-# admin.site.register(Job_Note, Job_Note_Admin)
-# admin.site.register(Account_Job, Account_Job_Admin)
 admin.site.register(Job, JobAdmin)
 admin.site.register(Account, AccountAdmin)
-# admin.site.register(Account_Note, Account_Note_Admin)
 admin.site.register(Contractor, ContractorAdmin)
 admin.site.register(Note, NoteAdmin)
 admin.site.register(Part, PartAdmin)

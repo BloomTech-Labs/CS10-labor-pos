@@ -76,5 +76,12 @@ class Account(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True, default="")
     # notes = models.TextField(blank=True, default="")
-    note = models.ManyToManyField(Note, related_name="account_notes")
-    job = models.ManyToManyField(Job, related_name="account_jobs")
+    note = models.ManyToManyField(Note, related_name="account_notes", blank=True)
+    job = models.ManyToManyField(Job, related_name="account_jobs", blank=True)
+
+    def __str__(self):
+        if self.business_name is not None:
+            name = self.business_name
+        else:
+            name = self.first_name + " " + self.last_name
+        return f"{self.__class__.__name__}: {name} "
