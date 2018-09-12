@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     "server",
 ]
 
+GRAPHENE = {"SCHEMA": "POSserver.schema.schema"}  # Where your Graphene schema lives
+
 MIDDLEWARE = [
     "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
     "django.middleware.security.SecurityMiddleware",
