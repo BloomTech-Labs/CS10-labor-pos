@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Form, Card, Button, Input, FormGroup, Label} from 'reactstrap'
+import React, { Component } from 'react';
+import { Form, Card, Button, Input, FormGroup, Label} from 'reactstrap';
 export default class CreateJob extends Component {
   constructor(){
     super();
@@ -17,7 +17,6 @@ export default class CreateJob extends Component {
       created_at: null,
       posted: false
     }
-    // this.resetForm = JSON.parse(JSON.stringify(this.state));
   }
 
   // componentDidMount() {
@@ -31,14 +30,27 @@ export default class CreateJob extends Component {
     });
   }
 
-  // handleReset = (e) => {
-  //   this.setState(this.resetForm)
-  //   console.log(this.state);
-  //   console.log(this.resetForm)
-  // }
+  handleReset = (e) => {
+    this.setState({
+      contractor: '',
+      tag: '',
+      name: '',
+      complete: false,
+      labor: '',
+      parts: '',
+      note: '',
+      description: '',
+      deadline: null,
+      modified_at: null,
+      created_at: null,
+      posted: false
+    })
+    console.log(this.state);
+    console.log(this.resetForm)
+  }
   handleSubmit = (e) => {
     e.preventDefault();
-    const { 
+    const {
       contractor,
       tag,
       name,
@@ -72,30 +84,30 @@ export default class CreateJob extends Component {
       <div>
         <h1> Add a Job</h1>
         <Card>
-        <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-        <Label for="name"> Name </Label>
-          <Input type="text" name="name" value={this.state.name} onChange={this.handleTextChange} placeholder="Job Name" />
-        </FormGroup>
-        <br/>
-        <FormGroup>
-          <Label for="email"> Email </Label>
-          <Input type="email" name="email" value={this.state.email} onChange={this.handleTextChange} placeholder="Email address" />
-        </FormGroup>
-        <br/>
-        <FormGroup>
-      <Label for="parts"> Parts </Label>
-          <Input type="text" name="parts" value={this.state.parts} onChange={this.handleTextChange} placeholder="Parts" />
-          </FormGroup>
+          <Form onSubmit={this.handleSubmit}>
+            <FormGroup>
+            <Label for="name"> Name </Label>
+              <Input type="text" name="name" value={this.state.name} onChange={this.handleTextChange} placeholder="Job Name" />
+            </FormGroup>
           <br/>
-          <FormGroup>
-      <Label for="labor"> Labor </Label>
-          <Input type="text" name="labor" value={this.state.label} onChange={this.handleTextChange} placeholder="Labor Hours" />
-          </FormGroup>
-          <br/>
-          <Button type="submit">Save</Button>
-          {/* <Button onClick={this.handleReset}>Cancel</Button> */}
-        </Form>
+            <FormGroup>
+              <Label for="email"> Email </Label>
+              <Input type="email" name="email" value={this.state.email} onChange={this.handleTextChange} placeholder="Email address" />
+            </FormGroup>
+            <br/>
+            <FormGroup>
+            <Label for="parts"> Parts </Label>
+              <Input type="text" name="parts" value={this.state.parts} onChange={this.handleTextChange} placeholder="Parts" />
+            </FormGroup>
+              <br/>
+            <FormGroup>
+            <Label for="labor"> Labor </Label>
+              <Input type="text" name="labor" value={this.state.label} onChange={this.handleTextChange} placeholder="Labor Hours" />
+            </FormGroup>
+              <br/>
+            <Button type="submit">Save</Button>
+            <Button onClick={this.handleReset}>Cancel</Button>
+            </Form>
         </Card>
       </div>
     )}

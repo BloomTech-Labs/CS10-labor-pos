@@ -7,34 +7,9 @@ from .models.part import Part
 from .models.tag import Tag
 
 
-# Register your models here.
-class TagAdmin(admin.ModelAdmin):
-    pass
-
-
-class AccountAdmin(admin.ModelAdmin):
-    pass
-
-
-class ContractorAdmin(admin.ModelAdmin):
-    pass
-
-
-class NoteAdmin(admin.ModelAdmin):
-    pass
-
-
-class PartAdmin(admin.ModelAdmin):
-    pass
-
-
-class JobAdmin(admin.ModelAdmin):
-    pass
-
-
-admin.site.register(Tag, TagAdmin)
-admin.site.register(Job, JobAdmin)
-admin.site.register(Account, AccountAdmin)
-admin.site.register(Contractor, ContractorAdmin)
-admin.site.register(Note, NoteAdmin)
-admin.site.register(Part, PartAdmin)
+admin.site.register(Tag)
+admin.site.register(Job)
+admin.site.register(Account)
+admin.site.register(Contractor)
+admin.site.register(Note)
+admin.site.register(Part)

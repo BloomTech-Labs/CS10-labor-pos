@@ -9,11 +9,13 @@ class Account(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, null=False)
     contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
-    first_name = models.CharField(max_length=100, null=False, blank=False, default="")
-    last_name = models.CharField(max_length=100, null=False, blank=False, default="")
-    email = models.EmailField(max_length=70, null=False, blank=False, default="")
-    street_address = models.CharField(max_length=100, null=False, blank=False)
-    city = models.CharField(max_length=70, null=False, blank=False, default="")
+    first_name = models.CharField(max_length=100, default="")
+    last_name = models.CharField(max_length=100, default="")
+    email = models.EmailField(max_length=70, default="")
+    street_number = models.CharField(max_length=10, default="")
+    unit_number = models.CharField(max_length=10, null=True, blank=True, default="")
+    street_name = models.CharField(max_length=100, default="")
+    city = models.CharField(max_length=70, default="")
     state_choices = (
         ("AL", "Alabama"),
         ("AK", "Alaska"),
@@ -71,11 +73,10 @@ class Account(models.Model):
         ("GU", "Guam"),
     )
     state = models.CharField(max_length=2, choices=state_choices, default="Alabama")
-    zipcode = models.CharField(max_length=10, null=False, blank=False)
+    zipcode = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateField(blank=True, default="")
-    # notes = models.TextField(blank=True, default="")
+    deadline = models.DateField(blank=True, null=True)
     note = models.ManyToManyField(Note, related_name="account_notes", blank=True)
     job = models.ManyToManyField(Job, related_name="account_jobs", blank=True)
 
