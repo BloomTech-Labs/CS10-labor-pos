@@ -3,7 +3,7 @@ import graphene
 import server.schemas
 
 
-class Query(server.schemas.tag.Query, graphene.ObjectType):
+class Query(server.schemas.tag.Query, server.schemas.note.Query, graphene.ObjectType):
     pass
 
 
