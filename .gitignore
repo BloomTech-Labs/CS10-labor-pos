@@ -4,3 +4,4 @@
 /POSserver/staticfiles/
 /POSserver/server/migrations/
 ../.DS_Store
+/POSserver/POSserver/staticfiles/
