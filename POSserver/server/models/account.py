@@ -74,7 +74,7 @@ class Account(models.Model):
     zipcode = models.CharField(max_length=10, null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateField(blank=True, default="")
+    deadline = models.DateField(blank=True, null=True)
     # notes = models.TextField(blank=True, default="")
     note = models.ManyToManyField(Note, related_name="account_notes", blank=True)
     job = models.ManyToManyField(Job, related_name="account_jobs", blank=True)
