@@ -9,7 +9,9 @@ from uuid import uuid4
 class Job(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     contractor = models.ForeignKey("server.Contractor", on_delete=models.CASCADE)
-    tag = models.ForeignKey("server.Tag", on_delete=models.CASCADE)
+    tag = models.ForeignKey(
+        "server.Tag", on_delete=models.CASCADE, blank=True, null=True
+    )
     name = models.CharField(max_length=200)
     note = models.ManyToManyField(Note, related_name="job_notes", blank=True)
     part = models.ManyToManyField(Part, related_name="job_parts", blank=True)

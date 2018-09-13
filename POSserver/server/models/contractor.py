@@ -1,10 +1,12 @@
 from django.db import models
-from uuid import uuid4
 from django.utils import timezone
+from django.conf import settings
+from uuid import uuid4
 
 
 class Contractor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, null=False)
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(max_length=70, null=False, blank=False, unique=True)
@@ -66,7 +68,7 @@ class Contractor(models.Model):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(max_length=2, choices=state_choices, default="Alabama")
+    state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
     zipcode = models.CharField(max_length=10, null=False, blank=False)
     business_name = models.CharField(max_length=100, null=False, blank=False)
     # password = models.CharField(max_length=50, null=False, blank=False)
