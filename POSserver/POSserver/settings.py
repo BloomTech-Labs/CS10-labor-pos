@@ -93,7 +93,10 @@ DATABASES = {
             + config("USER")
             + ":"
             + config("PASSWORD")
-            + "@127.0.0.1:5432/posserver"
+            + "@"
+            + config("PORT")  # 127.0.0.1:5432
+            + "/"
+            + config("DBNAME")  # posserver
         ),
     )
     # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
