@@ -19,6 +19,5 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True)
-
     def __str__(self):
         return f"{self.__class__.__name__}: {self.name}"
