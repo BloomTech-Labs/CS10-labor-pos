@@ -31,6 +31,8 @@ ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
+CORS_ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
+
 CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
 # Application definition
 
@@ -95,7 +97,10 @@ DATABASES = {
             + config("USER")
             + ":"
             + config("PASSWORD")
-            + "@127.0.0.1:5432/posserver"
+            + "@"
+            + config("PORT")  # 127.0.0.1:5432
+            + "/"
+            + config("DBNAME")  # posserver
         ),
     )
     # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
@@ -148,5 +153,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
