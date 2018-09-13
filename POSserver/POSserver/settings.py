@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "server",
 ]
 
+
 GRAPHENE = {"SCHEMA": "POSserver.schema.schema"}  # Where your Graphene schema lives
 
 MIDDLEWARE = [
