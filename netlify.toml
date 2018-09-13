@@ -1,0 +1,9 @@
+[build]
+   base = "./CS10-labor-pos/client/"
+   publish = "./CS10-labor-pos/client/build"
+   command = "yarn build"
+
+[[redirects]]
+   from = "/*"
+   to = "/index.html"
+   status = 200
