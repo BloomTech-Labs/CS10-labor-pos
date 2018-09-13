@@ -1,0 +1,6 @@
+.DS_Store
+/node_modules
+.env
+/staticfiles/
+/server/migrations/
+../.DS_Store
