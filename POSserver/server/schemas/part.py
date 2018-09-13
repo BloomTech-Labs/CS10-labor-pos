@@ -1,8 +1,8 @@
 # from graphene import relay, List, ObjectType
 from graphene_django import DjangoObjectType
-from server.models import Account
+from server.models import Part
 
 
-class Account_Type(DjangoObjectType):
+class Part_Type(DjangoObjectType):
     class Meta:
-        model = Account
+        model = Part

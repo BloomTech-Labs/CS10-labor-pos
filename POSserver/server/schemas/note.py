@@ -1,8 +1,8 @@
 # from graphene import relay, List, ObjectType
 from graphene_django import DjangoObjectType
-from server.models import Account
+from server.models import Note
 
 
-class Account_Type(DjangoObjectType):
+class Note_Type(DjangoObjectType):
     class Meta:
-        model = Account
+        model = Note
