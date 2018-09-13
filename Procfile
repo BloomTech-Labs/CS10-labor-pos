@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath POSserver POSserver.wsgi
+web: gunicorn POSserver.wsgi
