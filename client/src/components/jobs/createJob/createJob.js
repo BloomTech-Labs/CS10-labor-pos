@@ -102,7 +102,7 @@ export default class CreateJob extends Component {
               <br/>
             <FormGroup>
             <Label for="labor"> Labor </Label>
-              <Input type="text" name="labor" value={this.state.label} onChange={this.handleTextChange} placeholder="Labor Hours" />
+              <Input type="text" name="labor" value={this.state.labor} onChange={this.handleTextChange} placeholder="Labor Hours" />
             </FormGroup>
               <br/>
             <Button type="submit">Save</Button>
