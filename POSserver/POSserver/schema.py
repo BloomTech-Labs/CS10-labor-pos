@@ -3,7 +3,7 @@ import graphene
 import server.schemas
 
 
-class Query(
+class SuperQuery(
     server.schemas.tag.Query,
     server.schemas.note.Query,
     server.schemas.contractor.Query,
@@ -12,4 +12,8 @@ class Query(
     pass
 
 
-schema = graphene.Schema(query=Query)
+class Mutation(server.schemas.tag.TagMutation, graphene.ObjectType):
+    pass
+
+
+schema = graphene.Schema(query=SuperQuery, mutation=Mutation)

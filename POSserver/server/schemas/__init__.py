@@ -1,8 +1,15 @@
-from .account import Account
-from .contractor import Contractor
-from .job import Job
-from .tag import Tag
-from .note import Note
-from .part import Part
+from .account import Account_Type
+from .contractor import Contractor_Type
+from .job import Job_Type
+from .tag import Tag_Type
+from .note import Note_Type
+from .part import Part_Type
 
-__all__ = ["Account", "Contractor", "Job", "Tag", "Note", "Part"]
+__all__ = [
+    "Account_Type",
+    "Contractor_Type",
+    "Job_Type",
+    "Tag_Type",
+    "Note_Type",
+    "Part_Type",
+]
