@@ -4,6 +4,7 @@ from .job import Job_Type
 from .tag import Tag_Type
 from .note import Note_Type
 from .part import Part_Type
+from .user import User_Type
 
 __all__ = [
     "Account_Type",
@@ -12,4 +13,5 @@ __all__ = [
     "Tag_Type",
     "Note_Type",
     "Part_Type",
+    "User_Type",
 ]
