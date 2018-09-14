@@ -3,7 +3,7 @@ import './App.css';
 import { Route } from 'react-router-dom';
 import CreateJob from './components/jobs/createJob/createJob';
 import Settings from './components/settings/settings';
-import Login from './Login'
+import Login from './components/login'
 
 class App extends Component {
   render() {
