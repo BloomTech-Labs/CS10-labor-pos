@@ -11,4 +11,4 @@ class Part(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.description}"
+        return f"{self.__class__.__name__}: {self.part_name}"
