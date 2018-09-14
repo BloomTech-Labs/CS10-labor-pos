@@ -2,7 +2,6 @@ from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Contractor
-from .user import User_Type
 
 
 class Contractor_Type(DjangoObjectType):
@@ -31,7 +30,7 @@ class Query(ObjectType):
 
 class CreateContractor(graphene.Mutation):
     class Arguments:
-        user = graphene.ID(User_Type)
+        user_id = graphene.ID()
         first_name = graphene.String()
         last_name = graphene.String()
         email = graphene.String()
@@ -47,7 +46,6 @@ class CreateContractor(graphene.Mutation):
     def mutate(
         self,
         info,
-        user,
         first_name,
         last_name,
         email,
@@ -56,10 +54,9 @@ class CreateContractor(graphene.Mutation):
         state,
         zipcode,
         business_name,
+        user_id,
     ):
-        user = info.context.user
         new_contractor = Contractor(
-            user=user,
             first_name=first_name,
             last_name=last_name,
             email=email,
@@ -68,6 +65,7 @@ class CreateContractor(graphene.Mutation):
             state=state,
             zipcode=zipcode,
             business_name=business_name,
+            user_id=user_id,
         )
         new_contractor.save()
         return CreateContractor(contractor_field=new_contractor, ok=True)
