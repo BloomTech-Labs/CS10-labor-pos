@@ -7,9 +7,9 @@ from .models.part import Part
 from .models.tag import Tag
 
 
+admin.site.register(Contractor)
 admin.site.register(Tag)
 admin.site.register(Job)
 admin.site.register(Account)
-admin.site.register(Contractor)
 admin.site.register(Note)
 admin.site.register(Part)

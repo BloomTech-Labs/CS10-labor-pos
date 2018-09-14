@@ -1,6 +1,6 @@
 [build]
-   base = "./CS10-labor-pos/client/"
-   publish = "./CS10-labor-pos/client/build"
+   base = "./client"
+   publish = "./client/build"
    command = "yarn build"
 
 [[redirects]]
