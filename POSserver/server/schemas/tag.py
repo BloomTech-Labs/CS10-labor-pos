@@ -24,8 +24,8 @@ class Query(graphene.ObjectType):
 
 class CreateTag(graphene.Mutation):
     class Arguments:
-        name = graphene.String()
-        description = graphene.String()
+        name = graphene.String(required=True)
+        description = graphene.String(required=True)
 
     ok = graphene.Boolean()
     tag_field = graphene.Field(Tag_Type)

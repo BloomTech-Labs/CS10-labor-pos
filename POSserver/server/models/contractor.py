@@ -18,6 +18,7 @@ from uuid import uuid4
 #     premium = models.BooleanField(default=False, blank=False, null=False)
 #     paid_until = DateTimeField(default=timezone.now, blank=True, null=True)
 
+
 class Contractor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
