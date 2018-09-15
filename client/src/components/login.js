@@ -22,7 +22,7 @@ const SIGNUP_MUTATION = gql`
   }`
 
 const SIGNIN_MUTATION = gql`
-  mutation SignInMutation($username: String!, $password: String!) {
+  mutation tokenAuth($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
     }
@@ -35,23 +35,22 @@ class Login extends Component {
     login: true,
     password: '',
     username: '',
-    email: '',
   }
 
   render() {
-    const { login, email, username, password } = this.state
+    const { login, username, password } = this.state
     return (
       <div>
         <h4 className="login">{login ? 'Login' : 'Sign Up'}</h4>
         <div className="flex flex-column">
-          {!login && (
+          {/* {!login && (
             <input
               value={email}
               onChange={e => this.setState({ email: e.target.value })}
               type="text"
               placeholder="Your email address"
             />
-          )}
+          )} */}
           <input
             value={username}
             onChange={e => this.setState({ username: e.target.value })}
@@ -72,7 +71,7 @@ class Login extends Component {
             onCompleted={data => this._confirm(data)}
           >
             {mutation => (
-              <div className="button" onClick={mutation}>
+              <div className="button" onClick={mutation} type="submit">
                 {login ? 'login' : 'create account'}
               </div>
             )}
