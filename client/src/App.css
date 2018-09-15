@@ -26,3 +26,14 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.hero-image {
+  background-image: url("./trashpandaatbeach.jpg");
+  background-color: 4D6A6D;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: auto;
+  height: 100vh !important;
+}
+
