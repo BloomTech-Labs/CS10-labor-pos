@@ -28,7 +28,7 @@
 }
 
 .hero-image {
-  background-image: url("trashpandaatbeach.jpg");
+  background-image: url("./trashpandaatbeach.jpg");
   background-color: 4D6A6D;
   height: 500px;
   background-position: center;
