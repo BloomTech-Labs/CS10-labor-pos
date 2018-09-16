@@ -23,7 +23,7 @@ class Query(ObjectType):
 class CreatePart(graphene.Mutation):
     class Arguments:
         part_name = graphene.String()
-        description = graphene.Field()
+        description = graphene.String()
         cost = graphene.Float(2)
     
     ok = graphene.Boolean()
