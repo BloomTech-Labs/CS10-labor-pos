@@ -15,7 +15,12 @@ class Query(ObjectType):
     all_parts = List(Part_Type)
 
     def resolve_all_parts(self, info, **kwargs):
-        return Part.objects.all()
+        user = info.context.user
+
+        if user.is_anonymous:
+            return Part.objects.none()
+        else:
+            return Part.objects.filter(user=user)
 
 
 class CreatePart(graphene.Mutation):
@@ -28,6 +33,10 @@ class CreatePart(graphene.Mutation):
     part_field = graphene.Field(Part_Type)
 
     def mutate(self, info, part_name, description, cost):
+
+        user = info.context.user
+        if user.is_anonymous:
+            
 
         new_part = Part(part_name=part_name, description=description, cost=cost)
         new_part.save()

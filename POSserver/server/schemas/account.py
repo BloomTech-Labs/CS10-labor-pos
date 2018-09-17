@@ -32,7 +32,7 @@ class Query(ObjectType):
 
 class CreateAccount(graphene.Mutation):
     class Arguments:
-        contractor_id = graphene.ID()
+        user_id = graphene.ID()
         business_name = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
