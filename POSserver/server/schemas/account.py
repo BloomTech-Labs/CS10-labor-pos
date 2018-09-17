@@ -31,7 +31,7 @@ class Query(ObjectType):
 
         if user.is_anonymous:
             return Account.objects.none()
-        else: 
+        else:
             return Account.objects.filter(user=user)
 
 
@@ -69,7 +69,7 @@ class CreateAccount(graphene.Mutation):
     ):
         user = info.context.user
         if user.is_anonymous:
-            return CreateAccount(ok=False, status "Must be logged in.")
+            return CreateAccount(ok=False, status="Must be logged in.")
         else:
             new_account = Account(
                 business_name=business_name,
@@ -83,7 +83,7 @@ class CreateAccount(graphene.Mutation):
                 state=state,
                 zipcode=zipcode,
                 user_id=userId,
-                )
+            )
             new_account.save()
             return CreateAccount(account_field=new_account, ok=True)
 
