@@ -31,13 +31,13 @@ class CreateTag(graphene.Mutation):
     ok = graphene.Boolean()
     tag_field = graphene.Field(Tag_Type)
 
-    def mutate(self, info, name, description, userID):
+    def mutate(self, info, name, description, userId):
 
         user = info.context.user
         if user.is_anonymous:
             return CreateTag(ok=False, status="Must be logged in.")
         else:
-            new_tag = Tag(name=name, description=description, user_id=userId,)
+            new_tag = Tag(name=name, description=description, user_id=userId)
             new_tag.save()
             return CreateTag(tag_field=new_tag, ok=True)
 
