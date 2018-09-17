@@ -1,15 +1,43 @@
 import React, { Component } from "react";
-import { Button, Modal } from "@material-ui/core";
+import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import "../login";
+import Login from "../login";
 
 class LandingPage extends Component {
+  constructor() {
+    super();
+    this.state = {
+      login_modal: false,
+      create_modal: false
+    };
+  }
+
+  handleLoginButton = () => {
+    this.setState({ login_modal: true });
+  };
+
+  handleCreateButton = () => {
+    this.setState({ create_modal: true });
+  };
+
+  handleCloseLogin = () => {
+    this.setState({ login_modal: false });
+  };
+
+  handleCloseCreate = () => {
+    this.setState({ create_modal: false });
+  };
+
   render() {
     return (
       <div className="landing-page">
         <div className="landing-buttons">
-          <Button color="primary">Create Account</Button>
-          <Button color="secondary">Log In</Button>
+          <Button color="primary" onClick={this.handleCreateButton}>
+            Create Account
+          </Button>
+          <Button color="secondary" onClick={this.handleLoginButton}>
+            Log In
+          </Button>
         </div>
         <div className="landing-blurb">
           <p>
@@ -43,6 +71,20 @@ class LandingPage extends Component {
             aliquet imperdiet.
           </p>
         </div>
+        <Dialog
+          open={this.state.login_modal}
+          onClose={this.handleCloseLogin}
+          className="login-modal"
+        >
+          <Login />
+        </Dialog>
+        <Dialog
+          open={this.state.create_modal}
+          onClose={this.handleCloseCreate}
+          className="close-modal"
+        >
+          <p>This is a placeholder</p>
+        </Dialog>
       </div>
     );
   }
