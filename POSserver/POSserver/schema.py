@@ -21,6 +21,7 @@ class Mutation(
     server.schemas.contractor.ContractorMutation,
     server.schemas.part.PartMutation,
     server.schemas.account.AccountMutation,
+    server.schemas.note.NoteMutation,
     graphene.ObjectType,
 ):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()

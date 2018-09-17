@@ -36,10 +36,10 @@ class CreatePart(graphene.Mutation):
 
         user = info.context.user
         if user.is_anonymous:
-            
-
-        new_part = Part(part_name=part_name, description=description, cost=cost)
-        new_part.save()
+            return CreatePart(ok=False, status="Must be logged in.")
+        else:
+            new_part = Part(part_name=part_name, description=description, cost=cost)
+            new_part.save()
         return CreatePart(part_field=new_part, ok=True)
 
 

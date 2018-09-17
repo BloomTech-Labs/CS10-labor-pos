@@ -8,7 +8,7 @@ class Account_Type(DjangoObjectType):
     class Meta:
         model = Account
         filter_fields = [
-            "contractor_id",
+            "user",
             "business_name",
             "first_name",
             "last_name",
@@ -32,7 +32,7 @@ class Query(ObjectType):
 
 class CreateAccount(graphene.Mutation):
     class Arguments:
-        user_id = graphene.ID()
+        userId = graphene.ID()
         business_name = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -59,7 +59,7 @@ class CreateAccount(graphene.Mutation):
         city,
         state,
         zipcode,
-        contractor_id,
+        userId,
         unit_number="",
     ):
         new_account = Account(
@@ -73,7 +73,7 @@ class CreateAccount(graphene.Mutation):
             city=city,
             state=state,
             zipcode=zipcode,
-            contractor_id=contractor_id,
+            user_id=userId,
         )
         new_account.save()
         return CreateAccount(account_field=new_account, ok=True)
