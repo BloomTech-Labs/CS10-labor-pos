@@ -8,6 +8,8 @@ class SuperQuery(
     server.schemas.note.Query,
     server.schemas.contractor.Query,
     server.schemas.user.Query,
+    server.schemas.part.Query,
+    server.schemas.account.Query,
     graphene.ObjectType,
 ):
     pass
@@ -17,6 +19,8 @@ class Mutation(
     server.schemas.tag.TagMutation,
     server.schemas.user.UserMutation,
     server.schemas.contractor.ContractorMutation,
+    server.schemas.part.PartMutation,
+    server.schemas.account.AccountMutation,
     graphene.ObjectType,
 ):
     token_auth = graphql_jwt.ObtainJSONWebToken.Field()
