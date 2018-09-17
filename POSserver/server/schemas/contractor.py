@@ -8,6 +8,7 @@ class Contractor_Type(DjangoObjectType):
     class Meta:
         model = Contractor
         filter_fields = [
+            "user",
             "first_name",
             "last_name",
             "city",

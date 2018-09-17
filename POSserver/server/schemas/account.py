@@ -8,7 +8,7 @@ class Account_Type(DjangoObjectType):
     class Meta:
         model = Account
         filter_fields = [
-            "contractor_id",
+            "user",
             "business_name",
             "first_name",
             "last_name",
@@ -27,12 +27,17 @@ class Query(ObjectType):
     all_accounts = List(Account_Type)
 
     def resolve_all_accounts(self, info, **kwargs):
-        return Account.objects.all()
+        user = info.context.user
+
+        if user.is_anonymous:
+            return Account.objects.none()
+        else:
+            return Account.objects.filter(user=user)
 
 
 class CreateAccount(graphene.Mutation):
     class Arguments:
-        contractor_id = graphene.ID()
+        userId = graphene.ID()
         business_name = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -59,24 +64,28 @@ class CreateAccount(graphene.Mutation):
         city,
         state,
         zipcode,
-        contractor_id,
+        userId,
         unit_number="",
     ):
-        new_account = Account(
-            business_name=business_name,
-            first_name=first_name,
-            last_name=last_name,
-            email=email,
-            street_number=street_number,
-            unit_number=unit_number,
-            street_name=street_name,
-            city=city,
-            state=state,
-            zipcode=zipcode,
-            contractor_id=contractor_id,
-        )
-        new_account.save()
-        return CreateAccount(account_field=new_account, ok=True)
+        user = info.context.user
+        if user.is_anonymous:
+            return CreateAccount(ok=False, status="Must be logged in.")
+        else:
+            new_account = Account(
+                business_name=business_name,
+                first_name=first_name,
+                last_name=last_name,
+                email=email,
+                street_number=street_number,
+                unit_number=unit_number,
+                street_name=street_name,
+                city=city,
+                state=state,
+                zipcode=zipcode,
+                user_id=userId,
+            )
+            new_account.save()
+            return CreateAccount(account_field=new_account, ok=True)
 
 
 class AccountMutation(graphene.ObjectType):

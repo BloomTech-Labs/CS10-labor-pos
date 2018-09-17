@@ -4,11 +4,12 @@ from django.db import models
 from .note import Note
 from .part import Part
 from uuid import uuid4
+from django.conf import settings
 
 
 class Job(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    contractor = models.ForeignKey("server.Contractor", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tag = models.ForeignKey(
         "server.Tag", on_delete=models.CASCADE, blank=True, null=True
     )
