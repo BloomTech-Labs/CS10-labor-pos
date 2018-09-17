@@ -7,7 +7,7 @@ from server.models import Job
 class Job_Type(DjangoObjectType):
     class Meta:
         model = Job
-        filter_fields = ["name", "labor", "description"]
+        filter_fields = ["user", "name", "labor", "description"]
         interfaces = (relay.Node,)
 
 
@@ -38,9 +38,9 @@ class CreateJob(graphene.Mutation):
         if user.is_anonymous:
             return CreateJob(ok=False, status="Must be logged in.")
         else:
-            new_tag = Job(name=name, description=description)
-            new_tag.save()
-            return CreateJob(tag_field=new_tag, ok=True)
+            new_job = Job(user_id=userId, name=name, description=description)
+            new_job.save()
+            return CreateJob(job_field=new_job, ok=True)
 
 
 class JobMutation(graphene.ObjectType):
