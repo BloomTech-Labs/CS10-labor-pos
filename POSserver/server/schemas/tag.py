@@ -24,7 +24,7 @@ class Query(graphene.ObjectType):
 
 class CreateTag(graphene.Mutation):
     class Arguments:
-        userID = graphene.String()
+        userId = graphene.String()
         name = graphene.String(required=True)
         description = graphene.String(required=True)
 
