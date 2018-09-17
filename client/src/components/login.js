@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import { AUTH_TOKEN } from '../constants';
-import gql from 'graphql-tag'
-import { Mutation } from 'react-apollo';
-
+import React, { Component } from "react";
+import { AUTH_TOKEN } from "../constants";
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
 
 const SIGNUP_MUTATION = gql`
   mutation createUser($username: String!, $password: String!, $email: String!) {
@@ -13,13 +12,34 @@ const SIGNUP_MUTATION = gql`
       }
     }
   }
-  mutation createContractor($userId: ID!, $businessName: String!, $city: String!, $email: String!, $firstName: String!, $lastName: String!, $state: String!, $streetAddress: String!, $zipcode: String!) {
-    createContractor(userId: $userId, businessName: $businessName, city: $city, email: $email, firstName: $firstName, lastName: $lastName, state: $state, streetAddress: $streetAddress, zipcode: $zipcode) {
+  mutation createContractor(
+    $userId: ID!
+    $businessName: String!
+    $city: String!
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $state: String!
+    $streetAddress: String!
+    $zipcode: String!
+  ) {
+    createContractor(
+      userId: $userId
+      businessName: $businessName
+      city: $city
+      email: $email
+      firstName: $firstName
+      lastName: $lastName
+      state: $state
+      streetAddress: $streetAddress
+      zipcode: $zipcode
+    ) {
       contractorField {
         firstName
       }
     }
-  }`
+  }
+`;
 
 const SIGNIN_MUTATION = gql`
   mutation tokenAuth($username: String!, $password: String!) {
@@ -27,21 +47,20 @@ const SIGNIN_MUTATION = gql`
       token
     }
   }
-  `
-
+`;
 
 class Login extends Component {
   state = {
     login: true,
-    password: '',
-    username: '',
-  }
+    password: "",
+    username: ""
+  };
 
   render() {
-    const { login, username, password } = this.state
+    const { login, username, password } = this.state;
     return (
       <div>
-        <h4 className="login">{login ? 'Login' : 'Sign Up'}</h4>
+        <h4 className="login">{login ? "Login" : "Sign Up"}</h4>
         <div className="flex flex-column">
           {/* {!login && (
             <input
@@ -72,7 +91,7 @@ class Login extends Component {
           >
             {mutation => (
               <div className="button" onClick={mutation} type="submit">
-                {login ? 'login' : 'create account'}
+                {login ? "login" : "create account"}
               </div>
             )}
           </Mutation>
@@ -80,24 +99,22 @@ class Login extends Component {
             className="pointer button"
             onClick={() => this.setState({ login: !login })}
           >
-            {login
-              ? 'need to create an account?'
-              : 'already have an account?'}
+            {login ? "need to create an account?" : "already have an account?"}
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   _confirm = async data => {
-    const { token } = this.state.login ? data.tokenAuth.token : data.signup
-    this._saveUserData(token)
-    this.props.history.push('/')
-  }
+    const { token } = this.state.login ? data.tokenAuth.token : data.signup;
+    this._saveUserData(token);
+    this.props.history.push("/");
+  };
 
   _saveUserData = token => {
-    localStorage.setItem(AUTH_TOKEN, token)
-  }
+    localStorage.setItem(AUTH_TOKEN, token);
+  };
 }
 
-export default Login
+export default Login;
