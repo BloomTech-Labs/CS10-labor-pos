@@ -6,7 +6,7 @@ from server.models import Tag
 class Tag_Type(graphene_django.DjangoObjectType):
     class Meta:
         model = Tag
-        filter_fields = ["name", "description"]
+        filter_fields = ["user", "name", "description"]
         interfaces = (graphene.relay.Node,)
 
 
@@ -24,19 +24,20 @@ class Query(graphene.ObjectType):
 
 class CreateTag(graphene.Mutation):
     class Arguments:
+        userID = graphene.String()
         name = graphene.String(required=True)
         description = graphene.String(required=True)
 
     ok = graphene.Boolean()
     tag_field = graphene.Field(Tag_Type)
 
-    def mutate(self, info, name, description):
+    def mutate(self, info, name, description, userID):
 
         user = info.context.user
         if user.is_anonymous:
             return CreateTag(ok=False, status="Must be logged in.")
         else:
-            new_tag = Tag(name=name, description=description)
+            new_tag = Tag(name=name, description=description, user_id=userId,)
             new_tag.save()
             return CreateTag(tag_field=new_tag, ok=True)
 
