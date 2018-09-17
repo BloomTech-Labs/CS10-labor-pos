@@ -12,9 +12,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 import { AUTH_TOKEN } from './constants';
 
-
 const httpLink = createHttpLink({
-    uri: 'https://labs7-posserver.herokuapp.com/graphql/' || 'https://localhost:8000/graphql/'
+    uri: 'https://labs7-posserver.herokuapp.com/graphql/'
 })
 
 const authLink = setContext((_, { headers }) => {
@@ -28,7 +27,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const client = new ApolloClient({
-    link,
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 })
 
