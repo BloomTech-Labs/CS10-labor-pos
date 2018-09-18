@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
 import Login from "../login";
+import NewUser from "../newuser";
 
 class LandingPage extends Component {
   constructor() {
@@ -83,7 +84,7 @@ class LandingPage extends Component {
           onClose={this.handleCloseCreate}
           className="close-modal"
         >
-          <p>This is a placeholder</p>
+          <NewUser />
         </Dialog>
       </div>
     );
