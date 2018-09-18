@@ -4,15 +4,17 @@ import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 
-const SIGNUP_MUTATION = gql`
+const CREATE_USER_MUTATION = gql`
   mutation createUser($username: String!, $password: String!, $email: String!) {
     createUser(username: $username, password: $password, email: $email) {
       user {
         id
-        username
       }
     }
   }
+`
+
+const CREATE_CONTRACTOR_MUTATION = gql`
   mutation createContractor(
     $userId: ID!
     $businessName: String!
@@ -270,7 +272,7 @@ class NewUser extends Component {
     streetAddress: "",
     zipcode: "",
     city: "",
-    state: ""
+    state: "Alabama"
   };
 
   handleChange = name => event => {
@@ -352,16 +354,16 @@ class NewUser extends Component {
         />
         <TextField
           id="field-state"
-          label="State"
+          select label="State"
           className={"modal_field"}
           value={this.state.state}
           onChange={this.handleChange("state")}
           SelectProps={{
-            native: true,
             MenuProps: {
-              className: "Mister Menu"
+              className: "Mister Menu",
             }
           }}
+          helperText="State"
           margin="normal"
         >
           {states.map(state => (
