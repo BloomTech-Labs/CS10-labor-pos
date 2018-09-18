@@ -4,6 +4,36 @@ import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 
+const CREATE_CONTRACTOR_MUTATION = gql`
+  mutation createContractor(
+    $userId: ID!
+    $businessName: String!
+    $city: String!
+    $email: String!
+    $firstName: String!
+    $lastName: String!
+    $state: String!
+    $streetAddress: String!
+    $zipcode: String!
+  ) {
+    createContractor(
+      userId: $userId
+      businessName: $businessName
+      city: $city
+      email: $email
+      firstName: $firstName
+      lastName: $lastName
+      state: $state
+      streetAddress: $streetAddress
+      zipcode: $zipcode
+    ) {
+      contractorField {
+        firstName
+      }
+    }
+  }
+`;
+
 const states = [
   {
     value: "Alabama",
@@ -226,6 +256,14 @@ const states = [
 class NewContractor extends Component {
   state = {
     foo: ""
+    businessName: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    streetAddress: "",
+    zipcode: "",
+    city: "",
+    state: "Alabama"
   };
 
   handleChange = name => event => {
@@ -280,16 +318,16 @@ class NewContractor extends Component {
         />
         <TextField
           id="field-state"
-          label="State"
+          select label="State"
           className={"modal_field"}
           value={this.state.state}
           onChange={this.handleChange("state")}
           SelectProps={{
-            native: true,
             MenuProps: {
-              className: "Mister Menu"
+              className: "Mister Menu",
             }
           }}
+          helperText="State"
           margin="normal"
         >
           {states.map(state => (
