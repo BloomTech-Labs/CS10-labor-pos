@@ -23,9 +23,9 @@ class Contractor_Type(DjangoObjectType):
 
 
 class Query(ObjectType):
-    all_contractors = List(Contractor_Type)
+    contractors = List(Contractor_Type)
 
-    def resolve_all_contractors(self, info, **kwargs):
+    def resolve_contractors(self, info, **kwargs):
         return Contractor.objects.all()
 
 
@@ -42,7 +42,7 @@ class CreateContractor(graphene.Mutation):
         business_name = graphene.String()
 
     ok = graphene.Boolean()
-    contractor_field = graphene.Field(Contractor_Type)
+    contractor = graphene.Field(Contractor_Type)
 
     def mutate(
         self,
@@ -69,7 +69,7 @@ class CreateContractor(graphene.Mutation):
             user_id=user_id,
         )
         new_contractor.save()
-        return CreateContractor(contractor_field=new_contractor, ok=True)
+        return CreateContractor(contractor=new_contractor, ok=True)
 
 
 class ContractorMutation(graphene.ObjectType):

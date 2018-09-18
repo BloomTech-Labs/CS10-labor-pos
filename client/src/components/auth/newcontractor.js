@@ -1,18 +1,8 @@
 import React, { Component } from "react";
-import { AUTH_TOKEN } from "../constants";
+import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-
-const CREATE_USER_MUTATION = gql`
-  mutation createUser($username: String!, $password: String!, $email: String!) {
-    createUser(username: $username, password: $password, email: $email) {
-      user {
-        id
-      }
-    }
-  }
-`
 
 const CREATE_CONTRACTOR_MUTATION = gql`
   mutation createContractor(
@@ -263,7 +253,7 @@ const states = [
   }
 ];
 
-class NewUser extends Component {
+class NewContractor extends Component {
   state = {
     businessName: "",
     firstName: "",
@@ -282,17 +272,6 @@ class NewUser extends Component {
   };
 
   render() {
-    const {
-      businessName,
-      firstName,
-      lastName,
-      email,
-      streetAddress,
-      zipcode,
-      city,
-      state
-    } = this.state;
-
     return (
       <div>
         <TextField
@@ -321,27 +300,11 @@ class NewUser extends Component {
           margin="normal"
         />
         <TextField
-          id="field-email"
-          label="Email"
-          className={"modal_field"}
-          value={this.state.email}
-          onChange={this.handleChange("email")}
-          margin="normal"
-        />
-        <TextField
           id="field-streetAddress"
           label="Street Address"
           className={"modal_field"}
           value={this.state.streetAddress}
           onChange={this.handleChange("streetAddress")}
-          margin="normal"
-        />
-        <TextField
-          id="field-zipcode"
-          label="Zip Code"
-          className={"modal_field"}
-          value={this.state.zipcode}
-          onChange={this.handleChange("zipcode")}
           margin="normal"
         />
         <TextField
@@ -354,13 +317,14 @@ class NewUser extends Component {
         />
         <TextField
           id="field-state"
-          select label="State"
+          select
+          label="State"
           className={"modal_field"}
           value={this.state.state}
           onChange={this.handleChange("state")}
           SelectProps={{
             MenuProps: {
-              className: "Mister Menu",
+              className: "Mister Menu"
             }
           }}
           helperText="State"
@@ -372,20 +336,18 @@ class NewUser extends Component {
             </MenuItem>
           ))}
         </TextField>
+        <TextField
+          id="field-zipcode"
+          label="Zip Code"
+          className={"modal_field"}
+          value={this.state.zipcode}
+          onChange={this.handleChange("zipcode")}
+          margin="normal"
+        />
         <Button onClick={this.props.myMethod}>Submit</Button>
       </div>
     );
   }
-
-  _confirm = async data => {
-    const { token } = this.state.login ? data.tokenAuth.token : data.signup;
-    this._saveUserData(token);
-    this.props.history.push("/");
-  };
-
-  _saveUserData = token => {
-    localStorage.setItem(AUTH_TOKEN, token);
-  };
 }
 
-export default NewUser;
+export default NewContractor;

@@ -29,7 +29,7 @@ class CreateTag(graphene.Mutation):
         description = graphene.String(required=True)
 
     ok = graphene.Boolean()
-    tag_field = graphene.Field(Tag_Type)
+    tag = graphene.Field(Tag_Type)
 
     def mutate(self, info, name, description, userId):
 
@@ -39,7 +39,7 @@ class CreateTag(graphene.Mutation):
         else:
             new_tag = Tag(name=name, description=description, user_id=userId)
             new_tag.save()
-            return CreateTag(tag_field=new_tag, ok=True)
+            return CreateTag(tag=new_tag, ok=True)
 
 
 class TagMutation(graphene.ObjectType):

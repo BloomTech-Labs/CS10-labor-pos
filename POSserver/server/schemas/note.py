@@ -12,9 +12,9 @@ class Note_Type(DjangoObjectType):
 
 
 class Query(ObjectType):
-    all_notes = List(Note_Type)
+    notes = List(Note_Type)
 
-    def resolve_all_notes(self, info, **kwargs):
+    def resolve_notes(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:
@@ -30,7 +30,7 @@ class CreateNote(graphene.Mutation):
         content = graphene.String()
 
     ok = graphene.Boolean()
-    note_field = graphene.Field(Note_Type)
+    note = graphene.Field(Note_Type)
 
     def mutate(self, info, title, content, userId):
 
@@ -40,7 +40,7 @@ class CreateNote(graphene.Mutation):
         else:
             new_note = Note(title=title, content=content, user_id=userId)
             new_note.save()
-            return CreateNote(note_field=new_note, ok=True)
+            return CreateNote(note=new_note, ok=True)
 
 
 class NoteMutation(graphene.ObjectType):

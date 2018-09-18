@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import Login from "../login";
-import NewUser from "../newuser";
-import NewContractor from "../newcontractor";
+import Login from "../auth/login";
+import NewUser from "../auth/newuser";
+import NewContractor from "../auth/newcontractor";
 
 class LandingPage extends Component {
   constructor() {
@@ -11,9 +11,14 @@ class LandingPage extends Component {
     this.state = {
       login_modal: false,
       create_modal: false,
-      contractor_modal: false
+      contractor_modal: false,
+      contractor_id: "42"
     };
   }
+
+  setUserId = new_id => {
+    this.setState({ contractor_id: new_id });
+  };
 
   handleLoginButton = () => {
     this.setState({ login_modal: true });
@@ -95,7 +100,10 @@ class LandingPage extends Component {
           onClose={this.handleCloseCreate}
           className="user-modal"
         >
-          <NewUser myMethod={this.handleContractorButton} />
+          <NewUser
+            parentInfoMethod={this.setUserId.bind(this)}
+            myMethod={this.handleContractorButton}
+          />
         </Dialog>
         <Dialog
           open={this.state.contractor_modal}
