@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import Login from "../login";
-import NewUser from "../newuser";
-import NewContractor from "../newcontractor";
+import Login from "./login";
+import NewUser from "./newuser";
+import NewContractor from "./newcontractor";
 
 class LandingPage extends Component {
   constructor() {
