@@ -13,16 +13,15 @@ const SIGNIN_MUTATION = gql`
 
 class Login extends Component {
   state = {
-    login: true,
     password: "",
     username: ""
   };
 
   render() {
-    const { login, username, password } = this.state;
+    const { username, password } = this.state;
     return (
       <div>
-        <h4 className="login">{login ? "Login" : "Sign Up"}</h4>
+        <h4 className="Login" />
         <div className="flex flex-column">
           {/* {!login && (
             <input
@@ -53,16 +52,10 @@ class Login extends Component {
           >
             {mutation => (
               <div className="button" onClick={mutation} type="submit">
-                {login ? "login" : "create account"}
+                login
               </div>
             )}
           </Mutation>
-          <div
-            className="pointer button"
-            onClick={() => this.setState({ login: !login })}
-          >
-            {login ? "need to create an account?" : "already have an account?"}
-          </div>
         </div>
       </div>
     );
