@@ -3,22 +3,29 @@ import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
 import Login from "../login";
 import NewUser from "../newuser";
+import NewContractor from "../newcontractor";
 
 class LandingPage extends Component {
   constructor() {
     super();
     this.state = {
       login_modal: false,
-      create_modal: false
+      create_modal: false,
+      contractor_modal: false
     };
   }
 
   handleLoginButton = () => {
     this.setState({ login_modal: true });
   };
+  true;
 
   handleCreateButton = () => {
     this.setState({ create_modal: true });
+  };
+
+  handleContractorButton = () => {
+    this.setState({ create_modal: false, contractor_modal: true });
   };
 
   handleCloseLogin = () => {
@@ -27,6 +34,10 @@ class LandingPage extends Component {
 
   handleCloseCreate = () => {
     this.setState({ create_modal: false });
+  };
+
+  handleCloseContractor = () => {
+    this.setState({ contractor_modal: false });
   };
 
   render() {
@@ -82,9 +93,16 @@ class LandingPage extends Component {
         <Dialog
           open={this.state.create_modal}
           onClose={this.handleCloseCreate}
-          className="close-modal"
+          className="user-modal"
         >
-          <NewUser />
+          <NewUser myMethod={this.handleContractorButton} />
+        </Dialog>
+        <Dialog
+          open={this.state.contractor_modal}
+          onClose={this.handleCloseContractor}
+          className="contractor-modal"
+        >
+          <NewContractor />
         </Dialog>
       </div>
     );

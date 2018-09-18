@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AUTH_TOKEN } from "../constants";
 import gql from "graphql-tag";
-import { TextField, MenuItem } from "@material-ui/core";
+import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 
 const SIGNUP_MUTATION = gql`
@@ -300,6 +300,7 @@ class NewUser extends Component {
           value={this.state.firstName}
           onChange={this.handleChange("firstName")}
           margin="normal"
+          user
         />
         <TextField
           id="field-lastName"
@@ -369,6 +370,7 @@ class NewUser extends Component {
             </MenuItem>
           ))}
         </TextField>
+        <Button onClick={this.props.myMethod}>Submit</Button>
       </div>
     );
   }
