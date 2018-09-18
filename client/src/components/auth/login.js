@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router";
 
 const SIGNIN_MUTATION = gql`
   mutation tokenAuth($username: String!, $password: String!) {
@@ -62,9 +63,10 @@ class Login extends Component {
   }
 
   _confirm = async data => {
-    const { token } = this.state.login ? data.tokenAuth.token : data.signup;
+    const { token } = data.tokenAuth;
     this._saveUserData(token);
     this.props.history.push("/");
+    this.props.closeModals();
   };
 
   _saveUserData = token => {
@@ -72,4 +74,4 @@ class Login extends Component {
   };
 }
 
-export default Login;
+export default withRouter(Login);

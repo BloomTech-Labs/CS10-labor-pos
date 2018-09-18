@@ -44,6 +44,14 @@ class LandingPage extends Component {
     this.setState({ contractor_modal: false });
   };
 
+  handleCloseModals = () => {
+    this.setState({
+      login_modal: false,
+      contractor_modal: false,
+      create_modal: false
+    });
+  };
+
   render() {
     return (
       <div className="landing-page">
@@ -92,7 +100,7 @@ class LandingPage extends Component {
           onClose={this.handleCloseLogin}
           className="login-modal"
         >
-          <Login />
+          <Login closeModals={this.handleCloseModals} />
         </Dialog>
         <Dialog
           open={this.state.create_modal}
