@@ -13,7 +13,6 @@ class Contractor_Type(DjangoObjectType):
             "last_name",
             "city",
             "state",
-            "email",
             "zip_code",
             "business_name",
             "premium",
@@ -34,7 +33,6 @@ class CreateContractor(graphene.Mutation):
         user_id = graphene.ID()
         first_name = graphene.String()
         last_name = graphene.String()
-        email = graphene.String()
         street_address = graphene.String()
         city = graphene.String()
         state = graphene.String()
@@ -49,7 +47,6 @@ class CreateContractor(graphene.Mutation):
         info,
         first_name,
         last_name,
-        email,
         street_address,
         city,
         state,
@@ -60,7 +57,6 @@ class CreateContractor(graphene.Mutation):
         new_contractor = Contractor(
             first_name=first_name,
             last_name=last_name,
-            email=email,
             street_address=street_address,
             city=city,
             state=state,

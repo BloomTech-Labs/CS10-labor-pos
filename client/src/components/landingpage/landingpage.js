@@ -20,10 +20,9 @@ class LandingPage extends Component {
     this.setState({ contractor_id: new_id });
   };
 
-  handleLoginButton = () => {
-    this.setState({ login_modal: true });
+  handleLogin = () => {
+    this.setState({ login_modal: true, contractor_modal: false });
   };
-  true;
 
   handleCreateButton = () => {
     this.setState({ create_modal: true });
@@ -110,7 +109,10 @@ class LandingPage extends Component {
           onClose={this.handleCloseContractor}
           className="contractor-modal"
         >
-          <NewContractor />
+          <NewContractor
+            userId={this.state.contractor_id}
+            handleLogin={this.handleLogin}
+          />
         </Dialog>
       </div>
     );

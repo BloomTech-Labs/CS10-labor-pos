@@ -71,7 +71,6 @@ class NewUser extends Component {
                     email: "",
                     password: ""
                   });
-                  this._confirm();
                 }}
               >
                 <TextField
@@ -114,8 +113,8 @@ class NewUser extends Component {
   }
 
   _confirm = async data => {
-    data && this.props.parentInfoMethod(data.createUser.user.id);
-    data && this.props.myMethod();
+    this.props.parentInfoMethod(data.createUser.user.id);
+    this.props.myMethod();
   };
 }
 

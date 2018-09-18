@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { AUTH_TOKEN } from "../../constants";
+// import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 
-const CREATE_CONTRACTOR_MUTATION = gql`
+const CREATE_CONTRACTOR = gql`
   mutation createContractor(
     $userId: ID!
     $businessName: String!
     $city: String!
-    $email: String!
     $firstName: String!
     $lastName: String!
     $state: String!
@@ -20,14 +19,13 @@ const CREATE_CONTRACTOR_MUTATION = gql`
       userId: $userId
       businessName: $businessName
       city: $city
-      email: $email
       firstName: $firstName
       lastName: $lastName
       state: $state
       streetAddress: $streetAddress
       zipcode: $zipcode
     ) {
-      contractorField {
+      contractor {
         firstName
       }
     }
@@ -258,7 +256,6 @@ class NewContractor extends Component {
     businessName: "",
     firstName: "",
     lastName: "",
-    email: "",
     streetAddress: "",
     zipcode: "",
     city: "",
@@ -272,82 +269,139 @@ class NewContractor extends Component {
   };
 
   render() {
+    const {
+      businessName,
+      firstName,
+      lastName,
+      streetAddress,
+      city,
+      state,
+      zipcode
+    } = this.state;
     return (
       <div>
-        <TextField
-          id="field-firstName"
-          label="First Name"
-          className={"modal_field"}
-          value={this.state.firstName}
-          onChange={this.handleChange("firstName")}
-          margin="normal"
-          user
-        />
-        <TextField
-          id="field-lastName"
-          label="Last Name"
-          className={"modal_field"}
-          value={this.state.lastName}
-          onChange={this.handleChange("lastName")}
-          margin="normal"
-        />
-        <TextField
-          id="field-businessName"
-          label="Business Name"
-          className={"modal_field"}
-          value={this.state.businessName}
-          onChange={this.handleChange("businessName")}
-          margin="normal"
-        />
-        <TextField
-          id="field-streetAddress"
-          label="Street Address"
-          className={"modal_field"}
-          value={this.state.streetAddress}
-          onChange={this.handleChange("streetAddress")}
-          margin="normal"
-        />
-        <TextField
-          id="field-city"
-          label="City"
-          className={"modal_field"}
-          value={this.state.city}
-          onChange={this.handleChange("city")}
-          margin="normal"
-        />
-        <TextField
-          id="field-state"
-          select
-          label="State"
-          className={"modal_field"}
-          value={this.state.state}
-          onChange={this.handleChange("state")}
-          SelectProps={{
-            MenuProps: {
-              className: "Mister Menu"
-            }
-          }}
-          helperText="State"
-          margin="normal"
+        <Mutation
+          mutation={CREATE_CONTRACTOR}
+          onCompleted={() => this._confirm()}
         >
-          {states.map(state => (
-            <MenuItem key={state.value} value={state.value}>
-              {state.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          id="field-zipcode"
-          label="Zip Code"
-          className={"modal_field"}
-          value={this.state.zipcode}
-          onChange={this.handleChange("zipcode")}
-          margin="normal"
-        />
-        <Button onClick={this.props.myMethod}>Submit</Button>
+          {(createContractor, { loading, error, data }) => (
+            <div>
+              <form
+                onSubmit={event => {
+                  event.preventDefault();
+                  createContractor({
+                    variables: {
+                      businessName: businessName,
+                      firstName: firstName,
+                      lastName: lastName,
+                      streetAddress: streetAddress,
+                      zipcode: zipcode,
+                      city: city,
+                      state: state,
+                      userId: this.props.userId
+                    }
+                  });
+                  this.setState({
+                    businessName: "",
+                    firstName: "",
+                    lastName: "",
+                    streetAddress: "",
+                    zipcode: "",
+                    city: "",
+                    state: ""
+                  });
+                }}
+              >
+                <TextField
+                  id="field-firstName"
+                  label="First Name"
+                  name="firstName"
+                  className={"modal_field"}
+                  value={firstName}
+                  onChange={this.handleChange("firstName")}
+                  margin="normal"
+                />
+                <TextField
+                  id="field-lastName"
+                  label="Last Name"
+                  name="lastName"
+                  className={"modal_field"}
+                  value={lastName}
+                  onChange={this.handleChange("lastName")}
+                  margin="normal"
+                />
+                <TextField
+                  id="field-businessName"
+                  label="Business Name"
+                  name="businessName"
+                  className={"modal_field"}
+                  value={businessName}
+                  onChange={this.handleChange("businessName")}
+                  margin="normal"
+                />
+                <TextField
+                  id="field-streetAddress"
+                  label="Street Address"
+                  name="streetAddress"
+                  className={"modal_field"}
+                  value={streetAddress}
+                  onChange={this.handleChange("streetAddress")}
+                  margin="normal"
+                />
+                <TextField
+                  id="field-city"
+                  label="City"
+                  name="city"
+                  className={"modal_field"}
+                  value={city}
+                  onChange={this.handleChange("city")}
+                  margin="normal"
+                />
+                <TextField
+                  id="field-state"
+                  select
+                  label="State"
+                  name="state"
+                  className={"modal_field"}
+                  value={state}
+                  onChange={this.handleChange("state")}
+                  SelectProps={{
+                    MenuProps: {
+                      className: "Mister Menu"
+                    }
+                  }}
+                  helperText="State"
+                  margin="normal"
+                >
+                  {states.map(state => (
+                    <MenuItem key={state.value} value={state.value}>
+                      {state.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  id="field-zipcode"
+                  label="Zip Code"
+                  name="zipcode"
+                  className={"modal_field"}
+                  value={zipcode}
+                  onChange={this.handleChange("zipcode")}
+                  margin="normal"
+                />
+                <Button type="submit">Finish Account Creation</Button>
+              </form>
+              {loading && <p> Saving business information</p>}
+              {(data || error) && <p> Noooooooo or yes.</p>}
+            </div>
+          )}
+        </Mutation>
       </div>
     );
   }
+
+  _confirm = async () => {
+    this.props.handleLogin();
+  };
 }
 
 export default NewContractor;
