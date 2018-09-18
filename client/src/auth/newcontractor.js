@@ -255,7 +255,6 @@ const states = [
 
 class NewContractor extends Component {
   state = {
-    foo: ""
     businessName: "",
     firstName: "",
     lastName: "",
@@ -318,13 +317,14 @@ class NewContractor extends Component {
         />
         <TextField
           id="field-state"
-          select label="State"
+          select
+          label="State"
           className={"modal_field"}
           value={this.state.state}
           onChange={this.handleChange("state")}
           SelectProps={{
             MenuProps: {
-              className: "Mister Menu",
+              className: "Mister Menu"
             }
           }}
           helperText="State"
