@@ -24,9 +24,9 @@ class Account_Type(DjangoObjectType):
 
 
 class Query(ObjectType):
-    all_accounts = List(Account_Type)
+    accounts = List(Account_Type)
 
-    def resolve_all_accounts(self, info, **kwargs):
+    def resolve_accounts(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:
@@ -50,7 +50,7 @@ class CreateAccount(graphene.Mutation):
         zipcode = graphene.String()
 
     ok = graphene.Boolean()
-    account_field = graphene.Field(Account_Type)
+    account = graphene.Field(Account_Type)
 
     def mutate(
         self,
@@ -85,7 +85,7 @@ class CreateAccount(graphene.Mutation):
                 user_id=userId,
             )
             new_account.save()
-            return CreateAccount(account_field=new_account, ok=True)
+            return CreateAccount(account=new_account, ok=True)
 
 
 class AccountMutation(graphene.ObjectType):

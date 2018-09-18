@@ -12,9 +12,9 @@ class Job_Type(DjangoObjectType):
 
 
 class Query(ObjectType):
-    all_jobs = List(Job_Type)
+    jobs = List(Job_Type)
 
-    def resolve_all_jobs(self, info, **kwargs):
+    def resolve_jobs(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:
@@ -31,7 +31,7 @@ class CreateJob(graphene.Mutation):
         description = graphene.String()
 
     ok = graphene.Boolean()
-    job_field = graphene.Field(Job_Type)
+    job = graphene.Field(Job_Type)
 
     def mutate(self, info, userId, name, labor, description):
         user = info.context.user
@@ -40,7 +40,7 @@ class CreateJob(graphene.Mutation):
         else:
             new_job = Job(user_id=userId, name=name, description=description)
             new_job.save()
-            return CreateJob(job_field=new_job, ok=True)
+            return CreateJob(job=new_job, ok=True)
 
 
 class JobMutation(graphene.ObjectType):
