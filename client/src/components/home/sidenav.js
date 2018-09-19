@@ -10,11 +10,19 @@ class SideNav extends Component {
       <div>
         <div />
         <Divider />
+        <Button href="/clients">Clients</Button>
+        <Divider />
         <Button href="/jobs">Jobs</Button>
         <Divider />
-        <Button onClick={this.props.logout}>Logout</Button>
+        <Button href="/notes">Notes</Button>
         <Divider />
-        <Typography>other thingy</Typography>
+        <Button href="/tags">Tags</Button>
+        <Divider />
+        <Button href="/parts">Parts</Button>
+        <Divider />
+        <Button href="/invoices">Invoices</Button>
+        <Divider />
+        <Button onClick={this.props.logout}>Logout</Button>
       </div>
     );
   }
