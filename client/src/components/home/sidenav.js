@@ -10,6 +10,8 @@ class SideNav extends Component {
       <div>
         <div />
         <Divider />
+        <Button href="/">Home</Button>
+        <Divider />
         <Button href="/clients">Clients</Button>
         <Divider />
         <Button href="/jobs">Jobs</Button>

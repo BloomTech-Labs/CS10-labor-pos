@@ -13,6 +13,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Hidden from "@material-ui/core/Hidden";
 import MenuIcon from "@material-ui/icons/Menu";
 import SideNav from "./sidenav";
+import Start from "./start";
 
 class Home extends Component {
   logout = () => {
@@ -60,6 +61,7 @@ class Home extends Component {
         </Hidden>
         <main>
           <div className="content_area">
+            <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/notes" component={Notes} />
