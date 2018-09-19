@@ -12,9 +12,9 @@ class Part_Type(DjangoObjectType):
 
 
 class Query(ObjectType):
-    all_parts = List(Part_Type)
+    parts = List(Part_Type)
 
-    def resolve_all_parts(self, info, **kwargs):
+    def resolve_parts(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:
@@ -31,7 +31,7 @@ class CreatePart(graphene.Mutation):
         cost = graphene.Float(2)
 
     ok = graphene.Boolean()
-    part_field = graphene.Field(Part_Type)
+    part = graphene.Field(Part_Type)
 
     def mutate(self, info, part_name, description, cost, userId):
 
@@ -43,7 +43,7 @@ class CreatePart(graphene.Mutation):
                 part_name=part_name, description=description, cost=cost, user_id=userId
             )
             new_part.save()
-        return CreatePart(part_field=new_part, ok=True)
+        return CreatePart(part=new_part, ok=True)
 
 
 class PartMutation(graphene.ObjectType):

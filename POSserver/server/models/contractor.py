@@ -3,28 +3,12 @@ from django.utils import timezone
 from django.conf import settings
 from uuid import uuid4
 
-# class Contractor(models.User):
-#     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, null=False)
-#     first_name = models.CharField(max_length=30, null=False, blank=False)
-#     last_name = models.CharField(max_length=30, null=False, blank=False)
-#     email = models.EmailField(max_length=70, null=False, blank=False, unique=True)
-#     address = models.TextField(blank=True, null=True, default='')
-#     business_name = models.CharField(max_length=100, null=False, blank=False)
-#     password = models.CharField(max_length=50, null=False, blank=False)
-#     security_question = models.TextField(blank=False, null=False)
-#     hashed_security_answer = models.TextField(blank=False, null=False)
-#     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
-#     modified_at = models.DateTimeField(auto_now=True, blank=False, null=False)
-#     premium = models.BooleanField(default=False, blank=False, null=False)
-#     paid_until = DateTimeField(default=timezone.now, blank=True, null=True)
-
 
 class Contractor(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
-    email = models.EmailField(max_length=70, null=False, blank=False, unique=True)
     street_address = models.CharField(max_length=100, null=False, blank=False)
     city = models.CharField(max_length=70, null=False, blank=False, default="")
     state_choices = (
@@ -86,9 +70,6 @@ class Contractor(models.Model):
     state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
     zipcode = models.CharField(max_length=10, null=False, blank=False)
     business_name = models.CharField(max_length=100, null=False, blank=False)
-    # password = models.CharField(max_length=50, null=False, blank=False)
-    # security_question = models.TextField(blank=False, null=False)
-    # hashed_security_answer = models.TextField(blank=False, null=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
     modified_at = models.DateTimeField(auto_now=True, blank=False, null=False)
     premium = models.BooleanField(default=False, blank=False, null=False)

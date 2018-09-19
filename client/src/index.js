@@ -13,7 +13,7 @@ import { setContext } from "apollo-link-context";
 import { AUTH_TOKEN } from "./constants";
 
 const httpLink = createHttpLink({
-  uri: "https://labs7-posserver.herokuapp.com/graphql/"
+  uri: "http://localhost:8000/graphql/"
 });
 
 const authLink = setContext((_, { headers }) => {

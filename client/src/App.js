@@ -3,7 +3,7 @@ import "./App.css";
 import { Route } from "react-router-dom";
 import CreateJob from "./components/jobs/createJob/createJob";
 import Settings from "./components/settings/settings";
-import Login from "./components/login";
+import Login from "./components/auth/login";
 import { LandingPage } from "./components/landingpage/landingpage";
 
 class App extends Component {
