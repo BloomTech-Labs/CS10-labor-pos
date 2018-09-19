@@ -7,7 +7,7 @@ from server.models import Job
 class Job_Type(DjangoObjectType):
     class Meta:
         model = Job
-        filter_fields = ["user", "name", "labor", "description"]
+        filter_fields = ["user", "name", "labor", "description", "account"]
         interfaces = (relay.Node,)
 
 

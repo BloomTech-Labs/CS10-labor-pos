@@ -5,7 +5,7 @@ from uuid import uuid4
 from django.conf import settings
 
 
-class Account(models.Model):
+class Client(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False, null=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
@@ -77,8 +77,6 @@ class Account(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True, null=True)
-    note = models.ManyToManyField(Note, related_name="account_notes", blank=True)
-    job = models.ManyToManyField(Job, related_name="account_jobs", blank=True)
 
     def __str__(self):
         if self.business_name is not None:
