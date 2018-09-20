@@ -8,7 +8,7 @@ const CREATE_JOB = gql`
   mutation createJob(
     $clientID: ID!
     $name: String!
-    $labor: 
+    $labor: Float!
     $description: String!
   ) {
     createJob(clientId: $clientId, name: $name, labor: $labor, description: $description, complete: $complete,createdAt: $createdAt, modifiedAt: $modifiedAt, deadline: $deadline) {
