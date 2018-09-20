@@ -8,8 +8,8 @@ class Job_Type(DjangoObjectType):
     class Meta:
         model = Job
         filter_fields = [
-            "name", 
-            "labor", 
+            "name",
+            "labor",
             "description",
             "client",
             "created_at",

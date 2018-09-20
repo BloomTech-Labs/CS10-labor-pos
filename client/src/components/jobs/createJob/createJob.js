@@ -6,24 +6,30 @@ import { Mutation } from "react-apollo";
 
 const CREATE_JOB = gql`
   mutation createJob(
-    $userID: ID!
+    $clientID: ID!
     $name: String!
     $labor: 
     $description: String!
   ) {
-    createJob(userId: $userId, name: $name, labor: $labor, description: $description) {
+    createJob(clientId: $clientId, name: $name, labor: $labor, description: $description, complete: $complete,createdAt: $createdAt, modifiedAt: $modifiedAt, deadline: $deadline) {
+      client
       name
       description
+      labor
+      complete
+      created_at
+      modified_at
+      deadline
     } 
   }
   `;
 
 class NewJob extends Component {
   state = {
-    userID: "",
     name: "",
     labor: "",
     description: "",
+    deadline: "",
    };
 
    handleChange = name => event => {
@@ -36,7 +42,8 @@ class NewJob extends Component {
     const {
       name,
       labor, 
-      description
+      description,
+      deadline,
     } = this.state;
     return (
       <div>
@@ -54,13 +61,15 @@ class NewJob extends Component {
                     name: name,
                     labor: labor,
                     description: description,
-                    userId: this.props.userId
+                    deadline: deadline,
+                    //clientId: this.props.clientId
                   }
                 });
                 this.setState({
                   name: "",
                   labor: "",
-                  description: ""
+                  description: "",
+                  deadline: ""
                 });
               }}
             >
@@ -90,6 +99,15 @@ class NewJob extends Component {
               className={"modal_field"}
               value={description}
               onChange={this.handleChange("description")}
+              margin="normal"
+            />
+              <TextField
+              id="field-deadline"
+              label="Deadline"
+              name="deadline"
+              className={"modal_field"}
+              value={deadline}
+              onChange={this.handleChange("deadline")}
               margin="normal"
             />
             <Button type="submit">Create Job</Button>
