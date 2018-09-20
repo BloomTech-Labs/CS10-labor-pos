@@ -9,7 +9,7 @@ class SuperQuery(
     server.schemas.contractor.Query,
     server.schemas.user.Query,
     server.schemas.part.Query,
-    server.schemas.account.Query,
+    server.schemas.client.Query,
     server.schemas.job.Query,
     graphene.ObjectType,
 ):
@@ -21,7 +21,7 @@ class Mutation(
     server.schemas.user.UserMutation,
     server.schemas.contractor.ContractorMutation,
     server.schemas.part.PartMutation,
-    server.schemas.account.AccountMutation,
+    server.schemas.client.ClientMutation,
     server.schemas.note.NoteMutation,
     server.schemas.job.JobMutation,
     graphene.ObjectType,

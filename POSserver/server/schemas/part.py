@@ -7,7 +7,7 @@ from server.models import Part
 class Part_Type(DjangoObjectType):
     class Meta:
         model = Part
-        filter_fields = ["part_name", "description", "cost", "user"]
+        filter_fields = ["part_name", "description", "cost", "job"]
         interfaces = (relay.Node,)
 
 
@@ -25,7 +25,7 @@ class Query(ObjectType):
 
 class CreatePart(graphene.Mutation):
     class Arguments:
-        userId = graphene.String()
+        jobId = graphene.String()
         part_name = graphene.String()
         description = graphene.String()
         cost = graphene.Float(2)
@@ -33,14 +33,16 @@ class CreatePart(graphene.Mutation):
     ok = graphene.Boolean()
     part = graphene.Field(Part_Type)
 
-    def mutate(self, info, part_name, description, cost, userId):
+    def mutate(self, info, part_name, description, cost, jobId):
 
         user = info.context.user
         if user.is_anonymous:
             return CreatePart(ok=False, status="Must be logged in.")
         else:
             new_part = Part(
-                part_name=part_name, description=description, cost=cost, user_id=userId
+
+                part_name=part_name, description=description, cost=cost,
+                job_id=jobId
             )
             new_part.save()
         return CreatePart(part=new_part, ok=True)

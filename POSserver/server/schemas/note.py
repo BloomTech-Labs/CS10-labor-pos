@@ -7,7 +7,14 @@ import graphene
 class Note_Type(DjangoObjectType):
     class Meta:
         model = Note
-        filter_fields = ["user", "title", "content", "created_at", "modified_at"]
+        filter_fields = [
+            "client",
+            "job",
+            "title",
+            "content",
+            "created_at",
+            "modified_at"
+            ]
         interfaces = (relay.Node,)
 
 
@@ -25,20 +32,38 @@ class Query(ObjectType):
 
 class CreateNote(graphene.Mutation):
     class Arguments:
-        userId = graphene.String()
+        clientId = graphene.String()
+        jobId = graphene.String()
         title = graphene.String()
         content = graphene.String()
+        created_at = graphene.types.datetime.DateTime
+        modified_at = graphene.types.datetime.DateTime
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
 
-    def mutate(self, info, title, content, userId):
+    def mutate(
+        self,
+        info,
+        title,
+        content,
+        clientId,
+        createdAt,
+        modifiedAt,
+        jobId
+        ):
 
         user = info.context.user
         if user.is_anonymous:
             return CreateNote(ok=False, status="Must be logged in.")
         else:
-            new_note = Note(title=title, content=content, user_id=userId)
+            new_note = Note(
+                title=title,
+                content=content,
+                client_id=clientId,
+                job_id=jobId,
+                created_at=createdAt, modified_at=modifiedAt
+                )
             new_note.save()
             return CreateNote(note=new_note, ok=True)
 
