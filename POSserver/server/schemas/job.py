@@ -74,6 +74,7 @@ class CreateJob(graphene.Mutation):
                 created_at=createdAt,
                 modified_at=modifiedAt,
                 deadline=deadline,
+                user=user,
             )
             new_job.save()
             return CreateJob(job=new_job, ok=True)

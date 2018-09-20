@@ -88,7 +88,7 @@ class CreateClient(graphene.Mutation):
                 city=city,
                 state=state,
                 zipcode=zipcode,
-                user_id=userId,
+                user_id=user,
             )
             new_client.save()
             return CreateClient(client=new_client, ok=True)
