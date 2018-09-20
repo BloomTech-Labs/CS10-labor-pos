@@ -9,6 +9,7 @@ class Note_Type(DjangoObjectType):
         model = Note
         filter_fields = [
             "client",
+            "job",
             "title",
             "content",
             "created_at",
@@ -32,6 +33,7 @@ class Query(ObjectType):
 class CreateNote(graphene.Mutation):
     class Arguments:
         clientId = graphene.String()
+        jobId = graphene.String()
         title = graphene.String()
         content = graphene.String()
         created_at = graphene.types.datetime.DateTime
@@ -40,13 +42,28 @@ class CreateNote(graphene.Mutation):
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
 
-    def mutate(self, info, title, content, userId, createdAt, modifiedAt):
+    def mutate(
+        self,
+        info,
+        title,
+        content,
+        clientId,
+        createdAt,
+        modifiedAt,
+        jobId
+        ):
 
         user = info.context.user
         if user.is_anonymous:
             return CreateNote(ok=False, status="Must be logged in.")
         else:
-            new_note = Note(title=title, content=content, user_id=userId)
+            new_note = Note(
+                title=title,
+                content=content,
+                client_id=clientId,
+                job_id=jobId,
+                created_at=createdAt, modified_at=modifiedAt
+                )
             new_note.save()
             return CreateNote(note=new_note, ok=True)
 

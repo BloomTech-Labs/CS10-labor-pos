@@ -48,21 +48,30 @@ class CreateJob(graphene.Mutation):
 
     def mutate(
         self,
-        info, 
-        clientId, 
-        name, 
-        labor, 
-        description, 
-        complete, 
-        createdAt, 
-        modifiedAt, 
+        info,
+        clientId,
+        name,
+        labor,
+        description,
+        complete,
+        createdAt,
+        modifiedAt,
         deadline
-        ):
+    ):
         user = info.context.user
         if user.is_anonymous:
             return CreateJob(ok=False, status="Must be logged in.")
         else:
-            new_job = Job(user_id=userId, name=name, description=description)
+            new_job = Job(
+                client_id=clientId,
+                name=name,
+                description=description,
+                labor=labor,
+                complete=complete,
+                created_at=createdAt,
+                modified_at=modifiedAt,
+                deadline=deadline
+                )
             new_job.save()
             return CreateJob(job=new_job, ok=True)
 
