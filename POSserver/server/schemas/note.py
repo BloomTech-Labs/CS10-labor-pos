@@ -39,8 +39,8 @@ class CreateNote(graphene.Mutation):
         jobId = graphene.String()
         title = graphene.String()
         content = graphene.String()
-        created_at = graphene.types.datetime.DateTime
-        modified_at = graphene.types.datetime.DateTime
+        created_at = graphene.types.datetime.DateTime()
+        modified_at = graphene.types.datetime.DateTime()
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)

@@ -38,13 +38,13 @@ class Query(ObjectType):
 class CreateJob(graphene.Mutation):
     class Arguments:
         clientId = graphene.ID()
-        complete = graphene.Boolean
+        complete = graphene.Boolean()
         name = graphene.String()
         labor = graphene.Float(2)
         description = graphene.String()
-        createdAt = graphene.types.datetime.DateTime
-        modifiedAt = graphene.types.datetime.DateTime
-        deadline = graphene.types.datetime.Date
+        createdAt = graphene.types.datetime.DateTime()
+        modifiedAt = graphene.types.datetime.DateTime()
+        deadline = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
     job = graphene.Field(Job_Type)
