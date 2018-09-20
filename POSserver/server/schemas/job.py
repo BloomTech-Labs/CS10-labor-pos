@@ -2,17 +2,19 @@ from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Job
+from graphene_django.filter import DjangoFilterConnectionField
 
 
 class Job_Type(DjangoObjectType):
     class Meta:
         model = Job
-        filter_fields = ["user", "name", "labor", "description"]
+        filter_fields = ["id", "user", "name", "labor", "description"]
         interfaces = (relay.Node,)
 
 
 class Query(ObjectType):
     jobs = List(Job_Type)
+    all_jobs = DjangoFilterConnectionField(Job_Type)
 
     def resolve_jobs(self, info, **kwargs):
         user = info.context.user

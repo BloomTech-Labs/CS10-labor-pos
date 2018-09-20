@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from uuid import uuid4
 
 
 class Contractor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
