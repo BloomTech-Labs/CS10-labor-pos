@@ -2,19 +2,24 @@ from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Contractor
+from graphene_django.filter import DjangoFilterConnectionField
 
 
 class Contractor_Type(DjangoObjectType):
     class Meta:
         model = Contractor
         filter_fields = [
+            "id",
             "user",
             "first_name",
             "last_name",
+            "street_address",
             "city",
             "state",
-            "zip_code",
+            "zipcode",
             "business_name",
+            "created_at",
+            "modified_at",
             "premium",
             "paid_until",
         ]
@@ -23,6 +28,7 @@ class Contractor_Type(DjangoObjectType):
 
 class Query(ObjectType):
     contractors = List(Contractor_Type)
+    all_contractors = DjangoFilterConnectionField(Contractor_Type)
 
     def resolve_contractors(self, info, **kwargs):
         return Contractor.objects.all()

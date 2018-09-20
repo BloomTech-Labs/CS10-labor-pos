@@ -1,13 +1,15 @@
 from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
-from server.models import Account
+from server.models import Client
+from graphene_django.filter import DjangoFilterConnectionField
 
 
-class Account_Type(DjangoObjectType):
+class Client_Type(DjangoObjectType):
     class Meta:
-        model = Account
+        model = Client
         filter_fields = [
+            "id",
             "user",
             "business_name",
             "first_name",
@@ -19,23 +21,27 @@ class Account_Type(DjangoObjectType):
             "city",
             "state",
             "zipcode",
+            "created_at",
+            "modified_at",
+            "deadline",
         ]
         interfaces = (relay.Node,)
 
 
 class Query(ObjectType):
-    accounts = List(Account_Type)
+    clients = List(Client_Type)
+    all_clients = DjangoFilterConnectionField(Client_Type)
 
-    def resolve_accounts(self, info, **kwargs):
+    def resolve_clients(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:
-            return Account.objects.none()
+            return Client.objects.none()
         else:
-            return Account.objects.filter(user=user)
+            return Client.objects.filter(user=user)
 
 
-class CreateAccount(graphene.Mutation):
+class CreateClient(graphene.Mutation):
     class Arguments:
         userId = graphene.ID()
         business_name = graphene.String()
@@ -50,7 +56,7 @@ class CreateAccount(graphene.Mutation):
         zipcode = graphene.String()
 
     ok = graphene.Boolean()
-    account = graphene.Field(Account_Type)
+    client = graphene.Field(Client_Type)
 
     def mutate(
         self,
@@ -69,9 +75,9 @@ class CreateAccount(graphene.Mutation):
     ):
         user = info.context.user
         if user.is_anonymous:
-            return CreateAccount(ok=False, status="Must be logged in.")
+            return CreateClient(ok=False, status="Must be logged in.")
         else:
-            new_account = Account(
+            new_client = Client(
                 business_name=business_name,
                 first_name=first_name,
                 last_name=last_name,
@@ -84,9 +90,9 @@ class CreateAccount(graphene.Mutation):
                 zipcode=zipcode,
                 user_id=userId,
             )
-            new_account.save()
-            return CreateAccount(account=new_account, ok=True)
+            new_client.save()
+            return CreateClient(client=new_client, ok=True)
 
 
-class AccountMutation(graphene.ObjectType):
-    create_account = CreateAccount.Field()
+class ClientMutation(graphene.ObjectType):
+    create_client = CreateClient.Field()

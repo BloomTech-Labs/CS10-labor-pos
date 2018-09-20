@@ -1,152 +1,130 @@
 import React, { Component } from "react";
-import { Form, Card, Button, Input, FormGroup, Label } from "reactstrap";
-export default class CreateJob extends Component {
-  constructor() {
-    super();
-    this.state = {
-      contractor: "",
-      tag: "",
-      name: "",
-      complete: false,
-      labor: "",
-      parts: "",
-      note: "",
-      description: "",
-      deadline: null,
-      modified_at: null,
-      created_at: null,
-      posted: false
-    };
+// import { AUTH_TOKEN } from "../../constants";
+import gql from "graphql-tag"; 
+import { TextField, Button } from "@material-ui/core";
+import { Mutation } from "react-apollo";
+
+const CREATE_JOB = gql`
+  mutation createJob(
+    $clientID: ID!
+    $name: String!
+    $labor: 
+    $description: String!
+  ) {
+    createJob(clientId: $clientId, name: $name, labor: $labor, description: $description, complete: $complete,createdAt: $createdAt, modifiedAt: $modifiedAt, deadline: $deadline) {
+      client
+      name
+      description
+      labor
+      complete
+      created_at
+      modified_at
+      deadline
+    } 
   }
+  `;
 
-  // componentDidMount() {
-  //   // this.resetForm;
-  //   return null;
-  // }
+class NewJob extends Component {
+  state = {
+    name: "",
+    labor: "",
+    description: "",
+    deadline: "",
+   };
 
-  handleTextChange = e => {
+   handleChange = name => event => {
     this.setState({
-      [e.target.name]: e.target.value
+      [name]: event.target.value
     });
   };
 
-  handleReset = e => {
-    this.setState({
-      contractor: "",
-      tag: "",
-      name: "",
-      complete: false,
-      labor: "",
-      parts: "",
-      note: "",
-      description: "",
-      deadline: null,
-      modified_at: null,
-      created_at: null,
-      posted: false
-    });
-    console.log(this.state);
-    console.log(this.resetForm);
-  };
-  handleSubmit = e => {
-    e.preventDefault();
+  render() {
     const {
-      contractor,
-      tag,
       name,
-      complete,
-      labor,
-      parts,
+      labor, 
       description,
       deadline,
-      modified_at,
-      created_at
     } = this.state;
-    // TODO add a call to GraphQL to post to our server into the database
-    this.setState({
-      contractor: "",
-      tag: "",
-      name: "",
-      complete: false,
-      labor: null,
-      parts: "",
-      description: "",
-      deadline: null,
-      modified_at: null,
-      created_at: null
-    });
-    //this.props.history.push(RouteForJobListView);
-    console.log("Job Details Successfully posted");
-    this.setState({ posted: true });
-  };
-  render() {
     return (
       <div>
-        <h1> Add a Job</h1>
-        <Card>
-          <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label for="name"> Name </Label>
-              <Input
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.handleTextChange}
-                placeholder="Job Name"
-              />
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label for="email"> Email </Label>
-              <Input
-                type="email"
-                name="email"
-                value={this.state.email}
-                onChange={this.handleTextChange}
-                placeholder="Email address"
-              />
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label for="parts"> Parts </Label>
-              <Input
-                type="text"
-                name="parts"
-                value={this.state.parts}
-                onChange={this.handleTextChange}
-                placeholder="Parts"
-              />
-            </FormGroup>
-            <br />
-            <FormGroup>
-              <Label for="labor"> Labor </Label>
-              <Input
-                type="text"
-                name="labor"
-                value={this.state.labor}
-                onChange={this.handleTextChange}
-                placeholder="Labor Hours"
-              />
-            </FormGroup>
-            <br />
-            <Button type="submit">Save</Button>
-            <Button onClick={this.handleReset}>Cancel</Button>
-          </Form>
-        </Card>
-      </div>
+        <Mutation
+          mutation={CREATE_JOB}
+          onCompleted={() => this._confirm()}
+        >
+        {(createJob, { loading, error, data }) => (
+          <div>
+            <form
+              onSubmit ={event => {
+                event.preventDefault();
+                createJob({
+                  variables: {
+                    name: name,
+                    labor: labor,
+                    description: description,
+                    deadline: deadline,
+                    //clientId: this.props.clientId
+                  }
+                });
+                this.setState({
+                  name: "",
+                  labor: "",
+                  description: "",
+                  deadline: ""
+                });
+              }}
+            >
+            <TextField
+              id="field-name"
+              label="Name"
+              name="name"
+              className={"modal_field"}
+              value={name}
+              onChange={this.handleChange("name")}
+              helperText="Job Name"
+              margin="normal"
+            />
+            <TextField
+              id="field-labor"
+              label="Labor"
+              name="labor"
+              className={"modal_field"}
+              value={labor}
+              onChange={this.handleChange("labor")}
+              margin="normal"
+            />
+            <TextField
+              id="field-description"
+              label="Description"
+              name="description"
+              className={"modal_field"}
+              value={description}
+              onChange={this.handleChange("description")}
+              margin="normal"
+            />
+              <TextField
+              id="field-deadline"
+              label="Deadline"
+              name="deadline"
+              className={"modal_field"}
+              value={deadline}
+              onChange={this.handleChange("deadline")}
+              margin="normal"
+            />
+            <Button type="submit">Create Job</Button>
+          </form>
+          {loading && <p>Saving job information</p>}
+          {(data || error) && <p>Success!</p>}
+        </div>    
+        )}
+      </Mutation>
+    </div>
     );
-  }
+            }
+
+  _confirm= async () => {
+    this.props.handleLogin(); //TODO is this right?
+  };
 }
 
-{
-  /* // { this.state.posted ? <div>modal for post success message</div> : <div> modal for unsuccessful post</div> } */
-}
-{
-  /*
-<FormGroup>
-<Label for=""> </Label>
-          <Input type="" name="" value={this.state.} onChange={this.handleTextChange} placeholder="" />
-          </FormGroup>
-
-*/
-}
+export default NewJob;
+      

@@ -1,4 +1,4 @@
-from .account import Account_Type
+from .client import Client_Type
 from .contractor import Contractor_Type
 from .job import Job_Type
 from .tag import Tag_Type
@@ -7,7 +7,7 @@ from .part import Part_Type
 from .user import User_Type
 
 __all__ = [
-    "Account_Type",
+    "Client_Type",
     "Contractor_Type",
     "Job_Type",
     "Tag_Type",
