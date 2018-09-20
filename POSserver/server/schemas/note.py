@@ -13,8 +13,8 @@ class Note_Type(DjangoObjectType):
             "title",
             "content",
             "created_at",
-            "modified_at"
-            ]
+            "modified_at",
+        ]
         interfaces = (relay.Node,)
 
 
@@ -36,22 +36,13 @@ class CreateNote(graphene.Mutation):
         jobId = graphene.String()
         title = graphene.String()
         content = graphene.String()
-        created_at = graphene.types.datetime.DateTime
-        modified_at = graphene.types.datetime.DateTime
+        created_at = graphene.types.datetime.DateTime()
+        modified_at = graphene.types.datetime.DateTime()
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
 
-    def mutate(
-        self,
-        info,
-        title,
-        content,
-        clientId,
-        createdAt,
-        modifiedAt,
-        jobId
-        ):
+    def mutate(self, info, title, content, clientId, createdAt, modifiedAt, jobId):
 
         user = info.context.user
         if user.is_anonymous:
@@ -62,8 +53,9 @@ class CreateNote(graphene.Mutation):
                 content=content,
                 client_id=clientId,
                 job_id=jobId,
-                created_at=createdAt, modified_at=modifiedAt
-                )
+                created_at=createdAt,
+                modified_at=modifiedAt,
+            )
             new_note.save()
             return CreateNote(note=new_note, ok=True)
 

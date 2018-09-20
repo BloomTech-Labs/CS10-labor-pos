@@ -1,6 +1,4 @@
 from django.db import models
-from .note import Note
-from .job import Job
 from uuid import uuid4
 from django.conf import settings
 
@@ -72,10 +70,7 @@ class Client(models.Model):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(
-        max_length=2,
-        choices=state_choices,
-        default="Alabama")
+    state = models.CharField(max_length=2, choices=state_choices, default="Alabama")
     zipcode = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
