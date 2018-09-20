@@ -15,8 +15,8 @@ class Job_Type(DjangoObjectType):
             "created_at",
             "complete",
             "modified_at",
-            "deadline"
-             ]
+            "deadline",
+        ]
         interfaces = (relay.Node,)
 
 
@@ -35,13 +35,13 @@ class Query(ObjectType):
 class CreateJob(graphene.Mutation):
     class Arguments:
         clientId = graphene.ID()
-        complete = graphene.Boolean
+        complete = graphene.Boolean()
         name = graphene.String()
         labor = graphene.Float(2)
         description = graphene.String()
-        createdAt = graphene.types.datetime.DateTime
-        modifiedAt = graphene.types.datetime.DateTime
-        deadline = graphene.types.datetime.Date
+        createdAt = graphene.types.datetime.DateTime()
+        modifiedAt = graphene.types.datetime.DateTime()
+        deadline = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
     job = graphene.Field(Job_Type)
@@ -56,7 +56,7 @@ class CreateJob(graphene.Mutation):
         complete,
         createdAt,
         modifiedAt,
-        deadline
+        deadline,
     ):
         user = info.context.user
         if user.is_anonymous:
@@ -70,8 +70,8 @@ class CreateJob(graphene.Mutation):
                 complete=complete,
                 created_at=createdAt,
                 modified_at=modifiedAt,
-                deadline=deadline
-                )
+                deadline=deadline,
+            )
             new_job.save()
             return CreateJob(job=new_job, ok=True)
 
