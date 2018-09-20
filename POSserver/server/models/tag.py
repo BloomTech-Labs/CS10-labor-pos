@@ -2,11 +2,16 @@
 import uuid
 from django.db import models
 from django.conf import settings
+from .job import Job
+from .note import Note
+from .part import Part
 
 
 class Tag(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    note = models.ForeignKey(Note, on_delete=models.CASCADE)
+    part = models.ForeignKey(Part, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
