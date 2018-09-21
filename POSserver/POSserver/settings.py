@@ -27,22 +27,36 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config(
+    "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
+)
 
+CORS_ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
 
+CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
 # Application definition
 
 INSTALLED_APPS = [
+    "whitenoise.runserver_nostatic",  # Added for whitenoise
+    "django.contrib.staticfiles",  # Added for handling static files
     "django.contrib.admin",
     "django.contrib.auth",
+    "graphene_django",  # Added for doing GraphQL
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    "corsheaders",  # Added corsheaders
+    "server",
 ]
 
+
+GRAPHENE = {"SCHEMA": "POSserver.schema.schema"}  # Where your Graphene schema lives
+
 MIDDLEWARE = [
+    "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Added for helping with serving static files
+    "corsheaders.middleware.CorsMiddleware",  # Added for cross origin resource
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -84,16 +98,17 @@ DATABASES = {
             + config("USER")
             + ":"
             + config("PASSWORD")
-            + "@127.0.0.1:5432/posserver"
+            + "@"
+            + config("PORT")  # 127.0.0.1:5432
+            + "/"
+            + config("DBNAME")  # posserver
         ),
     )
-    # "ENGINE": "django.db.backends.postgresql",
-    # "NAME": "posserver",
-    # "USER": config("USER"),
-    # "PASSWORD": config("PASSWORD"),
-    # "HOST": "127.0.0.1",
-    # "PORT": "5432",
+    # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
+    # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
+    # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
 }
+
 
 # Authentication Backends - adding for JWT with GraphQL
 AUTHENTICATION_BACKENDS = [
@@ -139,5 +154,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
