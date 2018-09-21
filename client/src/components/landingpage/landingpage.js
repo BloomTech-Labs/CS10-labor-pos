@@ -34,18 +34,6 @@ class LandingPage extends Component {
     this.setState({ create_modal: false, contractor_modal: true });
   };
 
-  handleCloseLogin = () => {
-    this.setState({ login_modal: false });
-  };
-
-  handleCloseCreate = () => {
-    this.setState({ create_modal: false });
-  };
-
-  handleCloseContractor = () => {
-    this.setState({ contractor_modal: false });
-  };
-
   handleCloseModals = () => {
     this.setState({
       login_modal: false,
@@ -69,7 +57,7 @@ class LandingPage extends Component {
               Log In
             </Button>
           </div>
-          <div className="landing-blurb">
+          <div classNahandleCloseModalsme="landing-blurb">
             <p>
               Placeholder for the blurb!!!\nLorem ipsum dolor sit amet,
               consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
@@ -103,29 +91,29 @@ class LandingPage extends Component {
           </div>
           <Dialog
             open={this.state.login_modal}
-            onClose={this.handleCloseLogin}
+            onClose={this.handleCloseModals}
             className="login-modal"
           >
-            <Login closeModals={this.handleCloseModals} />
+            <Login modalDone={this.handleCloseModals} />
           </Dialog>
           <Dialog
             open={this.state.create_modal}
-            onClose={this.handleCloseCreate}
+            onClose={this.handleCloseModals}
             className="user-modal"
           >
             <NewUser
               parentInfoMethod={this.setUserId.bind(this)}
-              myMethod={this.handleContractorButton}
+              modalDone={this.handleContractorButton}
             />
           </Dialog>
           <Dialog
             open={this.state.contractor_modal}
-            onClose={this.handleCloseContractor}
+            onClose={this.handleCloseModals}
             className="contractor-modal"
           >
             <NewContractor
               userId={this.state.contractor_id}
-              handleLogin={this.handleLogin}
+              modalDone={this.handleLogin}
             />
           </Dialog>
         </div>
