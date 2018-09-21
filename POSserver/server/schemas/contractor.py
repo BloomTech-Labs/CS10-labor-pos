@@ -29,7 +29,7 @@ class Query(graphene.ObjectType):
     # contractors = graphene.List(Contractor_Type)
     contractors = DjangoFilterConnectionField(Contractor_Type)
 
-    def resolve_contractors(self, info):
+    def resolve_contractors(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:

@@ -26,7 +26,7 @@ class Query(graphene.ObjectType):
     # jobs = graphene.List(Job_Type)
     jobs = DjangoFilterConnectionField(Job_Type)
 
-    def resolve_jobs(self, info):
+    def resolve_jobs(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:

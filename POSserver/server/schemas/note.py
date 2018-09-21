@@ -24,7 +24,7 @@ class Query(graphene.ObjectType):
     # notes = graphene.List(Note_Type)
     notes = DjangoFilterConnectionField(Note_Type)
 
-    def resolve_notes(self, info):
+    def resolve_notes(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:

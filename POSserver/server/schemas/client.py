@@ -32,7 +32,7 @@ class Query(graphene.ObjectType):
     # clients = graphene.List(Client_Type)
     clients = DjangoFilterConnectionField(Client_Type)
 
-    def resolve_clients(self, info):
+    def resolve_clients(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
             return Client.objects.none()

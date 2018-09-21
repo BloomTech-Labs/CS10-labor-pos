@@ -15,7 +15,7 @@ class Query(graphene.ObjectType):
     # parts = graphene.List(Part_Type)
     parts = DjangoFilterConnectionField(Part_Type)
 
-    def resolve_parts(self, info):
+    def resolve_parts(self, info, **kwargs):
         user = info.context.user
 
         if user.is_anonymous:

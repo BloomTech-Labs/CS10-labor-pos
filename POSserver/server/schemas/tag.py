@@ -25,7 +25,7 @@ class Query(graphene.ObjectType):
     # tags = graphene.List(Tag_Type)
     tags = DjangoFilterConnectionField(Tag_Type)
 
-    def resolve_tags(self, info):
+    def resolve_tags(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
             return Tag.objects.none()
