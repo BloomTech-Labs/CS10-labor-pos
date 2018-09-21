@@ -4,7 +4,7 @@ import Parts from "./parts/parts";
 import Notes from "./notes/notes";
 import LandingPage from "./landingpage/landingpage";
 import Jobs from "./jobs/jobs";
-import CreateJob from "./jobs/createJob/createJob";
+import CreateJob from "./jobs/createJob";
 import Invoices from "./invoices/invoices";
 import Home from "./home/home";
 import SideNav from "./home/sidenav";

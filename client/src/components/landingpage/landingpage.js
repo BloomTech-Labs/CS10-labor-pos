@@ -82,7 +82,7 @@ class LandingPage extends Component {
           </div>
           <div classNahandleCloseModalsme="landing-blurb">
             <p>
-              Placeholder for the blurb!!!\nLorem ipsum dolor sit amet,
+              Placeholder for the blurb!!! Lorem ipsum dolor sit amet,
               consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
               venenatis ligula volutpat et. Mauris ac rhoncus ipsum. Donec et
               sodales magna. Sed sed varius sem, non convallis tellus. Mauris
