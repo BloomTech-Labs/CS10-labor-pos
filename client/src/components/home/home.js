@@ -11,7 +11,7 @@ import {
   Settings,
   Jobs,
   Clients
-} from "..";
+} from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";

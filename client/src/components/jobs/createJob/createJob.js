@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";

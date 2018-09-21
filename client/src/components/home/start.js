@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
+import { Button, Grid, Card } from "@material-ui/core";
 
 //The start component renders at the root route when the user is logged in
 //It is intended to offer a selection of the most likely tasks the user

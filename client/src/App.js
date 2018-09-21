@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import CreateJob from "./components/jobs/createJob/createJob";
-import Settings from "./components/settings/settings";
-import Login from "./components/auth/login";
-import { LandingPage } from "./components/landingpage/landingpage";
+import { LandingPage } from "./components";
 
 //Link to the balsamiq reference: https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
 

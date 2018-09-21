@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import Button from "@material-ui/core/Button";
+import { Divider, Button } from "@material-ui/core";
 import { withRouter } from "react-router";
 
 //This is the side nav component that renders in the nav drawer in the home component

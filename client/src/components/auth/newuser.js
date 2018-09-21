@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-import ApolloClient from "apollo-boost";
 
 // const client = new ApolloClient({
 //   uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"

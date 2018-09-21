@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import { Login, NewUser, NewContractor, Home } from "..";
+import { Login, NewUser, NewContractor, Home } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
 
 //This is the component for users who arrive at the site without being logged in.
@@ -146,4 +146,4 @@ class LandingPage extends Component {
   }
 }
 
-export { LandingPage };
+export default LandingPage;
