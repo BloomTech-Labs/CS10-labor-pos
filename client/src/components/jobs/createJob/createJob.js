@@ -36,7 +36,7 @@ const CREATE_JOB = gql`
 
 //This component will render on /jobs/create and will present the user with a form
 //they can fill out to create a new job.
-class NewJob extends Component {
+class CreateJob extends Component {
   state = {
     name: "",
     labor: "",
@@ -130,4 +130,4 @@ class NewJob extends Component {
   };
 }
 
-export default NewJob;
+export default CreateJob;

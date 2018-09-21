@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Jobs from "../jobs/jobs";
-import Clients from "../clients/clients";
 import "./home.css";
-import Notes from "../notes/notes";
-import Tags from "../tags/tags";
-import Parts from "../parts/parts";
-import Invoices from "../invoices/invoices";
+import {
+  Notes,
+  Tags,
+  Parts,
+  Invoices,
+  SideNav,
+  Start,
+  Settings,
+  Jobs,
+  Clients
+} from "..";
 import { Route } from "react-router-dom";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import Hidden from "@material-ui/core/Hidden";
+import { Hidden, IconButton, Drawer } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import SideNav from "./sidenav";
-import Start from "./start";
-import Settings from "./settings";
 
 //The home component is a container component that renders when the user is logged in and displays different
 //content depending on the current route.

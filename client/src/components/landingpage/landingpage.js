@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import Login from "../auth/login";
-import NewUser from "../auth/newuser";
-import NewContractor from "../auth/newcontractor";
+import { Login, NewUser, NewContractor, Home } from "..";
 import { AUTH_TOKEN } from "../../constants";
-import Home from "../home/home";
 
 //This is the component for users who arrive at the site without being logged in.
 //It renders path-insensitively; if the user is not logged in, any path will
