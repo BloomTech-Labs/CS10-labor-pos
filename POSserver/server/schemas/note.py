@@ -1,13 +1,15 @@
-from graphene import relay, List, ObjectType
 from graphene_django import DjangoObjectType
 from server.models import Note
 import graphene
+from graphene_django.filter import DjangoFilterConnectionField
 
 
 class Note_Type(DjangoObjectType):
     class Meta:
         model = Note
         filter_fields = [
+            "id",
+            "user",
             "client",
             "job",
             "title",
@@ -15,11 +17,12 @@ class Note_Type(DjangoObjectType):
             "created_at",
             "modified_at",
         ]
-        interfaces = (relay.Node,)
+        interfaces = (graphene.relay.Node,)
 
 
-class Query(ObjectType):
-    notes = List(Note_Type)
+class Query(graphene.ObjectType):
+    # notes = graphene.List(Note_Type)
+    notes = DjangoFilterConnectionField(Note_Type)
 
     def resolve_notes(self, info, **kwargs):
         user = info.context.user
@@ -32,8 +35,8 @@ class Query(ObjectType):
 
 class CreateNote(graphene.Mutation):
     class Arguments:
-        clientId = graphene.String()
-        jobId = graphene.String()
+        clientId = graphene.ID()
+        jobId = graphene.ID()
         title = graphene.String()
         content = graphene.String()
         created_at = graphene.types.datetime.DateTime()
@@ -41,6 +44,7 @@ class CreateNote(graphene.Mutation):
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
+    status = graphene.String()
 
     def mutate(self, info, title, content, clientId, createdAt, modifiedAt, jobId):
 
@@ -51,13 +55,14 @@ class CreateNote(graphene.Mutation):
             new_note = Note(
                 title=title,
                 content=content,
-                client_id=clientId,
-                job_id=jobId,
+                clientId=clientId,
+                jobId=jobId,
                 created_at=createdAt,
                 modified_at=modifiedAt,
+                userId=user,
             )
             new_note.save()
-            return CreateNote(note=new_note, ok=True)
+            return CreateNote(note=new_note, ok=True, status="ok")
 
 
 class NoteMutation(graphene.ObjectType):

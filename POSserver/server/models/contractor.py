@@ -1,11 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
-from uuid import uuid4
 
 
 class Contractor(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=30, null=False, blank=False)
     last_name = models.CharField(max_length=30, null=False, blank=False)
@@ -68,11 +66,11 @@ class Contractor(models.Model):
         ("GU", "Guam"),
     )
     state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
-    zipcode = models.CharField(max_length=10, null=False, blank=False)
-    business_name = models.CharField(max_length=100, null=False, blank=False)
-    created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
-    modified_at = models.DateTimeField(auto_now=True, blank=False, null=False)
-    premium = models.BooleanField(default=False, blank=False, null=False)
+    zipcode = models.CharField(max_length=10)
+    business_name = models.CharField(max_length=100, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    premium = models.BooleanField(default=False, blank=True, null=True)
     paid_until = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):
