@@ -7,7 +7,19 @@ import NewContractor from "../auth/newcontractor";
 import { AUTH_TOKEN } from "../../constants";
 import Home from "../home/home";
 
+//This is the component for users who arrive at the site without being logged in.
+//It renders path-insensitively; if the user is not logged in, any path will
+//show this component
+//It presents the user with information about our app and what it can do
+//As well as the opportunity to log in or sign up.
 class LandingPage extends Component {
+  //This component uses its state to track some important variables.
+  //Moving forward, as I see it, we have 3 options:
+  //1. We can have state on many components and just store stuff where its used and needed,
+  //if absolutely necessary passing things back up to parent components with methods
+  //2. Use this state as a single source of truth for its child components via
+  //"prop drilling"
+  //3. Use context or something similar.
   constructor() {
     super();
     this.state = {
@@ -18,22 +30,32 @@ class LandingPage extends Component {
     };
   }
 
+  //This methid is passed down to the user modal component
+  //so that it can affect the state of this component.
   setUserId = new_id => {
     this.setState({ contractor_id: new_id });
   };
 
+  //This method is passed down to the contractor modal
+  //The contractor modal uses it to close itself and open
+  //the login modal.
   handleLogin = () => {
     this.setState({ login_modal: true, contractor_modal: false });
   };
 
+  //This method is used to open the create user modal.
   handleCreateButton = () => {
     this.setState({ create_modal: true });
   };
 
+  //This method is passed to the create user modal
+  //so it can close itself and open the contractor
+  //modal.
   handleContractorButton = () => {
     this.setState({ create_modal: false, contractor_modal: true });
   };
 
+  //This is a multipurpose method to close all modals.
   handleCloseModals = () => {
     this.setState({
       login_modal: false,
@@ -44,9 +66,13 @@ class LandingPage extends Component {
 
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
+    //If the user is authenticated, we render the home component instead.
     if (authToken) {
       return <Home />;
-    } else {
+    }
+    //If the user is not authenticated, we go ahead and render this component.
+    //TODO: make this actually present a case for using our app.
+    else {
       return (
         <div className="landing-page">
           <div className="landing-buttons">
@@ -89,6 +115,7 @@ class LandingPage extends Component {
               lacus. Curabitur et purus lorem. Ut faucibus aliquet imperdiet.
             </p>
           </div>
+          {/*We use material ui dialog components for our modals.*/}
           <Dialog
             open={this.state.login_modal}
             onClose={this.handleCloseModals}

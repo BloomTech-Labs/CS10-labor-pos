@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 
+//This is the mutation that will be sent by Apollo to create the job
 const CREATE_JOB = gql`
   mutation createJob(
     $clientID: ID!
@@ -33,6 +34,8 @@ const CREATE_JOB = gql`
   }
 `;
 
+//This component will render on /jobs/create and will present the user with a form
+//they can fill out to create a new job.
 class NewJob extends Component {
   state = {
     name: "",
