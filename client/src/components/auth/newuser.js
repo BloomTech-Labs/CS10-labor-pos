@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-import ApolloClient from "apollo-boost";
+import { withRouter } from "react-router";
 
 // const client = new ApolloClient({
 //   uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"
@@ -21,6 +20,7 @@ import ApolloClient from "apollo-boost";
 //   })
 //   .then(result => console.log(result));
 
+//The mutation that Apollo will send on form submit
 const CREATE_USER = gql`
   mutation createUser($username: String!, $password: String!, $email: String!) {
     createUser(username: $username, password: $password, email: $email) {
@@ -31,6 +31,7 @@ const CREATE_USER = gql`
   }
 `;
 
+//This component is rendered inside a modal on landing page
 class NewUser extends Component {
   state = {
     username: "",
@@ -39,17 +40,20 @@ class NewUser extends Component {
     id: ""
   };
 
+  //This method keeps the state up to date with the input fields
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
     });
   };
 
+  //
   render() {
     const { username, password, email } = this.state;
 
     return (
       <div>
+        {/*The mutation component wraps the form and consumes its input fields to fill in the mutation it will send.*/}
         <Mutation
           mutation={CREATE_USER}
           onCompleted={data => this._confirm(data)}
@@ -112,10 +116,12 @@ class NewUser extends Component {
     );
   }
 
+  //parentInfoMethod is passed down from the landing page component to allow this component to send a user id up to its state
+  //
   _confirm = async data => {
     this.props.parentInfoMethod(data.createUser.user.id);
-    this.props.myMethod();
+    this.props.modalDone();
   };
 }
 
-export default NewUser;
+export default withRouter(NewUser);

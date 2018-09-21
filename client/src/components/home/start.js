@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
+import { Button, Grid, Card } from "@material-ui/core";
 
+//The start component renders at the root route when the user is logged in
+//It is intended to offer a selection of the most likely tasks the user
+//may be logging in for.
+//We may reconfigure this to be an info thing instead of a card collection.
+
+//https://balsamiq.cloud/sc1hpyg/po5pcja/r2278
 class Start extends Component {
   render() {
     return (
       <div>
+        {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
         <Grid container spacing={24}>
           <Grid item xs={4}>
             <Card>

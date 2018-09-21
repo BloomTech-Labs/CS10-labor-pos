@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-// import { AUTH_TOKEN } from "../../constants";
 import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router";
 
+//The mutation that Apollo will send on form submit
 const CREATE_CONTRACTOR = gql`
   mutation createContractor(
     $userId: ID!
@@ -32,6 +33,7 @@ const CREATE_CONTRACTOR = gql`
   }
 `;
 
+//The list of options for our states pulldown menu
 const states = [
   {
     value: "Alabama",
@@ -251,6 +253,7 @@ const states = [
   }
 ];
 
+//This component will be rendered inside a modal on landingpage
 class NewContractor extends Component {
   state = {
     businessName: "",
@@ -262,6 +265,7 @@ class NewContractor extends Component {
     state: "Alabama"
   };
 
+  //This method keeps the state updated with the current contents of the input fields
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value
@@ -280,6 +284,7 @@ class NewContractor extends Component {
     } = this.state;
     return (
       <div>
+        {/*The mutation component wraps the form and uses its contents to fill in the mutation it sends*/}
         <Mutation
           mutation={CREATE_CONTRACTOR}
           onCompleted={() => this._confirm()}
@@ -399,9 +404,10 @@ class NewContractor extends Component {
     );
   }
 
+  //This calls the method passed down from the parent component
   _confirm = async () => {
-    this.props.handleLogin();
+    this.props.modalDone();
   };
 }
 
-export default NewContractor;
+export default withRouter(NewContractor);
