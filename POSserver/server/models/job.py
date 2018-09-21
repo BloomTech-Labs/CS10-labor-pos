@@ -1,4 +1,8 @@
 from django.db import models
+<<<<<<< HEAD
+=======
+from uuid import uuid4
+>>>>>>> 1e57794de08ef0abe664b45fb1248ce7d0e1ddda
 from .client import Client
 from django.conf import settings
 

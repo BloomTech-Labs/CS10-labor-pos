@@ -5,10 +5,8 @@ ________
 
 Brought to you by:
   * Zach Campbell: [@wajnurfes](https://github.com/wajnurfes)
-  * Jacob Henry: [@Blast3d](https://github.com/Blast3d)
   * Cole Phillips: [@nphillips78](https://github.com/nphillips78)
   * Amy Shackles: [@amyshackles](https://github.com/AmyShackles)
-  * Dre'Sean Williams: [@dresean](https://github.com/dresean)
 
 --------
 
@@ -17,7 +15,7 @@ Brought to you by:
 
 ### Frontend built using:
   * React.js
-  * Bootstrap & Material Design
+  * Material Design
   * GraphQL & Apollo
   * Netlify
 
