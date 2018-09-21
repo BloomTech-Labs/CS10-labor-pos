@@ -1,4 +1,3 @@
-from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Contractor
@@ -23,20 +22,25 @@ class Contractor_Type(DjangoObjectType):
             "premium",
             "paid_until",
         ]
-        interfaces = (relay.Node,)
+        interfaces = (graphene.relay.Node,)
 
 
-class Query(ObjectType):
-    contractors = List(Contractor_Type)
-    all_contractors = DjangoFilterConnectionField(Contractor_Type)
+class Query(graphene.ObjectType):
+    # contractors = graphene.List(Contractor_Type)
+    contractors = DjangoFilterConnectionField(Contractor_Type)
 
-    def resolve_contractors(self, info, **kwargs):
-        return Contractor.objects.all()
+    def resolve_contractors(self, info):
+        user = info.context.user
+
+        if user.is_anonymous:
+            return Contractor.objects.none()
+        else:
+            return Contractor.objects.filter(user=user)
 
 
 class CreateContractor(graphene.Mutation):
     class Arguments:
-        user_id = graphene.ID()
+        userId = graphene.ID()
         first_name = graphene.String()
         last_name = graphene.String()
         street_address = graphene.String()
@@ -44,6 +48,8 @@ class CreateContractor(graphene.Mutation):
         state = graphene.String()
         zipcode = graphene.String()
         business_name = graphene.String()
+        premium = graphene.Boolean()
+        paid_until = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
     contractor = graphene.Field(Contractor_Type)
@@ -51,6 +57,7 @@ class CreateContractor(graphene.Mutation):
     def mutate(
         self,
         info,
+        userId,
         first_name,
         last_name,
         street_address,
@@ -58,20 +65,27 @@ class CreateContractor(graphene.Mutation):
         state,
         zipcode,
         business_name,
-        user_id,
+        premium,
+        paid_until,
     ):
-        new_contractor = Contractor(
-            first_name=first_name,
-            last_name=last_name,
-            street_address=street_address,
-            city=city,
-            state=state,
-            zipcode=zipcode,
-            business_name=business_name,
-            user_id=user_id,
-        )
-        new_contractor.save()
-        return CreateContractor(contractor=new_contractor, ok=True)
+        user = info.context.user
+        if user.is_anonymous:
+            return CreateContractor(ok=False, status="Must be logged in.")
+        else:
+            new_contractor = Contractor(
+                first_name=first_name,
+                last_name=last_name,
+                street_address=street_address,
+                city=city,
+                state=state,
+                zipcode=zipcode,
+                business_name=business_name,
+                premium=premium,
+                paid_until=paid_until,
+                userId=userId,
+            )
+            new_contractor.save()
+            return CreateContractor(contractor=new_contractor, ok=True)
 
 
 class ContractorMutation(graphene.ObjectType):

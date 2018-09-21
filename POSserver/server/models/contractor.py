@@ -66,11 +66,11 @@ class Contractor(models.Model):
         ("GU", "Guam"),
     )
     state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
-    zipcode = models.CharField(max_length=10, null=False, blank=False)
-    business_name = models.CharField(max_length=100, null=False, blank=False)
-    created_at = models.DateTimeField(auto_now_add=True, blank=False, null=False)
-    modified_at = models.DateTimeField(auto_now=True, blank=False, null=False)
-    premium = models.BooleanField(default=False, blank=False, null=False)
+    zipcode = models.CharField(max_length=10)
+    business_name = models.CharField(max_length=100, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+    premium = models.BooleanField(default=False)
     paid_until = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):

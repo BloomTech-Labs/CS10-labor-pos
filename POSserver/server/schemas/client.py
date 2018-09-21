@@ -1,4 +1,3 @@
-from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Client
@@ -11,6 +10,7 @@ class Client_Type(DjangoObjectType):
         filter_fields = [
             "id",
             "user",
+            "contractor",
             "business_name",
             "first_name",
             "last_name",
@@ -25,16 +25,15 @@ class Client_Type(DjangoObjectType):
             "modified_at",
             "deadline",
         ]
-        interfaces = (relay.Node,)
+        interfaces = (graphene.relay.Node,)
 
 
-class Query(ObjectType):
-    clients = List(Client_Type)
-    all_clients = DjangoFilterConnectionField(Client_Type)
+class Query(graphene.ObjectType):
+    # clients = graphene.List(Client_Type)
+    clients = DjangoFilterConnectionField(Client_Type)
 
-    def resolve_clients(self, info, **kwargs):
+    def resolve_clients(self, info):
         user = info.context.user
-
         if user.is_anonymous:
             return Client.objects.none()
         else:
@@ -43,7 +42,7 @@ class Query(ObjectType):
 
 class CreateClient(graphene.Mutation):
     class Arguments:
-        userId = graphene.ID()
+        contractor = graphene.ID()
         business_name = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -54,6 +53,7 @@ class CreateClient(graphene.Mutation):
         city = graphene.String()
         state = graphene.String()
         zipcode = graphene.String()
+        deadline = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
     client = graphene.Field(Client_Type)
@@ -61,23 +61,25 @@ class CreateClient(graphene.Mutation):
     def mutate(
         self,
         info,
+        contractor,
         business_name,
         first_name,
         last_name,
         email,
         street_number,
+        unit_number,
         street_name,
         city,
         state,
         zipcode,
-        userId,
-        unit_number="",
+        deadline,
     ):
         user = info.context.user
         if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
         else:
             new_client = Client(
+                contractor=contractor,
                 business_name=business_name,
                 first_name=first_name,
                 last_name=last_name,
@@ -88,7 +90,7 @@ class CreateClient(graphene.Mutation):
                 city=city,
                 state=state,
                 zipcode=zipcode,
-                user_id=user,
+                userId=user,
             )
             new_client.save()
             return CreateClient(client=new_client, ok=True)

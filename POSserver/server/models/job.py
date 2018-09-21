@@ -4,8 +4,8 @@ from django.conf import settings
 
 
 class Job(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     complete = models.BooleanField(default=False)
     labor = models.DecimalField(decimal_places=2, max_digits=5, null=True)

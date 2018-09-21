@@ -1,4 +1,3 @@
-from graphene import relay, List, ObjectType
 import graphene
 from graphene_django import DjangoObjectType
 from server.models import Job
@@ -10,6 +9,7 @@ class Job_Type(DjangoObjectType):
         model = Job
         filter_fields = [
             "id",
+            "user",
             "client",
             "name",
             "complete",
@@ -19,14 +19,14 @@ class Job_Type(DjangoObjectType):
             "modified_at",
             "deadline",
         ]
-        interfaces = (relay.Node,)
+        interfaces = (graphene.relay.Node,)
 
 
-class Query(ObjectType):
-    jobs = List(Job_Type)
-    all_jobs = DjangoFilterConnectionField(Job_Type)
+class Query(graphene.ObjectType):
+    # jobs = graphene.List(Job_Type)
+    jobs = DjangoFilterConnectionField(Job_Type)
 
-    def resolve_jobs(self, info, **kwargs):
+    def resolve_jobs(self, info):
         user = info.context.user
 
         if user.is_anonymous:
@@ -66,7 +66,7 @@ class CreateJob(graphene.Mutation):
             return CreateJob(ok=False, status="Must be logged in.")
         else:
             new_job = Job(
-                client_id=clientId,
+                clientId=clientId,
                 name=name,
                 description=description,
                 labor=labor,
@@ -74,7 +74,7 @@ class CreateJob(graphene.Mutation):
                 created_at=createdAt,
                 modified_at=modifiedAt,
                 deadline=deadline,
-                user=user,
+                userId=user,
             )
             new_job.save()
             return CreateJob(job=new_job, ok=True)
