@@ -48,6 +48,7 @@ class CreateJob(graphene.Mutation):
 
     ok = graphene.Boolean()
     job = graphene.Field(Job_Type)
+    status = graphene.String()
 
     def mutate(
         self,
@@ -77,7 +78,7 @@ class CreateJob(graphene.Mutation):
                 userId=user,
             )
             new_job.save()
-            return CreateJob(job=new_job, ok=True)
+            return CreateJob(job=new_job, ok=True, status="ok")
 
 
 class JobMutation(graphene.ObjectType):

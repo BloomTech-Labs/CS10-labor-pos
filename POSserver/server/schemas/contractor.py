@@ -48,11 +48,10 @@ class CreateContractor(graphene.Mutation):
         state = graphene.String()
         zipcode = graphene.String()
         business_name = graphene.String()
-        premium = graphene.Boolean()
-        paid_until = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
     contractor = graphene.Field(Contractor_Type)
+    status = graphene.String()
 
     def mutate(
         self,
@@ -65,8 +64,6 @@ class CreateContractor(graphene.Mutation):
         state,
         zipcode,
         business_name,
-        premium,
-        paid_until,
     ):
         user = info.context.user
         if user.is_anonymous:
@@ -80,12 +77,10 @@ class CreateContractor(graphene.Mutation):
                 state=state,
                 zipcode=zipcode,
                 business_name=business_name,
-                premium=premium,
-                paid_until=paid_until,
                 userId=userId,
             )
             new_contractor.save()
-            return CreateContractor(contractor=new_contractor, ok=True)
+            return CreateContractor(contractor=new_contractor, ok=True, status="ok")
 
 
 class ContractorMutation(graphene.ObjectType):

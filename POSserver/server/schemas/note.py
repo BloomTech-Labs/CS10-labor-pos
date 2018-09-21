@@ -44,6 +44,7 @@ class CreateNote(graphene.Mutation):
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
+    status = graphene.String()
 
     def mutate(self, info, title, content, clientId, createdAt, modifiedAt, jobId):
 
@@ -61,7 +62,7 @@ class CreateNote(graphene.Mutation):
                 userId=user,
             )
             new_note.save()
-            return CreateNote(note=new_note, ok=True)
+            return CreateNote(note=new_note, ok=True, status="ok")
 
 
 class NoteMutation(graphene.ObjectType):

@@ -57,6 +57,7 @@ class CreateClient(graphene.Mutation):
 
     ok = graphene.Boolean()
     client = graphene.Field(Client_Type)
+    status = graphene.String()
 
     def mutate(
         self,
@@ -93,7 +94,7 @@ class CreateClient(graphene.Mutation):
                 userId=user,
             )
             new_client.save()
-            return CreateClient(client=new_client, ok=True)
+            return CreateClient(client=new_client, ok=True, status="ok")
 
 
 class ClientMutation(graphene.ObjectType):

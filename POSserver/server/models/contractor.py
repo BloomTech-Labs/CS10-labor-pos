@@ -70,7 +70,7 @@ class Contractor(models.Model):
     business_name = models.CharField(max_length=100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
-    premium = models.BooleanField(default=False)
+    premium = models.BooleanField(default=False, blank=True, null=True)
     paid_until = models.DateTimeField(default=timezone.now, blank=True, null=True)
 
     def __str__(self):

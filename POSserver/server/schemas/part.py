@@ -33,6 +33,7 @@ class CreatePart(graphene.Mutation):
 
     ok = graphene.Boolean()
     part = graphene.Field(Part_Type)
+    status = graphene.String()
 
     def mutate(self, info, jobId, name, description, cost):
         user = info.context.user
@@ -43,7 +44,7 @@ class CreatePart(graphene.Mutation):
                 jobId=jobId, name=name, description=description, cost=cost, userId=user
             )
             new_part.save()
-        return CreatePart(part=new_part, ok=True)
+        return CreatePart(part=new_part, ok=True, status="ok")
 
 
 class PartMutation(graphene.ObjectType):
