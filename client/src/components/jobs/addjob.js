@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router";
 
 //This is the mutation that will be sent by Apollo to create the job
 const CREATE_JOB = gql`
@@ -35,7 +36,9 @@ const CREATE_JOB = gql`
 
 //This component will render on /jobs/create and will present the user with a form
 //they can fill out to create a new job.
-class CreateJob extends Component {
+
+//https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
+class AddJob extends Component {
   state = {
     name: "",
     labor: "",
@@ -129,4 +132,4 @@ class CreateJob extends Component {
   };
 }
 
-export default CreateJob;
+export default withRouter(AddJob);

@@ -3,12 +3,15 @@ import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
 import { Login, NewUser, NewContractor, Home } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
+import { withRouter } from "react-router";
 
 //This is the component for users who arrive at the site without being logged in.
 //It renders path-insensitively; if the user is not logged in, any path will
 //show this component
 //It presents the user with information about our app and what it can do
 //As well as the opportunity to log in or sign up.
+
+//https://balsamiq.cloud/snv27r3/pb3k52z/r2278
 class LandingPage extends Component {
   //This component uses its state to track some important variables.
   //Moving forward, as I see it, we have 3 options:
@@ -146,4 +149,4 @@ class LandingPage extends Component {
   }
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router";
 
 // const client = new ApolloClient({
 //   uri: "https://w5xlvm3vzz.lp.gql.zone/graphql"
@@ -123,4 +124,4 @@ class NewUser extends Component {
   };
 }
 
-export default NewUser;
+export default withRouter(NewUser);

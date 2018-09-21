@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
+import { withRouter } from "react-router";
 
 //The mutation that Apollo will send on form submit
 const CREATE_CONTRACTOR = gql`
@@ -409,4 +410,4 @@ class NewContractor extends Component {
   };
 }
 
-export default NewContractor;
+export default withRouter(NewContractor);
