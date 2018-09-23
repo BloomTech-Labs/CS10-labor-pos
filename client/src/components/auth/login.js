@@ -28,26 +28,20 @@ class Login extends Component {
       <div>
         <h4 className="Login" />
         <div className="flex flex-column">
-          {/* {!login && (
+          <form>
             <input
-              value={email}
-              onChange={e => this.setState({ email: e.target.value })}
+              value={username}
+              onChange={e => this.setState({ username: e.target.value })}
               type="text"
-              placeholder="Your email address"
+              placeholder="Your username"
             />
-          )} */}
-          <input
-            value={username}
-            onChange={e => this.setState({ username: e.target.value })}
-            type="text"
-            placeholder="Your username"
-          />
-          <input
-            value={password}
-            onChange={e => this.setState({ password: e.target.value })}
-            type="password"
-            placeholder="Choose a safe password"
-          />
+            <input
+              value={password}
+              onChange={e => this.setState({ password: e.target.value })}
+              type="password"
+              placeholder="Choose a safe password"
+            />
+          </form>
         </div>
         <div>
           {/*The mutation component will send our mutation to the backend using Apollo*/}
@@ -74,7 +68,7 @@ class Login extends Component {
     // Go to the root route
     this.props.history.push("/");
     // Now that we're done with it, close the modal containing this component.
-    this.props.modalDone();
+    // this.props.modalDone();
   };
 
   //Keep our login token on local storage for later use

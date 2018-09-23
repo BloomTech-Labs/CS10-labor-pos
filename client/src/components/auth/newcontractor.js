@@ -5,9 +5,11 @@ import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
 
 //The mutation that Apollo will send on form submit
-const CREATE_CONTRACTOR = gql`
-  mutation createContractor(
-    $userId: ID!
+const CREATE_USER = gql`
+  mutation createUser(
+    $username: String!
+    $password: String!
+    $email: String!
     $businessName: String!
     $city: String!
     $firstName: String!
@@ -16,8 +18,10 @@ const CREATE_CONTRACTOR = gql`
     $streetAddress: String!
     $zipcode: String!
   ) {
-    createContractor(
-      userId: $userId
+    createUser(
+      username: $username
+      password: $password
+      email: $email
       businessName: $businessName
       city: $city
       firstName: $firstName
@@ -26,8 +30,8 @@ const CREATE_CONTRACTOR = gql`
       streetAddress: $streetAddress
       zipcode: $zipcode
     ) {
-      contractor {
-        firstName
+      user {
+        id
       }
     }
   }
@@ -286,15 +290,15 @@ class NewContractor extends Component {
       <div>
         {/*The mutation component wraps the form and uses its contents to fill in the mutation it sends*/}
         <Mutation
-          mutation={CREATE_CONTRACTOR}
-          onCompleted={() => this._confirm()}
+          mutation={CREATE_USER}
+          onCompleted={data => this._confirm(data)}
         >
-          {(createContractor, { loading, error, data }) => (
+          {(createUser, { loading, error, data }) => (
             <div>
               <form
                 onSubmit={event => {
                   event.preventDefault();
-                  createContractor({
+                  createUser({
                     variables: {
                       businessName: businessName,
                       firstName: firstName,
@@ -303,7 +307,9 @@ class NewContractor extends Component {
                       zipcode: zipcode,
                       city: city,
                       state: state,
-                      userId: this.props.userId
+                      username: this.props.username,
+                      password: this.props.password,
+                      email: this.props.email
                     }
                   });
                   this.setState({
@@ -405,7 +411,7 @@ class NewContractor extends Component {
   }
 
   //This calls the method passed down from the parent component
-  _confirm = async () => {
+  _confirm = async data => {
     this.props.modalDone();
   };
 }

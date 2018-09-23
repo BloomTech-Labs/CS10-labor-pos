@@ -29,25 +29,25 @@ class Query(graphene.ObjectType):
     user = graphene.Node.Field(User_Type)
     all_users = DjangoFilterConnectionField(User_Type)
 
-    def resolve_all_users(self, info, **kwargs):
-        user = info.context.user  # needed to test if user is anonymous or not
-        if user.is_anonymous:
-            return get_user_model().objects.none()
-        else:
-            user = user.id  # int() has no attribute is_anonymous,
-            # but without .id, it resolves to a SimpleLazyObject,
-            # which is not the data type necessary for filtering
-            return get_user_model().objects.filter(id=user)
+    # def resolve_all_users(self, info, **kwargs):
+    #     user = info.context.user  # needed to test if user is anonymous or not
+    #     if user.is_anonymous:
+    #         return get_user_model().objects.none()
+    #     else:
+    #         user = user.id  # int() has no attribute is_anonymous,
+    #         # but without .id, it resolves to a SimpleLazyObject,
+    #         # which is not the data type necessary for filtering
+    #         return get_user_model().objects.filter(id=user)
 
-    def resolve_user(self, info, **kwargs):
-        user = info.context.user  # needed to test if user is anonymous or not
-        if user.is_anonymous:
-            return get_user_model().objects.none()
-        else:
-            user = user.id  # int() has no attribute is_anonymous,
-            # but without .id, it resolves to a SimpleLazyObject,
-            # which is not the data type necessary for filtering
-            return get_user_model().objects.filter(id=user)
+    # def resolve_user(self, info, **kwargs):
+    #     user = info.context.user  # needed to test if user is anonymous or not
+    #     if user.is_anonymous:
+    #         return get_user_model().objects.none()
+    #     else:
+    #         user = user.id  # int() has no attribute is_anonymous,
+    #         # but without .id, it resolves to a SimpleLazyObject,
+    #         # which is not the data type necessary for filtering
+    #         return get_user_model().objects.filter(id=user)
 
 
 class CreateUser(graphene.Mutation):
@@ -83,25 +83,21 @@ class CreateUser(graphene.Mutation):
         zipcode,
         business_name="",
     ):
-        user = info.context.user
-        if user.is_anonymous:
-            return CreateUser(ok=False, status="Must be logged in.")
-        else:
-            new_user = get_user_model()(
-                username=username,
-                email=email,
-                first_name=first_name,
-                last_name=last_name,
-                street_address=street_address,
-                city=city,
-                state=state,
-                zipcode=zipcode,
-                business_name=business_name,
-            )
-            # IMPORTANT to remember to set password instead of just password=password
-            new_user.set_password(password)
-            new_user.save()
-            return CreateUser(user=new_user, ok=True, status="ok")
+        new_user = get_user_model()(
+            username=username,
+            email=email,
+            first_name=first_name,
+            last_name=last_name,
+            street_address=street_address,
+            city=city,
+            state=state,
+            zipcode=zipcode,
+            business_name=business_name,
+        )
+        # IMPORTANT to remember to set password instead of just password=password
+        new_user.set_password(password)
+        new_user.save()
+        return CreateUser(user=new_user, ok=True, status="ok")
 
 
 class UserMutation(graphene.ObjectType):

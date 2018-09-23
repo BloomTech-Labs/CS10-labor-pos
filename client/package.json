@@ -21,8 +21,8 @@
     "subscriptions-transport-ws": "^0.9.14"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_ENDPOINT=http://localhost:8000/graphql/ react-scripts start",
+    "build": "REACT_APP_ENDPOINT=https://labs7-posserver.herokuapp.com/graphql/ react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
