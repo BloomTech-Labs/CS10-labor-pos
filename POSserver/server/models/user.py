@@ -76,7 +76,7 @@ class User(AbstractUser):
     date_joined = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
     premium = models.BooleanField(default=False, blank=True, null=True)
-    paid_until = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    paid_until = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
