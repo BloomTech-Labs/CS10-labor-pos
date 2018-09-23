@@ -29,25 +29,25 @@ class Query(graphene.ObjectType):
     user = graphene.Node.Field(User_Type)
     all_users = DjangoFilterConnectionField(User_Type)
 
-    # def resolve_all_users(self, info, **kwargs):
-    #     user = info.context.user  # needed to test if user is anonymous or not
-    #     if user.is_anonymous:
-    #         return get_user_model().objects.none()
-    #     else:
-    #         user = user.id  # int() has no attribute is_anonymous,
-    #         # but without .id, it resolves to a SimpleLazyObject,
-    #         # which is not the data type necessary for filtering
-    #         return get_user_model().objects.filter(id=user)
+    def resolve_all_users(self, info, **kwargs):
+        user = info.context.user  # needed to test if user is anonymous or not
+        if user.is_anonymous:
+            return get_user_model().objects.none()
+        else:
+            user = user.id  # int() has no attribute is_anonymous,
+            # but without .id, it resolves to a SimpleLazyObject,
+            # which is not the data type necessary for filtering
+            return get_user_model().objects.filter(id=user)
 
-    # def resolve_user(self, info, **kwargs):
-    #     user = info.context.user  # needed to test if user is anonymous or not
-    #     if user.is_anonymous:
-    #         return get_user_model().objects.none()
-    #     else:
-    #         user = user.id  # int() has no attribute is_anonymous,
-    #         # but without .id, it resolves to a SimpleLazyObject,
-    #         # which is not the data type necessary for filtering
-    #         return get_user_model().objects.filter(id=user)
+    def resolve_user(self, info, **kwargs):
+        user = info.context.user  # needed to test if user is anonymous or not
+        if user.is_anonymous:
+            return get_user_model().objects.none()
+        else:
+            user = user.id  # int() has no attribute is_anonymous,
+            # but without .id, it resolves to a SimpleLazyObject,
+            # which is not the data type necessary for filtering
+            return get_user_model().objects.filter(id=user)
 
 
 class CreateUser(graphene.Mutation):

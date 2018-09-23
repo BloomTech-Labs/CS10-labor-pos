@@ -289,10 +289,7 @@ class NewContractor extends Component {
     return (
       <div>
         {/*The mutation component wraps the form and uses its contents to fill in the mutation it sends*/}
-        <Mutation
-          mutation={CREATE_USER}
-          onCompleted={data => this._confirm(data)}
-        >
+        <Mutation mutation={CREATE_USER} onCompleted={() => this._confirm()}>
           {(createUser, { loading, error, data }) => (
             <div>
               <form
@@ -411,7 +408,7 @@ class NewContractor extends Component {
   }
 
   //This calls the method passed down from the parent component
-  _confirm = async data => {
+  _confirm = async () => {
     this.props.modalDone();
   };
 }
