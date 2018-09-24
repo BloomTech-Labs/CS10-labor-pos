@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import StripeProvider from "./stripe/provider";
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CheckoutForm from './checkoutform';
 
 //This component will render on the /billing route when the user is logged in
 //It is a child of the home component.
@@ -10,9 +11,14 @@ import StripeProvider from "./stripe/provider";
 class Billing extends Component {
   render() {
     return (
-      <div>
-        <StripeProvider />
-      </div>
+      <StripeProvider apiKey="pk_test_4kN2XG1xLysXr0GWDB07nt61">
+        <div className="stripe">
+          <h1>Subscribe to access premium content!</h1>
+          <Elements>
+            <CheckoutForm />
+          </Elements>
+        </div>
+      </StripeProvider>
     );
   }
 }
