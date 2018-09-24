@@ -76,5 +76,58 @@ class CreateNote(graphene.Mutation):
             return CreateNote(note=new_note, ok=True, status="ok")
 
 
+class UpdateNote(graphene.Mutation):
+    """Update Note"""
+
+    class Arguments:
+        id = graphene.ID()
+        title = graphene.String()
+        content = graphene.String()
+
+    ok = graphene.Boolean()
+    note = graphene.Field(Note_Type)
+    status = graphene.String()
+
+    def mutate(self, info, id, title="", content=""):
+        user = info.context.user
+
+        if user.is_anonymous:
+            return UpdateNote(ok=False, status="Must be logged in")
+        else:
+            updated_note = Note.objects.get(pk=from_global_id(id)[1])
+            if title != "":
+                updated_note.title = title
+            if content != "":
+                updated_note.content = content
+            updated_note.save()
+            return UpdateNote(note=updated_note, ok=True, status="ok")
+
+
+class DeleteNote(graphene.Mutation):
+    """Delete note"""
+
+    class Arguments:
+        id = graphene.ID()
+
+    ok = graphene.Boolean()
+    note = graphene.Field(Note_Type)
+    status = graphene.String()
+
+    def mutate(self, info, id):
+        """Pass in all arguments for note creation,
+        assigning an empty string for optional arguments"""
+        user = info.context.user
+
+        if user.is_anonymous:
+            return DeleteNote(ok=False, status="Must be logged in.")
+        else:
+            deleted_note = Note.objects.get(pk=from_global_id(id)[1])
+            title = deleted_note.title
+            deleted_note.delete()
+            return DeleteNote(ok=True, status=f"{title} deleted")
+
+
 class NoteMutation(graphene.ObjectType):
     create_note = CreateNote.Field()
+    update_note = UpdateNote.Field()
+    delete_note = DeleteNote.Field()
