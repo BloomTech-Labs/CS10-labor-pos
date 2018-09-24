@@ -6,7 +6,6 @@ import server.schemas
 class SuperQuery(
     server.schemas.tag.Query,
     server.schemas.note.Query,
-    server.schemas.contractor.Query,
     server.schemas.user.Query,
     server.schemas.part.Query,
     server.schemas.client.Query,
@@ -19,7 +18,6 @@ class SuperQuery(
 class Mutation(
     server.schemas.tag.TagMutation,
     server.schemas.user.UserMutation,
-    server.schemas.contractor.ContractorMutation,
     server.schemas.part.PartMutation,
     server.schemas.client.ClientMutation,
     server.schemas.note.NoteMutation,

@@ -26,14 +26,20 @@ class LandingPage extends Component {
       login_modal: false,
       create_modal: false,
       contractor_modal: false,
-      contractor_id: "42"
+      username: "",
+      password: "",
+      email: ""
     };
   }
 
-  //This methid is passed down to the user modal component
+  //This method is passed down to the user modal component
   //so that it can affect the state of this component.
-  setUserId = new_id => {
-    this.setState({ contractor_id: new_id });
+  setUserInformation = info => {
+    this.setState({
+      username: info.username,
+      password: info.password,
+      email: info.email
+    });
   };
 
   //This method is passed down to the contractor modal
@@ -83,7 +89,7 @@ class LandingPage extends Component {
               Log In
             </Button>
           </div>
-          <div classNahandleCloseModalsme="landing-blurb">
+          <div className="landing-blurb">
             <p>
               Placeholder for the blurb!!! Lorem ipsum dolor sit amet,
               consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
@@ -129,7 +135,7 @@ class LandingPage extends Component {
             className="user-modal"
           >
             <NewUser
-              parentInfoMethod={this.setUserId.bind(this)}
+              parentInfoMethod={this.setUserInformation.bind(this)}
               modalDone={this.handleContractorButton}
             />
           </Dialog>
@@ -139,7 +145,9 @@ class LandingPage extends Component {
             className="contractor-modal"
           >
             <NewContractor
-              userId={this.state.contractor_id}
+              username={this.state.username}
+              email={this.state.email}
+              password={this.state.password}
               modalDone={this.handleLogin}
             />
           </Dialog>

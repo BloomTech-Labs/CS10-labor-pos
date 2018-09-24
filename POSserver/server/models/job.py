@@ -1,6 +1,6 @@
 from django.db import models
-from .client import Client
 from django.conf import settings
+from ..models import Client
 
 
 class Job(models.Model):

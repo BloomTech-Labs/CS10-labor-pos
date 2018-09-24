@@ -109,6 +109,8 @@ DATABASES = {
     # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
 }
 
+AUTH_USER_MODEL = "server.User"
+
 
 # Authentication Backends - adding for JWT with GraphQL
 AUTHENTICATION_BACKENDS = [
