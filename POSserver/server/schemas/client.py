@@ -31,19 +31,19 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
-    def resolve_all_clients(self, info, **kwargs):
-        user = info.context.user
-        if user.is_anonymous:
-            return Client.objects.none()
-        else:
-            return Client.objects.filter(user=user)
+    # def resolve_all_clients(self, info, **kwargs):
+    #     user = info.context.user
+    #     if user.is_anonymous:
+    #         return Client.objects.none()
+    #     else:
+    #         return Client.objects.filter(user=user)
 
-    def resolve_client(self, info, **kwargs):
-        user = info.context.user
-        if user.is_anonymous:
-            return Client.objects.none()
-        else:
-            return Client.objects.filter(user=user)
+    # def resolve_client(self, info, **kwargs):
+    #     user = info.context.user
+    #     if user.is_anonymous:
+    #         return Client.objects.none()
+    #     else:
+    #         return Client.objects.filter(user=user)
 
 
 class CreateClient(graphene.Mutation):

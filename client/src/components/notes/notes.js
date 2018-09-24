@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { NoteView } from "../../components";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
 // Query to return all notes for a user and their associated tags
@@ -35,6 +37,14 @@ class Notes extends Component {
     return (
       <div>
         <p>NOTE PLACEHOLDER</p>
+        <Query query={NOTES_AND_ASSOCIATED_TAGS}>
+          {({ loading, error, data }) => {
+            if (loading) return <div>Fetching</div>;
+            if (error) return <div>Error</div>;
+            console.log(data.allNotes.edges.node);
+            return <div>What</div>;
+          }}
+        </Query>
       </div>
     );
   }
