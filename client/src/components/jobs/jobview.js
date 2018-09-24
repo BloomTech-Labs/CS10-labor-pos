@@ -11,15 +11,37 @@ import { Query } from "react-apollo";
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
 
 const DETAILED_JOB_BY_ID = gql`
-  query note($id: ID!) {
-    note(id: $id) {
-      title
-      content
+  query job($id: ID!) {
+    job(id: $id) {
+      client {
+        firstName
+        lastName
+      }
+      name
+      complete
+      labor
+      description
+      createdAt
+      modifiedAt
+      deadline
       tagSet {
         edges {
           node {
             name
-            description
+          }
+        }
+      }
+      noteSet {
+        edges {
+          node {
+            title
+          }
+        }
+      }
+      partSet {
+        edges {
+          node {
+            name
           }
         }
       }
@@ -27,15 +49,17 @@ const DETAILED_JOB_BY_ID = gql`
   }
 `;
 
+const id = "Sm9iX1R5cGU6MQ==";
+
 class JobView extends Component {
   render() {
     return (
-      <Query query={DETAILED_JOB_BY_ID} variables={id}>
+      <Query query={DETAILED_JOB_BY_ID} variables={{ id }}>
         {({ loading, error, data }) => {
           console.log(data);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          return <p>bllargh!</p>;
+          return <p>{data.job.name}</p>;
         }}
       </Query>
     );
