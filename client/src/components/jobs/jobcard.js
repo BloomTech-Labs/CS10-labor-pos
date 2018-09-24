@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Create, Delete } from "@material-ui/icons";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Button } from "@material-ui/core";
 import "./jobcard.css";
 
 //This component will render as a child of the jobs component
@@ -21,7 +21,11 @@ class JobCard extends Component {
             <Delete />
           </IconButton>
         </div>
-        <h4 className="job_card_name">{this.props.job.name}</h4>
+        <h4 className="job_card_name">
+          <Button href={`/jobs/${this.props.job.id}`}>
+            {this.props.job.name}
+          </Button>
+        </h4>
       </div>
     );
   }
