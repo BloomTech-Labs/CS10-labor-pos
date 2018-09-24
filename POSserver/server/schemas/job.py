@@ -4,6 +4,8 @@ from server.models import Job, Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
+auto_debug = True
+
 
 class Job_Type(DjangoObjectType):
     class Meta:
