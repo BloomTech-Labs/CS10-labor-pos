@@ -1,11 +1,9 @@
 from django.db import models
 from django.conf import settings
-from .contractor import Contractor
 
 
 class Client(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    contractor = models.ForeignKey(Contractor, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     first_name = models.CharField(max_length=100, default="")
     last_name = models.CharField(max_length=100, default="")

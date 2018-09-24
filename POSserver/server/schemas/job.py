@@ -1,7 +1,8 @@
 import graphene
 from graphene_django import DjangoObjectType
-from server.models import Job
+from server.models import Job, Client
 from graphene_django.filter import DjangoFilterConnectionField
+from graphql_relay.node.node import from_global_id
 
 
 class Job_Type(DjangoObjectType):
@@ -19,16 +20,22 @@ class Job_Type(DjangoObjectType):
             "modified_at",
             "deadline",
         ]
-        interfaces = (graphene.relay.Node,)
+        interfaces = (graphene.Node,)
 
 
 class Query(graphene.ObjectType):
-    # jobs = graphene.List(Job_Type)
-    jobs = DjangoFilterConnectionField(Job_Type)
+    job = graphene.Node.Field(Job_Type)
+    all_jobs = DjangoFilterConnectionField(Job_Type)
 
-    def resolve_jobs(self, info, **kwargs):
+    def resolve_all_jobs(self, info, **kwargs):
         user = info.context.user
+        if user.is_anonymous:
+            return Job.objects.none()
+        else:
+            return Job.objects.filter(user=user)
 
+    def resolve_job(self, info, **kwargs):
+        user = info.context.user
         if user.is_anonymous:
             return Job.objects.none()
         else:
@@ -36,14 +43,12 @@ class Query(graphene.ObjectType):
 
 
 class CreateJob(graphene.Mutation):
-    class Arguments:
-        clientId = graphene.ID()
+    class Input:
+        client = graphene.ID()
         complete = graphene.Boolean()
         name = graphene.String()
         labor = graphene.Float(2)
         description = graphene.String()
-        createdAt = graphene.types.datetime.DateTime()
-        modifiedAt = graphene.types.datetime.DateTime()
         deadline = graphene.types.datetime.Date()
 
     ok = graphene.Boolean()
@@ -51,31 +56,21 @@ class CreateJob(graphene.Mutation):
     status = graphene.String()
 
     def mutate(
-        self,
-        info,
-        clientId,
-        name,
-        labor,
-        description,
-        complete,
-        createdAt,
-        modifiedAt,
-        deadline,
+        self, info, client, name, description, complete, deadline=None, labor=""
     ):
+        # Will need to pass null or nothing in for empty deadline on frontend
         user = info.context.user
         if user.is_anonymous:
             return CreateJob(ok=False, status="Must be logged in.")
         else:
             new_job = Job(
-                clientId=clientId,
+                client=Client.objects.get(pk=from_global_id(client)[1]),
                 name=name,
                 description=description,
                 labor=labor,
                 complete=complete,
-                created_at=createdAt,
-                modified_at=modifiedAt,
                 deadline=deadline,
-                userId=user,
+                user=user,
             )
             new_job.save()
             return CreateJob(job=new_job, ok=True, status="ok")
