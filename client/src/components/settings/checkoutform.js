@@ -51,14 +51,37 @@ handleCardErrors = (card_deets) => {
 };
 
 render() {
-  if (this.state.complete) return <h1>Payment Accepted!</h1>
   return (
-    <div className="checkout">
-    <form>
-    <p>Are you ready to complete payment?</p>
-    <CardElement />
-    <button type="submit">Give us your money!</button>
-    </form>
+    <div>
+      {this.state.resp_message && <h1>{this.state.resp_message}</h1>}
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          <h2>Card Details</h2>
+          <CardElement
+            style={{
+              base: {
+                color: "#32325d",
+
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: "antialiased",
+                fontSize: "16px",
+                "::placeholder": {
+                  color: "#aab7c4"
+                }
+              },
+              invalid: {
+                color: "#fa755a",
+                iconColor: "#fa755a"
+              }
+            }}
+            onChange={this.handleCardErrors}
+          />
+          <div role="alert">
+            <h2>{this.state.card_errors}</h2>
+          </div>
+        </label>
+        <button className="form-btn">Subscribe to premium content!</button>
+      </form>
     </div>
     // CardElement will mount on page when component renders - includes inputs for card number, exp, CVC
   );

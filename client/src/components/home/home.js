@@ -10,7 +10,8 @@ import {
   Start,
   Settings,
   Jobs,
-  Clients
+  Clients,
+  Billing
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer } from "@material-ui/core";
@@ -83,6 +84,7 @@ class Home extends Component {
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
+            <Route exact path="/billing" component={Billing} />
           </div>
         </main>
       </div>
