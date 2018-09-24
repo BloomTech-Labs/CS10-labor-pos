@@ -41,6 +41,9 @@ class Query(graphene.ObjectType):
 
 
 class CreateNote(graphene.Mutation):
+    """Create a note for a client or job -
+    Notes contain a title and content field"""
+
     note = graphene.Field(Note_Type)
 
     class Arguments:
@@ -77,7 +80,7 @@ class CreateNote(graphene.Mutation):
 
 
 class UpdateNote(graphene.Mutation):
-    """Update Note"""
+    """Update note on client or job"""
 
     class Arguments:
         id = graphene.ID()
@@ -104,7 +107,7 @@ class UpdateNote(graphene.Mutation):
 
 
 class DeleteNote(graphene.Mutation):
-    """Delete note"""
+    """Delete note on client or job"""
 
     class Arguments:
         id = graphene.ID()
@@ -114,8 +117,6 @@ class DeleteNote(graphene.Mutation):
     status = graphene.String()
 
     def mutate(self, info, id):
-        """Pass in all arguments for note creation,
-        assigning an empty string for optional arguments"""
         user = info.context.user
 
         if user.is_anonymous:
