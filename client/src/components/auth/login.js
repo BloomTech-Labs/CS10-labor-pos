@@ -26,7 +26,7 @@ class Login extends Component {
     const { username, password } = this.state;
     return (
       <div>
-        <h4 className="Login" />
+        <h4 className="Login"> Log in </h4>
         <div className="flex flex-column">
           <form>
             <input

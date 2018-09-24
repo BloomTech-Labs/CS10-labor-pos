@@ -4,3 +4,5 @@
 /POSserver/staticfiles/
 server.json
 data.json
+.pyc
+__pycache__

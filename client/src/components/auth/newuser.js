@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
-import { Mutation } from "react-apollo";
+// import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
 
 // const client = new ApolloClient({
