@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from server.models import Client
+from server.models import Client, User
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
@@ -116,7 +116,7 @@ class CreateClient(graphene.Mutation):
                 city=city,
                 state=state,
                 zipcode=zipcode,
-                user=Client.objects.get(pk=from_global_id(user)[1]),
+                user=User.objects.get(pk=from_global_id(user)[1]),
             )
             new_client.save()
             return CreateClient(client=new_client, ok=True, status="ok")
