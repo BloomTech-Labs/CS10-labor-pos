@@ -268,11 +268,18 @@ class JobView extends Component {
                         <Paper>
                           <List>{note_list}</List>
                         </Paper>
-                        <IconButton onClick={this.handlePageBack("note_page")}>
+                        <IconButton
+                          onClick={this.handlePageBack("note_page")}
+                          disabled={this.state.note_page == 0}
+                        >
                           <NavigateBefore />
                         </IconButton>
                         <IconButton
                           onClick={this.handlePageForward("note_page")}
+                          disabled={
+                            (this.state.note_page + 1) * 7 >
+                            data.job.noteSet.edges.length
+                          }
                         >
                           <NavigateNext />
                         </IconButton>
@@ -284,11 +291,18 @@ class JobView extends Component {
                         <Paper>
                           <List>{part_list}</List>
                         </Paper>
-                        <IconButton onClick={this.handlePageBack("part_page")}>
+                        <IconButton
+                          onClick={this.handlePageBack("part_page")}
+                          disabled={this.state.part_page == 0}
+                        >
                           <NavigateBefore />
                         </IconButton>
                         <IconButton
                           onClick={this.handlePageForward("part_page")}
+                          disabled={
+                            (this.state.part_page + 1) * 7 >
+                            data.job.partSet.edges.length
+                          }
                         >
                           <NavigateNext />
                         </IconButton>
@@ -300,11 +314,18 @@ class JobView extends Component {
                         <Paper>
                           <List>{tag_list}</List>
                         </Paper>
-                        <IconButton onClick={this.handlePageBack("tag_page")}>
+                        <IconButton
+                          onClick={this.handlePageBack("tag_page")}
+                          disabled={this.state.tag_page == 0}
+                        >
                           <NavigateBefore />
                         </IconButton>
                         <IconButton
                           onClick={this.handlePageForward("tag_page")}
+                          disabled={
+                            (this.state.tag_page + 1) * 7 >
+                            data.job.tagSet.edges.length
+                          }
                         >
                           <NavigateNext />
                         </IconButton>
