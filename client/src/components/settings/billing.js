@@ -6,14 +6,14 @@ import { withRouter } from "react-router";
 //It presents the user with forms that allow them to PAY US MONEY!
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rE4AA
-class Settings extends Component {
+class Billing extends Component {
   render() {
     return (
       <div>
-        <p>SETTINGS PLACEHOLDER</p>
+        <p>BILLING PLACEHOLDER</p>
       </div>
     );
   }
 }
 
-export default withRouter(Settings);
+export default withRouter(Billing);
