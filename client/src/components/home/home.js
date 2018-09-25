@@ -90,24 +90,24 @@ class Home extends Component {
           <div className="content_area">
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
-            <Route exact path="/clients/create" component={AddClient} />
+            <Route exact path="/createclient" component={AddClient} />
             <Route exact path="/clients/:id" component={ClientView} />
             <Route exact path="/jobs" component={Jobs} />
-            <Route exact path="/jobs/create" component={AddJob} />
             <Route exact path="/jobs/:id" component={JobView} />
+            <Route exact path="/createjob" component={AddJob} />
             <Route exact path="/jobs/:id/invoice" component={JobInvoice} />
             <Route exact path="/jobs/:id/edit" component={EditJob} />
             <Route exact path="/notes" component={Notes} />
-            <Route exact path="/notes/create" component={AddNote} />
+            <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/tags/create" component={AddTag} />
+            <Route exact path="/createtag" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
             <Route exact path="/billing" component={Billing} />
-            <Route exact path="/parts/create" component={AddPart} />
+            <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
           </div>
         </main>

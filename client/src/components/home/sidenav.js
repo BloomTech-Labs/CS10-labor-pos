@@ -42,7 +42,7 @@ class SideNav extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Button href="/clients">View</Button>
-            <Button href="/clients/create">Create</Button>
+            <Button href="/createclient">Create</Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -54,7 +54,7 @@ class SideNav extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Button href="/jobs">View</Button>
-            <Button href="/jobs/create">Create</Button>
+            <Button href="/createjob">Create</Button>
             <Button href="/invoices">Invoices</Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -67,7 +67,7 @@ class SideNav extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Button href="/notes">View</Button>
-            <Button href="/notes/create">Create</Button>
+            <Button href="/createnote">Create</Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -79,7 +79,7 @@ class SideNav extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Button href="/tags">View</Button>
-            <Button href="/tags/create">Create</Button>
+            <Button href="/createtag">Create</Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -91,7 +91,7 @@ class SideNav extends Component {
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Button href="/parts">View</Button>
-            <Button href="/parts/create">Create</Button>
+            <Button href="/createpart">Create</Button>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
