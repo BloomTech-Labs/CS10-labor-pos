@@ -87,9 +87,9 @@ class CreateUser(graphene.Mutation):
         zipcode,
         business_name="",
     ):
+        email = self.normalize_email(email)
         new_user = get_user_model()(
             username=username,
-            email=email,
             first_name=first_name,
             last_name=last_name,
             street_address=street_address,
@@ -98,6 +98,7 @@ class CreateUser(graphene.Mutation):
             zipcode=zipcode,
             business_name=business_name,
         )
+
         # IMPORTANT to remember to set password instead of just password=password
         new_user.set_password(password)
         new_user.save()
