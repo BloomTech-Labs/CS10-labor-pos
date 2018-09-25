@@ -200,7 +200,7 @@ class DeleteClient(graphene.Mutation):
         id = graphene.ID()
 
     ok = graphene.Boolean()
-    note = graphene.Field(Client_Type)
+    client = graphene.Field(Client_Type)
     status = graphene.String()
 
     def mutate(self, info, id):
