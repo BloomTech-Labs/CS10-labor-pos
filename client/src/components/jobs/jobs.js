@@ -7,11 +7,6 @@ import { Query } from "react-apollo";
 
 //A dummy job for testing before I have queries working.
 
-const dummyjob = {
-  name: "Fake Job For Testing!",
-  id: 42
-};
-
 const QUERY_ALL_JOBS = gql`
   query {
     allJobs {
@@ -34,9 +29,19 @@ class Jobs extends Component {
     return (
       <Query query={QUERY_ALL_JOBS}>
         {({ loading, error, data }) => {
-          console.log(data);
+          data.allJobs && console.log(data.allJobs.edges[0].node);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          let card_array = [];
+          for (let i = 0; i < data.allJobs.edges.length; i++) {
+            card_array.push(
+              <Grid item xs={3} key={i}>
+                <Card>
+                  <JobCard job={data.allJobs.edges[i].node} />
+                </Card>
+              </Grid>
+            );
+          }
           return (
             <div>
               {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
@@ -47,46 +52,7 @@ class Jobs extends Component {
                 alignItems="center"
                 spacing={24}
               >
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
-                <Grid item xs={3}>
-                  <Card>
-                    <JobCard job={dummyjob} />
-                  </Card>
-                </Grid>
+                {card_array}
               </Grid>
             </div>
           );

@@ -49,12 +49,14 @@ const DETAILED_JOB_BY_ID = gql`
   }
 `;
 
-const id = "Sm9iX1R5cGU6MQ==";
-
 class JobView extends Component {
   render() {
+    console.log(`Hey friend, ${this.props.match.params.id}`);
     return (
-      <Query query={DETAILED_JOB_BY_ID} variables={{ id }}>
+      <Query
+        query={DETAILED_JOB_BY_ID}
+        variables={{ id: this.props.match.params.id }}
+      >
         {({ loading, error, data }) => {
           console.log(data);
           if (loading) return "Loading...";
