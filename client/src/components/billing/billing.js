@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import { StripeProvider } from "react-stripe-elements";
 import MyStoreCheckout from "./mystorecheckout";
 import './billing.css';
@@ -44,4 +45,4 @@ class Billing extends Component {
   }
 }
 
-export default Billing;
+export default withRouter(Billing);
