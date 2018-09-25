@@ -2,7 +2,7 @@ import Tags from "./tags/tags";
 import AddTag from "./tags/addtag";
 import TagView from "./tags/tagview";
 import Settings from "./settings/settings";
-import Billing from "./settings/billing";
+import Billing from "./billing/billing";
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
