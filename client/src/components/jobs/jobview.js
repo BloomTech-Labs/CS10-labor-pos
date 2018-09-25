@@ -154,7 +154,12 @@ class JobView extends Component {
 
             //Build a list of notes to display in the notes area
             console.log(data.job.noteSet.edges.length);
-            for (let i = 0; i < data.job.noteSet.edges.length; i++) {
+            for (
+              let i = 7 * this.state.note_page;
+              i < 7 * (this.state.note_page + 1) &&
+              i < data.job.noteSet.edges.length;
+              i++
+            ) {
               let current_note = data.job.noteSet.edges[i].node;
               note_list.push(
                 <ListItem key={i} dense button role={undefined}>
@@ -192,7 +197,12 @@ class JobView extends Component {
 
             //Build a list of tags to display in the tags area
             console.log(data.job.tagSet.edges.length);
-            for (let i = 0; i < data.job.tagSet.edges.length; i++) {
+            for (
+              let i = 7 * this.state.tag_page;
+              i < 7 * (this.state.tag_page + 1) &&
+              i < data.job.tagSet.edges.length;
+              i++
+            ) {
               let current_tag = data.job.tagSet.edges[i].node;
               tag_list.push(
                 <ListItem key={i} dense button role={undefined}>
@@ -258,10 +268,12 @@ class JobView extends Component {
                         <Paper>
                           <List>{note_list}</List>
                         </Paper>
-                        <IconButton>
+                        <IconButton onClick={this.handlePageBack("note_page")}>
                           <NavigateBefore />
                         </IconButton>
-                        <IconButton>
+                        <IconButton
+                          onClick={this.handlePageForward("note_page")}
+                        >
                           <NavigateNext />
                         </IconButton>
                       </Grid>
@@ -288,10 +300,12 @@ class JobView extends Component {
                         <Paper>
                           <List>{tag_list}</List>
                         </Paper>
-                        <IconButton>
+                        <IconButton onClick={this.handlePageBack("tag_page")}>
                           <NavigateBefore />
                         </IconButton>
-                        <IconButton>
+                        <IconButton
+                          onClick={this.handlePageForward("tag_page")}
+                        >
                           <NavigateNext />
                         </IconButton>
                       </Grid>
