@@ -13,7 +13,13 @@ class Start extends Component {
     return (
       <div>
         {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
-        <Grid container spacing={24}>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          spacing={24}
+        >
           <Grid item xs={4}>
             <Card>
               <Button href="/clients">Click to view clients</Button>
