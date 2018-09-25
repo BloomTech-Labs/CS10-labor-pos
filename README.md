@@ -1,14 +1,15 @@
-<h1 align="center">CS10-Labor POS</h1>
-<img src="client/page_layout/smallraccoon.svg"/>
----
-<pre>
-<center>
-Brought to you by:
-Zach Campbell: <a href="#">[@wajnurfes](https://github.com/wajnurfes)</a><br>
-Cole Phillips: <a href="#"> [@nphillips78](https://github.com/nphillips78)</a> <br>
-Amy Shackles: <a href="#"> [@amyshackles](https://github.com/AmyShackles)</a>
-<br><br></center></pre>
----
+<pre><h1 align="center">CS10-Labor POS</h1>
+<img src="client/page_layout/smallraccoon.svg"/></pre>
+
+<div align="center"><h2>Brought to you by:</h2>
+
+<a href="https://github.com/wajnurfes">Zach Campbell</a>
+
+<a href="https://github.com/nphillips78">Cole Phillips</a>
+
+<a href="https://github.com/AmyShackles">Amy Shackles</a>
+
+</div>
 
 # Table of Contents
 
