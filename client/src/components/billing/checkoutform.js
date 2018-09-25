@@ -36,7 +36,7 @@ handleCardErrors = (card_deets) => {
     formData.append("amount", 99);
     formData.append("source", result.token.id);
     
-    return fetch('http:localhost:8000/graphql/', { //TODO double check endpoint
+    return fetch('http:localhost:8000/graphql/', { 
     method: "POST",
     headers: {
       accept: "application/json"
@@ -61,7 +61,6 @@ render() {
             style={{
               base: {
                 color: "#32325d",
-
                 fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
                 fontSmoothing: "antialiased",
                 fontSize: "16px",

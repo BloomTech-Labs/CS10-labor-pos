@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import InjectedCheckoutForm from './checkoutform';
+
 
 //This component will render on the /settings route when the user is logged in
 //It is a child of the home component.
