@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
 import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
-import { ItemList, DeleteJob } from "../../components";
+import { ItemList, DeleteItem } from "../../components";
 import "./jobview.css";
 
 //This component will render as a child of home on the path /jobs/%jobid
@@ -206,10 +206,10 @@ class JobView extends Component {
                 onClose={this.cancelDelete}
                 className="delete-modal"
               >
-                <DeleteJob
+                <DeleteItem
                   cancelDelete={this.cancelDelete}
-                  jobName={data.job.name}
-                  jobId={data.job.id}
+                  type="job"
+                  item={data.job}
                 />
               </Dialog>
             </div>

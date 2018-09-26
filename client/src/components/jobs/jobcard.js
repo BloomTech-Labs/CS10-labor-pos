@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Create, Delete } from "@material-ui/icons";
 import { IconButton, Button, Dialog } from "@material-ui/core";
-import { DeleteJob } from "../../components";
+import { DeleteItem } from "../../components";
 import "./jobcard.css";
 
 //This component will render as a child of the jobs component
@@ -47,10 +47,10 @@ class JobCard extends Component {
           onClose={this.cancelDelete}
           className="delete-modal"
         >
-          <DeleteJob
+          <DeleteItem
             cancelDelete={this.cancelDelete}
-            jobName={this.props.job.name}
-            jobId={this.props.job.id}
+            type="job"
+            item={this.props.job}
           />
         </Dialog>
       </div>
