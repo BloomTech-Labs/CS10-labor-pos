@@ -52,6 +52,7 @@ class DeleteItem extends Component {
   _confirm = () => {
     this.props.cancelDelete();
     window.location.reload();
+    this.props.history.push(this.props.after_path);
   };
   render() {
     let name = "";
@@ -85,11 +86,9 @@ class DeleteItem extends Component {
           onCompleted={data => this._confirm(data)}
         >
           {mutation => (
-            <Link to={this.props.after_path}>
-              <Button onClick={mutation} type="submit">
-                Delete
-              </Button>
-            </Link>
+            <Button onClick={mutation} type="submit">
+              Delete
+            </Button>
           )}
         </Mutation>
         <Button onClick={this.props.cancelDelete}>Cancel</Button>
