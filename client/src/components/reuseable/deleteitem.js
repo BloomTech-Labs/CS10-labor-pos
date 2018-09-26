@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
@@ -46,9 +47,11 @@ class DeleteItem extends Component {
           onCompleted={data => this._confirm(data)}
         >
           {mutation => (
-            <Button href={after_path} onClick={mutation} type="submit">
-              Delete
-            </Button>
+            <Link to={after_path}>
+              <Button onClick={mutation} type="submit">
+                Delete
+              </Button>
+            </Link>
           )}
         </Mutation>
         <Button onClick={this.props.cancelDelete}>Cancel</Button>

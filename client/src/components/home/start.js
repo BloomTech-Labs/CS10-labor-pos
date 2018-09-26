@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import { Button, Grid, Card } from "@material-ui/core";
 
 //The start component renders at the root route when the user is logged in
@@ -22,32 +23,44 @@ class Start extends Component {
         >
           <Grid item xs={4}>
             <Card>
-              <Button href="/clients">Click to view clients</Button>
+              <Link to="/clients">
+                <Button>Click to view clients</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/jobs">Click to view jobs</Button>
+              <Link to="/jobs">
+                <Button>Click to view jobs</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/notes">Click to view notes</Button>
+              <Link to="/notes">
+                <Button>Click to view notes</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/tags">click to view tags</Button>
+              <Link to="/tags">
+                <Button>Click to view tags</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/parts">click to view parts</Button>
+              <Link to="/parts">
+                <Button>Click to view parts</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/invoices">click to view invoices</Button>
+              <Link to="/invoices">
+                <Button>Click to view invoices</Button>
+              </Link>
             </Card>
           </Grid>
         </Grid>

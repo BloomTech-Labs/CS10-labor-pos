@@ -78,7 +78,6 @@ class ItemList extends Component {
       i++
     ) {
       let current_item = this.props.items[i].node;
-      console.log(current_item);
       list_items.push(
         <ListItem key={i} dense button>
           <Link to={`${path}/${current_item.id}`}>

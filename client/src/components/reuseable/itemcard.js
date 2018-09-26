@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import { Create, Delete } from "@material-ui/icons";
 import { IconButton, Button, Dialog } from "@material-ui/core";
 import { DeleteItem } from "..";
@@ -39,20 +40,22 @@ class ItemCard extends Component {
         name = this.props.item.name;
         break;
     }
-    console.log(name);
-    console.log(this.props.type);
     return (
       <div className="item-card">
         <div className="item-card-icons">
-          <IconButton href={`${path}/${this.props.item.id}/edit`}>
-            <Create />
-          </IconButton>
+          <Link to={`${path}/${this.props.item.id}/edit`}>
+            <IconButton>
+              <Create />
+            </IconButton>
+          </Link>
           <IconButton onClick={this.handleDeleteButton}>
             <Delete />
           </IconButton>
         </div>
         <h4 className="item-card-name">
-          <Button href={`${path}/${this.props.item.id}`}>{name}</Button>
+          <Link to={`${path}/${this.props.item.id}`}>
+            <Button>{name}</Button>
+          </Link>
         </h4>
         <Dialog
           open={this.state.deleting}

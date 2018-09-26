@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
@@ -142,9 +143,11 @@ class JobView extends Component {
                   spacing={24}
                 >
                   <Grid item xs={1}>
-                    <IconButton href={`/jobs/${data.job.id}/edit`}>
-                      <Create />
-                    </IconButton>
+                    <Link to={`/jobs/${data.job.id}/edit`}>
+                      <IconButton>
+                        <Create />
+                      </IconButton>
+                    </Link>
                   </Grid>
                   <Grid item xs={10}>
                     <h3>{data.job.name}</h3>
