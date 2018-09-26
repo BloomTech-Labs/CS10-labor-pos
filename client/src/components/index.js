@@ -34,7 +34,6 @@ export {
   TagView,
   Settings,
   Billing,
-  Checkout,
   Parts,
   AddPart,
   PartView,

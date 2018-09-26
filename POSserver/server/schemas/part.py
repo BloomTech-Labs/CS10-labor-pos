@@ -73,17 +73,19 @@ class UpdatePart(graphene.Mutation):
     part = graphene.Field(Part_Type)
     status = graphene.String()
 
-    def mutate(self, info, id, title="", content=""):
+    def mutate(self, info, id, name="", description="", cost=""):
         user = info.context.user
 
         if user.is_anonymous:
             return UpdatePart(ok=False, status="Must be logged in")
         else:
             updated_part = Part.objects.get(pk=from_global_id(id)[1])
-            if title != "":
-                updated_part.title = title
-            if content != "":
-                updated_part.content = content
+            if name != "":
+                updated_part.name = name
+            if description != "":
+                updated_part.description = description
+            if cost != "":
+                updated_part.cost = cost
             updated_part.save()
             return UpdatePart(part=updated_part, ok=True, status="ok")
 
@@ -105,10 +107,12 @@ class DeletePart(graphene.Mutation):
             return DeletePart(ok=False, status="Must be logged in.")
         else:
             deleted_part = Part.objects.get(pk=from_global_id(id)[1])
-            title = deleted_part.title
+            name = deleted_part.name
             deleted_part.delete()
-            return DeletePart(ok=True, status=f"{title} deleted")
+            return DeletePart(ok=True, status=f"{name} deleted")
 
 
 class PartMutation(graphene.ObjectType):
     create_part = CreatePart.Field()
+    update_part = UpdatePart.Field()
+    delete_part = DeletePart.Field()
