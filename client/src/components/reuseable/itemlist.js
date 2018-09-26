@@ -11,9 +11,9 @@ import {
   IconButton
 } from "@material-ui/core";
 
-//This component shows a small, paginated list of items with add and delete options
-//It renders as a child of individual view components to show related items to
-//those components
+//  This component shows a small, paginated list of items with add and delete options
+//  It renders as a child of individual view components to show related items to
+//  those components
 
 //  PROPS:
 //    name_field: the key in the relevant object to be treated like a name and displayed in the list

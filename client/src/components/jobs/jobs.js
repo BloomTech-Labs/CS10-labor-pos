@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Button, Grid, Card } from "@material-ui/core";
+import { Grid, Card } from "@material-ui/core";
 import JobCard from "./jobcard";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-
-//A dummy job for testing before I have queries working.
+import { CardList } from "../../components";
 
 const QUERY_ALL_JOBS = gql`
   query {
@@ -32,28 +31,14 @@ class Jobs extends Component {
           data.allJobs && console.log(data.allJobs.edges[0].node);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          let card_array = [];
-          for (let i = 0; i < data.allJobs.edges.length; i++) {
-            card_array.push(
-              <Grid item xs={3} key={i}>
-                <Card>
-                  <JobCard job={data.allJobs.edges[i].node} />
-                </Card>
-              </Grid>
-            );
-          }
           return (
             <div>
-              {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
-              <Grid
-                container
-                direction="row"
-                justify="space-around"
-                alignItems="center"
-                spacing={24}
-              >
-                {card_array}
-              </Grid>
+              <CardList
+                items={data.allJobs.edges}
+                CardComponent={JobCard}
+                rows={2}
+                columns={4}
+              />
             </div>
           );
         }}

@@ -29,6 +29,7 @@ import Login from "./auth/login";
 import NewContractor from "./auth/newcontractor";
 import NewUser from "./auth/newuser";
 import ItemList from "./reuseable/itemlist.js";
+import CardList from "./reuseable/cardlist.js";
 
 export {
   Tags,
@@ -61,5 +62,6 @@ export {
   Login,
   NewContractor,
   NewUser,
-  ItemList
+  ItemList,
+  CardList
 };
