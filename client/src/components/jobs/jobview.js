@@ -213,6 +213,7 @@ class JobView extends Component {
                   cancelDelete={this.cancelDelete}
                   type="job"
                   item={data.job}
+                  after_path="/jobs"
                 />
               </Dialog>
             </div>

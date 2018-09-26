@@ -66,6 +66,7 @@ class ItemCard extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.props.item}
+            after_path="/jobs"
           />
         </Dialog>
       </div>

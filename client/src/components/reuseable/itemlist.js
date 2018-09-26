@@ -8,9 +8,11 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton
+  IconButton,
+  Dialog
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { DeleteItem } from "../../components";
 
 //  This component shows a small, paginated list of items with add and delete options
 //  It renders as a child of individual view components to show related items to
@@ -26,7 +28,8 @@ class ItemList extends Component {
     super();
     this.state = {
       page: 0,
-      deleting: false
+      deleting: false,
+      delete_item: null
     };
   }
 
@@ -44,9 +47,15 @@ class ItemList extends Component {
     });
   };
 
-  handleDeleteButton = event => {
-    event.stopPropagation();
-    this.setState({ deleting: true });
+  handleDeleteButton = item => event => {
+    event.preventDefault();
+    this.setState({ delete_item: item }, () => {
+      this.setState({ deleting: true });
+    });
+  };
+
+  cancelDelete = () => {
+    this.setState({ deleting: false });
   };
 
   render() {
@@ -84,7 +93,10 @@ class ItemList extends Component {
             <ListItemText>{current_item[name_field]}</ListItemText>
           </Link>
           <ListItemSecondaryAction>
-            <IconButton aria-label="Delete">
+            <IconButton
+              onClick={this.handleDeleteButton(current_item)}
+              aria-label="Delete"
+            >
               <Delete />
             </IconButton>
           </ListItemSecondaryAction>
@@ -113,6 +125,18 @@ class ItemList extends Component {
         >
           <NavigateNext />
         </IconButton>
+        <Dialog
+          open={this.state.deleting}
+          onClose={this.cancelDelete}
+          className="delete-modal"
+        >
+          <DeleteItem
+            cancelDelete={this.cancelDelete}
+            type={this.props.type}
+            item={this.state.delete_item}
+            after_path={this.props.match.url}
+          />
+        </Dialog>
       </div>
     );
   }
