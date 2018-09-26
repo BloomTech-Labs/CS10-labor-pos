@@ -120,7 +120,7 @@ class ItemList extends Component {
           onClick={this.handlePageForward}
           disabled={
             (this.state.page + 1) * this.props.per_page >
-            this.props.items.length
+            this.props.items.length - 1
           }
         >
           <NavigateNext />

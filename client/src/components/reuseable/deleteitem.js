@@ -51,6 +51,7 @@ const DELETE_PART = gql`
 class DeleteItem extends Component {
   _confirm = () => {
     this.props.cancelDelete();
+    window.location.reload();
   };
   render() {
     let name = "";
