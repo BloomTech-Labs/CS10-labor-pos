@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
+import {
+  DELETE_JOB,
+  DELETE_NOTE,
+  DELETE_PART,
+  DELETE_TAG
+} from "../../mutations";
 
 //  This component renders as a child of many components
 //  It presents the user with a message asking if they are sure
@@ -15,38 +19,6 @@ import gql from "graphql-tag";
 //    type: the type of the item
 //    cancelDelete: a method to stop showing the modal
 //    after_path: the path to be rendered after deletion.
-
-const DELETE_JOB = gql`
-  mutation($id: ID!) {
-    deleteJob(id: $id) {
-      ok
-    }
-  }
-`;
-
-const DELETE_NOTE = gql`
-  mutation($id: ID!) {
-    deleteNote(id: $id) {
-      ok
-    }
-  }
-`;
-
-const DELETE_TAG = gql`
-  mutation($id: ID!) {
-    deleteTag(id: $id) {
-      ok
-    }
-  }
-`;
-
-const DELETE_PART = gql`
-  mutation($id: ID!) {
-    deletePart(id: $id) {
-      ok
-    }
-  }
-`;
 
 class DeleteItem extends Component {
   _confirm = () => {

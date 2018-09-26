@@ -3,19 +3,7 @@ import { withRouter } from "react-router";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
-
-const QUERY_ALL_JOBS = gql`
-  query {
-    allJobs {
-      edges {
-        node {
-          name
-          id
-        }
-      }
-    }
-  }
-`;
+import { QUERY_ALL_JOBS } from "../../queries";
 
 //This component will render as a child of home on the path /jobs
 //It will present the user with a paginated list of job cards.

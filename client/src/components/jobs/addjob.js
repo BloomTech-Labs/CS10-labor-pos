@@ -1,49 +1,21 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
 import { TextField, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
+import { CREATE_JOB } from "../../mutations";
 
-//This is the mutation that will be sent by Apollo to create the job
-const CREATE_JOB = gql`
-  mutation createJob(
-    $clientID: ID!
-    $name: String!
-    $labor: Float!
-    $description: String!
-  ) {
-    createJob(
-      clientId: $clientId
-      name: $name
-      labor: $labor
-      description: $description
-      complete: $complete
-      createdAt: $createdAt
-      modifiedAt: $modifiedAt
-      deadline: $deadline
-    ) {
-      client
-      name
-      description
-      labor
-      complete
-      created_at
-      modified_at
-      deadline
-    }
-  }
-`;
-
-//This component will render on /jobs/create and will present the user with a form
-//they can fill out to create a new job.
+//  This component will render the forms to create and edit jobs.
+//
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
 class AddJob extends Component {
   state = {
+    client: "",
     name: "",
     labor: "",
     description: "",
-    deadline: ""
+    deadline: "",
+    complete: false
   };
 
   handleChange = name => event => {

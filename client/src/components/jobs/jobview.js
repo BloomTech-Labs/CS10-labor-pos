@@ -6,6 +6,7 @@ import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
 import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
 import { ItemList, DeleteItem } from "../../components";
+import { DETAILED_JOB_BY_ID } from "../../queries";
 import "./jobview.css";
 
 //This component will render as a child of home on the path /jobs/%jobid
@@ -14,49 +15,6 @@ import "./jobview.css";
 //generation button.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
-
-const DETAILED_JOB_BY_ID = gql`
-  query job($id: ID!) {
-    job(id: $id) {
-      client {
-        firstName
-        lastName
-      }
-      id
-      name
-      complete
-      labor
-      description
-      createdAt
-      modifiedAt
-      deadline
-      tagSet {
-        edges {
-          node {
-            name
-            id
-          }
-        }
-      }
-      noteSet {
-        edges {
-          node {
-            title
-            id
-          }
-        }
-      }
-      partSet {
-        edges {
-          node {
-            name
-            id
-          }
-        }
-      }
-    }
-  }
-`;
 
 class JobView extends Component {
   constructor() {
