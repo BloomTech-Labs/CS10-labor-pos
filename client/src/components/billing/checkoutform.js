@@ -34,10 +34,10 @@ class CheckoutForm extends Component {
       this.stripeHandler = window.StripeCheckout.configure({
         key: process.env.REACT_APP_publishable,
         image: "goldracoon.png",
-        amount: ".99",
+        amount: 99,
         name: "contractAlchemy",
-        zip_code: "true",
-        billing_address: "true",
+        zipCode: "true",
+        billingAddress: "true",
         locale: "auto",
         token: token => {
           this.setState({ loading: true });
@@ -74,11 +74,11 @@ class CheckoutForm extends Component {
   yearlyMembership(e) {
     this.stripeHandler.open({
       image: "goldracoon.png",
-      amount: "99",
+      amount: 999,
       name: "contractAlchemy",
       description: "Yearly Premium Subscription",
-      zip_code: "true",
-      billing_address: "true",
+      zipCode: "true",
+      billingAddress: "true",
       locale: "auto",
       panelLabel: "Buy Yearly Subscription",
       allowRememberMe: false
