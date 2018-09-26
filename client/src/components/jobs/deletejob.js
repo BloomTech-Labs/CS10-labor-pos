@@ -22,7 +22,6 @@ const DELETE_JOB = gql`
 class DeleteJob extends Component {
   _confirm = () => {
     this.props.cancelDelete();
-    window.location.reload();
   };
   render() {
     return (
@@ -34,7 +33,7 @@ class DeleteJob extends Component {
           onCompleted={data => this._confirm(data)}
         >
           {mutation => (
-            <Button onClick={mutation} type="submit">
+            <Button href="/jobs" onClick={mutation} type="submit">
               Delete
             </Button>
           )}
