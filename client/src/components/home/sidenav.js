@@ -4,8 +4,7 @@ import {
   Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  Typography
+  ExpansionPanelSummary
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";

@@ -34,7 +34,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 class Home extends Component {
   //This method destroys the auth token in local storage and this logs the user out.
   logout = () => {
-    console.log(localStorage.auth_token);
     localStorage.removeItem("auth-token");
     this.props.history.push("/");
   };

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grid, Card } from "@material-ui/core";
 import JobCard from "./jobcard";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
@@ -28,7 +27,6 @@ class Jobs extends Component {
     return (
       <Query query={QUERY_ALL_JOBS}>
         {({ loading, error, data }) => {
-          data.allJobs && console.log(data.allJobs.edges[0].node);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { NoteView } from "../../components";
 import { Query } from "react-apollo";
 import gql from "graphql-tag";
 
@@ -41,7 +40,6 @@ class Notes extends Component {
           {({ loading, error, data }) => {
             if (loading) return <div>Fetching</div>;
             if (error) return <div>Error</div>;
-            console.log(data.allNotes.edges.node);
             return <div>What</div>;
           }}
         </Query>

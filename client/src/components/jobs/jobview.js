@@ -2,26 +2,9 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import {
-  Create,
-  Delete,
-  DoneOutline,
-  ArrowRightAlt,
-  NavigateNext,
-  NavigateBefore
-} from "@material-ui/icons";
-import {
-  Typography,
-  Grid,
-  Paper,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  IconButton
-} from "@material-ui/core";
-import { ItemList } from "../../components";
+import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
+import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
+import { ItemList, DeleteJob } from "../../components";
 import "./jobview.css";
 
 //This component will render as a child of home on the path /jobs/%jobid
@@ -38,6 +21,7 @@ const DETAILED_JOB_BY_ID = gql`
         firstName
         lastName
       }
+      id
       name
       complete
       labor
@@ -76,24 +60,17 @@ class JobView extends Component {
     this.state = {
       note_page: 0,
       part_page: 0,
-      tag_page: 0
+      tag_page: 0,
+      deleting: false
     };
   }
 
-  handlePageForward = name => event => {
-    event.preventDefault();
-    this.setState({
-      [name]: this.state[name] + 1
-    });
+  handleDeleteButton = () => {
+    this.setState({ deleting: true });
   };
 
-  handlePageBack = name => event => {
-    event.preventDefault();
-    if (this.state[name] > 0) {
-      this.setState({
-        [name]: this.state[name] - 1
-      });
-    }
+  cancelDelete = () => {
+    this.setState({ deleting: false });
   };
 
   render() {
@@ -104,9 +81,6 @@ class JobView extends Component {
       >
         {({ loading, error, data }) => {
           let right_content = [];
-          let note_list = [];
-          let part_list = [];
-          let tag_list = [];
 
           if (data.job) {
             //Build an array of react objects to use as the right-side information display.
@@ -165,7 +139,7 @@ class JobView extends Component {
                   spacing={24}
                 >
                   <Grid item xs={1}>
-                    <IconButton>
+                    <IconButton href={`/jobs/${data.job.id}/edit`}>
                       <Create />
                     </IconButton>
                   </Grid>
@@ -173,7 +147,7 @@ class JobView extends Component {
                     <h3>{data.job.name}</h3>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton>
+                    <IconButton onClick={this.handleDeleteButton}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -227,6 +201,17 @@ class JobView extends Component {
                   </Grid>
                 </Grid>
               </div>
+              <Dialog
+                open={this.state.deleting}
+                onClose={this.cancelDelete}
+                className="delete-modal"
+              >
+                <DeleteJob
+                  cancelDelete={this.cancelDelete}
+                  jobName={data.job.name}
+                  jobId={data.job.id}
+                />
+              </Dialog>
             </div>
           );
         }}

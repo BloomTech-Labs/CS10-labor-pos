@@ -72,7 +72,7 @@ class ItemList extends Component {
         </Paper>
         <IconButton
           onClick={this.handlePageBack}
-          disabled={this.state.page == 0}
+          disabled={this.state.page === 0}
         >
           <NavigateBefore />
         </IconButton>

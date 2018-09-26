@@ -65,7 +65,7 @@ class CardList extends Component {
         </Grid>
         <IconButton
           onClick={this.handlePageBack}
-          disabled={this.state.page == 0}
+          disabled={this.state.page === 0}
         >
           <NavigateBefore />
         </IconButton>

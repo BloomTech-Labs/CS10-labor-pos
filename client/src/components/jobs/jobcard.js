@@ -19,7 +19,6 @@ class JobCard extends Component {
   }
 
   handleDeleteButton = () => {
-    console.log("Howdy folks!");
     this.setState({ deleting: true });
   };
 
