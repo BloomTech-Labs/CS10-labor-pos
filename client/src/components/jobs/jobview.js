@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
 import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";

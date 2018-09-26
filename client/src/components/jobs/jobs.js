@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
 import { QUERY_ALL_JOBS } from "../../queries";

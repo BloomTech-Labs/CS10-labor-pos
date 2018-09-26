@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { AUTH_TOKEN } from "../../constants";
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
 import { SIGNIN_MUTATION } from "../../mutations";
