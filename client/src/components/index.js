@@ -28,6 +28,7 @@ import ClientView from "./clients/clientview";
 import Login from "./auth/login";
 import NewContractor from "./auth/newcontractor";
 import NewUser from "./auth/newuser";
+import ItemList from "./reuseable/itemlist.js";
 
 export {
   Tags,
@@ -59,5 +60,6 @@ export {
   ClientView,
   Login,
   NewContractor,
-  NewUser
+  NewUser,
+  ItemList
 };

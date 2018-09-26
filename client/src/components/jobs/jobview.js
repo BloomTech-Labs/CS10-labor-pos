@@ -21,6 +21,7 @@ import {
   ListItemSecondaryAction,
   IconButton
 } from "@material-ui/core";
+import { ItemList } from "../../components";
 import "./jobview.css";
 
 //This component will render as a child of home on the path /jobs/%jobid
@@ -102,8 +103,6 @@ class JobView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
-          console.log(data);
-
           let right_content = [];
           let note_list = [];
           let part_list = [];
@@ -151,70 +150,6 @@ class JobView extends Component {
                 {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
               </Typography>
             );
-
-            //Build a list of notes to display in the notes area
-            console.log(data.job.noteSet.edges.length);
-            for (
-              let i = 7 * this.state.note_page;
-              i < 7 * (this.state.note_page + 1) &&
-              i < data.job.noteSet.edges.length;
-              i++
-            ) {
-              let current_note = data.job.noteSet.edges[i].node;
-              note_list.push(
-                <ListItem key={i} dense button role={undefined}>
-                  <ListItemText>{current_note.title}</ListItemText>
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <Delete />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            }
-
-            //Build a list of parts to display in the parts area
-            console.log(data.job.partSet.edges.length);
-            for (
-              let i = 7 * this.state.part_page;
-              i < 7 * (this.state.part_page + 1) &&
-              i < data.job.partSet.edges.length;
-              i++
-            ) {
-              console.log("what?!");
-              let current_part = data.job.partSet.edges[i].node;
-              part_list.push(
-                <ListItem key={i} dense button role={undefined}>
-                  <ListItemText>{current_part.name}</ListItemText>
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <Delete />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            }
-
-            //Build a list of tags to display in the tags area
-            console.log(data.job.tagSet.edges.length);
-            for (
-              let i = 7 * this.state.tag_page;
-              i < 7 * (this.state.tag_page + 1) &&
-              i < data.job.tagSet.edges.length;
-              i++
-            ) {
-              let current_tag = data.job.tagSet.edges[i].node;
-              tag_list.push(
-                <ListItem key={i} dense button role={undefined}>
-                  <ListItemText>{current_tag.name}</ListItemText>
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <Delete />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              );
-            }
           }
 
           if (loading) return "Loading...";
@@ -262,73 +197,28 @@ class JobView extends Component {
                       spacing={24}
                     >
                       <Grid item xs={4}>
-                        <Button className="job-list-button">
-                          Add a new note
-                        </Button>
-                        <Paper>
-                          <List>{note_list}</List>
-                        </Paper>
-                        <IconButton
-                          onClick={this.handlePageBack("note_page")}
-                          disabled={this.state.note_page == 0}
-                        >
-                          <NavigateBefore />
-                        </IconButton>
-                        <IconButton
-                          onClick={this.handlePageForward("note_page")}
-                          disabled={
-                            (this.state.note_page + 1) * 7 >
-                            data.job.noteSet.edges.length
-                          }
-                        >
-                          <NavigateNext />
-                        </IconButton>
+                        <ItemList
+                          thing_listed="note"
+                          name_field="title"
+                          items={data.job.noteSet.edges}
+                          per_page={7}
+                        />
                       </Grid>
                       <Grid item xs={4}>
-                        <Button className="job-list-button">
-                          Add a new part
-                        </Button>
-                        <Paper>
-                          <List>{part_list}</List>
-                        </Paper>
-                        <IconButton
-                          onClick={this.handlePageBack("part_page")}
-                          disabled={this.state.part_page == 0}
-                        >
-                          <NavigateBefore />
-                        </IconButton>
-                        <IconButton
-                          onClick={this.handlePageForward("part_page")}
-                          disabled={
-                            (this.state.part_page + 1) * 7 >
-                            data.job.partSet.edges.length
-                          }
-                        >
-                          <NavigateNext />
-                        </IconButton>
+                        <ItemList
+                          thing_listed="part"
+                          name_field="name"
+                          items={data.job.partSet.edges}
+                          per_page={7}
+                        />
                       </Grid>
                       <Grid item xs={4}>
-                        <Button className="job-list-button">
-                          Add a new tag
-                        </Button>
-                        <Paper>
-                          <List>{tag_list}</List>
-                        </Paper>
-                        <IconButton
-                          onClick={this.handlePageBack("tag_page")}
-                          disabled={this.state.tag_page == 0}
-                        >
-                          <NavigateBefore />
-                        </IconButton>
-                        <IconButton
-                          onClick={this.handlePageForward("tag_page")}
-                          disabled={
-                            (this.state.tag_page + 1) * 7 >
-                            data.job.tagSet.edges.length
-                          }
-                        >
-                          <NavigateNext />
-                        </IconButton>
+                        <ItemList
+                          thing_listed="tag"
+                          name_field="name"
+                          items={data.job.tagSet.edges}
+                          per_page={7}
+                        />
                       </Grid>
                     </Grid>
                   </Grid>
