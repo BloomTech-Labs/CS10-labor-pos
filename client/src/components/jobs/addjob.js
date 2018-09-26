@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { TextField, Button, MenuItem } from "@material-ui/core";
+import { TextField, Button, MenuItem, Grid } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { withRouter } from "react-router";
 import { CREATE_JOB } from "../../mutations";
@@ -56,6 +56,7 @@ class AddJob extends Component {
               >
                 {(createJob, { loading, error, data }) => (
                   <div>
+                    <h1>Add Job</h1>
                     <form
                       onSubmit={event => {
                         event.preventDefault();
@@ -77,66 +78,80 @@ class AddJob extends Component {
                         });
                       }}
                     >
-                      <TextField
-                        id="field-client"
-                        select
-                        label="Client"
-                        name="client"
-                        className={"modal_field"}
-                        value={client}
-                        onChange={this.handleChange("client")}
-                        SelectProps={{
-                          MenuProps: {
-                            className: "Mister Menu"
-                          }
-                        }}
-                        helperText="Client"
-                        margin="normal"
-                      >
-                        {client_list.map(client => (
-                          <MenuItem key={client.value} value={client.value}>
-                            {client.label}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                      <TextField
-                        id="field-name"
-                        label="Name"
-                        name="name"
-                        className={"modal_field"}
-                        value={name}
-                        onChange={this.handleChange("name")}
-                        helperText="Job Name"
-                        margin="normal"
-                      />
-                      <TextField
-                        id="field-labor"
-                        label="Labor"
-                        name="labor"
-                        className={"modal_field"}
-                        value={labor}
-                        onChange={this.handleChange("labor")}
-                        margin="normal"
-                      />
-                      <TextField
-                        id="field-description"
-                        label="Description"
-                        name="description"
-                        className={"modal_field"}
-                        value={description}
-                        onChange={this.handleChange("description")}
-                        margin="normal"
-                      />
-                      <TextField
-                        id="field-deadline"
-                        label="Deadline"
-                        name="deadline"
-                        className={"modal_field"}
-                        value={deadline}
-                        onChange={this.handleChange("deadline")}
-                        margin="normal"
-                      />
-                      <Button type="submit">Create Job</Button>
+                      <Grid container>
+                        <Grid xs={6}>
+                          <TextField
+                            id="field-client"
+                            select
+                            label="Client"
+                            name="client"
+                            className={"modal_field"}
+                            value={client}
+                            onChange={this.handleChange("client")}
+                            SelectProps={{
+                              MenuProps: {
+                                className: "Mister Menu"
+                              }
+                            }}
+                            helperText="Select Client"
+                            margin="normal"
+                          >
+                            {client_list.map(client => (
+                              <MenuItem key={client.value} value={client.value}>
+                                {client.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                        </Grid>
+                        <Grid xs={6}>
+                          <TextField
+                            id="field-name"
+                            label="Name"
+                            name="name"
+                            className={"modal_field"}
+                            value={name}
+                            onChange={this.handleChange("name")}
+                            helperText="Job Name"
+                            margin="normal"
+                          />
+                        </Grid>
+                        <Grid xs={12}>
+                          <TextField
+                            id="field-description"
+                            label="Description"
+                            multiline
+                            fullWidth
+                            rows="8"
+                            rowsMax="8"
+                            name="description"
+                            className={"modal_field"}
+                            value={description}
+                            onChange={this.handleChange("description")}
+                            margin="normal"
+                            variant="outlined"
+                          />
+                        </Grid>
+                        <TextField
+                          id="field-labor"
+                          label="Labor"
+                          name="labor"
+                          className={"modal_field"}
+                          value={labor}
+                          onChange={this.handleChange("labor")}
+                          margin="normal"
+                        />
+
+                        <TextField
+                          id="field-deadline"
+                          label="Deadline"
+                          name="deadline"
+                          className={"modal_field"}
+                          value={deadline}
+                          onChange={this.handleChange("deadline")}
+                          margin="normal"
+                        />
+                        <Button type="submit">Create Job</Button>
+                      </Grid>
                     </form>
                     {loading && <p>Saving job information</p>}
                     {(data || error) && <p>Success!</p>}
