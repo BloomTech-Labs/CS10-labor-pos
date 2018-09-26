@@ -35,6 +35,7 @@ class DeleteItem extends Component {
         name = this.props.item.name;
         chosen_mutation = DELETE_JOB;
         after_path = "/jobs";
+        break;
     }
     return (
       <div>

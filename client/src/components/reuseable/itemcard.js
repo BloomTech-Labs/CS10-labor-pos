@@ -37,6 +37,7 @@ class ItemCard extends Component {
       case "job":
         path = "/jobs";
         name = this.props.item.name;
+        break;
     }
     console.log(name);
     console.log(this.props.type);

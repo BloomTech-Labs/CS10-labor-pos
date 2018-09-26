@@ -10,16 +10,16 @@ import {
   ListItemSecondaryAction,
   IconButton
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 //  This component shows a small, paginated list of items with add and delete options
 //  It renders as a child of individual view components to show related items to
 //  those components
 
 //  PROPS:
-//    name_field: the key in the relevant object to be treated like a name and displayed in the list
+//    type: the type of the objects to be displayed
 //    items: the array of objects to be displayed in the list
 //    per_page: the number of list items to display per page
-//    thing_listed: the type of item populating the list
 
 class ItemList extends Component {
   constructor() {
@@ -43,7 +43,33 @@ class ItemList extends Component {
       page: this.state.page + 1
     });
   };
+
+  handleDeleteButton = event => {
+    event.stopPropagation();
+    this.setState({ deleting: true });
+  };
+
   render() {
+    let name_field = "";
+    let path = "";
+    switch (this.props.type) {
+      case "job":
+        name_field = "name";
+        path = "/jobs";
+        break;
+      case "part":
+        name_field = "name";
+        path = "/parts";
+        break;
+      case "note":
+        name_field = "title";
+        path = "/notes";
+        break;
+      case "tag":
+        name_field = "name";
+        path = "/tags";
+        break;
+    }
     let list_items = [];
     for (
       let i = this.props.per_page * this.state.page;
@@ -52,9 +78,12 @@ class ItemList extends Component {
       i++
     ) {
       let current_item = this.props.items[i].node;
+      console.log(current_item);
       list_items.push(
-        <ListItem key={i} dense button role={undefined}>
-          <ListItemText>{current_item[this.props.name_field]}</ListItemText>
+        <ListItem key={i} dense button>
+          <Link to={`${path}/${current_item.id}`}>
+            <ListItemText>{current_item[name_field]}</ListItemText>
+          </Link>
           <ListItemSecondaryAction>
             <IconButton aria-label="Delete">
               <Delete />
@@ -65,9 +94,7 @@ class ItemList extends Component {
     }
     return (
       <div>
-        <Button className="list-button">
-          Add a new {this.props.thing_listed}
-        </Button>
+        <Button className="list-button">Add a new {this.props.type}</Button>
         <Paper>
           <List>{list_items}</List>
         </Paper>

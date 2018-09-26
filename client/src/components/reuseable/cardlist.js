@@ -53,7 +53,6 @@ class CardList extends Component {
     }
     return (
       <div>
-        {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
         <Grid
           container
           direction="row"

@@ -33,6 +33,7 @@ const DETAILED_JOB_BY_ID = gql`
         edges {
           node {
             name
+            id
           }
         }
       }
@@ -40,6 +41,7 @@ const DETAILED_JOB_BY_ID = gql`
         edges {
           node {
             title
+            id
           }
         }
       }
@@ -47,6 +49,7 @@ const DETAILED_JOB_BY_ID = gql`
         edges {
           node {
             name
+            id
           }
         }
       }
@@ -82,7 +85,7 @@ class JobView extends Component {
         {({ loading, error, data }) => {
           let right_content = [];
 
-          if (data.job) {
+          if (data && data.job) {
             //Build an array of react objects to use as the right-side information display.
             if (data.job.complete) {
               right_content.push(
@@ -172,24 +175,21 @@ class JobView extends Component {
                     >
                       <Grid item xs={4}>
                         <ItemList
-                          thing_listed="note"
-                          name_field="title"
+                          type="note"
                           items={data.job.noteSet.edges}
                           per_page={7}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ItemList
-                          thing_listed="part"
-                          name_field="name"
+                          type="part"
                           items={data.job.partSet.edges}
                           per_page={7}
                         />
                       </Grid>
                       <Grid item xs={4}>
                         <ItemList
-                          thing_listed="tag"
-                          name_field="name"
+                          type="tag"
                           items={data.job.tagSet.edges}
                           per_page={7}
                         />
