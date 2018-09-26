@@ -72,10 +72,7 @@ class CardList extends Component {
         {this.state.page + 1}
         <IconButton
           onClick={this.handlePageForward}
-          disabled={
-            (this.state.page + 1) * this.props.per_page >
-            this.props.items.length
-          }
+          disabled={(this.state.page + 1) * per_page > this.props.items.length}
         >
           <NavigateNext />
         </IconButton>
