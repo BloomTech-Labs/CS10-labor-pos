@@ -13,6 +13,21 @@ const QUERY_ALL_JOBS = gql`
   }
 `;
 
+const QUERY_ALL_CLIENTS = gql`
+  query {
+    allClients {
+      edges {
+        node {
+          firstName
+          lastName
+          businessName
+          id
+        }
+      }
+    }
+  }
+`;
+
 const DETAILED_JOB_BY_ID = gql`
   query job($id: ID!) {
     job(id: $id) {
@@ -56,4 +71,4 @@ const DETAILED_JOB_BY_ID = gql`
   }
 `;
 
-export { QUERY_ALL_JOBS, DETAILED_JOB_BY_ID };
+export { QUERY_ALL_JOBS, DETAILED_JOB_BY_ID, QUERY_ALL_CLIENTS };
