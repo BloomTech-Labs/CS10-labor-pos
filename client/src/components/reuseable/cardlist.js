@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { NavigateNext, NavigateBefore } from "@material-ui/icons";
 import { Grid, Card, IconButton } from "@material-ui/core";
+import { ItemCard } from "../../components";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
 
 //  PROPS:
-//    CardComponent: The component that will render individual cards.
+//    type: The item type to be displayed.
 //    rows: The number of rows to be shown.
 //    columns: The number of columns to be shown.  Takes 3, 4, or 6.
 //    items: An array of items to be listed.
@@ -35,7 +36,6 @@ class CardList extends Component {
   };
 
   render() {
-    let ItemCard = this.props.CardComponent;
     let per_page = this.props.rows * this.props.columns;
     let card_array = [];
     for (
@@ -46,7 +46,7 @@ class CardList extends Component {
       card_array.push(
         <Grid item xs={12 / this.props.columns} key={i}>
           <Card>
-            <ItemCard job={this.props.items[i].node} />
+            <ItemCard type={this.props.type} item={this.props.items[i].node} />
           </Card>
         </Grid>
       );
@@ -72,7 +72,9 @@ class CardList extends Component {
         {this.state.page + 1}
         <IconButton
           onClick={this.handlePageForward}
-          disabled={(this.state.page + 1) * per_page > this.props.items.length}
+          disabled={
+            (this.state.page + 1) * per_page > this.props.items.length - 1
+          }
         >
           <NavigateNext />
         </IconButton>

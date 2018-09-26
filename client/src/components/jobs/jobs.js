@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import JobCard from "./jobcard";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
@@ -33,7 +32,7 @@ class Jobs extends Component {
             <div>
               <CardList
                 items={data.allJobs.edges}
-                CardComponent={JobCard}
+                type="job"
                 rows={2}
                 columns={4}
               />

@@ -1,16 +1,16 @@
-.job_card {
+.item-card {
   height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-.job_card_icons {
+.item-card-icons {
   display: flex;
   justify-content: space-between;
   margin: 0px 16px;
 }
 
-.job_card_name {
+.item-card-name {
   margin-bottom: 32px;
 }

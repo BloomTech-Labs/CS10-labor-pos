@@ -25,7 +25,8 @@ class ItemList extends Component {
   constructor() {
     super();
     this.state = {
-      page: 0
+      page: 0,
+      deleting: false
     };
   }
 
