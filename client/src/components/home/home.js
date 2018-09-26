@@ -24,6 +24,7 @@ import {
   Clients,
   AddClient,
   ClientView
+
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer } from "@material-ui/core";
@@ -104,11 +105,13 @@ class Home extends Component {
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
+
             <Route exact path="/tags/create" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/parts/create" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
+
           </div>
         </main>
       </div>

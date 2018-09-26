@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 
+
 //This component will render on the /settings route when the user is logged in
 //It is a child of the home component.
 //It presents the user with forms that allow them to view and edit their user
@@ -15,6 +16,8 @@ class Settings extends Component {
       </div>
     );
   }
+
+
 }
 
 export default withRouter(Settings);
