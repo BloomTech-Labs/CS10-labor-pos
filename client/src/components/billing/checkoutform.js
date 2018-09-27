@@ -1,14 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 
-/*const StripeQuery = graphql`
-  query StripeQuery {
-    token {
-      user
-      email
-    }
-  }
-`;*/
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -133,5 +125,5 @@ class CheckoutForm extends Component {
   }
 }
 
-// injectStripe wraps the component, creating new component with a stripe prop that contains stripe object
+
 export default CheckoutForm;

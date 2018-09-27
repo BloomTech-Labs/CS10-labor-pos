@@ -1,41 +1,8 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
 import { TextField, MenuItem, Button } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
-
-//The mutation that Apollo will send on form submit
-const CREATE_USER = gql`
-  mutation createUser(
-    $username: String!
-    $password: String!
-    $email: String!
-    $businessName: String!
-    $city: String!
-    $firstName: String!
-    $lastName: String!
-    $state: String!
-    $streetAddress: String!
-    $zipcode: String!
-  ) {
-    createUser(
-      username: $username
-      password: $password
-      email: $email
-      businessName: $businessName
-      city: $city
-      firstName: $firstName
-      lastName: $lastName
-      state: $state
-      streetAddress: $streetAddress
-      zipcode: $zipcode
-    ) {
-      user {
-        id
-      }
-    }
-  }
-`;
+import { CREATE_USER } from "../../mutations";
 
 //The list of options for our states pulldown menu
 const states = [
@@ -266,7 +233,7 @@ class NewContractor extends Component {
     streetAddress: "",
     zipcode: "",
     city: "",
-    state: "Alabama"
+    state: "AL"
   };
 
   //This method keeps the state updated with the current contents of the input fields
@@ -382,7 +349,7 @@ class NewContractor extends Component {
                   margin="normal"
                 >
                   {states.map(state => (
-                    <MenuItem key={state.value} value={state.value}>
+                    <MenuItem key={state.label} value={state.label}>
                       {state.label}
                     </MenuItem>
                   ))}
