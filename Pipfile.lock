@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "75ab36c21afadd7c5911851d0c1f05e4ce62e23029b12fe794fcc040ab010cd1"
+            "sha256": "f7a7148f94c8be70338807dea8754ee5c477df1aee2e34dc5806f1db291cbabb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -256,12 +256,25 @@
             ],
             "version": "==1.6.4"
         },
+        "pysocks": {
+            "hashes": [
+                "sha256:3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672"
+            ],
+            "markers": "python_version >= '3.0'",
+            "version": "==1.6.8"
+        },
         "python-decouple": {
             "hashes": [
                 "sha256:1317df14b43efee4337a4aa02914bf004f010cd56d6c4bd894e6474ec8c4fe2d"
             ],
             "index": "pypi",
             "version": "==3.1"
+        },
+        "python-http-client": {
+            "hashes": [
+                "sha256:7e430f4b9dd2b621b0051f6a362f103447ea8e267594c602a5c502a0c694ee38"
+            ],
+            "version": "==3.1.0"
         },
         "pytz": {
             "hashes": [
@@ -285,6 +298,14 @@
             ],
             "version": "==1.6.1"
         },
+        "sendgrid": {
+            "hashes": [
+                "sha256:97eb356ea44a18a03e6fe99f02b7942445be306a50f73a7dd35471fe15cc0094",
+                "sha256:9e9d3d75602b8853f174ec959d1af1ac168cd361cbcafc81285fa8c183f7a505"
+            ],
+            "index": "pypi",
+            "version": "==5.6.0"
+        },
         "singledispatch": {
             "hashes": [
                 "sha256:5b06af87df13818d14f08a028e42f566640aef80805c3b50c5056b086e3c2b9c",
@@ -306,6 +327,14 @@
             ],
             "index": "pypi",
             "version": "==2.10.0"
+        },
+        "twilio": {
+            "hashes": [
+                "sha256:2fa4d17c78444d1cc443740e8fbc60f70898eee4bf043e5b415ac2530ddcc30b",
+                "sha256:386d9da60f5ef32c946f2e5bcb2e41056b4ae742998cad98d0a1b6bf1bc0b8b5"
+            ],
+            "index": "pypi",
+            "version": "==6.17.0"
         },
         "typing": {
             "hashes": [

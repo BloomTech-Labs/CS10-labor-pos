@@ -1,5 +1,8 @@
 import stripe
 from decouple import config
+import sendgrid
+from sendgrid.helpers.mail import *
+from django.http import HttpResponse, JsonResponse
 
 
 def make_payments(req):
@@ -25,3 +28,16 @@ def make_payments(req):
 
     return JsonResponse({"token": utf8_jwt})
 
+
+sg = sendgrid.SendGridAPICLIENT(apikey=os.environ.get('SENDGRID_API_KEY'))
+from_email = Email('test@example.com')
+to_email = Email('test@example.com')
+subject = 'Sendgrid Test'
+content = Content(
+    'text/plain'
+    'Testing testing'
+)
+mail = Mail(from_email, to_email, content)
+response = sg.client.mail.send.post(request.body=mail.get())
+
+return HttpResponse('Email Sent')

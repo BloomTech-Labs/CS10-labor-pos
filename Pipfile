@@ -16,6 +16,8 @@ whitenoise = "*"
 "psycopg2-binary" = "*"
 django-filter = "*"
 stripe = "*"
+sendgrid = "*"
+twilio = "*"
 
 [dev-packages]
 
