@@ -23,4 +23,5 @@ from django.urls import path
 urlpatterns = [
     path("admin/", admin.site.urls),
     url(r"^graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+
 ]

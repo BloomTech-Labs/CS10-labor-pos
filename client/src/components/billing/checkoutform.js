@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -101,7 +102,6 @@ class CheckoutForm extends Component {
       locale: "auto",
       panelLabel: "Buy One Month Membership",
       allowRememberMe: false,
-      testOnlyUseMobileAlerts: false
     });
     e.preventDefault();
   }
@@ -114,10 +114,10 @@ class CheckoutForm extends Component {
           <p>loading..</p>
         ) : (
           <div>
-            <button onClick={this.yearlyMembership}>
+            <button onClick={this.setSubscriptionType} value='yearly_subscription'>
               Purchase Yearly Subscription
             </button>
-            <button onClick={this.monthlyMembership}>
+            <button onClick={this.setSubscriptionType} value='monthly_subscription'>
               Purchase One Month Membership
             </button>
           </div>
@@ -129,3 +129,6 @@ class CheckoutForm extends Component {
 
 
 export default CheckoutForm;
+
+
+
