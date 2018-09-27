@@ -32,6 +32,7 @@ import CardList from "./reuseable/cardlist.js";
 import ItemCard from "./reuseable/itemcard.js";
 import EditNote from "./notes/editnote.js";
 import EditClient from "./clients/editclient.js";
+import EditTag from "./tags/edittag.js";
 
 export {
   Tags,
@@ -67,5 +68,6 @@ export {
   CardList,
   ItemCard,
   EditNote,
-  EditClient
+  EditClient,
+  EditTag
 };

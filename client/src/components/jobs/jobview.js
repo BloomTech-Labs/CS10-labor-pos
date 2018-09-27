@@ -177,6 +177,9 @@ class JobView extends Component {
                   </Grid>
                   <Grid item xs={3}>
                     {right_content}
+                    <Link to={`/jobs/${data.job.id}/invoice`}>
+                      <Button>Invoice</Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </div>
