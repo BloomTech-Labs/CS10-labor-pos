@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 def make_payments(req):
 
     if req.method == "POST":
-        stripe.api_key = config("STRIPE_SECRET_KEY")
+        stripe.api_key = process.env.REACT_APP_secret,
 
     token = request.POST['stripeToken']
 

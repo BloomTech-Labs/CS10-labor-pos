@@ -84,7 +84,8 @@ class CheckoutForm extends Component {
       billingAddress: "true",
       locale: "auto",
       panelLabel: "Buy Yearly Subscription",
-      allowRememberMe: false
+      allowRememberMe: false,
+      testOnlyUseMobileAlerts: false
     });
     e.preventDefault();
   }
@@ -99,7 +100,8 @@ class CheckoutForm extends Component {
       billing_address: "true",
       locale: "auto",
       panelLabel: "Buy One Month Membership",
-      allowRememberMe: false
+      allowRememberMe: false,
+      testOnlyUseMobileAlerts: false
     });
     e.preventDefault();
   }
