@@ -1,17 +1,8 @@
 import React, { Component } from "react";
 import { AUTH_TOKEN } from "../../constants";
-import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
-
-//The mutation to be used by graphql to log in
-const SIGNIN_MUTATION = gql`
-  mutation tokenAuth($username: String!, $password: String!) {
-    tokenAuth(username: $username, password: $password) {
-      token
-    }
-  }
-`;
+import { SIGNIN_MUTATION } from "../../mutations";
 
 //The login component, to be rendered in a modal at the landing page
 class Login extends Component {

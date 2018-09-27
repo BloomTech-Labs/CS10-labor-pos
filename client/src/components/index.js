@@ -14,6 +14,7 @@ import Jobs from "./jobs/jobs";
 import AddJob from "./jobs/addjob";
 import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
+import DeleteItem from "./reuseable/deleteitem";
 import EditJob from "./jobs/editjob";
 import Invoices from "./invoices/invoices";
 import Home from "./home/home";
@@ -27,6 +28,9 @@ import ClientView from "./clients/clientview";
 import Login from "./auth/login";
 import NewContractor from "./auth/newcontractor";
 import NewUser from "./auth/newuser";
+import ItemList from "./reuseable/itemlist.js";
+import CardList from "./reuseable/cardlist.js";
+import ItemCard from "./reuseable/itemcard.js";
 
 export {
   Tags,
@@ -46,6 +50,7 @@ export {
   JobView,
   JobInvoice,
   EditJob,
+  DeleteItem,
   Invoices,
   Home,
   SideNav,
@@ -57,5 +62,8 @@ export {
   ClientView,
   Login,
   NewContractor,
-  NewUser
+  NewUser,
+  ItemList,
+  CardList,
+  ItemCard
 };
