@@ -1,6 +1,14 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 
+/*const StripeQuery = graphql`
+  query StripeQuery {
+    token {
+      user
+      email
+    }
+  }
+`;*/
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +48,10 @@ class CheckoutForm extends Component {
         billingAddress: "true",
         locale: "auto",
         token: token => {
-          this.setState({ loading: true });
+          this.setState({ loading: true,
+          token
+          });
+
           // use fetch or some other AJAX library here if you dont want to use axios
           fetch("http://localhost:8000/graphql/", {
             method: "post",
