@@ -3,7 +3,13 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
-import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Dialog,
+  IconButton,
+  Button
+} from "@material-ui/core";
 import { ItemList, DeleteItem } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import "./jobview.css";
@@ -134,6 +140,12 @@ class JobView extends Component {
                       spacing={24}
                     >
                       <Grid item xs={4}>
+                        {/*TODO: make these links pass the associated job to the create component*/}
+                        <Link to="/createnote">
+                          <Button className="job-list-button">
+                            Add a new note
+                          </Button>
+                        </Link>
                         <ItemList
                           type="note"
                           items={data.job.noteSet.edges}
@@ -141,6 +153,11 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
+                        <Link to="/createpart">
+                          <Button className="job-list-button">
+                            Add a new part
+                          </Button>
+                        </Link>
                         <ItemList
                           type="part"
                           items={data.job.partSet.edges}
@@ -148,6 +165,11 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
+                        <Link to="/createtag">
+                          <Button className="job-list-button">
+                            Add a new tag
+                          </Button>
+                        </Link>
                         <ItemList
                           type="tag"
                           items={data.job.tagSet.edges}

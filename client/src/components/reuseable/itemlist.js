@@ -109,7 +109,6 @@ class ItemList extends Component {
     }
     return (
       <div>
-        <Button className="list-button">Add a new {this.props.type}</Button>
         <Paper>
           <List>{list_items}</List>
         </Paper>
