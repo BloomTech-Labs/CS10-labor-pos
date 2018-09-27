@@ -18,9 +18,11 @@ from django.contrib import admin
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import path
+from .views import GeneratePDF
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     url(r"^graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    url(r"^pdf/$", GeneratePDF.as_view()),
 ]

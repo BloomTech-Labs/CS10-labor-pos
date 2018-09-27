@@ -15,6 +15,7 @@ dj-database-url = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
 django-filter = "*"
+"xhtml2pdf" = "*"
 
 [dev-packages]
 
