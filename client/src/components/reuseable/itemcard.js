@@ -44,6 +44,10 @@ class ItemCard extends Component {
         if (this.props.item.businessName) name = this.props.item.businessName;
         else name = `${this.props.item.firstName} ${this.props.item.lastName}`;
         break;
+      case "note":
+        path = "/notes";
+        name = this.props.item.title;
+        break;
       default:
         break;
     }

@@ -23,7 +23,9 @@ import {
   Start,
   Clients,
   AddClient,
-  ClientView
+  ClientView,
+  EditClient,
+  EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer } from "@material-ui/core";
@@ -91,6 +93,7 @@ class Home extends Component {
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
             <Route exact path="/clients/:id" component={ClientView} />
+            <Route exact path="/clients/:id/edit" component={EditClient} />
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/jobs/:id" component={JobView} />
             <Route exact path="/createjob" component={AddJob} />
@@ -99,6 +102,7 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
