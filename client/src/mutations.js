@@ -24,6 +24,31 @@ const CREATE_JOB = gql`
   }
 `;
 
+const UPDATE_JOB = gql`
+  mutation updateJob(
+    $id: ID!
+    $name: String
+    $labor: Float
+    $description: String
+    $deadline: Date
+    $complete: Boolean
+  ) {
+    updateJob(
+      id: $id
+      name: $name
+      labor: $labor
+      description: $description
+      deadline: $deadline
+      complete: $complete
+    ) {
+      job {
+        name
+        id
+      }
+    }
+  }
+`;
+
 const SIGNIN_MUTATION = gql`
   mutation tokenAuth($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
@@ -98,6 +123,7 @@ const DELETE_PART = gql`
 
 export {
   CREATE_JOB,
+  UPDATE_JOB,
   SIGNIN_MUTATION,
   CREATE_USER,
   DELETE_JOB,

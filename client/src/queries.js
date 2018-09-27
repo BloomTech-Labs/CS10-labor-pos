@@ -34,6 +34,8 @@ const DETAILED_JOB_BY_ID = gql`
       client {
         firstName
         lastName
+        businessName
+        id
       }
       id
       name

@@ -8,12 +8,12 @@ import { ItemList, DeleteItem } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import "./jobview.css";
 
-//This component will render as a child of home on the path /jobs/%jobid
-//It will present the user with the job info from the database as well as
-//paginated lists of associated notes, parts, and tags, and an invoice
-//generation button.
+//  This component will render as a child of home on the path /jobs/%jobid
+//  It will present the user with the job info from the database as well as
+//  paginated lists of associated notes, parts, and tags, and an invoice
+//  generation button.
 
-//https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
+//  https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
 
 class JobView extends Component {
   constructor() {
