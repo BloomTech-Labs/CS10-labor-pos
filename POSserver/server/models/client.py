@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.mail import send_mail
 
 
 class Client(models.Model):
@@ -73,6 +74,14 @@ class Client(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().full_clean()
+        super().save(*args, **kwargs)
+
+    def email_client(self, subject, message, from_email=None, **kwargs):
+        """Send an email to the client"""
+        send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __str__(self):
         if self.business_name is not None:

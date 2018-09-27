@@ -4,11 +4,11 @@ import {
   Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary,
-  Typography
+  ExpansionPanelSummary
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";
+import { Link } from "react-router-dom";
 import "./sidenav.css";
 
 //This is the side nav component that renders in the nav drawer in the home component
@@ -31,7 +31,9 @@ class SideNav extends Component {
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est tags would have a smaller create tag button under it.*/}
         <Divider />
-        <Button href="/">Home</Button>
+        <Link to="/">
+          <Button>Home</Button>
+        </Link>
 
         <ExpansionPanel
           expanded={expanded === "clientpanel"}
@@ -41,8 +43,12 @@ class SideNav extends Component {
             <Button>Clients</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/clients">View</Button>
-            <Button href="/clients/create">Create</Button>
+            <Link to="/clients">
+              <Button>View</Button>
+            </Link>
+            <Link to="/createclient">
+              <Button>Create</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -53,9 +59,15 @@ class SideNav extends Component {
             <Button>Jobs</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/jobs">View</Button>
-            <Button href="/jobs/create">Create</Button>
-            <Button href="/invoices">Invoices</Button>
+            <Link to="/jobs">
+              <Button>View</Button>
+            </Link>
+            <Link to="/createjob">
+              <Button>Create</Button>
+            </Link>
+            <Link to="/invoices">
+              <Button>Invoices</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -66,8 +78,12 @@ class SideNav extends Component {
             <Button>Notes</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/notes">View</Button>
-            <Button href="/notes/create">Create</Button>
+            <Link to="/notes">
+              <Button>View</Button>
+            </Link>
+            <Link to="/createnote">
+              <Button>Create</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -78,8 +94,12 @@ class SideNav extends Component {
             <Button>Tags</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/tags">View</Button>
-            <Button href="/tags/create">Create</Button>
+            <Link to="/tags">
+              <Button>View</Button>
+            </Link>
+            <Link to="/createtag">
+              <Button>Create</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -90,8 +110,12 @@ class SideNav extends Component {
             <Button>Parts</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/parts">View</Button>
-            <Button href="/parts/create">Create</Button>
+            <Link to="/parts">
+              <Button>View</Button>
+            </Link>
+            <Link to="/createpart">
+              <Button>Create</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -102,8 +126,12 @@ class SideNav extends Component {
             <Button>Settings</Button>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
-            <Button href="/settings">Main</Button>
-            <Button href="/billing">Billing</Button>
+            <Link to="/settings">
+              <Button>Main</Button>
+            </Link>
+            <Link to="/billing">
+              <Button>Billing</Button>
+            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <Button onClick={this.props.logout}>Logout</Button>
