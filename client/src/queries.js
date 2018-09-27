@@ -56,6 +56,20 @@ const QUERY_ALL_TAGS = gql`
   }
 `;
 
+const QUERY_ALL_PARTS = gql`
+  query {
+    allParts {
+      edges {
+        node {
+          id
+          name
+          description
+        }
+      }
+    }
+  }
+`;
+
 const DETAILED_JOB_BY_ID = gql`
   query job($id: ID!) {
     job(id: $id) {
@@ -142,5 +156,6 @@ export {
   QUERY_ALL_TAGS,
   DETAILED_JOB_BY_ID,
   QUERY_ALL_CLIENTS,
-  DETAILED_CLIENT_BY_ID
+  DETAILED_CLIENT_BY_ID,
+  QUERY_ALL_PARTS
 };

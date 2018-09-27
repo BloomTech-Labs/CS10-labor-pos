@@ -52,6 +52,9 @@ class ItemCard extends Component {
         path = "/tags";
         name = this.props.item.name;
         break;
+      case "part":
+        path = "/parts";
+        name = this.props.item.name;
       default:
         break;
     }
