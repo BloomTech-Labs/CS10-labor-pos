@@ -39,9 +39,13 @@ class ItemCard extends Component {
         path = "/jobs";
         name = this.props.item.name;
         break;
-      default:
+      case "client":
         path = "/clients";
-        name = this.props.item.name;
+        if (this.props.item.businessName) name = this.props.item.businessName;
+        else name = `${this.props.item.firstName} ${this.props.item.lastName}`;
+        break;
+      default:
+        break;
     }
     return (
       <div className="item-card">
@@ -69,7 +73,7 @@ class ItemCard extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.props.item}
-            after_path="/jobs"
+            after_path={path}
           />
         </Dialog>
       </div>

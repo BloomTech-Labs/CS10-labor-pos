@@ -23,7 +23,6 @@ import Start from "./home/start";
 import Clients from "./clients/clients";
 import AddClient from "./clients/addclient";
 import ClientForm from "./clients/clientform";
-import ClientInfo from "./clients/clientinfo";
 import ClientView from "./clients/clientview";
 import Login from "./auth/login";
 import NewContractor from "./auth/newcontractor";
@@ -58,7 +57,6 @@ export {
   Clients,
   AddClient,
   ClientForm,
-  ClientInfo,
   ClientView,
   Login,
   NewContractor,

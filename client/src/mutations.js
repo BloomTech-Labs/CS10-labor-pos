@@ -97,6 +97,14 @@ const DELETE_JOB = gql`
   }
 `;
 
+const DELETE_CLIENT = gql`
+  mutation($id: ID!) {
+    deleteClient(id: $id) {
+      ok
+    }
+  }
+`;
+
 const DELETE_NOTE = gql`
   mutation($id: ID!) {
     deleteNote(id: $id) {
@@ -127,6 +135,7 @@ export {
   SIGNIN_MUTATION,
   CREATE_USER,
   DELETE_JOB,
+  DELETE_CLIENT,
   DELETE_NOTE,
   DELETE_PART,
   DELETE_TAG

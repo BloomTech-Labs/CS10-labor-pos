@@ -6,7 +6,8 @@ import {
   DELETE_JOB,
   DELETE_NOTE,
   DELETE_PART,
-  DELETE_TAG
+  DELETE_TAG,
+  DELETE_CLIENT
 } from "../../mutations";
 
 //  This component renders as a child of many components
@@ -46,6 +47,10 @@ class DeleteItem extends Component {
         name = this.props.item.name;
         chosen_mutation = DELETE_TAG;
         break;
+      case "client":
+        if (this.props.item.businessName) name = this.props.item.businessName;
+        else name = `${this.props.item.firstName} ${this.props.item.lastName}`;
+        chosen_mutation = DELETE_CLIENT;
       default:
         break;
     }

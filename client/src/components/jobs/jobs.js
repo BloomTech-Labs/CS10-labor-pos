@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
+import { Typography } from "@material-ui/core";
 import { QUERY_ALL_JOBS } from "../../queries";
 
 //  This component will render as a child of home on the path /jobs
@@ -17,6 +18,7 @@ class Jobs extends Component {
           if (error) return `Error! ${error.message}`;
           return (
             <div>
+              <Typography variant="display3">Jobs</Typography>
               <CardList
                 items={data.allJobs.edges}
                 type="job"
