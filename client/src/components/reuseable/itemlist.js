@@ -78,6 +78,10 @@ class ItemList extends Component {
         name_field = "name";
         path = "/tags";
         break;
+      default:
+        name_field = "first_name last_name";
+        path = "/clients";
+        break;
     }
     let list_items = [];
     for (

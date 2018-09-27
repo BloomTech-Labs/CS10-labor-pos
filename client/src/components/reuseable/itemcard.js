@@ -39,6 +39,9 @@ class ItemCard extends Component {
         path = "/jobs";
         name = this.props.item.name;
         break;
+      default:
+        path = "/clients";
+        name = this.props.item.name;
     }
     return (
       <div className="item-card">
