@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
+import { Create, Delete } from "@material-ui/icons";
 import {
   Typography,
   Grid,
   Dialog,
   IconButton,
-  Button
+  Divider
 } from "@material-ui/core";
-import { ItemList, DeleteItem } from "../../components";
+import { CardList, DeleteItem } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import "./clientview.css";
 
@@ -25,9 +25,6 @@ class ClientView extends Component {
   constructor() {
     super();
     this.state = {
-      note_page: 0,
-      part_page: 0,
-      tag_page: 0,
       deleting: false
     };
   }
@@ -73,7 +70,7 @@ class ClientView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={10}>
-                    <h3>{name}</h3>
+                    <Typography variant="title">{name}</Typography>
                   </Grid>
                   <Grid item xs={1}>
                     <IconButton onClick={this.handleDeleteButton}>
@@ -83,7 +80,63 @@ class ClientView extends Component {
                 </Grid>
               </div>
               <Typography paragraph>{data.client.description}</Typography>
-              PLACEHOLDER!!!
+              <Grid container>
+                <Grid item xs={6}>
+                  <Typography align="left">
+                    {data.client.businessName}
+                  </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">
+                    {data.client.streetNumber}
+                  </Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">{data.client.unitNumber}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">{data.client.streetName}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography align="left">{`${data.client.firstName} ${
+                    data.client.lastName
+                  }`}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">{data.client.city}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">{data.client.state}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Typography align="left">{data.client.zipcode}</Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  {data.client.deadline}
+                </Grid>
+              </Grid>
+              <Divider />
+              <Typography
+                align="left"
+                variant="subheading"
+              >{`Jobs for ${name}:`}</Typography>
+              <CardList
+                rows={1}
+                columns={4}
+                type="job"
+                items={data.client.jobSet.edges}
+              />
+              <Divider />
+              <Typography
+                align="left"
+                variant="subheading"
+              >{`Notes for ${name}:`}</Typography>
+              <CardList
+                rows={1}
+                columns={4}
+                type="note"
+                items={data.client.noteSet.edges}
+              />
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelDelete}
@@ -92,7 +145,7 @@ class ClientView extends Component {
                 <DeleteItem
                   cancelDelete={this.cancelDelete}
                   type="client"
-                  item={data.client.job}
+                  item={data.client}
                   after_path="/clients"
                 />
               </Dialog>

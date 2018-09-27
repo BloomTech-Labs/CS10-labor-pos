@@ -25,9 +25,6 @@ class JobView extends Component {
   constructor() {
     super();
     this.state = {
-      note_page: 0,
-      part_page: 0,
-      tag_page: 0,
       deleting: false
     };
   }
@@ -110,7 +107,7 @@ class JobView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={10}>
-                    <h3>{data.job.name}</h3>
+                    <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
                   <Grid item xs={1}>
                     <IconButton onClick={this.handleDeleteButton}>
