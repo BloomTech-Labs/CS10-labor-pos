@@ -14,6 +14,8 @@ import os
 from decouple import config
 import dj_database_url
 
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -47,6 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "corsheaders",  # Added corsheaders
     "server",
+    "stripe",
 ]
 
 
@@ -158,3 +161,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
+
+
+
