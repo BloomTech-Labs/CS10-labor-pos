@@ -47,54 +47,51 @@ class JobView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
           let right_content = [];
 
-          if (data && data.job) {
-            //Build an array of react objects to use as the right-side information display.
-            if (data.job.complete) {
-              right_content.push(
-                <Typography key={0}>
-                  <DoneOutline />
-                  Job Complete
-                </Typography>
-              );
-            } else {
-              right_content.push(
-                <Typography key={0}>
-                  <ArrowRightAlt />
-                  Job In Progress
-                </Typography>
-              );
-            }
-            if (data.job.deadline) {
-              right_content.push(
-                <Typography key={1}>Deadline: {data.job.deadline}</Typography>
-              );
-            }
-            const created = new Date(data.job.createdAt);
-            const modified = new Date(data.job.modifiedAt);
+          if (data.job.complete) {
             right_content.push(
-              <Typography key={2}>
-                Labor/hours worked: {data.job.labor}
+              <Typography key={0}>
+                <DoneOutline />
+                Job Complete
               </Typography>
             );
-
+          } else {
             right_content.push(
-              <Typography key={3}>
-                Created On:{" "}
-                {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
-              </Typography>
-            );
-            right_content.push(
-              <Typography key={4}>
-                Modified On:{" "}
-                {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+              <Typography key={0}>
+                <ArrowRightAlt />
+                Job In Progress
               </Typography>
             );
           }
+          if (data.job.deadline) {
+            right_content.push(
+              <Typography key={1}>Deadline: {data.job.deadline}</Typography>
+            );
+          }
+          const created = new Date(data.job.createdAt);
+          const modified = new Date(data.job.modifiedAt);
+          right_content.push(
+            <Typography key={2}>
+              Labor/hours worked: {data.job.labor}
+            </Typography>
+          );
 
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          right_content.push(
+            <Typography key={3}>
+              Created On:{" "}
+              {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+            </Typography>
+          );
+          right_content.push(
+            <Typography key={4}>
+              Modified On:{" "}
+              {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+            </Typography>
+          );
+
           return (
             <div>
               <div className="job-view-top">

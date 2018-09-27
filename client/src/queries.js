@@ -73,4 +73,44 @@ const DETAILED_JOB_BY_ID = gql`
   }
 `;
 
-export { QUERY_ALL_JOBS, DETAILED_JOB_BY_ID, QUERY_ALL_CLIENTS };
+const DETAILED_CLIENT_BY_ID = gql`
+  query($id: ID!) {
+    client(id: $id) {
+      id
+      businessName
+      firstName
+      lastName
+      streetNumber
+      unitNumber
+      streetName
+      city
+      state
+      zipcode
+      jobSet {
+        edges {
+          node {
+            id
+            name
+            description
+          }
+        }
+      }
+      noteSet {
+        edges {
+          node {
+            id
+            title
+            content
+          }
+        }
+      }
+    }
+  }
+`;
+
+export {
+  QUERY_ALL_JOBS,
+  DETAILED_JOB_BY_ID,
+  QUERY_ALL_CLIENTS,
+  DETAILED_CLIENT_BY_ID
+};
