@@ -233,7 +233,7 @@ class NewContractor extends Component {
     streetAddress: "",
     zipcode: "",
     city: "",
-    state: "Alabama"
+    state: "AL"
   };
 
   //This method keeps the state updated with the current contents of the input fields
@@ -349,7 +349,7 @@ class NewContractor extends Component {
                   margin="normal"
                 >
                   {states.map(state => (
-                    <MenuItem key={state.value} value={state.value}>
+                    <MenuItem key={state.label} value={state.label}>
                       {state.label}
                     </MenuItem>
                   ))}
