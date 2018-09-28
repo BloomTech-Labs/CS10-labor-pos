@@ -17,7 +17,6 @@ whitenoise = "*"
 django-filter = "*"
 stripe = "*"
 twilio = "*"
-sendgrid-django = "*"
 "django-sendgrid-v5" = "*"
 sendgrid = "==3.6.0"
 

@@ -4,8 +4,8 @@ from django.template.loader import get_template
 from django.shortcuts import render, redirect
 
 
-def confirmation_view(request)
-  if request.method == "POST":
+def confirmation_view(request):
+    if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
         message = request.POST.get("message")
@@ -29,8 +29,4 @@ def confirmation_view(request)
 
         send_mail(subject, test_message, from_email, to_email, fail_silently=True)
 
-
-
-        return redirect("/other/")
-    return render(request, "index.html", {})
-
+    return render(request, "index.html")
