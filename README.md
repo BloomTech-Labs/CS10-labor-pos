@@ -100,7 +100,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - Material Design
 
-  - The styling of Material UI components has always appealed to the three of us, so we jump at any opportunity to integrate it into our varied projects. Our goal for this application was to be utilitarian without seeming as though we were making no effort on improving user experience, so Material UI just seemed like the good fit.
+  - The styling of Material UI components has always appealed to our team, so we jump at any opportunity to integrate it into our varied projects. Our goal for this application was to be utilitarian without seeming as though we were making no effort on improving user experience, so Material UI just seemed like the good fit.
 
 - GraphQL/Apollo Client
 
