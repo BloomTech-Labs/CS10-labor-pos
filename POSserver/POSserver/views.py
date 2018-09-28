@@ -28,5 +28,6 @@ def confirmation_view(request):
         test_message = get_template('test_message.txt').render(context)
 
         send_mail(subject, test_message, from_email, to_email, fail_silently=True)
+        #change to false in production
 
     return render(request, "index.html")
