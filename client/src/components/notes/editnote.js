@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
+import NoteForm from "./noteform.js";
 
-//  This component will render as a child of home on the
-//  /notes/:id/edit route when the user is logged in.
+//  This component will render as a child of note view..
 //  It presents the user with prepopulated form fields to update a note.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r5720

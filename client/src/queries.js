@@ -70,6 +70,29 @@ const QUERY_ALL_PARTS = gql`
   }
 `;
 
+const ALL_CLIENTS_AND_JOBS = gql`
+  query {
+    allJobs {
+      edges {
+        node {
+          name
+          id
+        }
+      }
+    }
+    allClients {
+      edges {
+        node {
+          firstName
+          lastName
+          businessName
+          id
+        }
+      }
+    }
+  }
+`;
+
 const DETAILED_JOB_BY_ID = gql`
   query job($id: ID!) {
     job(id: $id) {
@@ -157,5 +180,6 @@ export {
   DETAILED_JOB_BY_ID,
   QUERY_ALL_CLIENTS,
   DETAILED_CLIENT_BY_ID,
-  QUERY_ALL_PARTS
+  QUERY_ALL_PARTS,
+  ALL_CLIENTS_AND_JOBS
 };

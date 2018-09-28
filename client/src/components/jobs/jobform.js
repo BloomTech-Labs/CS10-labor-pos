@@ -5,7 +5,8 @@ import {
   MenuItem,
   Grid,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Typography
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { withRouter } from "react-router";
@@ -62,9 +63,11 @@ class JobForm extends Component {
     const { client, name, labor, description, deadline, complete } = this.state;
     let chosen_mutation = CREATE_JOB;
     let title_text = "Add Job";
+    let button_text = "Create";
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_JOB;
       title_text = `Update ${this.props.job.name}`;
+      button_text = "Update";
     }
     return (
       <div>
@@ -95,7 +98,7 @@ class JobForm extends Component {
               >
                 {(mutateJob, { loading, error, data }) => (
                   <div>
-                    <h1>{title_text}</h1>
+                    <Typography variant="title">{title_text}</Typography>
                     <form
                       onSubmit={event => {
                         event.preventDefault();
@@ -223,7 +226,7 @@ class JobForm extends Component {
                           />
                         </Grid>
                         <div className="form-bottom-button">
-                          <Button type="submit">Create Job</Button>
+                          <Button type="submit">{button_text}</Button>
                         </div>
                       </Grid>
                     </form>
