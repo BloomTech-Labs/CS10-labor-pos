@@ -23,7 +23,6 @@ import Start from "./home/start";
 import Clients from "./clients/clients";
 import AddClient from "./clients/addclient";
 import ClientForm from "./clients/clientform";
-import ClientInfo from "./clients/clientinfo";
 import ClientView from "./clients/clientview";
 import Login from "./auth/login";
 import NewContractor from "./auth/newcontractor";
@@ -31,6 +30,10 @@ import NewUser from "./auth/newuser";
 import ItemList from "./reuseable/itemlist.js";
 import CardList from "./reuseable/cardlist.js";
 import ItemCard from "./reuseable/itemcard.js";
+import EditNote from "./notes/editnote.js";
+import EditClient from "./clients/editclient.js";
+import EditTag from "./tags/edittag.js";
+import EditPart from "./parts/editpart.js";
 
 export {
   Tags,
@@ -58,12 +61,15 @@ export {
   Clients,
   AddClient,
   ClientForm,
-  ClientInfo,
   ClientView,
   Login,
   NewContractor,
   NewUser,
   ItemList,
   CardList,
-  ItemCard
+  ItemCard,
+  EditNote,
+  EditClient,
+  EditTag,
+  EditPart
 };

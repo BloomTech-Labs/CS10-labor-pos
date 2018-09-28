@@ -24,14 +24,6 @@ const CREATE_JOB = gql`
   }
 `;
 
-const SIGNIN_MUTATION = gql`
-  mutation tokenAuth($username: String!, $password: String!) {
-    tokenAuth(username: $username, password: $password) {
-      token
-    }
-  }
-`;
-
 const CREATE_USER = gql`
   mutation createUser(
     $username: String!
@@ -64,9 +56,70 @@ const CREATE_USER = gql`
   }
 `;
 
+const CREATE_NOTE = gql`
+  mutation($client: ID, $content: String!, $job: ID, $title: String!) {
+    createNote(client: $client, content: $content, job: $job, title: $title) {
+      note {
+        id
+      }
+    }
+  }
+`;
+
+const UPDATE_JOB = gql`
+  mutation updateJob(
+    $id: ID!
+    $name: String
+    $labor: Float
+    $description: String
+    $deadline: Date
+    $complete: Boolean
+  ) {
+    updateJob(
+      id: $id
+      name: $name
+      labor: $labor
+      description: $description
+      deadline: $deadline
+      complete: $complete
+    ) {
+      job {
+        name
+        id
+      }
+    }
+  }
+`;
+
+const UPDATE_NOTE = gql`
+  mutation($id: ID!, $content: String, $title: String) {
+    updateNote(id: $id, content: $content, title: $title) {
+      note {
+        id
+      }
+    }
+  }
+`;
+
+const SIGNIN_MUTATION = gql`
+  mutation tokenAuth($username: String!, $password: String!) {
+    tokenAuth(username: $username, password: $password) {
+      token
+    }
+  }
+`;
+
 const DELETE_JOB = gql`
   mutation($id: ID!) {
     deleteJob(id: $id) {
+      ok
+    }
+  }
+`;
+
+const DELETE_CLIENT = gql`
+  mutation($id: ID!) {
+    deleteClient(id: $id) {
       ok
     }
   }
@@ -98,10 +151,14 @@ const DELETE_PART = gql`
 
 export {
   CREATE_JOB,
+  UPDATE_JOB,
   SIGNIN_MUTATION,
   CREATE_USER,
   DELETE_JOB,
+  DELETE_CLIENT,
   DELETE_NOTE,
   DELETE_PART,
-  DELETE_TAG
+  DELETE_TAG,
+  CREATE_NOTE,
+  UPDATE_NOTE
 };

@@ -23,7 +23,11 @@ import {
   Start,
   Clients,
   AddClient,
-  ClientView
+  ClientView,
+  EditClient,
+  EditNote,
+  EditTag,
+  EditPart
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer } from "@material-ui/core";
@@ -91,6 +95,7 @@ class Home extends Component {
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
             <Route exact path="/clients/:id" component={ClientView} />
+            <Route exact path="/clients/:id/edit" component={EditClient} />
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/jobs/:id" component={JobView} />
             <Route exact path="/createjob" component={AddJob} />
@@ -99,15 +104,18 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/createtag" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
+            <Route exact path="/tags/:id/edit" component={EditTag} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
+            <Route exact path="/parts/:id/edit" component={EditPart} />
           </div>
         </main>
       </div>
