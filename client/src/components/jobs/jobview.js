@@ -3,7 +3,13 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
-import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Dialog,
+  IconButton,
+  Button
+} from "@material-ui/core";
 import { ItemList, DeleteItem } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import "./jobview.css";
@@ -22,7 +28,8 @@ class JobView extends Component {
       note_page: 0,
       part_page: 0,
       tag_page: 0,
-      deleting: false
+      deleting: false,
+      data: ""
     };
   }
 
@@ -158,6 +165,9 @@ class JobView extends Component {
                   </Grid>
                   <Grid item xs={3}>
                     {right_content}
+                    <Link to={`/jobs/${data.job.id}/invoice`}>
+                      <Button>Invoice</Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </div>

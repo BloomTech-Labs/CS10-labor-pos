@@ -24,5 +24,5 @@ from .views import GeneratePDF
 urlpatterns = [
     path("admin/", admin.site.urls),
     url(r"^graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
-    url(r"^pdf/$", GeneratePDF.as_view()),
+    url(r"^pdf/$", csrf_exempt(GeneratePDF.as_view())),
 ]

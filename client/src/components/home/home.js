@@ -94,6 +94,7 @@ class Home extends Component {
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/jobs/:id" component={JobView} />
             <Route exact path="/createjob" component={AddJob} />
+            <Route exact path="/jobs/:id/invoice" component={JobInvoice} />
             <Route exact path="/jobs/:id/edit" component={EditJob} />
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />

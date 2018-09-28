@@ -88,4 +88,4 @@ class Client(models.Model):
             name = self.business_name
         else:
             name = self.first_name + " " + self.last_name
-        return f"{self.__class__.__name__}: {name} "
+        return f"{name} "
