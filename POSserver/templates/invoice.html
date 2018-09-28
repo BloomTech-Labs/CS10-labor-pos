@@ -110,8 +110,15 @@
                             <td class="left"> {{ part.description }} </td>
                             {%endif%}
                             <td class="right">{{ part.cost }}</td>
-                            {% endfor %}
                         </tr>
+                        <tr>
+                            <td></td>
+                            {% endfor %}
+                            <td></td>
+                            <td class="left">Labor</td>
+                            <td class="right">{{ labor }} </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

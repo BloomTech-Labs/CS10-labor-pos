@@ -21,7 +21,7 @@ class GeneratePDF(View):
         total = 0
         for part in job_parts:
             total = total + part["cost"]
-        print(total)
+        total = total + job.labor
         # print(parts.__dict__)
         print(job)
         # client.name = "%s %s" % (client.first_name, client.last_name)

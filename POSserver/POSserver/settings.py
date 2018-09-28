@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "corsheaders",  # Added corsheaders
     "server",
+    "django_seed",
 ]
 
 

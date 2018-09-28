@@ -66,7 +66,7 @@ class User(AbstractUser):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
+    state = models.CharField(max_length=2, choices=state_choices, default="AL")
     zipcode = models.CharField(max_length=10)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     modified_at = models.DateTimeField(auto_now=True)

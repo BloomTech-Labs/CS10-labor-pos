@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "48e6423559f1fe3efa7585deab4d9d248f6b4eafab75e9ac2c5a3a579dad6762"
+            "sha256": "c69772f819d911388663c31289d3ea004f60370f1915e8ff521becd7833e32a8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -133,11 +133,26 @@
         },
         "django-graphql-jwt": {
             "hashes": [
-                "sha256:9eea167f9fc4fa0dacaa4565e8bd10fa1d696e7d91b345e9eaa3248846bd83c6",
-                "sha256:f3a8199f615bb1ac17862cb8c987fe35b2c5de56e40fa04a66f5e96d3ec85306"
+                "sha256:619e76d3eabd05732f3e267ddb6d60e5e63a119002f91b316de26cdf66699d25",
+                "sha256:f00a135baef6729b5816b32ea97f0fd49925d16e07054013139938295f1d5e66"
             ],
             "index": "pypi",
-            "version": "==0.1.12"
+            "version": "==0.1.13"
+        },
+        "django-seed": {
+            "hashes": [
+                "sha256:da5dc54494c2d4274a6b9f9a2aea69cb15c3cce80777e2d30b3a5a082c0a7ee8"
+            ],
+            "index": "pypi",
+            "version": "==0.1.9"
+        },
+        "faker": {
+            "hashes": [
+                "sha256:74b32991f8e08e4f2f84858b919eca253becfaec4b3fa5fcff7fdbd70d5d78b1",
+                "sha256:c2ce42dd8361e6d392276006d757532562463c8642b1086709584200b7fd7758"
+            ],
+            "index": "pypi",
+            "version": "==0.9.1"
         },
         "graphene": {
             "hashes": [
@@ -216,7 +231,6 @@
                 "sha256:f63e420180cbe22ff6e32558b612e75f50616fc111c5e095a4631946c782e109",
                 "sha256:f8b3d413c5a8f84b12cd4c5df1d8e211777c9852c6be3ee9c094b626644d3eab"
             ],
-            "markers": "python_version != '3.1.*' and python_version != '3.3.*' and python_version != '3.2.*' and python_version != '3.0.*' and python_version >= '2.7'",
             "version": "==5.2.0"
         },
         "promise": {
@@ -266,7 +280,6 @@
             "hashes": [
                 "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
             ],
-            "markers": "python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.1.*' and python_version != '3.3.*'",
             "version": "==2.19"
         },
         "pyjwt": {
@@ -281,6 +294,13 @@
                 "sha256:e28f902f2f0a1603ea95ebe21dff311ef09be3d0f0ef29a3e44a932729564385"
             ],
             "version": "==1.26.0"
+        },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:1adb80e7a782c12e52ef9a8182bebeb73f1d7e24e374397af06fb4956c8dc5c0",
+                "sha256:e27001de32f627c22380a688bcc43ce83504a7bc5da472209b4c70f02829f0b8"
+            ],
+            "version": "==2.7.3"
         },
         "python-decouple": {
             "hashes": [
@@ -350,6 +370,13 @@
                 "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb"
             ],
             "version": "==1.11.0"
+        },
+        "text-unidecode": {
+            "hashes": [
+                "sha256:5a1375bb2ba7968740508ae38d92e1f889a0832913cb1c447d5e2046061a396d",
+                "sha256:801e38bd550b943563660a91de8d4b6fa5df60a542be9093f7abf819f86050cc"
+            ],
+            "version": "==1.2"
         },
         "typing": {
             "hashes": [
