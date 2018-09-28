@@ -93,6 +93,35 @@ const ALL_CLIENTS_AND_JOBS = gql`
   }
 `;
 
+const ALL_NOTES_PARTS_JOBS = gql`
+  query {
+    allJobs {
+      edges {
+        node {
+          name
+          id
+        }
+      }
+    }
+    allNotes {
+      edges {
+        node {
+          title
+          id
+        }
+      }
+    }
+    allParts {
+      edges {
+        node {
+          name
+          id
+        }
+      }
+    }
+  }
+`;
+
 const DETAILED_JOB_BY_ID = gql`
   query job($id: ID!) {
     job(id: $id) {
@@ -209,5 +238,6 @@ export {
   DETAILED_CLIENT_BY_ID,
   QUERY_ALL_PARTS,
   ALL_CLIENTS_AND_JOBS,
-  DETAILED_NOTE_BY_ID
+  DETAILED_NOTE_BY_ID,
+  ALL_NOTES_PARTS_JOBS
 };

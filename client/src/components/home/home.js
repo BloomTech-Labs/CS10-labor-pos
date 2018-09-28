@@ -104,14 +104,14 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
-            <Route exact path="/notes/:id/edit" component={EditNote} />
+            <Route exact path="/notes/:id/edit" component={NoteView} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/createtag" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
-            <Route exact path="/tags/:id/edit" component={EditTag} />
+            <Route exact path="/tags/:id/edit" component={TagView} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />

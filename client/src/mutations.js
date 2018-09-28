@@ -149,6 +149,52 @@ const DELETE_PART = gql`
   }
 `;
 
+const CREATE_TAG = gql`
+  mutation createTag(
+    $job: ID
+    $note: ID
+    $part: ID
+    $name: String!
+    $description: String
+  ) {
+    createTag(
+      job: $job
+      note: $note
+      part: $part
+      name: $name
+      description: $description
+    ) {
+      tag {
+        id
+      }
+    }
+  }
+`;
+
+const UPDATE_TAG = gql`
+  mutation updateTag(
+    $id: ID!
+    $job: ID
+    $note: ID
+    $part: ID
+    $name: String
+    $description: String
+  ) {
+    updateTag(
+      id: $ID
+      job: $job
+      note: $note
+      part: $part
+      name: $name
+      description: $description
+    ) {
+      tag {
+        id
+      }
+    }
+  }
+`;
+
 export {
   CREATE_JOB,
   UPDATE_JOB,
@@ -160,5 +206,7 @@ export {
   DELETE_PART,
   DELETE_TAG,
   CREATE_NOTE,
-  UPDATE_NOTE
+  UPDATE_NOTE,
+  CREATE_TAG,
+  UPDATE_TAG
 };
