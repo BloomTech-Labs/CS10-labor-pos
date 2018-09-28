@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "corsheaders",  # Added corsheaders
     "server",
     "stripe",
-    "sendgrid-django",
     "sendgrid",
 ]
 
@@ -166,10 +165,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_USER = 'nphillips78@gmail.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_PASSWORD = 's3ndgr1d'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+SERVER_EMAIL = ''
+DEFAULT_FROM_EMAIL = ''
+
+
+

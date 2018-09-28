@@ -1,10 +1,9 @@
 from django.conf import settings
 from django.core.mail import send_mail
-from django.template.loader import get_template
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 
-def confirmation_view(request):
+def test_email(request):
     if request.method == "POST":
         name = request.POST.get("name")
         email = request.POST.get("email")
@@ -25,9 +24,10 @@ def confirmation_view(request):
           'message': message
         }
 
-        test_message = get_template('test_message.txt').render(context)
+        test_message = render(context)
 
         send_mail(subject, test_message, from_email, to_email, fail_silently=True)
-        #change to false in production
+        # change to false in production
 
     return render(request, "index.html")
+    print("Email sent")
