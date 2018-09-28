@@ -86,18 +86,24 @@ class UpdateNote(graphene.Mutation):
         id = graphene.ID()
         title = graphene.String()
         content = graphene.String()
+        job = graphene.ID()
+        client = graphene.ID()
 
     ok = graphene.Boolean()
     note = graphene.Field(Note_Type)
     status = graphene.String()
 
-    def mutate(self, info, id, title="", content=""):
+    def mutate(self, info, id, title="", content="", job="", client=""):
         user = info.context.user
 
         if user.is_anonymous:
             return UpdateNote(ok=False, status="Must be logged in")
         else:
             updated_note = Note.objects.get(pk=from_global_id(id)[1])
+            if job != "":
+                updated_note.job = Job.objects.get(pk=from_global_id(job)[1])
+            if client != "":
+                updated_note.client = Client.objects.get(pk=from_global_id(client)[1])
             if title != "":
                 updated_note.title = title
             if content != "":

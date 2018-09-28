@@ -82,18 +82,27 @@ class UpdateTag(graphene.Mutation):
         id = graphene.ID()
         name = graphene.String()
         description = graphene.String()
+        job = graphene.ID()
+        note = graphene.ID()
+        part = graphene.ID()
 
     ok = graphene.Boolean()
     tag = graphene.Field(Tag_Type)
     status = graphene.String()
 
-    def mutate(self, info, id, name="", description=""):
+    def mutate(self, info, id, name="", description="", job="", note="", part=""):
         user = info.context.user
 
         if user.is_anonymous:
             return UpdateTag(ok=False, status="Must be logged in")
         else:
             updated_tag = Tag.objects.get(pk=from_global_id(id)[1])
+            if job != "":
+                updated_tag.job = Job.objects.get(pk=from_global_id(job)[1])
+            if note != "":
+                updated_tag.note = Note.objects.get(pk=from_global_id(note)[1])
+            if part != "":
+                updated_tag.part = Part.objects.get(pk=from_global_id(part)[1])
             if name != "":
                 updated_tag.name = name
             if description != "":

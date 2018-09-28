@@ -139,7 +139,7 @@ const DETAILED_JOB_BY_ID = gql`
 `;
 
 const DETAILED_CLIENT_BY_ID = gql`
-  query($id: ID!) {
+  query client($id: ID!) {
     client(id: $id) {
       id
       businessName
@@ -163,9 +163,31 @@ const DETAILED_CLIENT_BY_ID = gql`
       noteSet {
         edges {
           node {
-            id
             title
             content
+            created_at
+            modified_at
+          }
+        }
+      }
+    }
+  }
+`;
+
+const DETAILED_NOTE_BY_ID = gql`
+  query note($id: ID!) {
+    note(id: $id) {
+      id
+      title
+      content
+      createdAt
+      modifiedAt
+      tagSet {
+        edges {
+          node {
+            id
+            name
+            description
           }
         }
       }
@@ -181,5 +203,6 @@ export {
   QUERY_ALL_CLIENTS,
   DETAILED_CLIENT_BY_ID,
   QUERY_ALL_PARTS,
-  ALL_CLIENTS_AND_JOBS
+  ALL_CLIENTS_AND_JOBS,
+  DETAILED_NOTE_BY_ID
 };
