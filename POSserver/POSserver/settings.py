@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "corsheaders",  # Added corsheaders
     "server",
     "stripe",
+    "sendgrid-django",
+    "sendgrid",
 ]
 
 
@@ -164,5 +166,5 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
-
-
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]

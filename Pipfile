@@ -16,8 +16,10 @@ whitenoise = "*"
 "psycopg2-binary" = "*"
 django-filter = "*"
 stripe = "*"
-sendgrid = "*"
 twilio = "*"
+sendgrid-django = "*"
+"django-sendgrid-v5" = "*"
+sendgrid = "==3.6.0"
 
 [dev-packages]
 
