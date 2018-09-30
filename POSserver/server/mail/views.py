@@ -18,16 +18,16 @@ def test_email(request):
 
         # second way to send email
 
+        message = "hi"
         context = {
           'user': name,
           'email': email,
           'message': message
         }
-
+    
         test_message = render(context)
 
         send_mail(subject, test_message, from_email, to_email, fail_silently=True)
         # change to false in production
 
-    return render(request, "index.html")
     print("Email sent")

@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     "server",
     "stripe",
     "sendgrid",
+    "welcome",
+    "django-mail-templated",
 ]
 
 
@@ -74,7 +76,7 @@ ROOT_URLCONF = "POSserver.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -165,15 +167,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
+WELCOME_FROM_EMAIL = 'Cole nphillips78@gmail.com'
+
 EMAIL_HOST_USER = 'nphillips78@gmail.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_PASSWORD = 's3ndgr1d'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = ''
 DEFAULT_FROM_EMAIL = ''
-
-
 
