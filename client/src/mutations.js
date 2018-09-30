@@ -96,6 +96,41 @@ const DELETE_PART = gql`
   }
 `;
 
+const STRIPE_MUTATION = gql`
+  mutation CreateStripeCharge($input:_CreateStripeChargeInput!) {
+    createStripeCharge(input:$input){
+      charge {
+        id
+        amount
+        captured
+        created
+        currency
+        description
+        status
+      }
+    }
+ }
+ `;
+
+const CARDTOKEN_MUTATION = gql`
+ mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
+ createStripeCardToken(input: $input) {
+   token {
+     id
+     created
+     livemode
+     type
+     used
+     card {
+       id
+       brand
+       exp_year
+     }
+   }
+ }
+}
+`;
+
 export {
   CREATE_JOB,
   SIGNIN_MUTATION,
@@ -103,5 +138,7 @@ export {
   DELETE_JOB,
   DELETE_NOTE,
   DELETE_PART,
-  DELETE_TAG
+  DELETE_TAG,
+  STRIPE_MUTATION,
+  CARDTOKEN_MUTATION,
 };

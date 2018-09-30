@@ -15,6 +15,9 @@ dj-database-url = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
 django-filter = "*"
+stripe = "*"
+twilio = "*"
+sendgrid = "==3.6.0"
 
 [dev-packages]
 
