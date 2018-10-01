@@ -68,18 +68,21 @@ class UpdatePart(graphene.Mutation):
         name = graphene.String()
         description = graphene.String()
         cost = graphene.Float(2)
+        job = graphene.ID()
 
     ok = graphene.Boolean()
     part = graphene.Field(Part_Type)
     status = graphene.String()
 
-    def mutate(self, info, id, name="", description="", cost=""):
+    def mutate(self, info, id, name="", description="", cost="", job=""):
         user = info.context.user
 
         if user.is_anonymous:
             return UpdatePart(ok=False, status="Must be logged in")
         else:
             updated_part = Part.objects.get(pk=from_global_id(id)[1])
+            if job != "":
+                updated_part.job = Job.objects.get(pk=from_global_id(job)[1])
             if name != "":
                 updated_part.name = name
             if description != "":

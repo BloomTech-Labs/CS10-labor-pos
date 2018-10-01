@@ -3,25 +3,28 @@ import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
 import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
-import { Typography, Grid, Dialog, IconButton } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  Dialog,
+  IconButton,
+  Button
+} from "@material-ui/core";
 import { ItemList, DeleteItem } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import "./jobview.css";
 
-//This component will render as a child of home on the path /jobs/%jobid
-//It will present the user with the job info from the database as well as
-//paginated lists of associated notes, parts, and tags, and an invoice
-//generation button.
+//  This component will render as a child of home on the path /jobs/%jobid
+//  It will present the user with the job info from the database as well as
+//  paginated lists of associated notes, parts, and tags, and an invoice
+//  generation button.
 
-//https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
+//  https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
 
 class JobView extends Component {
   constructor() {
     super();
     this.state = {
-      note_page: 0,
-      part_page: 0,
-      tag_page: 0,
       deleting: false
     };
   }
@@ -41,54 +44,51 @@ class JobView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
+          if (loading) return "Loading...";
+          if (error) return `Error! ${error.message}`;
           let right_content = [];
 
-          if (data && data.job) {
-            //Build an array of react objects to use as the right-side information display.
-            if (data.job.complete) {
-              right_content.push(
-                <Typography key={0}>
-                  <DoneOutline />
-                  Job Complete
-                </Typography>
-              );
-            } else {
-              right_content.push(
-                <Typography key={0}>
-                  <ArrowRightAlt />
-                  Job In Progress
-                </Typography>
-              );
-            }
-            if (data.job.deadline) {
-              right_content.push(
-                <Typography key={1}>Deadline: {data.job.deadline}</Typography>
-              );
-            }
-            const created = new Date(data.job.createdAt);
-            const modified = new Date(data.job.modifiedAt);
+          if (data.job.complete) {
             right_content.push(
-              <Typography key={2}>
-                Labor/hours worked: {data.job.labor}
+              <Typography key={0}>
+                <DoneOutline />
+                Job Complete
               </Typography>
             );
-
+          } else {
             right_content.push(
-              <Typography key={3}>
-                Created On:{" "}
-                {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
-              </Typography>
-            );
-            right_content.push(
-              <Typography key={4}>
-                Modified On:{" "}
-                {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+              <Typography key={0}>
+                <ArrowRightAlt />
+                Job In Progress
               </Typography>
             );
           }
+          if (data.job.deadline) {
+            right_content.push(
+              <Typography key={1}>Deadline: {data.job.deadline}</Typography>
+            );
+          }
+          const created = new Date(data.job.createdAt);
+          const modified = new Date(data.job.modifiedAt);
+          right_content.push(
+            <Typography key={2}>
+              Labor/hours worked: {data.job.labor}
+            </Typography>
+          );
 
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          right_content.push(
+            <Typography key={3}>
+              Created On:{" "}
+              {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+            </Typography>
+          );
+          right_content.push(
+            <Typography key={4}>
+              Modified On:{" "}
+              {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+            </Typography>
+          );
+
           return (
             <div>
               <div className="job-view-top">
@@ -107,7 +107,7 @@ class JobView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={10}>
-                    <h3>{data.job.name}</h3>
+                    <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
                   <Grid item xs={1}>
                     <IconButton onClick={this.handleDeleteButton}>
@@ -134,6 +134,12 @@ class JobView extends Component {
                       spacing={24}
                     >
                       <Grid item xs={4}>
+                        {/*TODO: make these links pass the associated job to the create component*/}
+                        <Link to="/createnote">
+                          <Button className="job-list-button">
+                            Add a new note
+                          </Button>
+                        </Link>
                         <ItemList
                           type="note"
                           items={data.job.noteSet.edges}
@@ -141,6 +147,11 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
+                        <Link to="/createpart">
+                          <Button className="job-list-button">
+                            Add a new part
+                          </Button>
+                        </Link>
                         <ItemList
                           type="part"
                           items={data.job.partSet.edges}
@@ -148,6 +159,11 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
+                        <Link to="/createtag">
+                          <Button className="job-list-button">
+                            Add a new tag
+                          </Button>
+                        </Link>
                         <ItemList
                           type="tag"
                           items={data.job.tagSet.edges}
@@ -158,6 +174,9 @@ class JobView extends Component {
                   </Grid>
                   <Grid item xs={3}>
                     {right_content}
+                    <Link to={`/jobs/${data.job.id}/invoice`}>
+                      <Button>Invoice</Button>
+                    </Link>
                   </Grid>
                 </Grid>
               </div>
