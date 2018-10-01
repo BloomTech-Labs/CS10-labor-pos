@@ -230,6 +230,33 @@ const DETAILED_NOTE_BY_ID = gql`
   }
 `;
 
+const DETAILED_TAG_BY_ID = gql`
+  query tag($id: ID!) {
+    tag(id: $id) {
+      id
+      name
+      description
+      createdAt
+      modifiedAt
+      job {
+        name
+        description
+        id
+      }
+      part {
+        name
+        description
+        id
+      }
+      note {
+        title
+        content
+        id
+      }
+    }
+  }
+`;
+
 export {
   QUERY_ALL_JOBS,
   QUERY_ALL_NOTES,
@@ -240,5 +267,6 @@ export {
   QUERY_ALL_PARTS,
   ALL_CLIENTS_AND_JOBS,
   DETAILED_NOTE_BY_ID,
-  ALL_NOTES_PARTS_JOBS
+  ALL_NOTES_PARTS_JOBS,
+  DETAILED_TAG_BY_ID
 };
