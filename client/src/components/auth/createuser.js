@@ -8,8 +8,7 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-import UserForm from "./user";
-import ContactForm from "./contractor";
+import { UserForm, ContactForm } from "../../components";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 
@@ -47,48 +46,69 @@ const styles = theme => ({
   }
 });
 
-let fieldValues = {
-  username: "",
-  email: "",
-  password: ""
-};
-
 const steps = ["Account details", "Contact information"];
 
 class CreateUser extends Component {
   constructor() {
     super();
     this.state = {
-      activeStep: 0
+      activeStep: 0,
+      username: "",
+      email: "",
+      password: "",
+      firstName: "",
+      lastName: "",
+      businessName: "",
+      streetAddress: "",
+      city: "",
+      state: "",
+      zipcode: ""
     };
-    this.saveValues = this.saveValues.bind(this);
+    this._next = this._next.bind(this);
+    this._prev = this._prev.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
-  saveValues = info => {
-    this.setState({
-      username: info.username,
-      password: info.password,
-      email: info.email
-    });
-  };
+  handleChange(name) {
+    return event =>
+      this.setState({
+        [name]: event.target.value
+      });
+  }
 
-  _next() {
+  _next = () => {
     let activeStep = this.state.activeStep;
+    // if (activeStep !== 2) {
     this.setState({
       activeStep: activeStep + 1
     });
-  }
+  };
 
-  _prev() {
+  _prev = () => {
     let activeStep = this.state.activeStep;
     this.setState({
       activeStep: activeStep - 1
     });
-  }
+  };
 
-  submitRegistration() {
-    this._next();
-  }
+  submit = createUser => event => {
+    event.preventDefault();
+    createUser({
+      variables: {
+        businessName: this.state.businessName,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        streetAddress: this.state.streetAddress,
+        zipcode: this.state.zipcode,
+        city: this.state.city,
+        state: this.state.state,
+        username: this.state.username,
+        password: this.state.password,
+        email: this.state.email
+      }
+    });
+    this.props.modalDone();
+  };
 
   getStepContent(step) {
     console.log(this.state);
@@ -96,9 +116,14 @@ class CreateUser extends Component {
       case 0:
         return (
           <UserForm
-            next={this._next}
+            onSubmit={this._next}
             previous={this._prev}
-            save={this.saveValues.bind(this)}
+            username={this.state.username}
+            onChangeUsername={this.handleChange("username")}
+            onChangePassword={this.handleChange("password")}
+            onChangeEmail={this.handleChange("email")}
+            password={this.state.password}
+            email={this.state.email}
           />
         );
       case 1:
@@ -107,8 +132,23 @@ class CreateUser extends Component {
             username={this.state.username}
             password={this.state.password}
             email={this.state.email}
+            firstName={this.state.firstName}
+            lastName={this.state.lastName}
+            businessName={this.state.businessName}
+            streetAddress={this.state.streetAddress}
+            city={this.state.city}
+            state={this.state.state}
+            zipcode={this.state.zipcode}
+            onChangeFirstName={this.handleChange("firstName")}
+            onChangeLastName={this.handleChange("lastName")}
+            onChangeBusinessName={this.handleChange("businessName")}
+            onChangeStreetAddress={this.handleChange("streetAddress")}
+            onChangeCity={this.handleChange("city")}
+            onChangeState={this.handleChange("state")}
+            onChangeZipcode={this.handleChange("zipcode")}
+            button={this.props.classes.button}
             previous={this._prev}
-            submit={this.submitRegistration}
+            submit={this.submit}
           />
         );
       default:
@@ -118,7 +158,7 @@ class CreateUser extends Component {
 
   render() {
     const { classes } = this.props;
-    const { activeStep, username, password, email } = this.state;
+    const { activeStep } = this.state;
 
     return (
       <React.Fragment>
@@ -127,13 +167,7 @@ class CreateUser extends Component {
             <Typography variant="display1" align="center">
               Sign up with email
             </Typography>
-            <Stepper
-              activeStep={activeStep}
-              username={username}
-              password={password}
-              email={email}
-              className={classes.stepper}
-            >
+            <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map(label => (
                 <Step key={label}>
                   <StepLabel>{label}</StepLabel>
@@ -152,23 +186,20 @@ class CreateUser extends Component {
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
-                      <Button
-                        onClick={this._prev.bind(this)}
-                        className={classes.button}
-                      >
+                      <Button onClick={this._prev} className={classes.button}>
                         Back
                       </Button>
                     )}
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={this._next.bind(this)}
-                      className={classes.button}
-                    >
-                      {activeStep === steps.length - 1
-                        ? "Create account"
-                        : "Next"}
-                    </Button>
+                    {activeStep === steps.length - 1 ? null : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={this._next}
+                        className={classes.button}
+                      >
+                        Next
+                      </Button>
+                    )}
                   </div>
                 </React.Fragment>
               )}
@@ -184,4 +215,4 @@ CreateUser.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(CreateUser);
+export default withRouter(withStyles(styles)(CreateUser));
