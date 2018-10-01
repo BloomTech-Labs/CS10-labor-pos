@@ -25,8 +25,6 @@ class ContactForm extends Component {
   };
 
   render() {
-    console.log("Contractor props", this.props);
-    console.log("Contractor state", this.state);
     const {
       businessName,
       firstName,

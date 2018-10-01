@@ -30,11 +30,8 @@ class NoteForm extends Component {
         if (this.props.note[key] === null) edit_note[key] = "";
         else edit_note[key] = this.props.note[key];
       }
-      console.log(this.props.note);
-      console.log(edit_note);
       if (!edit_note.client) edit_note.client = { id: "" };
       if (!edit_note.job) edit_note.job = { id: "" };
-      console.log(edit_note);
       this.setState({
         client: edit_note.client.id,
         job: edit_note.job.id,

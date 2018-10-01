@@ -111,7 +111,6 @@ class CreateUser extends Component {
   };
 
   getStepContent(step) {
-    console.log(this.state);
     switch (step) {
       case 0:
         return (

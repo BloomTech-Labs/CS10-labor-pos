@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_NOTE_BY_ID } from "../../queries";
-import { Typography, Grid, IconButton } from "@material-ui/core";
+import { Typography, Grid, IconButton, Dialog } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import { CardList } from "../../components";
+import { CardList, DeleteItem } from "../../components";
 import NoteForm from "./noteform";
 
 //  This component will render as a child of home on the
@@ -15,6 +15,21 @@ import NoteForm from "./noteform";
 //  a form to edit the note.
 
 class NoteView extends Component {
+  constructor() {
+    super();
+    this.state = {
+      deleting: false
+    };
+  }
+
+  handleDeleteButton = () => {
+    this.setState({ deleting: true });
+  };
+
+  cancelDelete = () => {
+    this.setState({ deleting: false });
+  };
+
   render() {
     return (
       <Query
@@ -66,6 +81,18 @@ class NoteView extends Component {
                 </Grid>
               </Grid>
               <NoteForm mode="edit" note={data.note} />
+              <Dialog
+                open={this.state.deleting}
+                onClose={this.cancelDelete}
+                className="delete-modal"
+              >
+                <DeleteItem
+                  cancelDelete={this.cancelDelete}
+                  type="note"
+                  item={data.note}
+                  after_path="/notes"
+                />
+              </Dialog>
             </React.Fragment>
           );
         }}

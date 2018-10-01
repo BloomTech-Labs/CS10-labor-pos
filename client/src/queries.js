@@ -267,6 +267,15 @@ const DETAILED_PART_BY_ID = gql`
       name
       description
       cost
+      tagSet {
+        edges {
+          node {
+            id
+            name
+            description
+          }
+        }
+      }
     }
   }
 `;
