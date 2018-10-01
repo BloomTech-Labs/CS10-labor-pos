@@ -66,13 +66,9 @@ export {
   CardList,
   ItemCard,
   EditClient,
-<<<<<<< HEAD
-  EditPart
-=======
   EditTag,
   EditPart,
   CreateUser,
   UserForm,
   ContactForm
->>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
 };

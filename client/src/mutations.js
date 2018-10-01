@@ -154,8 +154,6 @@ const DELETE_PART = gql`
   }
 `;
 
-<<<<<<< HEAD
-=======
 const UPDATE_CLIENT = gql`
   mutation updateClient(
     $id: ID!
@@ -226,7 +224,6 @@ const CREATE_CLIENT = gql`
   }
 `;
 
->>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
 const CREATE_TAG = gql`
   mutation createTag(
     $job: ID
@@ -273,38 +270,6 @@ const UPDATE_TAG = gql`
   }
 `;
 
-<<<<<<< HEAD
-const UPDATE_CLIENT = gql`
-  mutation updateClient(
-    $id: ID!
-    $businessName: String
-    $firstName: String
-    $lastName: String
-    $email: String
-    $streetNumber: String
-    $unitNumber: String
-    $streetName: String
-    $city: String
-    $state: String
-    $zipcode: String
-    $deadline: Date
-  ) {
-    updateClient(
-      id: $id
-      businessName: $businessName
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      streetNumber: $streetNumber
-      unitNumber: $unitNumber
-      streetName: $streetName
-      city: $city
-      state: $state
-      zipcode: $zipcode
-      deadline: $deadline
-    ) {
-      client {
-=======
 const UPDATE_USER = gql`
   mutation updateUser(
     $id: ID!
@@ -333,14 +298,12 @@ const UPDATE_USER = gql`
       zipcode: $zipcode
     ) {
       user {
->>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
         id
       }
     }
   }
 `;
 
-<<<<<<< HEAD
 const CREATE_CLIENT = gql`
   mutation createClient(
     $businessName: String
@@ -369,31 +332,6 @@ const CREATE_CLIENT = gql`
       deadline: $deadline
     ) {
       client {
-=======
-const DELETE_USER = gql`
-  mutation deleteUser($id: ID!) {
-    deleteUser(id: $id) {
-      status
-    }
-  }
-`;
-
-const CREATE_PART = gql`
-  mutation createPart(
-    $cost: Float!
-    $description: String!
-    $user: ID!
-    $job: ID!
-  ) {
-    createPart(
-      cost: $cost
-      name: $name
-      description: $description
-      user: $user
-      job: $job
-    ) {
-      part {
->>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
         id
       }
     }
@@ -412,12 +350,6 @@ export {
   DELETE_TAG,
   CREATE_NOTE,
   UPDATE_NOTE,
-<<<<<<< HEAD
-  CREATE_TAG,
-  UPDATE_TAG,
-  UPDATE_CLIENT,
-  CREATE_CLIENT
-=======
   UPDATE_CLIENT,
   CREATE_CLIENT,
   CREATE_TAG,
@@ -425,5 +357,4 @@ export {
   UPDATE_USER,
   DELETE_USER,
   CREATE_PART
->>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
 };
