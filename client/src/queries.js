@@ -193,9 +193,31 @@ const DETAILED_CLIENT_BY_ID = gql`
       noteSet {
         edges {
           node {
-            id
             title
             content
+            created_at
+            modified_at
+          }
+        }
+      }
+    }
+  }
+`;
+
+const DETAILED_NOTE_BY_ID = gql`
+  query note($id: ID!) {
+    note(id: $id) {
+      id
+      title
+      content
+      createdAt
+      modifiedAt
+      tagSet {
+        edges {
+          node {
+            id
+            name
+            description
           }
         }
       }
@@ -266,7 +288,11 @@ export {
   DETAILED_CLIENT_BY_ID,
   QUERY_ALL_PARTS,
   ALL_CLIENTS_AND_JOBS,
+<<<<<<< HEAD
   DETAILED_NOTE_BY_ID,
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID
+=======
+  DETAILED_NOTE_BY_ID
+>>>>>>> 75f293602ac1f59e0b06f1f46b2fcd9e7fc7cdae
 };
