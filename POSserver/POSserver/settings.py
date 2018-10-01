@@ -35,7 +35,7 @@ ALLOWED_HOSTS = config(
 _ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
 
 CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
-# CORS_ORIGIN_ALLOW_ALL = config("CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
+CORS_ORIGIN_ALLOW_ALL = config("CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
 CORS_ALLOW_CREDENTIALS = config("CORS_ALLOW_CREDENTIALS", cast=bool, default=False)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
