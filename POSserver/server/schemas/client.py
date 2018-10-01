@@ -4,8 +4,6 @@ from server.models import Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
-auto_debug = True
-
 
 class Client_Type(DjangoObjectType):
     class Meta:
@@ -34,21 +32,19 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
-    if auto_debug is True:
+    def resolve_all_clients(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Client.objects.none()
+        else:
+            return Client.objects.filter(user=user)
 
-        def resolve_all_clients(self, info, **kwargs):
-            user = info.context.user
-            if user.is_anonymous:
-                return Client.objects.none()
-            else:
-                return Client.objects.filter(user=user)
-
-        def resolve_client(self, info, **kwargs):
-            user = info.context.user
-            if user.is_anonymous:
-                return Client.objects.none()
-            else:
-                return Client.objects.filter(user=user)
+    def resolve_client(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Client.objects.none()
+        else:
+            return Client.objects.filter(user=user)
 
 
 class CreateClient(graphene.Mutation):
@@ -99,6 +95,7 @@ class CreateClient(graphene.Mutation):
         business_name="",
         unit_number="",
     ):
+
         user = info.context.user
         if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
