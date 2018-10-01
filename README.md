@@ -18,6 +18,9 @@
   - [Frontend Built Using](#frontend-built-using)
   - [Backend Built Using](#backend-built-using)
   - [Reasoning](#reasoning)
+- [Authentication](#authentication)
+- [Authorization](#authorization)
+- [Security](#security)
 - [Rough Page Layout](#rough-page-layout)
   - [Home Page](#home-page)
   - [Client Views](#client-views)
@@ -134,6 +137,18 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
   - We chose Heroku for roughly the same reason we chose Netlify, with the addendum that we also wanted a deployment site that would interact well with a Postgres database.
 
 ---
+
+# Authentication:
+
+Authentication is being handled with the use of JSON Web Tokens through graphql_jwt.
+
+# Authorization:
+
+Authorization is handled on the model level, with each model query checking to see if the requesting party is anonymous, restricting access if they are, and filtering responses to limit access to only those items the particular requesting party has created.
+
+# Security:
+
+- Work on security is ongoing.
 
 # Rough Page Layout (click to view):
 
