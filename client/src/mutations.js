@@ -190,40 +190,6 @@ const UPDATE_CLIENT = gql`
   }
 `;
 
-const CREATE_CLIENT = gql`
-  mutation createClient(
-    $businessName: String
-    $firstName: String!
-    $lastName: String!
-    $email: String!
-    $streetNumber: String!
-    $unitNumber: String
-    $streetName: String!
-    $city: String!
-    $state: String!
-    $zipcode: String!
-    $deadline: Date
-  ) {
-    updateClient(
-      businessName: $businessName
-      firstName: $firstName
-      lastName: $lastName
-      email: $email
-      streetNumber: $streetNumber
-      unitNumber: $unitNumber
-      streetName: $streetName
-      city: $city
-      state: $state
-      zipcode: $zipcode
-      deadline: $deadline
-    ) {
-      client {
-        id
-      }
-    }
-  }
-`;
-
 const CREATE_TAG = gql`
   mutation createTag(
     $job: ID
@@ -298,6 +264,40 @@ const UPDATE_USER = gql`
       zipcode: $zipcode
     ) {
       user {
+        id
+      }
+    }
+  }
+`;
+
+const CREATE_CLIENT = gql`
+  mutation createClient(
+    $businessName: String
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $streetNumber: String!
+    $unitNumber: String
+    $streetName: String!
+    $city: String!
+    $state: String!
+    $zipcode: String!
+    $deadline: Date
+  ) {
+    createClient(
+      businessName: $businessName
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      streetNumber: $streetNumber
+      unitNumber: $unitNumber
+      streetName: $streetName
+      city: $city
+      state: $state
+      zipcode: $zipcode
+      deadline: $deadline
+    ) {
+      client {
         id
       }
     }
