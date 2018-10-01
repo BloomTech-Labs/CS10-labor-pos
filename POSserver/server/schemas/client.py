@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from server.models import Client, User
+from server.models import Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
@@ -34,7 +34,7 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
-    if auto_debug is False:
+    if auto_debug is True:
 
         def resolve_all_clients(self, info, **kwargs):
             user = info.context.user
@@ -68,7 +68,6 @@ class CreateClient(graphene.Mutation):
         and an optional deadline field"""
 
     class Arguments:
-        user = graphene.ID()
         business_name = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -88,7 +87,6 @@ class CreateClient(graphene.Mutation):
     def mutate(
         self,
         info,
-        user,
         first_name,
         last_name,
         email,
@@ -101,8 +99,8 @@ class CreateClient(graphene.Mutation):
         business_name="",
         unit_number="",
     ):
-        user_context = info.context.user
-        if user_context.is_anonymous:
+        user = info.context.user
+        if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
         else:
             new_client = Client(
@@ -116,7 +114,7 @@ class CreateClient(graphene.Mutation):
                 city=city,
                 state=state,
                 zipcode=zipcode,
-                user=User.objects.get(pk=from_global_id(user)[1]),
+                user=user,
             )
             new_client.save()
             return CreateClient(client=new_client, ok=True, status="ok")

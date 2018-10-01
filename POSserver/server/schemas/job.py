@@ -94,13 +94,22 @@ class UpdateJob(graphene.Mutation):
         labor = graphene.Float(2)
         description = graphene.String()
         deadline = graphene.types.datetime.Date()
+        client = graphene.ID()
 
     ok = graphene.Boolean()
     job = graphene.Field(Job_Type)
     status = graphene.String()
 
     def mutate(
-        self, info, id, name="", description="", complete="", deadline=None, labor=""
+        self,
+        info,
+        id,
+        name="",
+        description="",
+        complete="",
+        deadline=None,
+        labor="",
+        client="",
     ):
         # Will need to pass null or nothing in for empty deadline on frontend
         user = info.context.user
@@ -108,6 +117,8 @@ class UpdateJob(graphene.Mutation):
             return UpdateJob(ok=False, status="Must be logged in.")
         else:
             updated_job = Job.objects.get(pk=from_global_id(id)[1])
+            if client != "":
+                updated_job.client = Client.objects.get(pk=from_global_id(client)[1])
             if name != "":
                 updated_job.name = name
             if description != "":

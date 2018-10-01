@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import { Login, NewUser, NewContractor, Home } from "../../components";
+import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
 import { withRouter } from "react-router";
+// import ContactForm from "../../components/auth/contractor";
 
 //This is the component for users who arrive at the site without being logged in.
 //It renders path-insensitively; if the user is not logged in, any path will
@@ -46,7 +47,7 @@ class LandingPage extends Component {
   //The contractor modal uses it to close itself and open
   //the login modal.
   handleLogin = () => {
-    this.setState({ login_modal: true, contractor_modal: false });
+    this.setState({ login_modal: true, create_modal: false });
   };
 
   //This method is used to open the create user modal.
@@ -134,20 +135,8 @@ class LandingPage extends Component {
             onClose={this.handleCloseModals}
             className="user-modal"
           >
-            <NewUser
+            <CreateUser
               parentInfoMethod={this.setUserInformation.bind(this)}
-              modalDone={this.handleContractorButton}
-            />
-          </Dialog>
-          <Dialog
-            open={this.state.contractor_modal}
-            onClose={this.handleCloseModals}
-            className="contractor-modal"
-          >
-            <NewContractor
-              username={this.state.username}
-              email={this.state.email}
-              password={this.state.password}
               modalDone={this.handleLogin}
             />
           </Dialog>
