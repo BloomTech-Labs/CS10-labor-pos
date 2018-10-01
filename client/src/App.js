@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import { Route } from 'react-router-dom';
-import CreateJob from './components/jobs/createJob/createJob';
-import Settings from './components/settings/settings';
+import React, { Component } from "react";
+import "./App.css";
+import { LandingPage } from "./components";
+
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/create-job" component={CreateJob}/>
-        <Route exact path="/settings" component={Settings}/>
+        <div className="hero-image">
+          <LandingPage />
+        </div>
       </div>
     );
   }

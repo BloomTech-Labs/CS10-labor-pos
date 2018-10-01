@@ -1,0 +1,8 @@
+.controlled-nav-accordion {
+  max-width: 200px;
+}
+
+.nav-menu-items {
+  display: flex;
+  flex-direction: column;
+}

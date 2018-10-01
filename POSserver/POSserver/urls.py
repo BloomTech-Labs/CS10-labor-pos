@@ -16,10 +16,15 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from graphene_django.views import GraphQLView
-from django.urls import path
+from django.views.decorators.csrf import csrf_exempt
+from django.urls import path, include
+from .views import GeneratePDF
+
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    url(r"^graphql", GraphQLView.as_view(graphiql=True)),
+    path("accounts/", include("allauth.urls")),
+    url(r"^graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    url(r"^pdf/$", csrf_exempt(GeneratePDF.as_view())),
 ]

@@ -1,13 +1,10 @@
 from django.db import models
-from .note import Note
-from .job import Job
-from .contractor import Contractor
-from uuid import uuid4
+from django.conf import settings
+from django.core.mail import send_mail
 
 
-class Account(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid4, editable=False, null=False)
-    contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+class Client(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     first_name = models.CharField(max_length=100, default="")
     last_name = models.CharField(max_length=100, default="")
@@ -72,17 +69,23 @@ class Account(models.Model):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(max_length=2, choices=state_choices, default="Alabama")
+    state = models.CharField(max_length=2, choices=state_choices, default="AL")
     zipcode = models.CharField(max_length=10)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True, null=True)
-    note = models.ManyToManyField(Note, related_name="account_notes", blank=True)
-    job = models.ManyToManyField(Job, related_name="account_jobs", blank=True)
+
+    def save(self, *args, **kwargs):
+        super().full_clean()
+        super().save(*args, **kwargs)
+
+    def email_client(self, subject, message, from_email=None, **kwargs):
+        """Send an email to the client"""
+        send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __str__(self):
         if self.business_name is not None:
             name = self.business_name
         else:
             name = self.first_name + " " + self.last_name
-        return f"{self.__class__.__name__}: {name} "
+        return f"{name} "

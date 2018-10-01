@@ -2,3 +2,11 @@
 /node_modules
 .env
 /POSserver/staticfiles/
+server.json
+data.json
+.pyc
+__pycache__
+/.vscode
+sendgrid.env
+.vscode
+

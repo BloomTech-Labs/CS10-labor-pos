@@ -1,8 +1,8 @@
 from .tag import Tag
-from .account import Account
-from .contractor import Contractor
+from .client import Client
+from .user import User
 from .job import Job
 from .note import Note
 from .part import Part
 
-__all__ = ["Tag", "Account", "Contractor", "Job", "Note", "Part"]
+__all__ = ["Tag", "Client", "User", "Job", "Note", "Part"]
