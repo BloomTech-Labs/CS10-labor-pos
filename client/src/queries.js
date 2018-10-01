@@ -195,8 +195,6 @@ const DETAILED_CLIENT_BY_ID = gql`
           node {
             title
             content
-            created_at
-            modified_at
           }
         }
       }
