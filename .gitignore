@@ -7,3 +7,4 @@ data.json
 .pyc
 __pycache__
 /.vscode
+sendgrid.env
