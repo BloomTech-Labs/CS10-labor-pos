@@ -29,7 +29,7 @@ const CREATE_USER = gql`
     $username: String!
     $password: String!
     $email: String!
-    $businessName: String!
+    $businessName: String
     $city: String!
     $firstName: String!
     $lastName: String!
