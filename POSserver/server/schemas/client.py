@@ -1,6 +1,6 @@
 import graphene
 from graphene_django import DjangoObjectType
-from server.models import Client, User
+from server.models import Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
@@ -34,7 +34,7 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
-    if auto_debug is False:
+    if auto_debug is True:
 
         def resolve_all_clients(self, info, **kwargs):
             user = info.context.user
@@ -114,8 +114,8 @@ class CreateClient(graphene.Mutation):
                 city=city,
                 state=state,
                 zipcode=zipcode,
+                user=user,
             )
-            new_client.user = (User.objects.get(pk=from_global_id(user)[1]),)
             new_client.save()
             return CreateClient(client=new_client, ok=True, status="ok")
 
