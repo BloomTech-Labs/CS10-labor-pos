@@ -195,6 +195,76 @@ const UPDATE_TAG = gql`
   }
 `;
 
+const UPDATE_CLIENT = gql`
+  mutation updateClient(
+    $id: ID!
+    $businessName: String
+    $firstName: String
+    $lastName: String
+    $email: String
+    $streetNumber: String
+    $unitNumber: String
+    $streetName: String
+    $city: String
+    $state: String
+    $zipcode: String
+    $deadline: Date
+  ) {
+    updateClient(
+      id: $id
+      businessName: $businessName
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      streetNumber: $streetNumber
+      unitNumber: $unitNumber
+      streetName: $streetName
+      city: $city
+      state: $state
+      zipcode: $zipcode
+      deadline: $deadline
+    ) {
+      client {
+        id
+      }
+    }
+  }
+`;
+
+const CREATE_CLIENT = gql`
+  mutation createClient(
+    $businessName: String
+    $firstName: String!
+    $lastName: String!
+    $email: String!
+    $streetNumber: String!
+    $unitNumber: String
+    $streetName: String!
+    $city: String!
+    $state: String!
+    $zipcode: String!
+    $deadline: Date
+  ) {
+    updateClient(
+      businessName: $businessName
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      streetNumber: $streetNumber
+      unitNumber: $unitNumber
+      streetName: $streetName
+      city: $city
+      state: $state
+      zipcode: $zipcode
+      deadline: $deadline
+    ) {
+      client {
+        id
+      }
+    }
+  }
+`;
+
 export {
   CREATE_JOB,
   UPDATE_JOB,
@@ -208,5 +278,7 @@ export {
   CREATE_NOTE,
   UPDATE_NOTE,
   CREATE_TAG,
-  UPDATE_TAG
+  UPDATE_TAG,
+  UPDATE_CLIENT,
+  CREATE_CLIENT
 };

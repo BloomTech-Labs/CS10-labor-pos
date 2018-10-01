@@ -45,7 +45,11 @@ class JobForm extends Component {
     if (this.props.mode === "edit") {
       let edit_job = {};
       for (let key in this.props.job) {
-        if (this.props.job[key] === null) edit_job[key] = "";
+        if (
+          this.props.client[key] === null ||
+          this.props.client[key] === undefined
+        )
+          edit_job[key] = "";
         else edit_job[key] = this.props.job[key];
       }
       this.setState({

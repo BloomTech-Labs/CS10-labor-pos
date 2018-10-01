@@ -180,6 +180,7 @@ const DETAILED_CLIENT_BY_ID = gql`
       city
       state
       zipcode
+      email
       jobSet {
         edges {
           node {
