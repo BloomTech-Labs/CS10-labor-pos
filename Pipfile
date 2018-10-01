@@ -19,6 +19,8 @@ django-filter = "*"
 django-seed = "*"
 faker = "*"
 django-allauth = "*"
+stripe = "*"
+sendgrid = "*"
 
 [dev-packages]
 

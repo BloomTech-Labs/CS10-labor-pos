@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.1.0",
     "@material-ui/icons": "^3.0.1",
+    "@sendgrid/mail": "^6.3.1",
     "apollo-boost": "^0.1.15",
     "apollo-link-context": "^1.0.8",
     "apollo-link-ws": "^1.0.8",
@@ -20,6 +21,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
     "react-stripe-elements": "^2.0.1",
+    "sendgrid": "^5.2.3",
     "subscriptions-transport-ws": "^0.9.14"
   },
   "scripts": {
