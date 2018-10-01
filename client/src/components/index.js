@@ -29,7 +29,6 @@ import ItemList from "./reuseable/itemlist.js";
 import CardList from "./reuseable/cardlist.js";
 import ItemCard from "./reuseable/itemcard.js";
 import EditClient from "./clients/editclient.js";
-import EditPart from "./parts/editpart.js";
 import CreateUser from "./auth/createuser.js";
 import UserForm from "./auth/userform.js";
 import ContactForm from "./auth/contactform.js";
@@ -66,7 +65,6 @@ export {
   CardList,
   ItemCard,
   EditClient,
-  EditPart,
   CreateUser,
   UserForm,
   ContactForm

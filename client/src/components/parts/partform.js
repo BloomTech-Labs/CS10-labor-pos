@@ -6,14 +6,14 @@ import { withRouter } from "react-router";
 //It will present the user with prepopulated form fields to update a part.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r29EA
-class EditPart extends Component {
+class PartForm extends Component {
   render() {
     return (
       <div>
-        <p>EDITPART PLACEHOLDER</p>
+        <p>PARTFORM PLACEHOLDER</p>
       </div>
     );
   }
 }
 
-export default withRouter(EditPart);
+export default withRouter(PartForm);
