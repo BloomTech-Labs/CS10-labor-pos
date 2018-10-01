@@ -256,6 +256,21 @@ const DETAILED_TAG_BY_ID = gql`
   }
 `;
 
+const DETAILED_PART_BY_ID = gql`
+  query($id: ID!) {
+    part(id: $id) {
+      id
+      job {
+        name
+        id
+      }
+      name
+      description
+      cost
+    }
+  }
+`;
+
 export {
   QUERY_ALL_JOBS,
   QUERY_ALL_NOTES,
@@ -267,5 +282,6 @@ export {
   ALL_CLIENTS_AND_JOBS,
   DETAILED_NOTE_BY_ID,
   ALL_NOTES_PARTS_JOBS,
-  DETAILED_TAG_BY_ID
+  DETAILED_TAG_BY_ID,
+  DETAILED_PART_BY_ID
 };
