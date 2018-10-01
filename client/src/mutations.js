@@ -284,7 +284,7 @@ const CREATE_CLIENT = gql`
     $zipcode: String!
     $deadline: Date
   ) {
-    updateClient(
+    createClient(
       businessName: $businessName
       firstName: $firstName
       lastName: $lastName
