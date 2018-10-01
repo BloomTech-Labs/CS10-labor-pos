@@ -18,6 +18,7 @@ django-filter = "*"
 "xhtml2pdf" = "*"
 django-seed = "*"
 faker = "*"
+django-allauth = "*"
 
 [dev-packages]
 

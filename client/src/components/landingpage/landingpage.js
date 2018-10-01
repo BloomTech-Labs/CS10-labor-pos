@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Button, Dialog } from "@material-ui/core";
 import "./landingpage.css";
-import { Login, NewUser, NewContractor, Home } from "../../components";
+import { Login, Home } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
 import { withRouter } from "react-router";
+import CreateUser from "../../components/auth/createuser";
+// import ContactForm from "../../components/auth/contractor";
 
 //This is the component for users who arrive at the site without being logged in.
 //It renders path-insensitively; if the user is not logged in, any path will
@@ -134,7 +136,7 @@ class LandingPage extends Component {
             onClose={this.handleCloseModals}
             className="user-modal"
           >
-            <NewUser
+            <CreateUser
               parentInfoMethod={this.setUserInformation.bind(this)}
               modalDone={this.handleContractorButton}
             />
@@ -144,12 +146,12 @@ class LandingPage extends Component {
             onClose={this.handleCloseModals}
             className="contractor-modal"
           >
-            <NewContractor
+            {/* <ContactForm
               username={this.state.username}
               email={this.state.email}
               password={this.state.password}
               modalDone={this.handleLogin}
-            />
+            /> */}
           </Dialog>
         </div>
       );

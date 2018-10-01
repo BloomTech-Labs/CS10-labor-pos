@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from decouple import config
 import dj_database_url
+from django.http.response import HttpResponseRedirect
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,13 +42,18 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",  # Added for handling static files
     "django.contrib.admin",
     "django.contrib.auth",
+    "django.contrib.sites",  # Added for django-allauth
     "graphene_django",  # Added for doing GraphQL
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "corsheaders",  # Added corsheaders
+    "django_seed",  # Application to quickly add fake data to the database
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
     "server",
-    "django_seed",
 ]
 
 
@@ -117,6 +123,7 @@ AUTH_USER_MODEL = "server.User"
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # Password validation
@@ -159,3 +166,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
