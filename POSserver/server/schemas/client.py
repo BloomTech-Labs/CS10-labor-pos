@@ -3,7 +3,6 @@ from graphene_django import DjangoObjectType
 from server.models import Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
-import pdb
 
 
 class Client_Type(DjangoObjectType):
@@ -96,7 +95,7 @@ class CreateClient(graphene.Mutation):
         business_name="",
         unit_number="",
     ):
-        pdb.set_trace()
+
         user = info.context.user
         if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
