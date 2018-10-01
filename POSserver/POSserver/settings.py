@@ -11,7 +11,7 @@ import os
 from decouple import config
 import dj_database_url
 from corsheaders.defaults import default_methods
-
+from django.http.response import HttpResponseRedirect
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -31,7 +31,8 @@ ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
 )
 
-CORS_ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
+
+_ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
 
 # CORS_ORIGIN_ALLOW_ALL = True  Cors Options
 CORS_ORIGIN_ALLOW_ALL = config('CORS_ORIGIN_ALLOW_ALL', cast=bool, default=False)
@@ -46,11 +47,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",  # Added for handling static files
     "django.contrib.admin",
     "django.contrib.auth",
+    "django.contrib.sites",  # Added for django-allauth
     "graphene_django",  # Added for doing GraphQL
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "corsheaders",  # Added corsheaders
+    "django_seed",  # Application to quickly add fake data to the database
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
     "server",
     "stripe",
     "sendgrid",
@@ -123,6 +130,7 @@ AUTH_USER_MODEL = "server.User"
 AUTHENTICATION_BACKENDS = [
     "graphql_jwt.backends.JSONWebTokenBackend",
     "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
 ]
 
 # Password validation
@@ -178,3 +186,5 @@ EMAIL_BACKEND = "sgbackend.SendGridBackend"
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = 'nphillips78@gmail.com'
 DEFAULT_FROM_EMAIL = 'nphillips78@gmail.com'
+SITE_ID = 1
+LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")

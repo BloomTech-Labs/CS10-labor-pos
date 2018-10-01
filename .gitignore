@@ -8,3 +8,5 @@ data.json
 __pycache__
 /.vscode
 sendgrid.env
+.vscode
+
