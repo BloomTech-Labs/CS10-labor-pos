@@ -66,7 +66,6 @@ export {
   CardList,
   ItemCard,
   EditClient,
-  EditTag,
   EditPart,
   CreateUser,
   UserForm,

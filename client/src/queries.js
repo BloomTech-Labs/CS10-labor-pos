@@ -212,27 +212,6 @@ const DETAILED_NOTE_BY_ID = gql`
       content
       createdAt
       modifiedAt
-      tagSet {
-        edges {
-          node {
-            id
-            name
-            description
-          }
-        }
-      }
-    }
-  }
-`;
-
-const DETAILED_NOTE_BY_ID = gql`
-  query note($id: ID!) {
-    note(id: $id) {
-      id
-      title
-      content
-      createdAt
-      modifiedAt
       job {
         id
       }
