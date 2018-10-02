@@ -15,6 +15,15 @@ dj-database-url = "*"
 whitenoise = "*"
 "psycopg2-binary" = "*"
 django-filter = "*"
+"xhtml2pdf" = "*"
+django-seed = "*"
+faker = "*"
+django-allauth = "*"
+stripe = "*"
+twilio = "*"
+"django-sendgrid-v5" = "*"
+django-post-office = "*"
+sendgrid = "*"
 
 [dev-packages]
 

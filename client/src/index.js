@@ -12,7 +12,7 @@ import { setContext } from "apollo-link-context";
 import { AUTH_TOKEN } from "./constants";
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:8000/graphql/"
+  uri: process.env.REACT_APP_ENDPOINT
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -20,7 +20,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      Authorization: token ? `Bearer ${token}` : ""
+      Authorization: token ? `JWT ${token}` : ""
     }
   };
 });

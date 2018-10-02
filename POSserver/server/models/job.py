@@ -1,6 +1,6 @@
 from django.db import models
-from .client import Client
 from django.conf import settings
+from ..models import Client
 
 
 class Job(models.Model):
@@ -15,4 +15,4 @@ class Job(models.Model):
     deadline = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.name}"
+        return f"{self.name}"

@@ -1,14 +1,15 @@
 from django.db import models
-from django.utils import timezone
-from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
 
-class Contractor(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=30, null=False, blank=False)
-    last_name = models.CharField(max_length=30, null=False, blank=False)
-    street_address = models.CharField(max_length=100, null=False, blank=False)
-    city = models.CharField(max_length=70, null=False, blank=False, default="")
+class User(AbstractUser):
+    class Meta(AbstractUser.Meta):
+        swappable = "AUTH_USER_MODEL"
+
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=150)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=70)
     state_choices = (
         ("AL", "Alabama"),
         ("AK", "Alaska"),
@@ -65,13 +66,12 @@ class Contractor(models.Model):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(max_length=50, choices=state_choices, default="Alabama")
+    state = models.CharField(max_length=2, choices=state_choices, default="AL")
     zipcode = models.CharField(max_length=10)
-    business_name = models.CharField(max_length=100, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     modified_at = models.DateTimeField(auto_now=True)
     premium = models.BooleanField(default=False, blank=True, null=True)
-    paid_until = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    paid_until = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.__class__.__name__}: {self.first_name} {self.last_name}"
+        return f"{self.username} {self.first_name} {self.last_name}"

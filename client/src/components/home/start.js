@@ -1,42 +1,66 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
+import { Link } from "react-router-dom";
+import { Button, Grid, Card } from "@material-ui/core";
 
+//The start component renders at the root route when the user is logged in
+//It is intended to offer a selection of the most likely tasks the user
+//may be logging in for.
+//We may reconfigure this to be an info thing instead of a card collection.
+
+//https://balsamiq.cloud/sc1hpyg/po5pcja/r2278
 class Start extends Component {
   render() {
     return (
       <div>
-        <Grid container spacing={24}>
+        {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          spacing={24}
+        >
           <Grid item xs={4}>
             <Card>
-              <Button href="/clients">Click to view clients</Button>
+              <Link to="/clients">
+                <Button>Click to view clients</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/jobs">Click to view jobs</Button>
+              <Link to="/jobs">
+                <Button>Click to view jobs</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/notes">Click to view notes</Button>
+              <Link to="/notes">
+                <Button>Click to view notes</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/tags">click to view tags</Button>
+              <Link to="/tags">
+                <Button>Click to view tags</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/parts">click to view parts</Button>
+              <Link to="/parts">
+                <Button>Click to view parts</Button>
+              </Link>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
-              <Button href="/invoices">click to view invoices</Button>
+              <Link to="/invoices">
+                <Button>Click to view invoices</Button>
+              </Link>
             </Card>
           </Grid>
         </Grid>
