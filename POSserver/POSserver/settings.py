@@ -185,19 +185,8 @@ SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
 SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
-# EMAIL_BACKEND = "smtp.EmailBackend"
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
-POST_OFFICE = {
-    'LOG_LEVEL': 1 # Log only failed deliveries
-}
-POST_OFFICE = {
-    'BACKENDS': {
-        'default': 'smtp.EmailBackend',
-        'ses': "sendgrid_backend.SendgridBackend",
-    }
-}
 
-SITE_ID = 1
+
 LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
