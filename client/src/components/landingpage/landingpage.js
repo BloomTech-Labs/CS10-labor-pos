@@ -31,6 +31,7 @@ class LandingPage extends Component {
       password: "",
       email: ""
     };
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   //This method is passed down to the user modal component
@@ -55,13 +56,6 @@ class LandingPage extends Component {
     this.setState({ create_modal: true });
   };
 
-  //This method is passed to the create user modal
-  //so it can close itself and open the contractor
-  //modal.
-  handleContractorButton = () => {
-    this.setState({ create_modal: false, contractor_modal: true });
-  };
-
   //This is a multipurpose method to close all modals.
   handleCloseModals = () => {
     this.setState({
@@ -75,7 +69,7 @@ class LandingPage extends Component {
     const authToken = localStorage.getItem(AUTH_TOKEN);
     //If the user is authenticated, we render the home component instead.
     if (authToken) {
-      return <Home />;
+      return <Home login={this.handleLogin} />;
     }
     //If the user is not authenticated, we go ahead and render this component.
     //TODO: make this actually present a case for using our app.
@@ -135,10 +129,7 @@ class LandingPage extends Component {
             onClose={this.handleCloseModals}
             className="user-modal"
           >
-            <CreateUser
-              parentInfoMethod={this.setUserInformation.bind(this)}
-              modalDone={this.handleLogin}
-            />
+            <CreateUser modalDone={this.handleLogin} />
           </Dialog>
         </div>
       );
