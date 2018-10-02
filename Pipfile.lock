@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "401f5d7bd9e9f35b3a8ca3eb84796e7e07a56bc55b8ba2a86ad168d8e2562b51"
+            "sha256": "ca96a74296becf0634f8d669e9f76f16ca016bd3efdbbc401b481803d06ab0fd"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -104,6 +104,7 @@
                 "sha256:edabd457cd23a02965166026fd9bfd196f4324fe6032e866d0f3bd0301cd486f",
                 "sha256:fdf1c1dc5bafc32bc5d08b054f94d659422b05aba244d6be4ddc1c72d9aa70fb"
             ],
+            "markers": "python_version >= '2.7' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.2.*' and python_version != '3.1.*'",
             "version": "==1.11.5"
         },
         "chardet": {
@@ -134,6 +135,7 @@
                 "sha256:efbcad7ebb47daafbcead109b38a5bd519a3c3cd92c6ed0f691ff97fcdd16b45"
             ],
             "index": "pypi",
+            "markers": null,
             "version": "==2.1.2"
         },
         "django-allauth": {
@@ -167,12 +169,28 @@
             "index": "pypi",
             "version": "==0.1.13"
         },
+        "django-post-office": {
+            "hashes": [
+                "sha256:207b663a05d5d6a62765eb30081093837272a888cf00557d89d0e6f467928871",
+                "sha256:827937a944fe47cea393853069cd9315d080298c8ddb0faf787955d6aa51a030"
+            ],
+            "index": "pypi",
+            "version": "==3.1.0"
+        },
         "django-seed": {
             "hashes": [
                 "sha256:da5dc54494c2d4274a6b9f9a2aea69cb15c3cce80777e2d30b3a5a082c0a7ee8"
             ],
             "index": "pypi",
             "version": "==0.1.9"
+        },
+        "django-sendgrid-v5": {
+            "hashes": [
+                "sha256:24c615e5b5d21fd74b2641f0c2e55fc5eaa0024671d6c9661b2da1935c8a888b",
+                "sha256:b2c0cc5ecc00c661ea6b7e7757a4cf83b14fb662aab62250248e0ad0f8d6be1c"
+            ],
+            "index": "pypi",
+            "version": "==0.6.893"
         },
         "faker": {
             "hashes": [
@@ -181,6 +199,12 @@
             ],
             "index": "pypi",
             "version": "==0.9.1"
+        },
+        "future": {
+            "hashes": [
+                "sha256:e39ced1ab767b5936646cedba8bcce582398233d6a627067d4c6a454c90cfedb"
+            ],
+            "version": "==0.16.0"
         },
         "graphene": {
             "hashes": [
@@ -233,6 +257,13 @@
             ],
             "version": "==2.7"
         },
+        "jsonfield": {
+            "hashes": [
+                "sha256:a0a7fdee736ff049059409752b045281a225610fecbda9b9bd588ba976493c12",
+                "sha256:beb1cd4850d6d6351c32daefcb826c01757744e9c863228a642f87a1a4acb834"
+            ],
+            "version": "==2.0.2"
+        },
         "oauthlib": {
             "hashes": [
                 "sha256:ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162",
@@ -273,7 +304,7 @@
                 "sha256:f52b79c8796d81391ab295b04e520bda6feed54d54931708872e8f9ae9db0ea1",
                 "sha256:ff8cff01582fa1a7e533cb97f628531c4014af4b5f38e33cdcfe5eec29b6d888"
             ],
-            "markers": "python_version != '3.1.*' and python_version >= '2.7' and python_version != '3.0.*' and python_version != '3.2.*' and python_version != '3.3.*'",
+            "markers": "python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.1.*'",
             "version": "==5.3.0"
         },
         "promise": {
@@ -323,6 +354,7 @@
             "hashes": [
                 "sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3"
             ],
+            "markers": "python_version >= '2.7' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.2.*' and python_version != '3.1.*'",
             "version": "==2.19"
         },
         "pyjwt": {
@@ -337,6 +369,13 @@
                 "sha256:e28f902f2f0a1603ea95ebe21dff311ef09be3d0f0ef29a3e44a932729564385"
             ],
             "version": "==1.26.0"
+        },
+        "pysocks": {
+            "hashes": [
+                "sha256:3fe52c55890a248676fd69dc9e3c4e811718b777834bcaab7a8125cf9deac672"
+            ],
+            "markers": "python_version >= '3.0'",
+            "version": "==1.6.8"
         },
         "python-dateutil": {
             "hashes": [
@@ -403,7 +442,7 @@
                 "sha256:e9d299c3d56c91e4a68dfb9357c4a9bf573e3c63cb5bda6f0ff5e1ca9cd5aecf",
                 "sha256:f0dbe4cef046735be8bf386a19ce8a33d759dd17fd14f1fc583eedd4a8ffa679"
             ],
-            "markers": "python_version != '3.1.*' and python_version != '3.3.*' and python_version != '3.2.*' and python_version != '3.0.*' and python_version >= '2.7'",
+            "markers": "python_version >= '2.7' and python_version != '3.2.*' and python_version != '3.0.*' and python_version != '3.3.*' and python_version != '3.1.*'",
             "version": "==3.5.8"
         },
         "requests": {
@@ -433,7 +472,6 @@
                 "sha256:97eb356ea44a18a03e6fe99f02b7942445be306a50f73a7dd35471fe15cc0094",
                 "sha256:9e9d3d75602b8853f174ec959d1af1ac168cd361cbcafc81285fa8c183f7a505"
             ],
-            "index": "pypi",
             "version": "==5.6.0"
         },
         "singledispatch": {
@@ -465,6 +503,14 @@
             ],
             "version": "==1.2"
         },
+        "twilio": {
+            "hashes": [
+                "sha256:450c75ea442ceb4d1de4218602751b373b412ac5f0992675edecb038a48a9f88",
+                "sha256:764133c8f36affd411c04a860885b8c04b3c3cf5f507b11626940c8540bbebd7"
+            ],
+            "index": "pypi",
+            "version": "==6.18.0"
+        },
         "typing": {
             "hashes": [
                 "sha256:4027c5f6127a6267a435201981ba156de91ad0d1d98e9ddc2aa173453453492d",
@@ -478,6 +524,7 @@
                 "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
                 "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
             ],
+            "markers": "python_version != '3.0.*' and python_version >= '2.6' and python_version != '3.3.*' and python_version < '4' and python_version != '3.2.*' and python_version != '3.1.*'",
             "version": "==1.23"
         },
         "webencodings": {
