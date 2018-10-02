@@ -138,6 +138,8 @@ class SideNav extends Component {
         </ExpansionPanel>
         <Button onClick={this.props.logout}>Logout</Button>
         <Divider />
+        {/*The below switch controls light and dark theming by communicating with the App component.
+            The current theme is also saved on local storage so it will persist between reloads.*/}
         <FormControlLabel
           control={
             <Switch
