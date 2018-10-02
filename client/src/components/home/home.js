@@ -25,12 +25,10 @@ import {
   AddClient,
   ClientView,
   EditClient,
-  EditNote,
-  EditTag,
   EditPart
 } from "../../components";
 import { Route } from "react-router-dom";
-import { Hidden, IconButton, Drawer } from "@material-ui/core";
+import { Hidden, IconButton, Drawer, Paper, Grid } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 //The home component is a container component that renders when the user is logged in and displays different
@@ -55,16 +53,21 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="d-flex flex-column">
+      <div>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
-        <IconButton
-          color="inherit"
-          aria-label="Open sidenav"
-          onClick={this.handleDrawerToggle}
-          className="mr-auto"
-        >
-          <MenuIcon />
-        </IconButton>
+        <Grid container>
+          <Grid item xs={1}>
+            <IconButton
+              color="inherit"
+              aria-label="Open sidenav"
+              onClick={this.handleDrawerToggle}
+              className="mr-auto"
+            >
+              <MenuIcon />
+            </IconButton>
+          </Grid>
+          <Grid item xs={11} />
+        </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
         It is toggleable.*/}
@@ -85,13 +88,17 @@ class Home extends Component {
         It is permanently open.*/}
         <Hidden smDown implementation="css">
           <Drawer variant="permanent" open>
-            <SideNav logout={this.logout} />
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              dark_theme={this.props.dark_theme}
+            />
           </Drawer>
         </Hidden>
         {/*These are the routes that render different content components depending on the
         current path.*/}
         <main>
-          <div className="content_area">
+          <Paper className="content_area">
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
@@ -117,7 +124,7 @@ class Home extends Component {
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
             <Route exact path="/parts/:id/edit" component={EditPart} />
-          </div>
+          </Paper>
         </main>
       </div>
     );

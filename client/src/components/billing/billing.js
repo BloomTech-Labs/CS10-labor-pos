@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
-import './billing.css';
+import "./billing.css";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +33,7 @@ class CheckoutForm extends Component {
     this.loadStripe(() => {
       this.stripeHandler = window.StripeCheckout.configure({
         key: process.env.REACT_APP_publishable,
-        image: "goldracoon.png",
+        image: "goldraccoon.png",
         amount: ".99",
         name: "contractAlchemy",
         zip_code: "true",
@@ -73,7 +73,7 @@ class CheckoutForm extends Component {
 
   yearlyMembership(e) {
     this.stripeHandler.open({
-      image: "goldracoon.png",
+      image: "goldraccoon.png",
       amount: "99",
       name: "contractAlchemy",
       description: "Yearly Premium Subscription",
@@ -88,7 +88,7 @@ class CheckoutForm extends Component {
 
   monthlyMembership(e) {
     this.stripeHandler.open({
-      image: "goldracoon.png",
+      image: "goldraccoon.png",
       amount: "999",
       name: "contractAlchemy",
       description: "One Month Membership",

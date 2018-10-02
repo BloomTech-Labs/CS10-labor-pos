@@ -131,7 +131,6 @@ class CreateUser extends Component {
   };
 
   getStepContent(step) {
-    console.log(this.state);
     switch (step) {
       case 0:
         return (
@@ -207,7 +206,11 @@ class CreateUser extends Component {
                   {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
-                      <Button onClick={this._prev} className={classes.button}>
+                      <Button
+                        variant="outlined"
+                        onClick={this._prev}
+                        className={classes.button}
+                      >
                         Back
                       </Button>
                     )}

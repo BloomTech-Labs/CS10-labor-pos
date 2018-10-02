@@ -8,35 +8,35 @@ import {
   Button
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
-import { CREATE_NOTE, UPDATE_NOTE } from "../../mutations.js";
-import { ALL_CLIENTS_AND_JOBS } from "../../queries.js";
+import { CREATE_PART, UPDATE_PART } from "../../mutations.js";
+import { QUERY_ALL_JOBS } from "../../queries.js";
 
-//  This component can dynamically update or create
-//  a note depeinding on the props it's given.
+//  This component will render on the /parts/:id/edit route when the user is logged in
+//  It is a child of the home component.
+//  It will present the user with prepopulated form fields to update a part.
 
-//  https://balsamiq.cloud/sc1hpyg/po5pcja/r5720
-class NoteForm extends Component {
+//  https://balsamiq.cloud/sc1hpyg/po5pcja/r29EA
+class PartForm extends Component {
   state = {
-    title: "",
-    content: "",
-    client: "",
+    name: "",
+    description: "",
+    cost: "",
     job: ""
   };
 
   componentDidMount = () => {
     if (this.props.mode === "edit") {
-      let edit_note = {};
-      for (let key in this.props.note) {
-        if (this.props.note[key] === null) edit_note[key] = "";
-        else edit_note[key] = this.props.note[key];
+      let edit_part = {};
+      for (let key in this.props.part) {
+        if (this.props.part[key] === null) edit_part[key] = "";
+        else edit_part[key] = this.props.part[key];
       }
-      if (!edit_note.client) edit_note.client = { id: "" };
-      if (!edit_note.job) edit_note.job = { id: "" };
+      if (!edit_part.job) edit_part.job = { id: "" };
       this.setState({
-        client: edit_note.client.id,
-        job: edit_note.job.id,
-        title: edit_note.title,
-        content: edit_note.content
+        name: edit_part.name,
+        job: edit_part.job.id,
+        description: edit_part.description,
+        cost: edit_part.cost
       });
     }
   };
@@ -48,36 +48,20 @@ class NoteForm extends Component {
   };
 
   render() {
-    const { title, content, client, job } = this.state;
-    let chosen_mutation = CREATE_NOTE;
-    let title_text = "Add Note";
+    const { name, description, cost, job } = this.state;
+    let chosen_mutation = CREATE_PART;
+    let title_text = "Add Part";
     let button_text = "Create";
     if (this.props.mode === "edit") {
-      chosen_mutation = UPDATE_NOTE;
-      title_text = `Update ${this.props.note.title}`;
+      chosen_mutation = UPDATE_PART;
+      title_text = `Update ${this.props.part.name}`;
       button_text = "Update";
     }
     return (
-      <Query query={ALL_CLIENTS_AND_JOBS}>
+      <Query query={QUERY_ALL_JOBS}>
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          let client_list = [];
-          let client_array = data.allClients.edges;
-          for (let i = 0; i < client_array.length; i++) {
-            if (client_array[i].node.businessName)
-              client_list.push({
-                value: client_array[i].node.id,
-                label: client_array[i].node.businessName
-              });
-            else
-              client_list.push({
-                value: client_array[i].node.id,
-                label: `${client_array[i].node.firstName} ${
-                  client_array[i].node.lastName
-                }`
-              });
-          }
           let job_list = [];
           let job_array = data.allJobs.edges;
           for (let i = 0; i < job_array.length; i++) {
@@ -97,81 +81,68 @@ class NoteForm extends Component {
                   <form
                     onSubmit={event => {
                       event.preventDefault();
-                      let note_variables = {
-                        title: title,
-                        content: content,
+                      let part_variables = {
+                        name: name,
+                        description: description,
                         job: job,
-                        client: client
+                        cost: cost
                       };
 
-                      for (let key in note_variables) {
-                        if (note_variables[key] === "") {
+                      for (let key in part_variables) {
+                        if (part_variables[key] === "") {
                           if (this.props.mode === "edit")
-                            delete note_variables[key];
+                            delete part_variables[key];
                           else throw `${key} is a required field!`;
                         }
                       }
                       if (this.props.mode === "edit")
-                        note_variables.id = this.props.match.params.id;
+                        part_variables.id = this.props.match.params.id;
                       mutateJob({
-                        variables: note_variables
+                        variables: part_variables
                       });
                       this.setState({
-                        title: "",
-                        content: "",
+                        name: "",
+                        description: "",
                         job: "",
-                        client: ""
+                        cost: ""
                       });
                     }}
                   >
                     <TextField
-                      id="field-title"
-                      label="Title"
-                      name="title"
+                      id="field-name"
+                      label="Name"
+                      name="name"
                       className={"modal_field"}
-                      value={title}
-                      onChange={this.handleChange("title")}
-                      helperText="Note Title"
+                      value={name}
+                      onChange={this.handleChange("name")}
+                      helperText="Part Name"
                       margin="normal"
                     />
                     <TextField
-                      id="field-content"
-                      label="Content"
+                      id="field-description"
+                      label="Description"
                       multiline
                       fullWidth
                       rows="8"
                       rowsMax="8"
-                      name="content"
+                      name="description"
                       className={"modal_field"}
-                      value={content}
-                      onChange={this.handleChange("content")}
+                      value={description}
+                      onChange={this.handleChange("description")}
                       margin="normal"
                       variant="outlined"
                     />
                     <Grid container>
                       <Grid item xs={6}>
                         <TextField
-                          id="field-client"
-                          select
-                          label="Client"
-                          name="client"
+                          id="field-cost"
+                          label="Cost"
+                          name="cost"
                           className={"modal_field"}
-                          value={client}
-                          onChange={this.handleChange("client")}
-                          SelectProps={{
-                            MenuProps: {
-                              className: "Mister Menu"
-                            }
-                          }}
-                          helperText="Select Client"
+                          value={cost}
+                          onChange={this.handleChange("cost")}
                           margin="normal"
-                        >
-                          {client_list.map(client => (
-                            <MenuItem key={client.value} value={client.value}>
-                              {client.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
+                        />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
@@ -212,8 +183,8 @@ class NoteForm extends Component {
   }
   _confirm = () => {
     window.location.reload();
-    this.props.history.push("/notes");
+    this.props.history.push("/parts");
   };
 }
 
-export default withRouter(NoteForm);
+export default withRouter(PartForm);

@@ -2,7 +2,7 @@
 CS10-Labor POS
 </h1>
 
-<div align="center"> <img src="client/public/goldracoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
+<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
 
 <div align="center">
 <h2>Brought to you by:</h2><br>
@@ -158,8 +158,8 @@ Authorization is handled on the model level, with each model query checking to s
 
 <details>
 <summary>
-  
-  ## Home Page:</summary>
+
+## Home Page:</summary>
 
 ![Home](/client/page_layout/HomeScreen.png)
 

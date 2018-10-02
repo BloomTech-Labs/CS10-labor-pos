@@ -186,7 +186,12 @@ class ContactForm extends Component {
                 </Grid>
                 <Grid item xs={12}>
                   <div className="HELL">
-                    <Button type="submit" className="SignUpButon">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      className="SignUpButon"
+                    >
                       Finish Account Creation
                     </Button>
                   </div>
