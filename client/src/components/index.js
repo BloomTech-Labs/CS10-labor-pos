@@ -33,6 +33,7 @@ import CreateUser from "./auth/createuser.js";
 import UserForm from "./auth/userform.js";
 import ContactForm from "./auth/contactform.js";
 import EditPart from "./parts/editpart.js";
+import EditTag from "./tags/edittag.js";
 
 export {
   Tags,
@@ -69,5 +70,6 @@ export {
   CreateUser,
   UserForm,
   ContactForm,
-  EditPart
+  EditPart,
+  EditTag
 };

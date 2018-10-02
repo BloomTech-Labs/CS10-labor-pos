@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { NavigateNext, NavigateBefore } from "@material-ui/icons";
-import { Grid, Card, IconButton } from "@material-ui/core";
+import { NavigateNext, NavigateBefore, AddCircle } from "@material-ui/icons";
+import { Grid, Card, IconButton, Typography } from "@material-ui/core";
 import { ItemCard } from "../../components";
+import { Link } from "react-router-dom";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
@@ -51,6 +52,18 @@ class CardList extends Component {
         </Grid>
       );
     }
+    card_array.push(
+      <Grid item xs={12 / this.props.columns} key={card_array.length + 1}>
+        <Card raised>
+          <Link to={`/create${this.props.type}`}>
+            <IconButton>
+              <AddCircle />
+            </IconButton>
+            <Typography>{`New ${this.props.type}`}</Typography>
+          </Link>
+        </Card>
+      </Grid>
+    );
     return (
       <div>
         <Grid

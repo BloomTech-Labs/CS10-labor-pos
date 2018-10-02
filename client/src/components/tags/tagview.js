@@ -70,7 +70,6 @@ class TagView extends Component {
                   </Card>
                 </Grid>
               </Grid>
-              <TagForm className="tag-edit" mode="edit" tag={data.tag} />
             </React.Fragment>
           );
         }}

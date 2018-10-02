@@ -245,7 +245,7 @@ const UPDATE_TAG = gql`
     $description: String
   ) {
     updateTag(
-      id: $ID
+      id: $id
       job: $job
       note: $note
       part: $part
