@@ -107,6 +107,28 @@ const UPDATE_NOTE = gql`
   }
 `;
 
+const UPDATE_PART = gql`
+  mutation(
+    $cost: Float
+    $description: String
+    $id: ID!
+    $job: ID
+    $name: String
+  ) {
+    updatePart(
+      cost: $cost
+      description: $description
+      id: $id
+      job: $job
+      name: $name
+    ) {
+      part {
+        id
+      }
+    }
+  }
+`;
+
 const SIGNIN_MUTATION = gql`
   mutation tokenAuth($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
@@ -317,16 +339,10 @@ const CREATE_PART = gql`
   mutation createPart(
     $cost: Float!
     $description: String!
-    $user: ID!
+    $name: String!
     $job: ID!
   ) {
-    createPart(
-      cost: $cost
-      name: $name
-      description: $description
-      user: $user
-      job: $job
-    ) {
+    createPart(cost: $cost, name: $name, description: $description, job: $job) {
       part {
         id
       }
@@ -352,5 +368,6 @@ export {
   UPDATE_TAG,
   UPDATE_USER,
   DELETE_USER,
-  CREATE_PART
+  CREATE_PART,
+  UPDATE_PART
 };
