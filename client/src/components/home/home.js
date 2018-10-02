@@ -38,6 +38,7 @@ class Home extends Component {
   logout = () => {
     localStorage.removeItem("auth-token");
     this.props.history.push("/");
+    this.props.login(); // this method is passed from LandingPage and ensures the login modal opens
   };
 
   //The mobileOpen variable on state tracks whether the navigation drawer is open in small screen mode.

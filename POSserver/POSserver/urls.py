@@ -21,7 +21,6 @@ from django.urls import path, include
 from .views import GeneratePDF
 
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),

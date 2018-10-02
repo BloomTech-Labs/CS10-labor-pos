@@ -11,6 +11,7 @@ import {
 import { UserForm, ContactForm } from "../../components";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
+import { AUTH_TOKEN } from "../../constants.js";
 
 const styles = theme => ({
   layout: {
@@ -64,11 +65,18 @@ class CreateUser extends Component {
       state: "",
       zipcode: ""
     };
-    this._next = this._next.bind(this);
-    this._prev = this._prev.bind(this);
-    this.submit = this.submit.bind(this);
+    this._next = this._next.bind(this); // 1
+    this._prev = this._prev.bind(this); // 2
+    this.submit = this.submit.bind(this); // 3
+    this._confirm = this._confirm.bind(this); // 4
+    /* 1: Allows user to go to previous page of form
+    /* 2: Allows user to go to next page of form
+    /* 3: Allows user to submit form, which triggers createUser mutation
+    /* 4: Takes token off createUser response and saves it to localStorage */
   }
 
+  /* handleChange is getting passed down to UserForm and ContactForm
+  This is so that the text from the input fields appears in the state of CreateUser */
   handleChange(name) {
     return event =>
       this.setState({
@@ -91,6 +99,19 @@ class CreateUser extends Component {
     });
   };
 
+  _confirm = async data => {
+    const { token } = data.createUser;
+    console.log(data);
+    this._saveUserData(token);
+
+    // Go to the root route
+    this.props.history.push("/");
+  };
+  // save token to localStorage
+  _saveUserData = token => {
+    localStorage.setItem(AUTH_TOKEN, token);
+  };
+
   submit = createUser => event => {
     event.preventDefault();
     createUser({
@@ -107,7 +128,6 @@ class CreateUser extends Component {
         email: this.state.email
       }
     });
-    this.props.modalDone();
   };
 
   getStepContent(step) {
@@ -148,6 +168,7 @@ class CreateUser extends Component {
             button={this.props.classes.button}
             previous={this._prev}
             submit={this.submit}
+            _confirm={this._confirm}
           />
         );
       default:
