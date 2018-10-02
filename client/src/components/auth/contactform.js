@@ -10,7 +10,6 @@ import {
   MenuItem,
   Typography
 } from "@material-ui/core";
-
 import { STATE_LIST } from "../../constants.js";
 
 class ContactForm extends Component {
@@ -25,8 +24,6 @@ class ContactForm extends Component {
   };
 
   render() {
-    console.log("Contractor props", this.props);
-    console.log("Contractor state", this.state);
     const {
       businessName,
       firstName,
@@ -44,7 +41,10 @@ class ContactForm extends Component {
         <Typography variant="title" gutterBottom>
           Address
         </Typography>
-        <Mutation mutation={CREATE_USER} onCompleted={() => this._confirm()}>
+        <Mutation
+          mutation={CREATE_USER}
+          onCompleted={data => this.props._confirm(data)}
+        >
           {(createUser, { loading, error, data }) => (
             <form onSubmit={this.props.submit(createUser)}>
               <Grid container spacing={24}>
@@ -157,10 +157,6 @@ class ContactForm extends Component {
       </React.Fragment>
     );
   }
-
-  _confirm = async () => {
-    console.log(this);
-  };
 }
 
 export default withRouter(ContactForm);
