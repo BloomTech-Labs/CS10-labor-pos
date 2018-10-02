@@ -56,7 +56,7 @@ class PartView extends Component {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography paragraph>PART DESCRIPTION PLACEHOLDER</Typography>
+                <Typography paragraph>{data.part.description}</Typography>
               </Grid>
               <Grid item xs={2}>{`Cost: \$${data.part.cost}`}</Grid>
               <Grid item xs={10}>
