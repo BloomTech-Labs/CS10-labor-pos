@@ -4,7 +4,9 @@ import {
   Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary
+  ExpansionPanelSummary,
+  FormControlLabel,
+  Switch
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";
@@ -136,6 +138,16 @@ class SideNav extends Component {
         </ExpansionPanel>
         <Button onClick={this.props.logout}>Logout</Button>
         <Divider />
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.props.dark_theme}
+              onChange={this.props.themeControlMethod("dark_theme")}
+              value="dark_theme"
+            />
+          }
+          label="Dark Theme"
+        />
       </div>
     );
   }

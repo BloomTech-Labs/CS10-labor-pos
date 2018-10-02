@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Button, Dialog } from "@material-ui/core";
+import {
+  Button,
+  Dialog,
+  Paper,
+  Grid,
+  Typography,
+  Card
+} from "@material-ui/core";
 import "./landingpage.css";
 import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
@@ -75,52 +82,73 @@ class LandingPage extends Component {
     const authToken = localStorage.getItem(AUTH_TOKEN);
     //If the user is authenticated, we render the home component instead.
     if (authToken) {
-      return <Home />;
+      return (
+        <Home
+          themeControlMethod={this.props.themeControlMethod}
+          dark_theme={this.props.dark_theme}
+        />
+      );
     }
     //If the user is not authenticated, we go ahead and render this component.
     //TODO: make this actually present a case for using our app.
     else {
       return (
-        <div className="landing-page">
-          <div className="landing-buttons">
-            <Button color="primary" onClick={this.handleCreateButton}>
-              Create Account
-            </Button>
-            <Button color="secondary" onClick={this.handleLogin}>
-              Log In
-            </Button>
-          </div>
+        <Paper>
+          <Grid container>
+            <Grid item xs={11} />
+            <Grid item xs={1}>
+              <Card>
+                <Button variant="outlined" onClick={this.handleLogin}>
+                  Log In
+                </Button>
+              </Card>
+            </Grid>
+          </Grid>
+          <div className="landing-buttons" />
           <div className="landing-blurb">
-            <p>
-              Placeholder for the blurb!!! Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
-              venenatis ligula volutpat et. Mauris ac rhoncus ipsum. Donec et
-              sodales magna. Sed sed varius sem, non convallis tellus. Mauris
-              maximus dignissim nibh at pretium. Donec posuere semper leo, eu
-              porttitor metus consequat eget. Aliquam in molestie lectus, sit
-              amet euismod purus. Interdum et malesuada fames ac ante ipsum
-              primis in faucibus. Quisque non ligula sagittis, fermentum neque
-              id, cursus orci. Donec porta, tellus suscipit placerat luctus,
-              odio leo imperdiet lorem, a ultrices lorem augue vel ipsum. Fusce
-              vel pretium ligula. Nunc posuere, augue a fringilla euismod, erat
-              tortor sollicitudin felis, a luctus velit enim id mi. Duis sodales
-              bibendum eros non vulputate. Donec volutpat dolor eget libero
-              ultrices congue sit amet at ante. Cras a risus quis quam finibus
-              molestie nec id neque. Morbi blandit bibendum lacus, ut porttitor
-              dolor efficitur sed. Sed sit amet tortor nulla. Morbi rhoncus ex
-              vitae ligula feugiat, semper convallis turpis eleifend. In
-              venenatis nibh non quam lacinia feugiat. Integer dui felis,
-              fringilla eu tempus eget, tincidunt id eros. Nulla iaculis augue
-              ligula, dictum imperdiet nunc rutrum eu. Integer in tortor quis
-              tortor volutpat accumsan vel non tortor. Quisque sodales eleifend
-              tortor, quis consequat risus cursus sit amet. Sed ultricies
-              consectetur nibh, in sollicitudin nulla porttitor ac. Proin
-              molestie varius lacus non venenatis. Donec nec cursus mauris.
-              Proin ultricies ipsum at purus varius, in tincidunt diam pretium.
-              Nunc mattis mauris nunc, et vehicula mauris mollis euismod. Nullam
-              quam ligula, blandit volutpat sem sit amet, tincidunt bibendum
-              lacus. Curabitur et purus lorem. Ut faucibus aliquet imperdiet.
-            </p>
+            <Card className="landing-card">
+              <Typography variant="title">
+                Contract Alchemy: Turning POS Into Gold
+              </Typography>
+              <Typography paragraph>
+                Placeholder for the blurb!!! Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
+                venenatis ligula volutpat et. Mauris ac rhoncus ipsum. Donec et
+                sodales magna. Sed sed varius sem, non convallis tellus. Mauris
+                maximus dignissim nibh at pretium. Donec posuere semper leo, eu
+                porttitor metus consequat eget. Aliquam in molestie lectus, sit
+                amet euismod purus. Interdum et malesuada fames ac ante ipsum
+                primis in faucibus. Quisque non ligula sagittis, fermentum neque
+                id, cursus orci. Donec porta, tellus suscipit placerat luctus,
+                odio leo imperdiet lorem, a ultrices lorem augue vel ipsum.
+                Fusce vel pretium ligula. Nunc posuere, augue a fringilla
+                euismod, erat tortor sollicitudin felis, a luctus velit enim id
+                mi. Duis sodales bibendum eros non vulputate. Donec volutpat
+                dolor eget libero ultrices congue sit amet at ante. Cras a risus
+                quis quam finibus molestie nec id neque. Morbi blandit bibendum
+                lacus, ut porttitor dolor efficitur sed. Sed sit amet tortor
+                nulla. Morbi rhoncus ex vitae ligula feugiat, semper convallis
+                turpis eleifend. In venenatis nibh non quam lacinia feugiat.
+                Integer dui felis, fringilla eu tempus eget, tincidunt id eros.
+                Nulla iaculis augue ligula, dictum imperdiet nunc rutrum eu.
+                Integer in tortor quis tortor volutpat accumsan vel non tortor.
+                Quisque sodales eleifend tortor, quis consequat risus cursus sit
+                amet. Sed ultricies consectetur nibh, in sollicitudin nulla
+                porttitor ac. Proin molestie varius lacus non venenatis. Donec
+                nec cursus mauris. Proin ultricies ipsum at purus varius, in
+                tincidunt diam pretium. Nunc mattis mauris nunc, et vehicula
+                mauris mollis euismod. Nullam quam ligula, blandit volutpat sem
+                sit amet, tincidunt bibendum lacus. Curabitur et purus lorem. Ut
+                faucibus aliquet imperdiet.
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateButton}
+              >
+                Create Account
+              </Button>
+            </Card>
           </div>
           {/*We use material ui dialog components for our modals.*/}
           <Dialog
@@ -140,7 +168,7 @@ class LandingPage extends Component {
               modalDone={this.handleLogin}
             />
           </Dialog>
-        </div>
+        </Paper>
       );
     }
   }
