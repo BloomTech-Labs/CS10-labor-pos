@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "sendgrid",
     "twilio",
     "post_office",
+    "send",
 ]
 
 
@@ -178,12 +179,12 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
 
-SENDGRID_EMAIL_USERNAME = "nphillips78@gmail.com"
+SENDGRID_EMAIL_USERNAME = config("EMAIL_HOST_USER")
 SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
 SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
 SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "nphillips78@gmail.com"
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 # EMAIL_BACKEND = "smtp.EmailBackend"
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
