@@ -5,19 +5,19 @@ from django.conf import settings
 from post_office import mail
 from django.http import HttpResponse, HttpResponseRedirect
 
+settings.configure()
 
 def test_view(request):
 
     if request.method == "POST":
-        name =  request.POST.get("name")
+        name = request.POST.get("name")
         email = request.POST.get("email")
         message = request.POST.get("message")
 
         subject = "testing"
         from_email = settings.DEFAULT_FROM_EMAIL
-        to_email = [settings.DEFAULT_FROM_EMAIL]
-
-
+        to_email = ["cole.mac.phillips@gmail.com"]
+          
         context = {
           "user": name,
           "email": email,
@@ -26,6 +26,8 @@ def test_view(request):
 
         test_message = get_template("test_message.txt").render(context)
         send_mail(subject, test_message, from_email, to_email, fail_silently=True)
+
+        print(subject, test_message, from_email, to_email,)
 
 
         return render (request, "sent.html", {})

@@ -23,6 +23,7 @@ stripe = "*"
 twilio = "*"
 "django-sendgrid-v5" = "*"
 django-post-office = "*"
+sendgrid = "*"
 
 [dev-packages]
 
