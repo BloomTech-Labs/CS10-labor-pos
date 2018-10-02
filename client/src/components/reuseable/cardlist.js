@@ -53,7 +53,7 @@ class CardList extends Component {
       );
     }
     card_array.push(
-      <Grid item xs={12 / this.props.columns} key={card_array.length + 1}>
+      <Grid item xs={12 / this.props.columns} key={-1}>
         <Card raised>
           <Link to={`/create${this.props.type}`}>
             <IconButton>
