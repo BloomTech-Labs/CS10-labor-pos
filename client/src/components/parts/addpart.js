@@ -11,7 +11,7 @@ class AddPart extends Component {
   render() {
     return (
       <div>
-        <p>ADDPART PLACEHOLDER</p>
+        <PartForm mode="create" />
       </div>
     );
   }
