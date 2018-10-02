@@ -34,6 +34,7 @@ import UserForm from "./auth/userform.js";
 import ContactForm from "./auth/contactform.js";
 import EditPart from "./parts/editpart.js";
 import EditTag from "./tags/edittag.js";
+import EditNote from "./notes/editnote.js";
 
 export {
   Tags,
@@ -71,5 +72,6 @@ export {
   UserForm,
   ContactForm,
   EditPart,
-  EditTag
+  EditTag,
+  EditNote
 };

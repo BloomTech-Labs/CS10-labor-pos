@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_TAG_BY_ID } from "../../queries";
-import { Typography, Grid, IconButton, Card } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
-import { ItemCard } from "../../components";
-import TagForm from "./tagform";
+import { Typography, Grid, IconButton, Card, Dialog } from "@material-ui/core";
+import { Delete, Create } from "@material-ui/icons";
+import { ItemCard, DeleteItem } from "../../components";
+import { Link } from "react-router-dom";
 import "./tagview.css";
 
 //  This component will render on the /tags/%tagid route when the user is logged in
@@ -17,6 +17,17 @@ import "./tagview.css";
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/rA413
 
 class TagView extends Component {
+  state = {
+    deleting: false
+  };
+
+  handleDeleteButton = () => {
+    this.setState({ deleting: true });
+  };
+
+  cancelDelete = () => {
+    this.setState({ deleting: false });
+  };
   render() {
     return (
       <Query
@@ -37,7 +48,14 @@ class TagView extends Component {
                 alignItems="center"
                 spacing={24}
               >
-                <Grid item xs={11}>
+                <Grid item xs={1}>
+                  <Link to={`/tags/${data.tag.id}/edit`}>
+                    <IconButton>
+                      <Create />
+                    </IconButton>
+                  </Link>
+                </Grid>
+                <Grid item xs={10}>
                   <Typography variant="title">{data.tag.name}</Typography>
                 </Grid>
                 <Grid item xs={1}>
@@ -70,6 +88,18 @@ class TagView extends Component {
                   </Card>
                 </Grid>
               </Grid>
+              <Dialog
+                open={this.state.deleting}
+                onClose={this.cancelDelete}
+                className="delete-modal"
+              >
+                <DeleteItem
+                  cancelDelete={this.cancelDelete}
+                  type="tag"
+                  item={data.tag}
+                  after_path="/tags"
+                />
+              </Dialog>
             </React.Fragment>
           );
         }}

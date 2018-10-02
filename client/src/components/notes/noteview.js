@@ -3,9 +3,9 @@ import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_NOTE_BY_ID } from "../../queries";
 import { Typography, Grid, IconButton, Dialog } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Delete, Create } from "@material-ui/icons";
 import { CardList, DeleteItem } from "../../components";
-import NoteForm from "./noteform";
+import { Link } from "react-router-dom";
 
 //  This component will render as a child of home on the
 //  /notes/%noteid route when the user is logged in.
@@ -50,7 +50,14 @@ class NoteView extends Component {
                 alignItems="center"
                 spacing={24}
               >
-                <Grid item xs={11}>
+                <Grid item xs={1}>
+                  <Link to={`/notes/${data.note.id}/edit`}>
+                    <IconButton>
+                      <Create />
+                    </IconButton>
+                  </Link>
+                </Grid>
+                <Grid item xs={10}>
                   <Typography variant="title">{data.note.title}</Typography>
                 </Grid>
                 <Grid item xs={1}>
@@ -80,7 +87,6 @@ class NoteView extends Component {
                   />
                 </Grid>
               </Grid>
-              <NoteForm mode="edit" note={data.note} />
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelDelete}

@@ -14,12 +14,9 @@ import { Link } from "react-router-dom";
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r773D
 class PartView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      deleting: false
-    };
-  }
+  state = {
+    deleting: false
+  };
 
   handleDeleteButton = () => {
     this.setState({ deleting: true });

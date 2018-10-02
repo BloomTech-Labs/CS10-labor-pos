@@ -26,7 +26,8 @@ import {
   ClientView,
   EditClient,
   EditPart,
-  EditTag
+  EditTag,
+  EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer, Paper, Grid } from "@material-ui/core";
@@ -113,7 +114,7 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
-            <Route exact path="/notes/:id/edit" component={NoteView} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
