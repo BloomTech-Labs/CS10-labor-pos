@@ -90,10 +90,16 @@ class Home extends Component {
         It is permanently open.*/}
         <Hidden smDown implementation="css">
           <Drawer variant="permanent" open>
-            <SideNav
-              logout={this.logout}
-              themeControlMethod={this.props.themeControlMethod}
-              dark_theme={this.props.dark_theme}
+            <Route
+              path="/"
+              render={props => (
+                <SideNav
+                  {...props}
+                  logout={this.logout}
+                  themeControlMethod={this.props.themeControlMethod}
+                  dark_theme={this.props.dark_theme}
+                />
+              )}
             />
           </Drawer>
         </Hidden>
