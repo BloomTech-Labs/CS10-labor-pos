@@ -1,13 +1,34 @@
+from post_office import mail
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render
-import sendgrid
 import os
-from sendgrid.helpers.mail import *
+# from sendgrid.helpers.mail import *
 
 settings.configure()
 
+def test_email():
+
+    mail.send(
+        ['nphillips78@gmail.com'], # List of email addresses also accepted
+        'cole.mac.phillips@gmail.com.com',
+        subject='My email',
+        message='Hi there!',
+        html_message='Hi <strong>there</strong>!',
+        backend='ses',
+)
+
 """
+from django.conf import settings
+from django.core.mail import send_mail
+from django.shortcuts import render
+import os
+# from sendgrid.helpers.mail import *
+from django.template.loader import get_template
+
+# settings.configure()
+
+
 def test_email(request):
     if request.method == "POST":
         name = request.POST.get("name")
@@ -25,15 +46,22 @@ def test_email(request):
           'message': message
         }
 
-        test_message = render(context)
-        """
+        test_message = get_template("sent.html").render(context)
+
+        send_mail(subject, test_message, from_email, ["cole.mac.phillips@gmail.com"],fail_silently=False)
+
+        print("Email sent")
+
+        return("sent/")
+
+    return render(request, "index.html", {})
+
+def sent(request):
+    return render(request, "sent.html", {})
 """
-send_mail("testing", "please let this work", "nphillips78@gmail.com", ["cole.mac.phillips@gmail.com"], fail_silently=True)
 
-print("Email sent")
+
 """
-
-
 sg = sendgrid.SendGridAPIClient(apikey=os.environ.get('SENDGRID_API_KEY'))
 from_email = Email("test@example.com")
 to_email = Email("test@example.com")
@@ -44,3 +72,4 @@ response = sg.client.mail.send.post(request_body=mail.get())
 print(response.status_code)
 print(response.body)
 print(response.headers)
+"""

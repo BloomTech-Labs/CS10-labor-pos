@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     "server",
     "stripe",
     "sendgrid",
+    "twilio",
+    "post_office",
 ]
 
 
@@ -176,14 +178,25 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
 
-EMAIL_HOST_USER = "nphillips78@gmail.com"
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_PASSWORD = "s3ndgr1d"
-EMAIL_PORT = 587
+SENDGRID_EMAIL_USERNAME = "nphillips78@gmail.com"
+SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
+SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
+SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
+DEFAULT_FROM_EMAIL = "nphillips78@gmail.com"
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+# EMAIL_BACKEND = "smtp.EmailBackend"
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
-DEFAULT_FROM_EMAIL = "nphillips78@gmail.com"
+POST_OFFICE = {
+    'LOG_LEVEL': 1 # Log only failed deliveries
+}
+POST_OFFICE = {
+    'BACKENDS': {
+        'default': 'smtp.EmailBackend',
+        'ses': "sendgrid_backend.SendgridBackend",
+    }
+}
+
 SITE_ID = 1
 LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
