@@ -62,7 +62,11 @@ class SideNav extends Component {
           onChange={this.handleChange("jobpanel")}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <MenuItem selected={path.includes("job")}>Jobs</MenuItem>
+            <MenuItem
+              selected={path.includes("job") || path.includes("invoice")}
+            >
+              Jobs
+            </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails className="nav-menu-items">
             <Link to="/jobs">
