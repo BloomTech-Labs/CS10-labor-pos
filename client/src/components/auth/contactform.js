@@ -5,7 +5,6 @@ import { CREATE_USER } from "../../mutations";
 import "./contactform.css";
 import {
   Button,
-  TextField,
   Grid,
   MenuItem,
   Typography
@@ -14,15 +13,18 @@ import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { STATE_LIST } from "../../constants.js";
 
 class ContactForm extends Component {
-  state = {
-    businessName: "",
-    firstName: "",
-    lastName: "",
-    streetAddress: "",
-    zipcode: "",
-    city: "",
-    state: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      businessName: "",
+      firstName: "",
+      lastName: "",
+      streetAddress: "",
+      zipcode: "",
+      city: "",
+      state: ""
+    };
+  }
 
   render() {
     const {
@@ -32,10 +34,7 @@ class ContactForm extends Component {
       streetAddress,
       city,
       state,
-      zipcode,
-      username,
-      email,
-      password
+      zipcode
     } = this.props;
     return (
       <React.Fragment>
@@ -47,17 +46,21 @@ class ContactForm extends Component {
           onCompleted={data => this.props._confirm(data)}
         >
           {(createUser, { loading, error, data }) => (
-            <ValidatorForm ref="form" onSubmit={this.props.submit(createUser)}>
+            <ValidatorForm
+              onSubmit={this.props.submit(createUser)}
+              instantValidate={false}
+            >
               <Grid container spacing={24}>
                 <Grid item xs={12} sm={6}>
                   <TextValidator
                     required
                     id="firstName"
                     name="firstName"
+                    InputLabelProps={{ shrink: true }}
                     label="First Name"
                     fullWidth
                     autoComplete="fname"
-                    value={this.props.firstName}
+                    value={firstName}
                     validators={["required", "isString", "maxStringLength:30"]}
                     onChange={this.props.onChangeFirstName}
                     errorMessages={[
@@ -72,10 +75,11 @@ class ContactForm extends Component {
                     required
                     id="lastName"
                     name="lastName"
+                    InputLabelProps={{ shrink: true }}
                     label="Last Name"
                     fullWidth
                     autoComplete="lname"
-                    value={this.props.lastName}
+                    value={lastName}
                     validators={["required", "isString", "maxStringLength:150"]}
                     errorMessages={[
                       "This is a required field",
@@ -91,7 +95,7 @@ class ContactForm extends Component {
                     label="Business Name"
                     name="businessName"
                     fullWidth
-                    value={this.props.businessName}
+                    value={businessName}
                     validators={["isString"]}
                     errorMessages={["Input must be a string"]}
                     onChange={this.props.onChangeBusinessName}
@@ -105,7 +109,7 @@ class ContactForm extends Component {
                     label="Street Address"
                     fullWidth
                     autoComplete="street address"
-                    value={this.props.streetAddress}
+                    value={streetAddress}
                     validators={["required", "isString", "maxStringLength:100"]}
                     errorMessages={[
                       "This is a required field",
@@ -120,10 +124,11 @@ class ContactForm extends Component {
                     required
                     id="city"
                     name="city"
+                    InputLabelProps={{ shrink: true }}
                     label="City"
                     fullWidth
                     autoComplete="city"
-                    value={this.props.city}
+                    value={city}
                     validators={["required", "isString", "maxStringLength:70"]}
                     errorMessages={[
                       "This is a required field",
@@ -138,10 +143,11 @@ class ContactForm extends Component {
                     id="state"
                     required
                     select
+                    InputLabelProps={{ shrink: true }}
                     label="State"
                     name="state"
                     className={"modal_field"}
-                    value={this.props.state}
+                    value={state}
                     fullWidth
                     onChange={this.props.onChangeState}
                     validators={["required"]}
@@ -165,10 +171,11 @@ class ContactForm extends Component {
                     required
                     id="zipcode"
                     name="zipcode"
+                    InputLabelProps={{ shrink: true }}
                     label="Zipcode / Postal code"
                     fullWidth
                     autoComplete="postal-code"
-                    value={this.props.zipcode}
+                    value={zipcode}
                     validators={[
                       "required",
                       "isString",

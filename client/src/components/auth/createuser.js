@@ -70,9 +70,9 @@ class CreateUser extends Component {
     this.submit = this.submit.bind(this); // 3
     this._confirm = this._confirm.bind(this); // 4
     /* 1: Allows user to go to previous page of form
-    /* 2: Allows user to go to next page of form
-    /* 3: Allows user to submit form, which triggers createUser mutation
-    /* 4: Takes token off createUser response and saves it to localStorage */
+       2: Allows user to go to next page of form
+       3: Allows user to submit form, which triggers createUser mutation
+       4: Takes token off createUser response and saves it to localStorage */
   }
 
   /* handleChange is getting passed down to UserForm and ContactForm
@@ -169,6 +169,7 @@ class CreateUser extends Component {
             previous={this._prev}
             submit={this.submit}
             _confirm={this._confirm}
+            handleBlur={this.handleBlur}
           />
         );
       default:
