@@ -17,14 +17,7 @@ const StyledTextField = ({
     label={(touched[field.name] && errors[field.name]) || label}
     select
     SelectProps={{ native: true }}
-  >
-    <option value="">Select</option>
-    {options.map(option => (
-      <option key={option.value} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </TextField>
+  />
 );
 
 StyledTextField.propTypes = {
@@ -46,9 +39,5 @@ StyledTextField.propTypes = {
     })
   )
 };
-
-// StyledTextField.defaultProps = {
-//     options: []
-// };
 
 export default StyledTextField;
