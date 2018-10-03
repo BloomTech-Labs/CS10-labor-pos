@@ -15,45 +15,12 @@ import { CREATE_USER } from "../../mutations";
 import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../../constants.js";
 import { Formik, Form, Field } from "formik";
-import { TextField, UserForm, ContactForm } from "../../components";
+import { TextField, UserForm, ContactForm, styles } from "../../components";
+
+console.log("Styles", styles);
 
 const Yup = require("yup");
 const steps = ["Account details", "Contact information"];
-
-const styles = theme => ({
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    background: "#00ff6b",
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
-    }
-  },
-  stepper: {
-    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end"
-  },
-  button: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit
-  }
-});
 
 const CreateUserSchema = Yup.object().shape({
   username: Yup.string()

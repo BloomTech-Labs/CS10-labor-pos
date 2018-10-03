@@ -13,7 +13,7 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
     padding: theme.spacing.unit * 2,
-    background: "#ffff",
+    background: "#00ff6b",
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
@@ -32,3 +32,4 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit
   }
 });
+export { styles };
