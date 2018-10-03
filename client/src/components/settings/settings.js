@@ -254,9 +254,10 @@ class Settings extends Component {
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={9} />
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <Button>Save Changes</Button>
           </Grid>
+          <Grid item xs={1} />
         </Grid>
       </div>
     );
