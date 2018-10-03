@@ -15,7 +15,42 @@ import { CREATE_USER } from "../../mutations";
 import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../../constants.js";
 import { Formik, Form, Field } from "formik";
-import { TextField, styles } from "../../components";
+import { TextField } from "../../components";
+
+const styles = theme => ({
+  layout: {
+    width: "auto",
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+      width: 600,
+      marginLeft: "auto",
+      marginRight: "auto"
+    }
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 2,
+    background: "#ffff",
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3
+    }
+  },
+  stepper: {
+    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
+  },
+  buttons: {
+    display: "flex",
+    justifyContent: "flex-end"
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit
+  }
+});
 
 const Yup = require("yup");
 const steps = ["Account details", "Contact information"];
@@ -57,6 +92,7 @@ class Wizard extends Component {
       page: 0,
       values: props.initialValues
     };
+    this.Page.errorComm = this.errorComm;
   }
 
   next = values =>
@@ -116,7 +152,7 @@ class Wizard extends Component {
       <Formik
         initialValues={values}
         enableReinitialize={false}
-        validate={this.validate}
+        validationSchema={CreateUserSchema}
         onSubmit={this.handleSubmit}
         render={({ values, handleSubmit, isSubmitting, handleReset }) => (
           <form onSubmit={handleSubmit}>
@@ -139,7 +175,12 @@ class Wizard extends Component {
                 </Button>
               )}
 
-              {!isLastPage && <Button type="submit"> Next »</Button>}
+              {!isLastPage && (
+                <Button type="submit" onClick={this.next}>
+                  {" "}
+                  Next »
+                </Button>
+              )}
               {isLastPage && (
                 <Button type="submit" disabled={isSubmitting}>
                   Submit
@@ -186,7 +227,7 @@ const CreateUser = ({ errors, touched }) => (
             fullWidth={true}
             required
           />
-          {errors.username && touched.username ? (
+          {errors && errors.username && touched.username ? (
             <p>{errors.username}</p>
           ) : null}
         </Grid>
@@ -199,7 +240,7 @@ const CreateUser = ({ errors, touched }) => (
             fullWidth={true}
             required
           />
-          {errors.password && touched.password ? (
+          {errors && errors.password && touched.password ? (
             <p>{errors.password}</p>
           ) : null}
         </Grid>
@@ -212,7 +253,9 @@ const CreateUser = ({ errors, touched }) => (
             fullWidth={true}
             required
           />
-          {errors.email && touched.email ? <p>{errors.email}</p> : null}
+          {errors && errors.email && touched.email ? (
+            <p>{errors.email}</p>
+          ) : null}
         </Grid>
       </Grid>
     </Wizard.Page>
@@ -244,7 +287,7 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.firstName && touched.firstName ? (
+              {errors && errors.firstName && touched.firstName ? (
                 <p>{errors.firstName}</p>
               ) : null}
             </Grid>
@@ -257,7 +300,7 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.lastName && touched.lastName ? (
+              {errors && errors.lastName && touched.lastName ? (
                 <p>{errors.lastName}</p>
               ) : null}
             </Grid>
@@ -269,7 +312,7 @@ const CreateUser = ({ errors, touched }) => (
                 component={TextField}
                 fullWidth={true}
               />
-              {errors.businessName && touched.businessName ? (
+              {errors && errors.businessName && touched.businessName ? (
                 <p>{errors.businessName}</p>
               ) : null}
             </Grid>
@@ -282,7 +325,7 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.streetAddress && touched.streetAddress ? (
+              {errors && errors.streetAddress && touched.streetAddress ? (
                 <p>{errors.streetAddress}</p>
               ) : null}
             </Grid>
@@ -295,7 +338,9 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.city && touched.city ? <p>{errors.city}</p> : null}
+              {errors && errors.city && touched.city ? (
+                <p>{errors.city}</p>
+              ) : null}
             </Grid>
             <Grid item xs={12} sm={6}>
               <Field
@@ -305,7 +350,9 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.state && touched.state ? <p>{errors.state}</p> : null}
+              {errors && errors.state && touched.state ? (
+                <p>{errors.state}</p>
+              ) : null}
             </Grid>
             <Grid item xs={12} sm={6}>
               <Field
@@ -315,7 +362,7 @@ const CreateUser = ({ errors, touched }) => (
                 fullWidth={true}
                 required
               />
-              {errors.zipcode && touched.zipcode ? (
+              {errors && errors.zipcode && touched.zipcode ? (
                 <p>{errors.zipcode}</p>
               ) : null}
             </Grid>

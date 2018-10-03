@@ -6,7 +6,6 @@ const StyledTextField = ({
   field,
   form: { touched, errors },
   label,
-  options,
   ...props
 }) => (
   <TextField
@@ -15,8 +14,6 @@ const StyledTextField = ({
     value={field.value || ""}
     error={Boolean(touched[field.name] && errors[field.name])}
     label={(touched[field.name] && errors[field.name]) || label}
-    select
-    SelectProps={{ native: true }}
   />
 );
 
@@ -31,13 +28,7 @@ StyledTextField.propTypes = {
     touched: PropTypes.object,
     errors: PropTypes.object
   }).isRequired,
-  label: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.any,
-      label: PropTypes.string
-    })
-  )
+  label: PropTypes.string.isRequired
 };
 
 export default StyledTextField;
