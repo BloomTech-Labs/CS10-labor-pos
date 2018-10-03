@@ -83,7 +83,11 @@ class Home extends Component {
               keepMounted: true
             }}
           >
-            <SideNav logout={this.logout} />
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              dark_theme={this.props.dark_theme}
+            />
           </Drawer>
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)

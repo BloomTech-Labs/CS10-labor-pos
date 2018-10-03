@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Create, Delete } from "@material-ui/icons";
-import { IconButton, Typography, Dialog, Button } from "@material-ui/core";
+import { IconButton, Typography, Dialog } from "@material-ui/core";
 import { DeleteItem } from "..";
 import "./itemcard.css";
 

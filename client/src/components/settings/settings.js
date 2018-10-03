@@ -6,10 +6,12 @@ import {
   Typography,
   IconButton,
   TextField,
-  Paper
+  Paper,
+  MenuItem
 } from "@material-ui/core";
 import { Query } from "react-apollo";
 import { GET_USER } from "../../queries.js";
+import { STATE_LIST } from "../../constants";
 import jwt_decode from "jwt-decode";
 
 //  This component will render on the /settings route when the user is logged in
@@ -84,13 +86,18 @@ class Settings extends Component {
               <Grade />
             </IconButton>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={1} />
+          <Grid item xs={6}>
+            <Typography gutterBottom variant="title">
+              Change Password
+            </Typography>
             <Paper>
               <Grid container>
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                   <TextField
                     id="field-oldpass"
                     label="Current Password"
+                    fullWidth
                     name="oldpass"
                     className={"modal_field"}
                     value={oldpass}
@@ -98,10 +105,12 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={1} />
+                <Grid item xs={5}>
                   <TextField
                     id="field-newpass"
                     label="New Password"
+                    fullWidth
                     name="newpass"
                     className={"modal_field"}
                     value={newpass}
@@ -109,20 +118,124 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
+                <Grid item xs={1} />
               </Grid>
             </Paper>
           </Grid>
-          <Grid item xs={4}>
-            <TextField
-              id="field-businessName"
-              label="Business Name"
-              name="businessName"
-              className={"modal_field"}
-              value={businessName}
-              onChange={this.handleChange("businessName")}
-              margin="normal"
-            />
+          <Grid item xs={1} />
+          <Grid item xs={3}>
+            <Typography gutterBottom variant="title">
+              Business Name
+            </Typography>
+            <Paper>
+              <Grid container>
+                <Grid item xs={10}>
+                  <TextField
+                    id="field-businessName"
+                    label="Business Name"
+                    name="businessName"
+                    fullWidth
+                    className={"modal_field"}
+                    value={businessName}
+                    onChange={this.handleChange("businessName")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={2} />
+              </Grid>
+            </Paper>
           </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Typography gutterBottom variant="title">
+              Name
+            </Typography>
+            <Paper>
+              <Grid container>
+                <Grid item xs={5}>
+                  <TextField
+                    id="field-firstName"
+                    label="First Name"
+                    name="firstName"
+                    fullWidth
+                    className={"modal_field"}
+                    value={firstName}
+                    onChange={this.handleChange("firstName")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid xs={1} />
+                <Grid item xs={5}>
+                  <TextField
+                    id="field-lastName"
+                    label="Last Name"
+                    fullWidth
+                    name="lastName"
+                    className={"modal_field"}
+                    value={lastName}
+                    onChange={this.handleChange("lastName")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid xs={1} />
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={1} />
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Typography gutterBottom variant="title">
+              Address
+            </Typography>
+            <Paper>
+              <Grid container>
+                <Grid item xs={12}>
+                  <TextField
+                    id="field-streetAddress"
+                    label="Street Address"
+                    fullWidth
+                    name="streetAddress"
+                    className={"modal_field"}
+                    value={streetAddress}
+                    onChange={this.handleChange("streetAddress")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={9}>
+                  <TextField
+                    id="field-city"
+                    label="City"
+                    name="city"
+                    fullWidth
+                    className={"modal_field"}
+                    value={city}
+                    onChange={this.handleChange("city")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={3}>
+                  <TextField
+                    id="state"
+                    select
+                    label="State"
+                    name="state"
+                    className={"modal_field"}
+                    value={state}
+                    fullWidth
+                    onChange={this.handleChange("state")}
+                  >
+                    {STATE_LIST.map(state => (
+                      <MenuItem key={state.label} value={state.label}>
+                        {state.label}
+                      </MenuItem>
+                    ))}
+                  </TextField>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+          <Grid item xs={1} />
         </Grid>
       </div>
     );
