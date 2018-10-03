@@ -7,7 +7,8 @@ import {
   IconButton,
   TextField,
   Paper,
-  MenuItem
+  MenuItem,
+  Button
 } from "@material-ui/core";
 import { Query } from "react-apollo";
 import { GET_USER } from "../../queries.js";
@@ -190,7 +191,7 @@ class Settings extends Component {
             </Typography>
             <Paper>
               <Grid container>
-                <Grid item xs={12}>
+                <Grid item xs={11}>
                   <TextField
                     id="field-streetAddress"
                     label="Street Address"
@@ -202,7 +203,8 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={1} />
+                <Grid item xs={4}>
                   <TextField
                     id="field-city"
                     label="City"
@@ -214,6 +216,7 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
+                <Grid item xs={1} />
                 <Grid item xs={3}>
                   <TextField
                     id="state"
@@ -232,10 +235,28 @@ class Settings extends Component {
                     ))}
                   </TextField>
                 </Grid>
+                <Grid item xs={1} />
+                <Grid item xs={2}>
+                  <TextField
+                    id="field-zipcode"
+                    label="Zipcode"
+                    name="zipcode"
+                    fullWidth
+                    className={"modal_field"}
+                    value={zipcode}
+                    onChange={this.handleChange("zipcode")}
+                    margin="normal"
+                  />
+                </Grid>
+                <Grid item xs={1} />
               </Grid>
             </Paper>
           </Grid>
           <Grid item xs={1} />
+          <Grid item xs={9} />
+          <Grid item xs={3}>
+            <Button>Save Changes</Button>
+          </Grid>
         </Grid>
       </div>
     );
