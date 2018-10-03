@@ -43,14 +43,17 @@ import os
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from decouple import config
-import json
+from django.template.loader import get_template
+
+settings.configure()
 
 
 sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
 from_email = Email("nphillip78@gmail.com")
-to_email = Email("cole.mac.phillips@gmail.com")
-subject = "Sending with SendGrid is Fun"
-content = Content("text/plain", "and easy to do anywhere, even with Python")
+to_email = Email("ffernando@engineer.com")
+subject = "Welcome to contractAlchemy!"
+# content = Content("text/plain", "and easy to do anywhere, even with Python")
+content = get_template("newuser")
 mail = Mail(from_email, subject, to_email, content,)
 response = sg.client.mail.send.post(request_body=mail.get())
 print(response.status_code)

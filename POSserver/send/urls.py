@@ -4,9 +4,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('email/', views.welcome_view, name='newuser'),
-    path('sent/', views.sent, name='sent'),
-   
+    path('', name='newuser'),
+    # path('sent/', views.sent_view, name='sent'),
 ]
 
 if settings.DEBUG:
