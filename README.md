@@ -1,4 +1,4 @@
-<pre><h1 align="center">CS10-Labor POS</h1>
+<h1 align="center">CS10-Labor POS</h1>
 <img src="client/page_layout/smallraccoon.svg" alt="Raccoon image from Stockio.com"/><p align="center" style="font-size:12px">Image from Stockio.com</p></pre>
 
 <div align="center"><h2>Brought to you by:</h2>

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 from django.contrib.auth.models import BaseUserManager
+from graphql_jwt.shortcuts import get_token
 
 auto_debug = True
 
@@ -76,6 +77,7 @@ class CreateUser(graphene.Mutation):
     ok = graphene.Boolean()
     user = graphene.Field(User_Type)
     status = graphene.String()
+    token = graphene.String()
 
     def mutate(
         self,
@@ -105,9 +107,9 @@ class CreateUser(graphene.Mutation):
 
         # IMPORTANT to remember to set password instead of just password=password
         new_user.set_password(password)
-
         new_user.save()
-        return CreateUser(user=new_user, ok=True, status="ok")
+        token = get_token(new_user)
+        return CreateUser(user=new_user, token=token, ok=True, status="ok")
 
 
 class UpdateUser(graphene.Mutation):
@@ -116,7 +118,8 @@ class UpdateUser(graphene.Mutation):
 
         id = graphene.ID()
         username = graphene.String()
-        password = graphene.String()
+        old_password = graphene.String()
+        new_password = graphene.String()
         email = graphene.String()
         first_name = graphene.String()
         last_name = graphene.String()
@@ -135,7 +138,8 @@ class UpdateUser(graphene.Mutation):
         info,
         id,
         username="",
-        password="",
+        new_password="",
+        old_password="",
         email="",
         first_name="",
         last_name="",
@@ -153,8 +157,15 @@ class UpdateUser(graphene.Mutation):
             updated_user = get_user_model().objects.get(pk=from_global_id(id)[1])
             if username != "":
                 updated_user.username = username
-            if password != "":
-                updated_user.set_password(password)
+            if old_password != "" and new_password != "":
+                if updated_user.check_password(old_password) is True:
+                    updated_user.set_password(new_password)
+                else:
+                    raise Exception("Password does not match")
+            if old_password != "" and new_password == "":
+                raise Exception("Please supply new password")
+            if new_password != "" and old_password == "":
+                raise Exception("Please supply old password")
             if email != "":
                 updated_user.email = email
             if first_name != "":

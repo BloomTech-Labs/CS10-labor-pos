@@ -48,8 +48,6 @@ class ClientForm extends Component {
           edit_client[key] = "";
         else edit_client[key] = this.props.client[key];
       }
-      console.log(this.props.client);
-      console.log(edit_client);
       this.setState({
         businessName: edit_client.businessName,
         firstName: edit_client.firstName,
