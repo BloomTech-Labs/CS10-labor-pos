@@ -8,10 +8,15 @@ import {
   TextField,
   Paper,
   MenuItem,
-  Button
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow
 } from "@material-ui/core";
 import { Query } from "react-apollo";
-import { GET_USER } from "../../queries.js";
+import { SETTINGS_QUERY } from "../../queries.js";
 import { STATE_LIST } from "../../constants";
 import jwt_decode from "jwt-decode";
 
@@ -166,7 +171,7 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid xs={1} />
+                <Grid item xs={1} />
                 <Grid item xs={5}>
                   <TextField
                     id="field-lastName"
@@ -179,7 +184,7 @@ class Settings extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid xs={1} />
+                <Grid item xs={1} />
               </Grid>
             </Paper>
           </Grid>
@@ -258,6 +263,76 @@ class Settings extends Component {
             <Button>Save Changes</Button>
           </Grid>
           <Grid item xs={1} />
+          <Grid item xs={1} />
+          <Grid item xs={10}>
+            <Paper elevation={4} square>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <TableCell numeric>Used</TableCell>
+                    <TableCell numeric>Free Account Allotment</TableCell>
+                    <TableCell numeric>Remaining</TableCell>
+                    <TableCell>Premium</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>Clients</TableCell>
+                    <TableCell numeric>
+                      {this.props.item_counts.clients}
+                    </TableCell>
+                    <TableCell numeric>1</TableCell>
+                    <TableCell numeric>
+                      {1 - this.props.item_counts.clients}
+                    </TableCell>
+                    <TableCell>unlimited!</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Jobs</TableCell>
+                    <TableCell numeric>{this.props.item_counts.jobs}</TableCell>
+                    <TableCell numeric>8</TableCell>
+                    <TableCell numeric>
+                      {8 - this.props.item_counts.jobs}
+                    </TableCell>
+                    <TableCell>unlimited!</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Notes</TableCell>
+                    <TableCell numeric>
+                      {this.props.item_counts.notes}
+                    </TableCell>
+                    <TableCell numeric>8</TableCell>
+                    <TableCell numeric>
+                      {8 - this.props.item_counts.notes}
+                    </TableCell>
+                    <TableCell>unlimited!</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Parts</TableCell>
+                    <TableCell numeric>
+                      {this.props.item_counts.parts}
+                    </TableCell>
+                    <TableCell numeric>8</TableCell>
+                    <TableCell numeric>
+                      {8 - this.props.item_counts.parts}
+                    </TableCell>
+                    <TableCell>unlimited!</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>Tags</TableCell>
+                    <TableCell numeric>{this.props.item_counts.tags}</TableCell>
+                    <TableCell numeric>8</TableCell>
+                    <TableCell numeric>
+                      {8 - this.props.item_counts.tags}
+                    </TableCell>
+                    <TableCell>unlimited!</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </Paper>
+          </Grid>
+          <Grid item xs={1} />
         </Grid>
       </div>
     );
@@ -267,15 +342,23 @@ class Settings extends Component {
 class SettingsWrapper extends Component {
   render = () => {
     return (
-      <Query query={GET_USER}>
+      <Query query={SETTINGS_QUERY}>
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          console.log(data);
           const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
           const user = data.allUsers.edges.filter(user => {
             return user.node.username === decoded_token.username;
           })[0].node;
-          return <Settings user={user} />;
+          const item_counts = {
+            clients: data.allClients.edges.length,
+            jobs: data.allJobs.edges.length,
+            notes: data.allNotes.edges.length,
+            parts: data.allClients.edges.length,
+            tags: data.allClients.edges.length
+          };
+          return <Settings user={user} item_counts={item_counts} />;
         }}
       </Query>
     );

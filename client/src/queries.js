@@ -280,7 +280,7 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
-const GET_USER = gql`
+const SETTINGS_QUERY = gql`
   query {
     allUsers {
       edges {
@@ -296,6 +296,41 @@ const GET_USER = gql`
           premium
           paidUntil
           username
+        }
+      }
+    }
+    allClients {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allJobs {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allNotes {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allParts {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allTags {
+      edges {
+        node {
+          id
         }
       }
     }
@@ -315,5 +350,5 @@ export {
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
   DETAILED_PART_BY_ID,
-  GET_USER
+  SETTINGS_QUERY
 };
