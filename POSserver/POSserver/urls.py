@@ -26,5 +26,4 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     url(r"^graphql/$", csrf_exempt(GraphQLView.as_view(graphiql=True))),
     url(r"^pdf/$", csrf_exempt(GeneratePDF.as_view())),
-    path("email/", include("send.urls")),
 ]   

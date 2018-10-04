@@ -1,11 +1,7 @@
-<h1 align="center">
-CS10-Labor POS
-</h1>
+<h1 align="center">CS10-Labor POS</h1>
+<img src="client/page_layout/smallraccoon.svg" alt="Raccoon image from Stockio.com"/><p align="center" style="font-size:12px">Image from Stockio.com</p></pre>
 
-<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
-
-<div align="center">
-<h2>Brought to you by:</h2><br>
+<div align="center"><h2>Brought to you by:</h2>
 
 <a href="https://github.com/wajnurfes">Zach Campbell</a>
 
@@ -13,7 +9,7 @@ CS10-Labor POS
 
 <a href="https://github.com/AmyShackles">Amy Shackles</a>
 
-## </div>
+</div>
 
 # Table of Contents
 
@@ -105,7 +101,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - React.js
 
-  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other. We had initially thought that the way that the application would need to be built, there would not be a high need for a global shared state within the application. If we needed to make use of a more globally available state, we reasoned, we could just pull in from the new context API. If we were to start the project from scratch, we might think a little longer on the decision of whether or not to implement Redux.
+  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other. We also knew that Redux has the tendency to overcomplicate an otherwise uncomplicated application created at a small scale and so didn't feel like this application would be a good candidate for Redux. If we needed to make use of a more globally available state, we reasoned, we could just pull in from the new context API.
 
 - Material Design
 
@@ -160,8 +156,8 @@ Authorization is handled on the model level, with each model query checking to s
 
 <details>
 <summary>
-
-## Home Page:</summary>
+  
+  ## Home Page:</summary>
 
 ![Home](/client/page_layout/HomeScreen.png)
 

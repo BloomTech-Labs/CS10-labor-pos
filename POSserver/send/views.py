@@ -1,10 +1,10 @@
 """
-"from django.shortcuts import render
+from django.shortcuts import render
 from django.core.mail import send_mail
 from django.template.loader import get_template
 from django.conf import settings
-from post_office import mail
 from django.http import HttpResponse, HttpResponseRedirect
+from decouple import config
 
 settings.configure()
 
@@ -30,28 +30,76 @@ def test_view(request):
 
         print(subject, test_message, from_email, to_email,)
 
-
         return render (request, "sent.html", {})
     return HttpResponse(render(request, "sent.html", {}))
 
 
 def sent(request):
     return HttpResponseRedirect(render(request, "sent.html", {}))
-    """
-
+"""
+"""
 import sendgrid
-import os
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from decouple import config
+from django.template.loader import get_template
+
 
 sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
 from_email = Email("nphillip78@gmail.com")
-to_email = Email("cole.mac.phillips@gmail.com")
-subject = "Sending with SendGrid is Fun"
-content = Content("text/plain", "and easy to do anywhere, even with Python")
-mail = Mail(from_email, subject, to_email, content)
+to_email = Email("ffernando@engineer.com")
+subject = "Welcome to contractAlchemy!"
+content = Content("multipart/alternative", get_template("newuser.html"))
+mail = Mail(from_email, subject, to_email, content,)
 response = sg.client.mail.send.post(request_body=mail.get())
 print(response.status_code)
 print(response.body)
 print(response.headers)
+
+"""
+"""
+from django.http import HttpResponse
+from django.template import Context
+from django.template.loader import render_to_string, get_template
+from django.core.mail import EmailMessage
+import sendgrid
+from django.conf import settings
+from decouple import config
+
+
+sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
+
+def newuser_text(request):
+    subject = "Welcome to contractAlchemy"
+    to = ['ffernando@engineer.com']
+    from_email = 'nphillips78@gmail.com'
+
+    ctx = {
+          "user": "Franz",
+          "email": "ffernando@engineer.com"
+    }
+
+    message = render_to_string('POSserver/send/newuser.txt', ctx)
+
+    EmailMessage(subject, message, to=to, from_email=from_email).send()
+
+    return HttpResponse('newuser_text')
+
+
+def newuser_html(request):
+    subject = "Welcome to contractAlchemy"
+    to = ['ffernando@engineer.com']
+    from_email = 'nphillips78@gmail.com'
+
+    ctx = {
+        "user": "Franz",
+        "email": "ffernando@engineer.com"
+    }
+
+    message = get_template('POSserver/send.html').render(Context(ctx))
+    msg = EmailMessage(subject, message, to=to, from_email=from_email)
+    msg.content_subtype = 'html'
+    msg.send()
+
+    return HttpResponse('newuser_html')
+    """
