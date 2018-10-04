@@ -51,6 +51,7 @@ class DeleteItem extends Component {
         if (this.props.item.businessName) name = this.props.item.businessName;
         else name = `${this.props.item.firstName} ${this.props.item.lastName}`;
         chosen_mutation = DELETE_CLIENT;
+        break;
       default:
         break;
     }

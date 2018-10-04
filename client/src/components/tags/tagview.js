@@ -37,8 +37,8 @@ class TagView extends Component {
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          const created = new Date(data.tag.createdAt);
-          const modified = new Date(data.tag.modifiedAt);
+          // const created = new Date(data.tag.createdAt);
+          // const modified = new Date(data.tag.modifiedAt);
           return (
             <React.Fragment>
               <Grid

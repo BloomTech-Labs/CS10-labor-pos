@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, withStyles } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import { withRouter } from "react-router";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
@@ -63,7 +63,6 @@ const SignupSchema = Yup.object().shape({
 //   };
 
 const UserForm = props => {
-  console.log(props.username);
   return (
     <div>
       <Formik
@@ -80,9 +79,6 @@ const UserForm = props => {
         }}
       >
         {({ errors, touched }) => {
-          console.log("errors?");
-          console.log(!!errors.username || !!errors.password || !!errors.email);
-          console.log(errors);
           let validity = !(
             !!errors.username ||
             !!errors.password ||

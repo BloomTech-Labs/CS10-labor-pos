@@ -79,8 +79,7 @@ class Settings extends Component {
       state,
       zipcode,
       premium,
-      paidUntil,
-      username
+      paidUntil
     } = this.state;
     return (
       <div>
@@ -395,7 +394,6 @@ class SettingsWrapper extends Component {
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          console.log(data);
           const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
           const user = data.allUsers.edges.filter(user => {
             return user.node.username === decoded_token.username;

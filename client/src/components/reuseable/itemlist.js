@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { Delete, NavigateNext, NavigateBefore } from "@material-ui/icons";
 import {
   Paper,
-  Button,
   List,
   ListItem,
   ListItemText,

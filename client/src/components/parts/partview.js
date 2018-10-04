@@ -56,7 +56,7 @@ class PartView extends Component {
                 <Typography paragraph>{data.part.description}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{`Cost: \$${data.part.cost}`}</Typography>
+                <Typography>{`Cost: $${data.part.cost}`}</Typography>
               </Grid>
               <Grid item xs={10}>
                 <CardList
