@@ -85,20 +85,19 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
 
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # def welcome_mail(sender, instance, **kwargs):
+    #     if kwargs['created']:
+    #         model = get_user_model()
 
-    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-    def welcome_mail(sender, instance, **kwargs):
-        if kwargs['created']:
-            model = get_user_model()
-            
-            user_email = instance.email
-            subject, from_email, to = "Welcome to contractAlchemy", "nphillips78@gmail.com", "cole.mac.phillips@gmail.com"
+    #         user_email = instance.email
+    #         subject, from_email, to = "Welcome to contractAlchemy", "nphillips78@gmail.com", "cole.mac.phillips@gmail.com"
 
-            text_content = render_to_string("POSserver/templates/newuser.txt")
-            html_content = render_to_string("POSserver/templates/newuser.html")
+    #         text_content = render_to_string("POSserver/templates/newuser.txt")
+    #         html_content = render_to_string("POSserver/templates/newuser.html")
 
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+    #         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    #         msg.attach_alternative(html_content, "text/html")
+    #         msg.send()
 
     # post_save.connect(welcome_mail, sender=AbstractUser)
