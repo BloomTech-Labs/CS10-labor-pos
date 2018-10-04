@@ -35,7 +35,7 @@ ALLOWED_HOSTS = config(
 _ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
 
 CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
-# CORS_ORIGIN_ALLOW_ALL = config("CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
+CORS_ORIGIN_ALLOW_ALL = config("CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
 CORS_ALLOW_CREDENTIALS = config("CORS_ALLOW_CREDENTIALS", cast=bool, default=False)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -60,6 +60,9 @@ INSTALLED_APPS = [
     "server",
     "stripe",
     "sendgrid",
+    "twilio",
+    "post_office",
+    "send",
 ]
 
 
@@ -176,14 +179,14 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 
 
-EMAIL_HOST_USER = "nphillips78@gmail.com"
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_HOST_PASSWORD = "s3ndgr1d"
-EMAIL_PORT = 587
+SENDGRID_EMAIL_USERNAME = config("EMAIL_HOST_USER")
+SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
+SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
+SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
-DEFAULT_FROM_EMAIL = "nphillips78@gmail.com"
-SITE_ID = 1
+
+
 LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
