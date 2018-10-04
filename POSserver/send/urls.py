@@ -4,7 +4,8 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('', name='newuser'),
+    path('newuser_text', views.newuser_text, name='newuser'),
+    path('newuser_html', views.newuser_html, name="newuser")
     # path('sent/', views.sent_view, name='sent'),
 ]
 
