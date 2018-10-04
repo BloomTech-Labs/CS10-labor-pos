@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
-from django.template.loader import render_to_string
+from django.template.loader import get_template, render_to_string
 
 
 if not settings.configured:
@@ -90,12 +90,13 @@ class User(AbstractUser):
     def welcome_mail(sender, instance, **kwargs):
         if kwargs['created']:
             model = get_user_model()
+            template = get_template("newuser.html", "newuser.txt")
             
             user_email = instance.email
             subject, from_email, to = "Welcome to contractAlchemy", "nphillips78@gmail.com", "cole.mac.phillips@gmail.com"
 
-            text_content = render_to_string("POSserver/templates/newuser.txt")
-            html_content = render_to_string("POSserver/templates/newuser.html")
+            text_content = render_to_string("newuser.txt")
+            html_content = render_to_string("newuser.html")
 
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
