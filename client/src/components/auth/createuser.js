@@ -6,48 +6,45 @@ import {
   Step,
   StepLabel,
   Button,
-  Typography
+  Typography,
+  Grid
 } from "@material-ui/core";
-import { UserForm, ContactForm } from "../../components";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../../constants.js";
+import { UserForm, ContactForm } from "../../components";
+import { styles } from "../material-ui/styles";
 
-const styles = theme => ({
-  layout: {
-    width: "auto",
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
-    }
-  },
-  stepper: {
-    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end"
-  },
-  button: {
-    marginTop: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit
-  }
-});
-
+const Yup = require("yup");
 const steps = ["Account details", "Contact information"];
+
+const CreateUserSchema = Yup.object().shape({
+  username: Yup.string()
+    .max(150, "Username must be under 150 characters")
+    .required(),
+  password: Yup.string().required(),
+  email: Yup.string()
+    .required()
+    .email("Please enter a valid email"),
+  firstName: Yup.string()
+    .max(30, "Max length is 30 characters")
+    .required(),
+  businessName: Yup.string(),
+  lastName: Yup.string()
+    .max(150, "Maximum length is 150 characters")
+    .required(),
+  streetAddress: Yup.string()
+    .max(100, "Maximum length is 100 characters")
+    .required(),
+  city: Yup.string()
+    .max(70)
+    .required(),
+  state: Yup.string().required(),
+  zipcode: Yup.string()
+    .max(10)
+    .min(5)
+    .required()
+});
 
 class CreateUser extends Component {
   constructor() {
@@ -63,16 +60,19 @@ class CreateUser extends Component {
       streetAddress: "",
       city: "",
       state: "",
-      zipcode: ""
+      zipcode: "",
+      valid: false
     };
     this._next = this._next.bind(this); // 1
     this._prev = this._prev.bind(this); // 2
     this.submit = this.submit.bind(this); // 3
     this._confirm = this._confirm.bind(this); // 4
+    this.errorComm = this.errorComm.bind(this); // 5
     /* 1: Allows user to go to previous page of form
-    /* 2: Allows user to go to next page of form
-    /* 3: Allows user to submit form, which triggers createUser mutation
-    /* 4: Takes token off createUser response and saves it to localStorage */
+       2: Allows user to go to next page of form
+       3: Allows user to submit form, which triggers createUser mutation
+       4: Takes token off createUser response and saves it to localStorage
+       5: Validates the form for createUser */
   }
 
   /* handleChange is getting passed down to UserForm and ContactForm
@@ -83,6 +83,10 @@ class CreateUser extends Component {
         [name]: event.target.value
       });
   }
+
+  errorComm = result => {
+    this.setState({ valid: result });
+  };
 
   _next = () => {
     let activeStep = this.state.activeStep;
@@ -101,7 +105,6 @@ class CreateUser extends Component {
 
   _confirm = async data => {
     const { token } = data.createUser;
-    console.log(data);
     this._saveUserData(token);
 
     // Go to the root route
@@ -131,9 +134,10 @@ class CreateUser extends Component {
   };
 
   getStepContent(step) {
+    let content = null;
     switch (step) {
       case 0:
-        return (
+        content = (
           <UserForm
             onSubmit={this._next}
             previous={this._prev}
@@ -143,10 +147,13 @@ class CreateUser extends Component {
             onChangeEmail={this.handleChange("email")}
             password={this.state.password}
             email={this.state.email}
+            errorComm={this.errorComm}
+            valid={this.state.valid}
           />
         );
+        break;
       case 1:
-        return (
+        content = (
           <ContactForm
             username={this.state.username}
             password={this.state.password}
@@ -169,11 +176,14 @@ class CreateUser extends Component {
             previous={this._prev}
             submit={this.submit}
             _confirm={this._confirm}
+            handleBlur={this.handleBlur}
           />
         );
+        break;
       default:
         throw new Error("Unknown step");
     }
+    return content;
   }
 
   render() {
@@ -204,27 +214,33 @@ class CreateUser extends Component {
               ) : (
                 <React.Fragment>
                   {this.getStepContent(activeStep)}
-                  <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                      <Button
-                        variant="outlined"
-                        onClick={this._prev}
-                        className={classes.button}
-                      >
-                        Back
-                      </Button>
-                    )}
-                    {activeStep === steps.length - 1 ? null : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={this._next}
-                        className={classes.button}
-                      >
-                        Next
-                      </Button>
-                    )}
-                  </div>
+                  <Grid container>
+                    <Grid item xs={10} />
+                    <Grid item xs={2}>
+                      <div className={classes.buttons}>
+                        {activeStep !== 0 && (
+                          <Button
+                            variant="outlined"
+                            onClick={this._prev}
+                            className={classes.button}
+                          >
+                            Back
+                          </Button>
+                        )}
+                        {activeStep === steps.length - 1 ? null : (
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={this._next}
+                            disabled={!this.state.valid}
+                            className={classes.button}
+                          >
+                            Next
+                          </Button>
+                        )}
+                      </div>
+                    </Grid>
+                  </Grid>
                 </React.Fragment>
               )}
             </React.Fragment>
