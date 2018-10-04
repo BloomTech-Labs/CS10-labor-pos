@@ -62,77 +62,97 @@ const SignupSchema = Yup.object().shape({
 //     this.props.onSubmit();
 //   };
 
-const UserForm = props => (
-  <div>
-    <Formik
-      initialValues={{
-        username: props.username,
-        password: props.password,
-        email: props.email
-      }}
-      validationSchema={SignupSchema}
-      onSubmit={event => {
-        event.preventDefault();
-        props.onSubmit();
-      }}
-    >
-      {({ errors, touched, isValid }) => {
-        if (isValid !== props.valid) {
-          props.errorComm(isValid);
-        }
-        return (
-          <React.Fragment>
-            <Typography variant="title" gutterBottom>
-              Account details
-            </Typography>
-            <Form>
-              <Grid container spacing={24}>
-                <Grid item xs={12} sm={6}>
-                  <div>
+const UserForm = props => {
+  console.log(props.username);
+  return (
+    <div>
+      <Formik
+        enableReinitialize
+        initialValues={{
+          username: props.username,
+          password: props.password,
+          email: props.email
+        }}
+        validationSchema={SignupSchema}
+        onSubmit={event => {
+          event.preventDefault();
+          props.onSubmit();
+        }}
+      >
+        {({ errors, touched }) => {
+          console.log("errors?");
+          console.log(!!errors.username || !!errors.password || !!errors.email);
+          console.log(errors);
+          let validity = !(
+            !!errors.username ||
+            !!errors.password ||
+            !!errors.email
+          );
+          if (validity !== props.valid) {
+            props.errorComm(validity);
+          }
+          return (
+            <React.Fragment>
+              <Typography variant="title" gutterBottom>
+                Account details
+              </Typography>
+              <Form>
+                <Grid container spacing={24}>
+                  <Grid item xs={12} sm={6}>
+                    <div>
+                      <Field
+                        name="username"
+                        placeholder="Username"
+                        component={TextField}
+                        fullWidth={true}
+                        onChange={props.onChangeUsername}
+                        value={props.username}
+                        required
+                      />
+                      {errors.username && touched.username ? (
+                        <p>{errors.username}</p>
+                      ) : null}
+                    </div>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
                     <Field
-                      name="username"
-                      placeholder="Username"
+                      name="password"
+                      type="password"
+                      placeholder="Please select a secure password"
                       component={TextField}
                       fullWidth={true}
+                      onChange={props.onChangePassword}
+                      value={props.password}
                       required
                     />
-                    {errors.username && touched.username ? (
-                      <p>{errors.username}</p>
+                    {errors.password && touched.password ? (
+                      <p>{errors.password}</p>
                     ) : null}
-                  </div>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Field
+                      name="email"
+                      type="email"
+                      placeholder="Email"
+                      component={TextField}
+                      fullWidth={true}
+                      onChange={props.onChangeEmail}
+                      value={props.email}
+                      required
+                    />
+                    {errors.email && touched.email ? (
+                      <p>{errors.email}</p>
+                    ) : null}
+                  </Grid>
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    name="password"
-                    type="password"
-                    placeholder="Please select a secure password"
-                    component={TextField}
-                    fullWidth={true}
-                    required
-                  />
-                  {errors.password && touched.password ? (
-                    <p>{errors.password}</p>
-                  ) : null}
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    name="email"
-                    type="email"
-                    placeholder="Email"
-                    component={TextField}
-                    fullWidth={true}
-                    required
-                  />
-                  {errors.email && touched.email ? <p>{errors.email}</p> : null}
-                </Grid>
-              </Grid>
-            </Form>
-          </React.Fragment>
-        );
-      }}
-    </Formik>
-  </div>
-);
+              </Form>
+            </React.Fragment>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
 
 //   render() {
 //     return (
