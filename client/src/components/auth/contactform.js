@@ -5,23 +5,26 @@ import { CREATE_USER } from "../../mutations";
 import "./contactform.css";
 import {
   Button,
-  TextField,
   Grid,
   MenuItem,
   Typography
 } from "@material-ui/core";
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { STATE_LIST } from "../../constants.js";
 
 class ContactForm extends Component {
-  state = {
-    businessName: "",
-    firstName: "",
-    lastName: "",
-    streetAddress: "",
-    zipcode: "",
-    city: "",
-    state: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      businessName: "",
+      firstName: "",
+      lastName: "",
+      streetAddress: "",
+      zipcode: "",
+      city: "",
+      state: ""
+    };
+  }
 
   render() {
     const {
@@ -31,10 +34,7 @@ class ContactForm extends Component {
       streetAddress,
       city,
       state,
-      zipcode,
-      username,
-      email,
-      password
+      zipcode
     } = this.props;
     return (
       <React.Fragment>
@@ -46,77 +46,112 @@ class ContactForm extends Component {
           onCompleted={data => this.props._confirm(data)}
         >
           {(createUser, { loading, error, data }) => (
-            <form onSubmit={this.props.submit(createUser)}>
+            <ValidatorForm
+              onSubmit={this.props.submit(createUser)}
+              instantValidate={false}
+            >
               <Grid container spacing={24}>
                 <Grid item xs={12} sm={6}>
-                  <TextField
+                  <TextValidator
                     required
                     id="firstName"
                     name="firstName"
+                    InputLabelProps={{ shrink: true }}
                     label="First Name"
                     fullWidth
                     autoComplete="fname"
-                    value={this.props.firstName}
+                    value={firstName}
+                    validators={["required", "isString", "maxStringLength:30"]}
                     onChange={this.props.onChangeFirstName}
+                    errorMessages={[
+                      "This is a required field",
+                      "Input must be a string",
+                      "Max length of field is 30 characters"
+                    ]}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
+                  <TextValidator
                     required
                     id="lastName"
                     name="lastName"
+                    InputLabelProps={{ shrink: true }}
                     label="Last Name"
                     fullWidth
                     autoComplete="lname"
-                    value={this.props.lastName}
+                    value={lastName}
+                    validators={["required", "isString", "maxStringLength:150"]}
+                    errorMessages={[
+                      "This is a required field",
+                      "Input must be a string",
+                      "Max length of field is 150 characters"
+                    ]}
                     onChange={this.props.onChangeLastName}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextValidator
                     id="businessName"
                     label="Business Name"
                     name="businessName"
                     fullWidth
-                    value={this.props.businessName}
+                    value={businessName}
+                    validators={["isString"]}
+                    errorMessages={["Input must be a string"]}
                     onChange={this.props.onChangeBusinessName}
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextValidator
                     required
                     id="streetAddress"
                     name="streetAddress"
                     label="Street Address"
                     fullWidth
                     autoComplete="street address"
-                    value={this.props.streetAddress}
+                    value={streetAddress}
+                    validators={["required", "isString", "maxStringLength:100"]}
+                    errorMessages={[
+                      "This is a required field",
+                      "Input must be a string",
+                      "Max length of field is 100 characters"
+                    ]}
                     onChange={this.props.onChangeStreetAddress}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
+                  <TextValidator
                     required
                     id="city"
                     name="city"
+                    InputLabelProps={{ shrink: true }}
                     label="City"
                     fullWidth
                     autoComplete="city"
-                    value={this.props.city}
+                    value={city}
+                    validators={["required", "isString", "maxStringLength:70"]}
+                    errorMessages={[
+                      "This is a required field",
+                      "Input must be a string",
+                      "Max length of field is 70 characters"
+                    ]}
                     onChange={this.props.onChangeCity}
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <TextField
+                  <TextValidator
                     id="state"
                     required
                     select
+                    InputLabelProps={{ shrink: true }}
                     label="State"
                     name="state"
                     className={"modal_field"}
-                    value={this.props.state}
+                    value={state}
                     fullWidth
                     onChange={this.props.onChangeState}
+                    validators={["required"]}
+                    errorMessages={["This is a required field"]}
                     SelectProps={{
                       MenuProps: {
                         className: "Mister Menu"
@@ -129,17 +164,30 @@ class ContactForm extends Component {
                         {state.label}
                       </MenuItem>
                     ))}
-                  </TextField>
+                  </TextValidator>
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  <TextValidator
                     required
                     id="zipcode"
                     name="zipcode"
+                    InputLabelProps={{ shrink: true }}
                     label="Zipcode / Postal code"
                     fullWidth
                     autoComplete="postal-code"
-                    value={this.props.zipcode}
+                    value={zipcode}
+                    validators={[
+                      "required",
+                      "isString",
+                      "maxStringLength:10",
+                      "minStringLength:5"
+                    ]}
+                    errorMessages={[
+                      "This is a required field",
+                      "Input must be a string",
+                      "Max length for field is 10 characters",
+                      "Min length for field is 5 characters"
+                    ]}
                     onChange={this.props.onChangeZipcode}
                   />
                 </Grid>
@@ -156,7 +204,7 @@ class ContactForm extends Component {
                   </div>
                 </Grid>
               </Grid>
-            </form>
+            </ValidatorForm>
           )}
         </Mutation>
       </React.Fragment>
