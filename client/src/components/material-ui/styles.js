@@ -9,6 +9,9 @@ const styles = theme => ({
       marginRight: "auto"
     }
   },
+  card: {
+    backgroundColor: theme.palette.background.default
+  },
   paper: {
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,

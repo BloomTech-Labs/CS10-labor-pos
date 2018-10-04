@@ -1,9 +1,16 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { NavigateNext, NavigateBefore, AddCircle } from "@material-ui/icons";
-import { Grid, Card, IconButton, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Card,
+  IconButton,
+  Typography,
+  withStyles
+} from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { Link } from "react-router-dom";
+import { styles } from "../material-ui/styles.js";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
@@ -37,6 +44,7 @@ class CardList extends Component {
   };
 
   render() {
+    let { classes } = this.props;
     let per_page = this.props.rows * this.props.columns;
     let card_array = [];
     for (
@@ -46,7 +54,7 @@ class CardList extends Component {
     ) {
       card_array.push(
         <Grid item xs={12 / this.props.columns} key={i}>
-          <Card raised>
+          <Card raised className={classes.card}>
             <ItemCard type={this.props.type} item={this.props.items[i].node} />
           </Card>
         </Grid>
@@ -54,7 +62,7 @@ class CardList extends Component {
     }
     card_array.push(
       <Grid item xs={12 / this.props.columns} key={-1}>
-        <Card raised>
+        <Card raised className={classes.card}>
           <Link to={`/create${this.props.type}`}>
             <IconButton>
               <AddCircle />
@@ -95,4 +103,4 @@ class CardList extends Component {
   }
 }
 
-export default withRouter(CardList);
+export default withRouter(withStyles(styles)(CardList));
