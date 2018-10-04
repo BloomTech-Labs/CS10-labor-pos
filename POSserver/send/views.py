@@ -37,27 +37,26 @@ def test_view(request):
 def sent(request):
     return HttpResponseRedirect(render(request, "sent.html", {}))
 """
-
+"""
 import sendgrid
 from sendgrid.helpers.mail import *
 from django.conf import settings
 from decouple import config
 from django.template.loader import get_template
 
-settings.configure()
-
 
 sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
 from_email = Email("nphillip78@gmail.com")
 to_email = Email("ffernando@engineer.com")
 subject = "Welcome to contractAlchemy!"
-content = Content("multipart/alternative",get_template("newuser.html"))
+content = Content("multipart/alternative", get_template("newuser.html"))
 mail = Mail(from_email, subject, to_email, content,)
 response = sg.client.mail.send.post(request_body=mail.get())
 print(response.status_code)
 print(response.body)
 print(response.headers)
 
+"""
 """
 from django.http import HttpResponse
 from django.template import Context

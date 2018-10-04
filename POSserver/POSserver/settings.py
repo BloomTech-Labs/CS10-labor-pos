@@ -42,6 +42,7 @@ CORS_ALLOW_CREDENTIALS = config("CORS_ALLOW_CREDENTIALS", cast=bool, default=Fal
 # Application definition
 
 INSTALLED_APPS = [
+    "server",
     "whitenoise.runserver_nostatic",  # Added for whitenoise
     "django.contrib.staticfiles",  # Added for handling static files
     "django.contrib.admin",
@@ -57,7 +58,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
-    "server",
     "stripe",
     "sendgrid",
     "twilio",
@@ -184,7 +184,7 @@ SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
 SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
 SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+# DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
 
