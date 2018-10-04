@@ -3,14 +3,31 @@ import { withRouter } from "react-router";
 import { Mutation } from "react-apollo";
 import { CREATE_USER } from "../../mutations";
 import "./contactform.css";
-import {
-  Button,
-  Grid,
-  MenuItem,
-  Typography
-} from "@material-ui/core";
+import { Button, Grid, MenuItem, Typography } from "@material-ui/core";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { STATE_LIST } from "../../constants.js";
+const Yup = require("yup");
+
+const CreateUserSchema = Yup.object().shape({
+  firstName: Yup.string()
+    .max(30, "Max length is 30 characters")
+    .required(),
+  businessName: Yup.string(),
+  lastName: Yup.string()
+    .max(150, "Maximum length is 150 characters")
+    .required(),
+  streetAddress: Yup.string()
+    .max(100, "Maximum length is 100 characters")
+    .required(),
+  city: Yup.string()
+    .max(70)
+    .required(),
+  state: Yup.string().required(),
+  zipcode: Yup.string()
+    .max(10)
+    .min(5)
+    .required()
+});
 
 class ContactForm extends Component {
   constructor(props) {

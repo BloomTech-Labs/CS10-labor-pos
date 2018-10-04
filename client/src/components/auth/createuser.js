@@ -14,37 +14,8 @@ import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../../constants.js";
 import { UserForm, ContactForm } from "../../components";
 import { styles } from "../material-ui/styles";
-
-const Yup = require("yup");
 const steps = ["Account details", "Contact information"];
 
-const CreateUserSchema = Yup.object().shape({
-  username: Yup.string()
-    .max(150, "Username must be under 150 characters")
-    .required(),
-  password: Yup.string().required(),
-  email: Yup.string()
-    .required()
-    .email("Please enter a valid email"),
-  firstName: Yup.string()
-    .max(30, "Max length is 30 characters")
-    .required(),
-  businessName: Yup.string(),
-  lastName: Yup.string()
-    .max(150, "Maximum length is 150 characters")
-    .required(),
-  streetAddress: Yup.string()
-    .max(100, "Maximum length is 100 characters")
-    .required(),
-  city: Yup.string()
-    .max(70)
-    .required(),
-  state: Yup.string().required(),
-  zipcode: Yup.string()
-    .max(10)
-    .min(5)
-    .required()
-});
 
 class CreateUser extends Component {
   constructor() {
