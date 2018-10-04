@@ -14,12 +14,14 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Hidden
+  Hidden,
+  withStyles
 } from "@material-ui/core";
 import { Query, Mutation } from "react-apollo";
 import { SETTINGS_QUERY } from "../../queries.js";
 import { UPDATE_USER } from "../../mutations.js";
 import { STATE_LIST } from "../../constants";
+import { styles } from "../material-ui/styles.js";
 import jwt_decode from "jwt-decode";
 
 //  This component will render on the /settings route when the user is logged in
@@ -68,6 +70,8 @@ class Settings extends Component {
   };
 
   render() {
+    let { classes } = this.props;
+    console.log(classes);
     const {
       oldPassword,
       newPassword,
@@ -127,7 +131,7 @@ class Settings extends Component {
                     <Typography gutterBottom variant="title">
                       Change Password
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={5}>
                           <TextField
@@ -165,7 +169,7 @@ class Settings extends Component {
                     <Typography gutterBottom variant="title">
                       Business Name
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={10}>
                           <TextField
@@ -189,7 +193,7 @@ class Settings extends Component {
                     <Typography gutterBottom variant="title">
                       Name
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={5}>
                           <TextField
@@ -226,7 +230,7 @@ class Settings extends Component {
                     <Typography gutterBottom variant="title">
                       Address
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={11}>
                           <TextField
@@ -297,7 +301,7 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Paper elevation={4} square>
+                    <Paper elevation={4} square className={classes.card}>
                       <Table>
                         <TableHead>
                           <TableRow>
@@ -406,11 +410,13 @@ class SettingsWrapper extends Component {
             parts: data.allClients.edges.length,
             tags: data.allClients.edges.length
           };
-          return <Settings user={user} item_counts={item_counts} />;
+          return (
+            <Settings user={user} item_counts={item_counts} {...this.props} />
+          );
         }}
       </Query>
     );
   };
 }
 
-export default withRouter(SettingsWrapper);
+export default withRouter(withStyles(styles)(SettingsWrapper));

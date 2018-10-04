@@ -30,7 +30,15 @@ import {
   EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
-import { Hidden, IconButton, Drawer, Paper, Grid } from "@material-ui/core";
+import {
+  Hidden,
+  IconButton,
+  Drawer,
+  Paper,
+  Grid,
+  withStyles
+} from "@material-ui/core";
+import { styles } from "../material-ui/styles.js";
 import MenuIcon from "@material-ui/icons/Menu";
 
 //The home component is a container component that renders when the user is logged in and displays different
@@ -54,6 +62,7 @@ class Home extends Component {
   };
 
   render() {
+    let { classes } = this.props;
     return (
       <div>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
@@ -104,7 +113,7 @@ class Home extends Component {
         {/*These are the routes that render different content components depending on the
         current path.*/}
         <main>
-          <Paper className="content_area">
+          <Paper className={classes.main_content}>
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
@@ -137,4 +146,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(withStyles(styles)(Home));
