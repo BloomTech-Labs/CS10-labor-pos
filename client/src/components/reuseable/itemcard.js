@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Create, Delete } from "@material-ui/icons";
-import { IconButton, Button, Dialog } from "@material-ui/core";
+import { IconButton, Typography, Dialog } from "@material-ui/core";
 import { DeleteItem } from "..";
 import "./itemcard.css";
 
@@ -55,6 +55,7 @@ class ItemCard extends Component {
       case "part":
         path = "/parts";
         name = this.props.item.name;
+        break;
       default:
         break;
     }
@@ -72,7 +73,9 @@ class ItemCard extends Component {
         </div>
         <h4 className="item-card-name">
           <Link to={`${path}/${this.props.item.id}`}>
-            <Button>{name}</Button>
+            <Typography variant="title" noWrap>
+              {name}
+            </Typography>
           </Link>
         </h4>
         <Dialog

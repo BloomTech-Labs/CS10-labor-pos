@@ -92,7 +92,6 @@ class PartForm extends Component {
                         if (part_variables[key] === "") {
                           if (this.props.mode === "edit")
                             delete part_variables[key];
-                          else throw `${key} is a required field!`;
                         }
                       }
                       if (this.props.mode === "edit")

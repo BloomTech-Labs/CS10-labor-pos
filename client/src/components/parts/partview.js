@@ -14,12 +14,9 @@ import { Link } from "react-router-dom";
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r773D
 class PartView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      deleting: false
-    };
-  }
+  state = {
+    deleting: false
+  };
 
   handleDeleteButton = () => {
     this.setState({ deleting: true });
@@ -58,7 +55,9 @@ class PartView extends Component {
               <Grid item xs={12}>
                 <Typography paragraph>{data.part.description}</Typography>
               </Grid>
-              <Grid item xs={2}>{`Cost: \$${data.part.cost}`}</Grid>
+              <Grid item xs={2}>
+                <Typography>{`Cost: $${data.part.cost}`}</Typography>
+              </Grid>
               <Grid item xs={10}>
                 <CardList
                   columns={4}

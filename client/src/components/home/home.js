@@ -25,7 +25,9 @@ import {
   AddClient,
   ClientView,
   EditClient,
-  EditPart
+  EditPart,
+  EditTag,
+  EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
 import { Hidden, IconButton, Drawer, Paper, Grid } from "@material-ui/core";
@@ -81,7 +83,11 @@ class Home extends Component {
               keepMounted: true
             }}
           >
-            <SideNav logout={this.logout} />
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              dark_theme={this.props.dark_theme}
+            />
           </Drawer>
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
@@ -112,14 +118,14 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
-            <Route exact path="/notes/:id/edit" component={NoteView} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/createtag" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
-            <Route exact path="/tags/:id/edit" component={TagView} />
+            <Route exact path="/tags/:id/edit" component={EditTag} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />

@@ -245,7 +245,7 @@ const UPDATE_TAG = gql`
     $description: String
   ) {
     updateTag(
-      id: $ID
+      id: $id
       job: $job
       note: $note
       part: $part
@@ -263,7 +263,8 @@ const UPDATE_USER = gql`
   mutation updateUser(
     $id: ID!
     $username: String
-    $password: String
+    $newPassword: String
+    $oldPassword: String
     $email: String
     $firstName: String
     $lastName: String
@@ -276,7 +277,8 @@ const UPDATE_USER = gql`
     updateUser(
       id: $id
       username: $username
-      password: $password
+      newPassword: $newPassword
+      oldPassword: $oldPassword
       email: $email
       firstName: $firstName
       lastName: $lastName
@@ -288,7 +290,9 @@ const UPDATE_USER = gql`
     ) {
       user {
         id
+        __typename
       }
+      __typename
     }
   }
 `;

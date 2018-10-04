@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Button } from "@material-ui/core";
+import { Button, Typography, Paper } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import {
   DELETE_JOB,
@@ -51,12 +51,15 @@ class DeleteItem extends Component {
         if (this.props.item.businessName) name = this.props.item.businessName;
         else name = `${this.props.item.firstName} ${this.props.item.lastName}`;
         chosen_mutation = DELETE_CLIENT;
+        break;
       default:
         break;
     }
     return (
-      <div>
-        <h5>Are you sure you want to delete {name}?</h5>
+      <Paper>
+        <Typography variant="title" paragraph>
+          Are you sure you want to delete {name}?
+        </Typography>
         <Mutation
           mutation={chosen_mutation}
           variables={{ id: this.props.item.id }}
@@ -69,7 +72,7 @@ class DeleteItem extends Component {
           )}
         </Mutation>
         <Button onClick={this.props.cancelDelete}>Cancel</Button>
-      </div>
+      </Paper>
     );
   }
 }

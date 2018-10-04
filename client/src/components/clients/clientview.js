@@ -80,33 +80,41 @@ class ClientView extends Component {
               <Grid container>
                 <Grid item xs={6}>
                   <Typography align="left">
-                    {data.client.businessName}
+                    Business Name: {data.client.businessName}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
                   <Typography align="left">
-                    {data.client.streetNumber}
+                    Street Number: {data.client.streetNumber}
                   </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.unitNumber}</Typography>
+                  <Typography align="left">
+                    Unit Number: {data.client.unitNumber}
+                  </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.streetName}</Typography>
+                  <Typography align="left">
+                    Street Name: {data.client.streetName}
+                  </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography align="left">{`${data.client.firstName} ${
+                  <Typography align="left">{`Name: ${data.client.firstName} ${
                     data.client.lastName
                   }`}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.city}</Typography>
+                  <Typography align="left">City: {data.client.city}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.state}</Typography>
+                  <Typography align="left">
+                    State: {data.client.state}
+                  </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.zipcode}</Typography>
+                  <Typography align="left">
+                    Zip: {data.client.zipcode}
+                  </Typography>
                 </Grid>
                 <Grid item xs={6}>
                   {data.client.deadline}

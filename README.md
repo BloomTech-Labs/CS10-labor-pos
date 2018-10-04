@@ -74,6 +74,8 @@
     - [Token Auth](#token-auth)
     - [Verify Token](#verify-token)
     - [Refresh Token](#refresh-token)
+  - [Styles and Theming](#styles-and-theming)
+    - [Light and Dark Themes](#light-and-dark-themes)
 
 ## Tech Stack
 
@@ -786,6 +788,16 @@ refreshToken(token: String!) {
   payload
 }
 ```
+
+# Styles and Theming
+
+This project uses the Material Ui theme provider which cascades the defined theme down to all material ui components.
+Theme can be viewed and edited in App.js
+
+## Light and Dark Themes
+
+Once logged in, the user can click a switch in the sidenav to switch between a light colored and dark colored theme.
+The theme choice is saved on localstorage and localstorage is checked for a theme choice on reload.
 
 # Installation Instructions
 

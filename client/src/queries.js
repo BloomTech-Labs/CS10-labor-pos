@@ -280,6 +280,63 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
+const SETTINGS_QUERY = gql`
+  query {
+    allUsers {
+      edges {
+        node {
+          id
+          firstName
+          lastName
+          streetAddress
+          city
+          state
+          zipcode
+          businessName
+          premium
+          paidUntil
+          username
+        }
+      }
+    }
+    allClients {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allJobs {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allNotes {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allParts {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allTags {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`;
+
 export {
   QUERY_ALL_JOBS,
   QUERY_ALL_NOTES,
@@ -292,5 +349,6 @@ export {
   DETAILED_NOTE_BY_ID,
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
-  DETAILED_PART_BY_ID
+  DETAILED_PART_BY_ID,
+  SETTINGS_QUERY
 };

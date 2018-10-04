@@ -33,6 +33,9 @@ import CreateUser from "./auth/createuser.js";
 import UserForm from "./auth/userform.js";
 import ContactForm from "./auth/contactform.js";
 import EditPart from "./parts/editpart.js";
+import EditTag from "./tags/edittag.js";
+import EditNote from "./notes/editnote.js";
+import TextField from "./material-ui/textfield.js";
 
 export {
   Tags,
@@ -69,5 +72,8 @@ export {
   CreateUser,
   UserForm,
   ContactForm,
-  EditPart
+  EditPart,
+  EditTag,
+  EditNote,
+  TextField
 };

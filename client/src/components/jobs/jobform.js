@@ -117,7 +117,6 @@ class JobForm extends Component {
                           if (job_variables[key] === "") {
                             if (this.props.mode === "edit")
                               delete job_variables[key];
-                            else throw `${key} is a required field!`;
                           }
                         }
                         if (this.props.mode === "edit")

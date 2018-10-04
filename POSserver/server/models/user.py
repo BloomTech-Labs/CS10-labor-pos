@@ -85,6 +85,10 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
 
+    # @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # def welcome_mail(sender, instance, **kwargs):
+    #     if kwargs['created']:
+    #         model = get_user_model()
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def welcome_mail(sender, instance, **kwargs):
@@ -98,8 +102,8 @@ class User(AbstractUser):
             text_content = render_to_string("newuser.txt")
             html_content = render_to_string("newuser.html")
 
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+    #         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    #         msg.attach_alternative(html_content, "text/html")
+    #         msg.send()
 
     # post_save.connect(welcome_mail, sender=AbstractUser)

@@ -35,7 +35,10 @@ class TagForm extends Component {
 
       this.setState({
         name: edit_tag.name,
-        description: edit_tag.description
+        description: edit_tag.description,
+        job: edit_tag.job.id,
+        note: edit_tag.note.id,
+        part: edit_tag.part.id
       });
     }
   };
@@ -112,7 +115,6 @@ class TagForm extends Component {
                         if (tag_variables[key] === "") {
                           if (this.props.mode === "edit")
                             delete tag_variables[key];
-                          else throw `${key} is a required field!`;
                         }
                       }
                       if (this.props.mode === "edit")

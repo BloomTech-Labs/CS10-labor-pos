@@ -117,7 +117,6 @@ class ClientForm extends Component {
                   if (client_variables[key] === "") {
                     if (this.props.mode === "edit")
                       delete client_variables[key];
-                    else throw `${key} is a required field!`;
                   }
                 }
                 if (this.props.mode === "edit")
