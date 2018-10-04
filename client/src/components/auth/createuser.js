@@ -12,9 +12,8 @@ import {
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
 import { AUTH_TOKEN } from "../../constants.js";
-import { UserForm, ContactForm, styles } from "../../components";
-
-console.log("Styles", styles);
+import { UserForm, ContactForm } from "../../components";
+import { styles } from "../material-ui/styles";
 
 const Yup = require("yup");
 const steps = ["Account details", "Contact information"];
@@ -106,7 +105,6 @@ class CreateUser extends Component {
 
   _confirm = async data => {
     const { token } = data.createUser;
-    console.log(data);
     this._saveUserData(token);
 
     // Go to the root route
