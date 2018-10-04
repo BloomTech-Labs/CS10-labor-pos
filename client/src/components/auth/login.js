@@ -52,25 +52,35 @@ class Login extends Component {
               />
             </Grid>
             <Grid item xs={1} />
-            <Grid item xs={9} />
-            <Grid item xs={2}>
+            <Grid item xs={12}>
               <Mutation
                 mutation={SIGNIN_MUTATION}
                 variables={{ username, password }}
                 onCompleted={data => this._confirm(data)}
               >
-                {mutation => (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={event => {
-                      event.preventDefault();
-                      mutation();
-                    }}
-                    type="submit"
-                  >
-                    Login
-                  </Button>
+                {(mutation, { loading, error, data }) => (
+                  <Grid container>
+                    <Grid item xs={1} />
+                    <Grid item xs={8}>
+                      {error && (
+                        <Typography color="error">{`error: ${error}`}</Typography>
+                      )}
+                      {loading && <Typography>Loading ...</Typography>}
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={event => {
+                          event.preventDefault();
+                          mutation();
+                        }}
+                        type="submit"
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                  </Grid>
                 )}
               </Mutation>
             </Grid>

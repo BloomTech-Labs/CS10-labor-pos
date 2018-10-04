@@ -230,8 +230,8 @@ class JobForm extends Component {
                         </div>
                       </Grid>
                     </form>
-                    {loading && <p>Saving job information</p>}
-                    {(data || error) && <p>Success!</p>}
+                    {loading && <p>Saving job information...</p>}
+                    {error && <p>{error}</p>}
                   </div>
                 )}
               </Mutation>
