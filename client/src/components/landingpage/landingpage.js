@@ -8,8 +8,7 @@ import {
   Card
 } from "@material-ui/core";
 import "./landingpage.css";
-import { Login, Home } from "../../components";
-import CreateUser from "../auth/newUser.js";
+import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
 import { withRouter } from "react-router";
 // import ContactForm from "../../components/auth/contractor";
