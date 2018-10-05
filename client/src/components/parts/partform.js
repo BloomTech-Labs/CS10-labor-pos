@@ -5,11 +5,13 @@ import {
   TextField,
   Grid,
   MenuItem,
-  Button
+  Button,
+  withStyles
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_PART, UPDATE_PART } from "../../mutations.js";
 import { QUERY_ALL_JOBS } from "../../queries.js";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render on the /parts/:id/edit route when the user is logged in
 //  It is a child of the home component.
@@ -48,6 +50,7 @@ class PartForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const { name, description, cost, job } = this.state;
     let chosen_mutation = CREATE_PART;
     let title_text = "Add Part";
@@ -77,7 +80,6 @@ class PartForm extends Component {
             >
               {(mutateJob, { loading, error, data }) => (
                 <div>
-                  <Typography variant="title">{title_text}</Typography>
                   <form
                     onSubmit={event => {
                       event.preventDefault();
@@ -107,31 +109,45 @@ class PartForm extends Component {
                       });
                     }}
                   >
-                    <TextField
-                      id="field-name"
-                      label="Name"
-                      name="name"
-                      className={"modal_field"}
-                      value={name}
-                      onChange={this.handleChange("name")}
-                      helperText="Part Name"
-                      margin="normal"
-                    />
-                    <TextField
-                      id="field-description"
-                      label="Description"
-                      multiline
-                      fullWidth
-                      rows="8"
-                      rowsMax="8"
-                      name="description"
-                      className={"modal_field"}
-                      value={description}
-                      onChange={this.handleChange("description")}
-                      margin="normal"
-                      variant="outlined"
-                    />
                     <Grid container>
+                      <Grid item xs={12}>
+                        <Typography
+                          className={classes.typography}
+                          variant="title"
+                        >
+                          {title_text}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          id="field-name"
+                          label="Name"
+                          name="name"
+                          className={"modal_field"}
+                          value={name}
+                          onChange={this.handleChange("name")}
+                          helperText="Part Name"
+                          margin="normal"
+                        />
+                      </Grid>
+                      <Grid item xs={1} />
+                      <Grid item xs={10}>
+                        <TextField
+                          id="field-description"
+                          label="Description"
+                          multiline
+                          fullWidth
+                          rows="8"
+                          rowsMax="8"
+                          name="description"
+                          className={classes.field}
+                          value={description}
+                          onChange={this.handleChange("description")}
+                          margin="normal"
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid item xs={1} />
                       <Grid item xs={6}>
                         <TextField
                           id="field-cost"
@@ -169,7 +185,14 @@ class PartForm extends Component {
                       </Grid>
                     </Grid>
                     <div className="form-bottom-button">
-                      <Button type="submit">{button_text}</Button>
+                      <Button
+                        className={classes.padded_button}
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                      >
+                        {button_text}
+                      </Button>
                     </div>
                   </form>
                 </div>
@@ -186,4 +209,4 @@ class PartForm extends Component {
   };
 }
 
-export default withRouter(PartForm);
+export default withRouter(withStyles(styles)(PartForm));

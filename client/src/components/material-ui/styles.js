@@ -25,7 +25,8 @@ const styles = theme => ({
     marginTop: "40px"
   },
   field: {
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    margin: "10px"
   },
   padded_button: {
     margin: "16px"
@@ -37,6 +38,9 @@ const styles = theme => ({
   list_item_light: {
     padding: "10px",
     backgroundColor: theme.palette.lightened_background
+  },
+  typography: {
+    padding: "8px"
   },
   main_content: {
     textAlign: "center",

@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grid, Typography, IconButton, Dialog } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  IconButton,
+  Dialog,
+  withStyles,
+  Card
+} from "@material-ui/core";
 import { DETAILED_PART_BY_ID } from "../../queries.js";
 import { Query } from "react-apollo";
 import { CardList, DeleteItem } from "../../components";
 import { Delete, Create } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { styles } from "../material-ui/styles.js";
 
 //This component will render on the /parts/%partid route when the user is logged in
 //It is a child of the home component.
@@ -27,6 +35,7 @@ class PartView extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_PART_BY_ID}
@@ -56,7 +65,9 @@ class PartView extends Component {
                 <Typography paragraph>{data.part.description}</Typography>
               </Grid>
               <Grid item xs={2}>
-                <Typography>{`Cost: $${data.part.cost}`}</Typography>
+                <Card className={classes.card}>
+                  <Typography>{`Cost: $${data.part.cost}`}</Typography>
+                </Card>
               </Grid>
               <Grid item xs={10}>
                 <CardList
@@ -86,4 +97,4 @@ class PartView extends Component {
   }
 }
 
-export default withRouter(PartView);
+export default withRouter(withStyles(styles)(PartView));
