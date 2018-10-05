@@ -96,7 +96,7 @@ class User(AbstractUser):
             user_email = instance.email
             sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
             from_email = Email("nphillip78@gmail.com")
-            to_email = user_email
+            to_email = Email(user_email)
             subject = "Welcome to contractAlchemy!"
             content = Content("text/plain", "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place. Premium users gain access to all of our features with an unlimited number of records. Our free membership includes access to all features for up to 8 records at a time - 8 clients, 8 jobs,etc. You can upgrade to premium at any time.")
             mail = Mail(from_email, subject, to_email, content,)
