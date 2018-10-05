@@ -60,7 +60,14 @@ class CreateUser extends Component {
       city: "",
       state: "",
       zipcode: "",
-      valid: false
+      valid: {
+        email: false,
+        username: false,
+        password: false
+      },
+      email_touched: false,
+      password_touched: false,
+      username_touched: false
     };
     this._next = this._next.bind(this); // 1
     this._prev = this._prev.bind(this); // 2
@@ -82,6 +89,11 @@ class CreateUser extends Component {
         [name]: event.target.value
       });
   }
+
+  handleTouch = name => {
+    console.log("No touching!");
+    this.setState({ [name]: true });
+  };
 
   errorComm = result => {
     this.setState({ valid: result });
@@ -134,6 +146,7 @@ class CreateUser extends Component {
 
   getStepContent(step) {
     let content = null;
+
     switch (step) {
       case 0:
         content = (
@@ -148,6 +161,10 @@ class CreateUser extends Component {
             email={this.state.email}
             errorComm={this.errorComm}
             valid={this.state.valid}
+            handleTouch={this.handleTouch}
+            email_touched={this.state.email_touched}
+            username_touched={this.state.username_touched}
+            password_touched={this.state.password_touched}
           />
         );
         break;
@@ -186,6 +203,8 @@ class CreateUser extends Component {
   }
 
   render() {
+    console.log("validity on parent component:");
+    console.log(this.state.valid);
     const { classes } = this.props;
     const { activeStep } = this.state;
 
@@ -231,7 +250,11 @@ class CreateUser extends Component {
                             variant="contained"
                             color="primary"
                             onClick={this._next}
-                            disabled={!this.state.valid}
+                            disabled={
+                              this.state.valid.email ||
+                              this.state.valid.password ||
+                              this.state.valid.username
+                            }
                             className={classes.button}
                           >
                             Next
