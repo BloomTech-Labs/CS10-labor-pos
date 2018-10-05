@@ -5,65 +5,17 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
 const Yup = require("yup");
 
-// const styles = theme => ({
-//   layout: {
-//     width: "auto",
-//     marginLeft: theme.spacing.unit * 2,
-//     marginRight: theme.spacing.unit * 2,
-//     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-//       width: 600,
-//       marginLeft: "auto",
-//       marginRight: "auto"
-//     }
-//   },
-//   paper: {
-//     marginTop: theme.spacing.unit * 3,
-//     marginBottom: theme.spacing.unit * 3,
-//     padding: theme.spacing.unit * 2,
-//     background: "#00ff6b",
-//     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-//       marginTop: theme.spacing.unit * 6,
-//       marginBottom: theme.spacing.unit * 6,
-//       padding: theme.spacing.unit * 3
-//     }
-//   },
-//   stepper: {
-//     padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
-//   },
-//   buttons: {
-//     display: "flex",
-//     justifyContent: "flex-end"
-//   },
-//   button: {
-//     marginTop: theme.spacing.unit * 3,
-//     marginLeft: theme.spacing.unit
-//   }
-// });
-
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
     .max(150, "Username must be under 150 characters")
-    .required(),
-  password: Yup.string().required(),
+    .required("Username is a required field"),
+  password: Yup.string().required("Password is a required field"),
   email: Yup.string()
-    .required()
+    .required("Email is a required field")
     .email("Please enter a valid email")
 });
 
-// class UserForm extends Component {
-//   constructor() {
-//     super();
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleSubmit = event => {
-//     event.preventDefault();
-//     this.setState({ disabled: !result });
-//     this.props.onSubmit();
-//   };
-
 const UserForm = props => {
-  console.log(props.username);
   return (
     <div>
       <Formik
@@ -80,23 +32,31 @@ const UserForm = props => {
         }}
       >
         {({ errors, touched }) => {
-          console.log("errors?");
-          console.log(!!errors.username || !!errors.password || !!errors.email);
-          console.log(errors);
           let validity = !(
             !!errors.username ||
             !!errors.password ||
             !!errors.email
           );
-          if (validity !== props.valid) {
-            props.errorComm(validity);
+          {
+            /* if (validity !== props.valid) {
+            return props.errorComm(validity);
+          } */
           }
           return (
             <React.Fragment>
               <Typography variant="title" gutterBottom>
                 Account details
               </Typography>
-              <Form>
+              <Form
+                onBlur={() => {
+                  // There's a flaw in this logic - button can toggle
+                  // so that if you have multiple fields with errors,
+                  // error state becomes falsy and button becomes clickable
+                  if (validity != props.valid) {
+                    props.errorComm(validity);
+                  }
+                }}
+              >
                 <Grid container spacing={24}>
                   <Grid item xs={12} sm={6}>
                     <div>
@@ -107,6 +67,7 @@ const UserForm = props => {
                         fullWidth={true}
                         onChange={props.onChangeUsername}
                         value={props.username}
+                        label="Username"
                         required
                       />
                       {errors.username && touched.username ? (
@@ -123,6 +84,7 @@ const UserForm = props => {
                       fullWidth={true}
                       onChange={props.onChangePassword}
                       value={props.password}
+                      label="Password"
                       required
                     />
                     {errors.password && touched.password ? (
@@ -138,6 +100,7 @@ const UserForm = props => {
                       fullWidth={true}
                       onChange={props.onChangeEmail}
                       value={props.email}
+                      label="Email"
                       required
                     />
                     {errors.email && touched.email ? (
@@ -153,75 +116,5 @@ const UserForm = props => {
     </div>
   );
 };
-
-//   render() {
-//     return (
-//       <React.Fragment>
-//         <Typography variant="title" gutterBottom>
-//           Account details
-//         </Typography>
-//         <ValidatorForm onSubmit={this.handleSubmit} instantValidate>
-//           <Grid container spacing={24}>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 id="username"
-//                 required
-//                 name="username"
-//                 label="Username"
-//                 value={this.props.username}
-//                 fullWidth
-//                 autoComplete="username"
-//                 onChange={this.props.onChangeUsername}
-//                 validatorListener={this.props.validatorListener}
-//                 validators={["required", "isString", "maxStringLength:150"]}
-//                 errorMessages={[
-//                   "An email is required",
-//                   "Email must be a string",
-//                   "Max length of email address is 150 characters"
-//                 ]}
-//               />
-//             </Grid>
-//             <Grid item xs={12} sm={6}>
-//               <TextField
-//                 required
-//                 id="password"
-//                 name="password"
-//                 label="Password"
-//                 type="password"
-//                 value={this.props.password}
-//                 autoComplete="off"
-//                 fullWidth
-//                 onChange={this.props.onChangePassword}
-//                 validators={["required", "isString"]}
-//                 errorMessages={[
-//                   "Password is a required field",
-//                   "Password must be a string"
-//                 ]}
-//                 validatorListener={this.props.validatorListener}
-//               />
-//             </Grid>
-//             <Grid item xs={12}>
-//               <TextField
-//                 required
-//                 id="email"
-//                 name="email"
-//                 label="Email"
-//                 value={this.props.email}
-//                 fullWidth
-//                 onChange={this.props.onChangeEmail}
-//                 validators={["required", "isString"]}
-//                 errorMessages={[
-//                   "An email is required",
-//                   "Email must be a string"
-//                 ]}
-//                 validatorListener={this.props.validatorListener}
-//               />
-//             </Grid>
-//           </Grid>
-//         </ValidatorForm>
-//       </React.Fragment>
-//     );
-//   }
-// }
 
 export default withRouter(UserForm);

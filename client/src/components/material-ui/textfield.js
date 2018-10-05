@@ -27,8 +27,7 @@ StyledTextField.propTypes = {
   form: PropTypes.shape({
     touched: PropTypes.object,
     errors: PropTypes.object
-  }).isRequired,
-  label: PropTypes.string.isRequired
+  }).isRequired
 };
 
 export default StyledTextField;

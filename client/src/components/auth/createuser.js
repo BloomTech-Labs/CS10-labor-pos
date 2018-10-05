@@ -16,7 +16,6 @@ import { UserForm, ContactForm } from "../../components";
 import { styles } from "../material-ui/styles";
 const steps = ["Account details", "Contact information"];
 
-
 class CreateUser extends Component {
   constructor() {
     super();
@@ -86,8 +85,7 @@ class CreateUser extends Component {
     localStorage.setItem(AUTH_TOKEN, token);
   };
 
-  submit = createUser => event => {
-    event.preventDefault();
+  submit = createUser => {
     createUser({
       variables: {
         businessName: this.state.businessName,
