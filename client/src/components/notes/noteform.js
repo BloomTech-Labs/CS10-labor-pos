@@ -5,11 +5,13 @@ import {
   TextField,
   Grid,
   MenuItem,
-  Button
+  Button,
+  withStyles
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_NOTE, UPDATE_NOTE } from "../../mutations.js";
 import { ALL_CLIENTS_AND_JOBS } from "../../queries.js";
+import { styles } from "../material-ui/styles.js";
 
 //  This component can dynamically update or create
 //  a note depeinding on the props it's given.
@@ -48,6 +50,7 @@ class NoteForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const { title, content, client, job } = this.state;
     let chosen_mutation = CREATE_NOTE;
     let title_text = "Add Note";
@@ -93,7 +96,6 @@ class NoteForm extends Component {
             >
               {(mutateJob, { loading, error, data }) => (
                 <div>
-                  <Typography variant="title">{title_text}</Typography>
                   <form
                     onSubmit={event => {
                       event.preventDefault();
@@ -123,31 +125,46 @@ class NoteForm extends Component {
                       });
                     }}
                   >
-                    <TextField
-                      id="field-title"
-                      label="Title"
-                      name="title"
-                      className={"modal_field"}
-                      value={title}
-                      onChange={this.handleChange("title")}
-                      helperText="Note Title"
-                      margin="normal"
-                    />
-                    <TextField
-                      id="field-content"
-                      label="Content"
-                      multiline
-                      fullWidth
-                      rows="8"
-                      rowsMax="8"
-                      name="content"
-                      className={"modal_field"}
-                      value={content}
-                      onChange={this.handleChange("content")}
-                      margin="normal"
-                      variant="outlined"
-                    />
                     <Grid container>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="title"
+                          className={classes.typography}
+                        >
+                          {title_text}
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          id="field-title"
+                          label="Title"
+                          name="title"
+                          className={"modal_field"}
+                          value={title}
+                          onChange={this.handleChange("title")}
+                          helperText="Note Title"
+                          margin="normal"
+                        />
+                      </Grid>
+                      <Grid item xs={1} />
+                      <Grid item xs={10}>
+                        <TextField
+                          id="field-content"
+                          label="Content"
+                          multiline
+                          fullWidth
+                          rows="8"
+                          rowsMax="8"
+                          name="content"
+                          className={classes.field}
+                          value={content}
+                          onChange={this.handleChange("content")}
+                          margin="normal"
+                          variant="outlined"
+                        />
+                      </Grid>
+                      <Grid item xs={1} />
+
                       <Grid item xs={6}>
                         <TextField
                           id="field-client"
@@ -198,7 +215,14 @@ class NoteForm extends Component {
                       </Grid>
                     </Grid>
                     <div className="form-bottom-button">
-                      <Button type="submit">{button_text}</Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.padded_button}
+                        type="submit"
+                      >
+                        {button_text}
+                      </Button>
                     </div>
                   </form>
                 </div>
@@ -215,4 +239,4 @@ class NoteForm extends Component {
   };
 }
 
-export default withRouter(NoteForm);
+export default withRouter(withStyles(styles)(NoteForm));
