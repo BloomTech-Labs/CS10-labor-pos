@@ -83,19 +83,9 @@ class ClientView extends Component {
                     Business Name: {data.client.businessName}
                   </Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={6}>
                   <Typography align="left">
-                    Street Number: {data.client.streetNumber}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Unit Number: {data.client.unitNumber}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Street Name: {data.client.streetName}
+                    Street Address: {data.client.streetAddress}
                   </Typography>
                 </Grid>
                 <Grid item xs={6}>

@@ -8,9 +8,17 @@ import {
   Typography
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-
+import { Formik, Form, Field } from "formik";
 import { STATE_LIST } from "../../constants";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
+const Yup = require("yup");
+
+// const ClientSchema = Yup.object().shape({
+//   businessName: Yup.string().max(100, "Business Name must be fewer than 100 characters"),
+//   firstName: Yup.string().max(100).required(),
+//   lastName: Yup.string().max(100).required(),
+//   email: Yup.string().max(70).required().email(),
+//   street_number: Yup.string().max(10)
 
 // This component renders as a child of clientview when editing
 // the client (path is /clients/%clientid/edit)
@@ -21,9 +29,7 @@ class ClientForm extends Component {
     businessName: "",
     firstName: "",
     lastName: "",
-    streetNumber: "",
-    unitNumber: "",
-    streetName: "",
+    streetAddress: "",
     city: "",
     state: "AL",
     zipcode: "",
@@ -52,9 +58,7 @@ class ClientForm extends Component {
         businessName: edit_client.businessName,
         firstName: edit_client.firstName,
         lastName: edit_client.lastName,
-        streetNumber: edit_client.streetNumber,
-        unitNumber: edit_client.unitNumber,
-        streetName: edit_client.streetName,
+        streetAddress: edit_client.streetAddress,
         city: edit_client.city,
         state: edit_client.state,
         zipcode: edit_client.zipcode,
@@ -69,9 +73,7 @@ class ClientForm extends Component {
       businessName,
       firstName,
       lastName,
-      streetNumber,
-      unitNumber,
-      streetName,
+      streetAddress,
       city,
       state,
       zipcode,
@@ -102,9 +104,7 @@ class ClientForm extends Component {
                   businessName: businessName,
                   firstName: firstName,
                   lastName: lastName,
-                  streetNumber: streetNumber,
-                  unitNumber: unitNumber,
-                  streetName: streetName,
+                  streetAddress: streetAddress,
                   city: city,
                   state: state,
                   zipcode: zipcode,
@@ -128,9 +128,7 @@ class ClientForm extends Component {
                   businessName: "",
                   firstName: "",
                   lastName: "",
-                  streetNumber: "",
-                  unitNumber: "",
-                  streetName: "",
+                  streetAddress: "",
                   city: "",
                   state: "AL",
                   zipcode: "",
@@ -177,43 +175,19 @@ class ClientForm extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <TextField
-                    id="field-streetNumber"
-                    label="Street Number"
-                    name="streetNumber"
+                    id="field-streetAddress"
+                    label="Street Address"
+                    name="streetAddress"
                     className={"modal_field"}
-                    value={streetNumber}
-                    onChange={this.handleChange("streetNumber")}
-                    helperText="Street Number"
+                    value={streetAddress}
+                    onChange={this.handleChange("streetAddress")}
+                    helperText="Street Address"
                     margin="normal"
                   />
                 </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-unitNumber"
-                    label="Unit Number"
-                    name="unitNumber"
-                    className={"modal_field"}
-                    value={unitNumber}
-                    onChange={this.handleChange("unitNumber")}
-                    helperText="Unit Number"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-streetName"
-                    label="Street Name"
-                    name="streetName"
-                    className={"modal_field"}
-                    value={streetName}
-                    onChange={this.handleChange("streetName")}
-                    helperText="Street Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <TextField
                     id="field-email"
                     label="Email"
@@ -225,7 +199,7 @@ class ClientForm extends Component {
                     margin="normal"
                   />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={4}>
                   <TextField
                     id="field-city"
                     label="City"

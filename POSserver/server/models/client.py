@@ -9,9 +9,7 @@ class Client(models.Model):
     first_name = models.CharField(max_length=100, default="")
     last_name = models.CharField(max_length=100, default="")
     email = models.EmailField(max_length=70, default="")
-    street_number = models.CharField(max_length=10, default="")
-    unit_number = models.CharField(max_length=10, null=True, blank=True, default="")
-    street_name = models.CharField(max_length=100, default="")
+    street_address = models.CharField(max_length=100, default="")
     city = models.CharField(max_length=70, default="")
     state_choices = (
         ("AL", "Alabama"),
