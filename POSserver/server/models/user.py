@@ -8,7 +8,6 @@ from decouple import config
 import sendgrid
 from sendgrid.helpers.mail import *
 from django.http import HttpResponse, HttpResponseRedirect
-# from django.template.loader import get_template, render_to_string
 
 
 if not settings.configured:
@@ -104,25 +103,3 @@ class User(AbstractUser):
             print(response.status_code)
             print(response.body)
             print(response.headers)
-
-
-   
-"""
-    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-    def welcome_mail(sender, instance, **kwargs):
-        if kwargs['created']:
-            model = get_user_model()
-            template = get_template("newuser.html", "newuser.txt")
-            
-            user_email = instance.email
-            subject, from_email, to = "Welcome to contractAlchemy", "nphillips78@gmail.com", "cole.mac.phillips@gmail.com"
-
-            text_content = render_to_string("newuser.txt")
-            html_content = render_to_string("newuser.html")
-
-    #         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    #         msg.attach_alternative(html_content, "text/html")
-    #         msg.send()
-
-    # post_save.connect(welcome_mail, sender=AbstractUser)
-    """
