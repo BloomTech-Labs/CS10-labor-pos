@@ -115,7 +115,6 @@ class TagForm extends Component {
                         if (tag_variables[key] === "") {
                           if (this.props.mode === "edit")
                             delete tag_variables[key];
-                          else throw `${key} is a required field!`;
                         }
                       }
                       if (this.props.mode === "edit")

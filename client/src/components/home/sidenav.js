@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Divider,
-  Button,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,

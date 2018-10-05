@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 var axios = require("axios");
 
-const fileURL = "";
-
 //This component will render as a child of home on the path /jobs/%jobid/invoice
 //It will present the user with a preview of the generated invoice as well
 //as buttons to edit, cancel, or send the invoice.

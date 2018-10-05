@@ -55,6 +55,7 @@ class ItemCard extends Component {
       case "part":
         path = "/parts";
         name = this.props.item.name;
+        break;
       default:
         break;
     }

@@ -108,7 +108,6 @@ class NoteForm extends Component {
                         if (note_variables[key] === "") {
                           if (this.props.mode === "edit")
                             delete note_variables[key];
-                          else throw `${key} is a required field!`;
                         }
                       }
                       if (this.props.mode === "edit")

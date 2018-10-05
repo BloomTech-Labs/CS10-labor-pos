@@ -3,16 +3,7 @@ import { AUTH_TOKEN } from "../../constants";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
 import { SIGNIN_MUTATION } from "../../mutations";
-import {
-  TextField,
-  Button,
-  MenuItem,
-  Grid,
-  FormControlLabel,
-  Card,
-  Typography,
-  Paper
-} from "@material-ui/core";
+import { TextField, Button, Grid, Typography, Paper } from "@material-ui/core";
 
 //The login component, to be rendered in a modal at the landing page
 class Login extends Component {
