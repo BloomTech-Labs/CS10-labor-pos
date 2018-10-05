@@ -11,7 +11,15 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.palette.background.paper,
-    margin: "10px"
+    margin: "10px",
+    padding: "10px"
+  },
+  field: {
+    backgroundColor: theme.palette.background.paper
+  },
+  button_regular: {
+    margin: "10px",
+    backgroundColor: theme.palette.background.paper
   },
   main_content: {
     textAlign: "center",

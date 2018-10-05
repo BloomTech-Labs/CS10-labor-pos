@@ -92,19 +92,19 @@ const UserForm = props => {
           console.log(validity);
           console.log(props.valid);
           if (
-            !!touched.email != !!props.email_touched &&
+            !!touched.email !== !!props.email_touched &&
             !props.email_touched
           ) {
             props.handleTouch("email_touched");
           }
           if (
-            !!touched.password != !!props.password_touched &&
+            !!touched.password !== !!props.password_touched &&
             !props.password_touched
           ) {
             props.handleTouch("password_touched");
           }
           if (
-            !!touched.username != !!props.username_touched &&
+            !!touched.username !== !!props.username_touched &&
             !props.username_touched
           ) {
             props.handleTouch("username_touched");
