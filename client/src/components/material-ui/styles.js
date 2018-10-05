@@ -14,12 +14,29 @@ const styles = theme => ({
     margin: "10px",
     padding: "10px"
   },
+  modal: {
+    padding: "20px"
+  },
+  item_card: {
+    backgroundColor: theme.palette.background.paper,
+    height: "180px"
+  },
+  card_title: {
+    marginTop: "40px"
+  },
   field: {
     backgroundColor: theme.palette.background.paper
   },
-  button_regular: {
-    margin: "10px",
+  padded_button: {
+    margin: "16px"
+  },
+  list_item_reg: {
+    padding: "10px",
     backgroundColor: theme.palette.background.paper
+  },
+  list_item_light: {
+    padding: "10px",
+    backgroundColor: theme.palette.lightened_background
   },
   main_content: {
     textAlign: "center",

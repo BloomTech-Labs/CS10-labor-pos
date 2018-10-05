@@ -56,7 +56,7 @@ class TagForm extends Component {
     const { name, description, job, note, part } = this.state;
     let chosen_mutation = CREATE_TAG;
     let title_text = "Add Tag";
-    let button_text = "Create";
+    let button_text = "Create Tag";
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_TAG;
       title_text = `Update ${this.props.tag.name}`;
@@ -238,8 +238,10 @@ class TagForm extends Component {
 
                       <div>
                         <Button
-                          className={classes.button_regular}
+                          variant="contained"
+                          color="primary"
                           type="submit"
+                          className={classes.padded_button}
                         >
                           {button_text}
                         </Button>

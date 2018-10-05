@@ -54,7 +54,7 @@ class CardList extends Component {
     ) {
       card_array.push(
         <Grid item xs={12 / this.props.columns} key={i}>
-          <Card raised className={classes.card}>
+          <Card raised className={classes.item_card}>
             <ItemCard type={this.props.type} item={this.props.items[i].node} />
           </Card>
         </Grid>

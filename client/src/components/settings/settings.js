@@ -296,7 +296,9 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={9} />
                   <Grid item xs={2}>
-                    <Button type="submit">Save Changes</Button>
+                    <Button variant="contained" color="primary" type="submit">
+                      Save Changes
+                    </Button>
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={1} />
