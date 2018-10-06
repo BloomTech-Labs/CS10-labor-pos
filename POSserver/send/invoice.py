@@ -12,6 +12,9 @@ from sendgrid.helpers.mail import *
 
 def send_email(req):
     body = json.loads(req.body.decode('utf-8'))
+    job = Job.objects.get(pk=from_global_id(req["job"])[1])
+    user = User.objects.get(pk=job.user_id)
+    client = Client.objects.filter(pk=job.client_id).get()
     user_name = body['userName']
     user_email = body['userEmail']
     job_name = body['jobName']

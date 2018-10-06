@@ -34,6 +34,7 @@ class GeneratePDF(View):
             "labor": job.labor,
             "client_name": " ".join([client.first_name, client.last_name]),
             "client": client,
+            "client_email": client.email,
             "order_id": job.id,
             "total": total,
         }
