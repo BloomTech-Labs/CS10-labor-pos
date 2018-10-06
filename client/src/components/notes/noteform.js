@@ -2,74 +2,63 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import {
   Typography,
-  TextField,
   Grid,
   MenuItem,
   Button,
-  withStyles
+  withStyles,
+  Select
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_NOTE, UPDATE_NOTE } from "../../mutations.js";
 import { ALL_CLIENTS_AND_JOBS } from "../../queries.js";
 import { styles } from "../material-ui/styles.js";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "../../components";
+const Yup = require("yup");
 
 //  This component can dynamically update or create
 //  a note depeinding on the props it's given.
 
+//Schema for validation
+const NoteSchema = Yup.object().shape({
+  title: Yup.string()
+    .max(150, "Title must be under 150 characters")
+    .required(),
+  content: Yup.string().required(),
+  client: Yup.string(),
+  job: Yup.string()
+});
+
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r5720
 class NoteForm extends Component {
-  // The state of this component is used to hold the form values
-  state = {
-    title: "",
-    content: "",
-    client: "",
-    job: ""
-  };
-
-  //  In componentDidMount, we check to see if the component is in edit mode, and if it is we
-  //  load in the current values of the item we are editing.
-  componentDidMount = () => {
-    //  Build an edit_note object from the note passed down as a prop.
-    if (this.props.mode === "edit") {
-      let edit_note = {};
-      for (let key in this.props.note) {
-        if (this.props.note[key] === null) edit_note[key] = "";
-        else edit_note[key] = this.props.note[key];
-      }
-      //  If we don't have a client or a job on the item, use the empty string for the value.
-      if (!edit_note.client) edit_note.client = { id: "" };
-      if (!edit_note.job) edit_note.job = { id: "" };
-      //  Load the edit note into the state.
-      this.setState({
-        client: edit_note.client.id,
-        job: edit_note.job.id,
-        title: edit_note.title,
-        content: edit_note.content
-      });
-    }
-  };
-
-  //  Updates the state with form values
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
   render() {
     //  Get MaterialUI classes
     const { classes } = this.props;
-    //  Destructure some things from the state
-    const { title, content, client, job } = this.state;
     //  Here, we default some variables to their values that will be used in create mode
     let chosen_mutation = CREATE_NOTE;
     let title_text = "Add Note";
     let button_text = "Create";
+    let edit_note = {
+      title: "",
+      content: "",
+      client: "",
+      job: ""
+    };
     //  If the component is in edit mode, we change those values to reflect the fact.
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_NOTE;
       title_text = `Update ${this.props.note.title}`;
       button_text = "Update";
+      //  load in the current values of the item we are editing.
+      for (let key in this.props.note) {
+        if (this.props.note[key] === null) edit_note[key] = "";
+        else edit_note[key] = this.props.note[key];
+      }
+      //  Load in either the appropriate ids or empty strings for clients and jobs
+      if (edit_note.job) edit_note.job = edit_note.job.id;
+      else edit_note.client = { id: "" };
+      if (edit_note.client) edit_note.client = edit_note.client.id;
+      else edit_note.job = { id: "" };
     }
     return (
       //  This query gets the names and ids of all clients and jobs to populate the pulldown menus
@@ -107,150 +96,176 @@ class NoteForm extends Component {
             });
           }
           return (
-            //  This mutation will submit either a create user or update user mutation
-            //  using the values from our form fields depending on the component mode.
-            <Mutation
-              mutation={chosen_mutation}
-              onCompleted={() => this._confirm()}
+            //  Give initial values to Formik from the edit_client object
+            <Formik
+              initialValues={{
+                client: edit_note.client,
+                job: edit_note.job,
+                title: edit_note.title,
+                content: edit_note.content
+              }}
+              validationSchema={NoteSchema}
+              onSubmit={event => {
+                event.preventDefault();
+              }}
             >
-              {(mutateJob, { loading, error, data }) => (
-                <div>
-                  <form
-                    onSubmit={event => {
-                      event.preventDefault();
-                      let note_variables = {
-                        title: title,
-                        content: content,
-                        job: job,
-                        client: client
-                      };
-                      //  Here, we strip off any empty strings from the variables
-                      for (let key in note_variables) {
-                        if (note_variables[key] === "") {
-                          if (this.props.mode === "edit")
-                            delete note_variables[key];
-                        }
-                      }
-                      //  If we are in edit mode, we need to send up the note id.
-                      if (this.props.mode === "edit")
-                        note_variables.id = this.props.match.params.id;
-                      //  Send the mutation ...
-                      mutateJob({
-                        variables: note_variables
-                      });
-                      //  And clear local state!
-                      this.setState({
-                        title: "",
-                        content: "",
-                        job: "",
-                        client: ""
-                      });
-                    }}
+              {({
+                errors,
+                touched,
+                values,
+                isValid,
+                handleChange,
+                handleBlur
+              }) => {
+                return (
+                  //  This mutation will submit either a create user or update user mutation
+                  //  using the values from our form fields depending on the component mode.
+                  <Mutation
+                    mutation={chosen_mutation}
+                    onCompleted={() => this._confirm()}
                   >
-                    {/*Now for the actual form.  Uses grids for positioning.*/}
-                    <Grid container>
-                      <Grid item xs={12}>
-                        <Typography
-                          variant="title"
-                          className={classes.typography}
+                    {(mutateJob, { loading, error, data }) => (
+                      <div>
+                        {/*This formik form replaced a base html form.
+                        note_variables is the variables object given to the mutation
+                        it is comprised of information from Formik's values object*/}
+                        <Form
+                          onSubmit={event => {
+                            event.preventDefault();
+                            let note_variables = {
+                              title: values.title,
+                              content: values.content,
+                              job: values.job,
+                              client: values.client
+                            };
+
+                            //  Here, we strip off any empty strings from the variables
+                            for (let key in note_variables) {
+                              if (note_variables[key] === "") {
+                                if (this.props.mode === "edit")
+                                  delete note_variables[key];
+                              }
+                            }
+                            //  If we are in edit mode, we need to send up the note id.
+                            if (this.props.mode === "edit")
+                              note_variables.id = this.props.match.params.id;
+                            //  Send the mutation ...
+                            mutateJob({
+                              variables: note_variables
+                            });
+                          }}
                         >
-                          {title_text}
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          id="field-title"
-                          label="Title"
-                          name="title"
-                          className={"modal_field"}
-                          value={title}
-                          onChange={this.handleChange("title")}
-                          helperText="Note Title"
-                          margin="normal"
-                        />
-                      </Grid>
-                      <Grid item xs={1} />
-                      {/*This field uses the field class from our styles to
+                          {/*Now for the actual form.  Uses grids for positioning.*/}
+                          <Grid container>
+                            <Grid item xs={12}>
+                              <Typography
+                                variant="title"
+                                className={classes.typography}
+                              >
+                                {title_text}
+                              </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <Field
+                                component={TextField}
+                                id="field-title"
+                                label="Title"
+                                name="title"
+                                className={"modal_field"}
+                                value={values.title}
+                                helperText="Note Title"
+                                margin="normal"
+                              />
+                            </Grid>
+                            <Grid item xs={1} />
+                            {/*This field uses the field class from our styles to
                       get a distinctive background color.*/}
-                      <Grid item xs={10}>
-                        <TextField
-                          id="field-content"
-                          label="Content"
-                          multiline
-                          fullWidth
-                          rows="8"
-                          rowsMax="8"
-                          name="content"
-                          className={classes.field}
-                          value={content}
-                          onChange={this.handleChange("content")}
-                          margin="normal"
-                          variant="outlined"
-                        />
-                      </Grid>
-                      <Grid item xs={1} />
-                      {/*The pulldown form items using the arrays we built above*/}
-                      <Grid item xs={6}>
-                        <TextField
-                          id="field-client"
-                          select
-                          label="Client"
-                          name="client"
-                          className={"modal_field"}
-                          value={client}
-                          onChange={this.handleChange("client")}
-                          SelectProps={{
-                            MenuProps: {
-                              className: "Mister Menu"
-                            }
-                          }}
-                          helperText="Select Client"
-                          margin="normal"
-                        >
-                          {client_list.map(client => (
-                            <MenuItem key={client.value} value={client.value}>
-                              {client.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <TextField
-                          id="field-job"
-                          select
-                          label="Job"
-                          name="job"
-                          className={"modal_field"}
-                          value={job}
-                          onChange={this.handleChange("job")}
-                          SelectProps={{
-                            MenuProps: {
-                              className: "Mister Menu"
-                            }
-                          }}
-                          helperText="Select Job"
-                          margin="normal"
-                        >
-                          {job_list.map(job => (
-                            <MenuItem key={job.value} value={job.value}>
-                              {job.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                    </Grid>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      className={classes.padded_button}
-                      type="submit"
-                    >
-                      {button_text}
-                    </Button>
-                  </form>
-                </div>
-              )}
-            </Mutation>
+                            <Grid item xs={10}>
+                              <Field
+                                component={TextField}
+                                id="field-content"
+                                label="Content"
+                                multiline
+                                fullWidth
+                                rows="8"
+                                rowsMax="8"
+                                name="content"
+                                className={classes.field}
+                                value={values.content}
+                                margin="normal"
+                                variant="outlined"
+                              />
+                            </Grid>
+                            <Grid item xs={1} />
+                            {/*The pulldown form items using the arrays we built above*/}
+                            <Grid item xs={6}>
+                              <Select
+                                id="field-client"
+                                label="Client"
+                                name="client"
+                                className={"modal_field"}
+                                value={values.client}
+                                error={
+                                  errors.client &&
+                                  touched.client &&
+                                  errors.client
+                                }
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              >
+                                {client_list.map(client => (
+                                  <MenuItem
+                                    key={client.value}
+                                    value={client.value}
+                                  >
+                                    {client.label}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </Grid>
+                            <Grid item xs={6}>
+                              <Select
+                                id="field-job"
+                                label="Job"
+                                name="job"
+                                className={"modal_field"}
+                                value={values.job}
+                                error={
+                                  errors.client &&
+                                  touched.client &&
+                                  errors.client
+                                }
+                                onChange={e => {
+                                  console.log(values.job.id);
+                                  console.log(e);
+                                  handleChange(e);
+                                }}
+                                onBlur={handleBlur}
+                              >
+                                {job_list.map(job => (
+                                  <MenuItem key={job.value} value={job.value}>
+                                    {job.label}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </Grid>
+                          </Grid>
+                          <Button
+                            disabled={!isValid}
+                            variant="contained"
+                            color="primary"
+                            className={classes.padded_button}
+                            type="submit"
+                          >
+                            {button_text}
+                          </Button>
+                        </Form>
+                      </div>
+                    )}
+                  </Mutation>
+                );
+              }}
+            </Formik>
           );
         }}
       </Query>
