@@ -46,6 +46,11 @@ const styles = theme => ({
   image: {
     margin: "16px"
   },
+  sidenav_top: {
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-start"
+  },
   typography: {
     padding: "10px"
   },

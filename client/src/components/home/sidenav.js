@@ -7,7 +7,8 @@ import {
   FormControlLabel,
   Switch,
   MenuItem,
-  withStyles
+  withStyles,
+  Avatar
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";
@@ -36,7 +37,12 @@ class SideNav extends Component {
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est tags would have a smaller create tag button under it.*/}
         <Divider />
-        <Link to="/">
+        <Link to="/" className={classes.sidenav_top}>
+          <Avatar
+            alt="A golden raccoon logo"
+            src={require("../../goldracoon.png")}
+            className={classes.image}
+          />
           <MenuItem selected={path === "/"}>Home</MenuItem>
         </Link>
 
