@@ -3,7 +3,15 @@ import { AUTH_TOKEN } from "../../constants";
 import { Mutation } from "react-apollo";
 import { withRouter } from "react-router";
 import { SIGNIN_MUTATION } from "../../mutations";
-import { TextField, Button, Grid, Typography, Paper } from "@material-ui/core";
+import {
+  TextField,
+  Button,
+  Grid,
+  Typography,
+  Paper,
+  withStyles
+} from "@material-ui/core";
+import { styles } from "../material-ui/styles";
 
 //The login component, to be rendered in a modal at the landing page
 class Login extends Component {
@@ -15,6 +23,7 @@ class Login extends Component {
 
   //TODO: make this component out of materialui stuff
   render() {
+    const { classes } = this.props;
     const { username, password } = this.state;
     return (
       <Paper>
@@ -76,6 +85,7 @@ class Login extends Component {
                           mutation();
                         }}
                         type="submit"
+                        className={classes.padded_button}
                       >
                         Login
                       </Button>
@@ -111,4 +121,4 @@ class Login extends Component {
   };
 }
 
-export default withRouter(Login);
+export default withRouter(withStyles(styles)(Login));
