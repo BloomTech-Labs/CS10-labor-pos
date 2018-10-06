@@ -1,24 +1,41 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import {
-  TextField,
-  Button,
-  MenuItem,
-  Grid,
-  Typography
-} from "@material-ui/core";
+import { Button, MenuItem, Grid, Typography } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { Formik, Form, Field } from "formik";
+import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
 const Yup = require("yup");
 
-// const ClientSchema = Yup.object().shape({
-//   businessName: Yup.string().max(100, "Business Name must be fewer than 100 characters"),
-//   firstName: Yup.string().max(100).required(),
-//   lastName: Yup.string().max(100).required(),
-//   email: Yup.string().max(70).required().email(),
-//   street_number: Yup.string().max(10)
+const ClientSchema = Yup.object().shape({
+  businessName: Yup.string().max(
+    100,
+    "Business Name must be fewer than 100 characters"
+  ),
+  firstName: Yup.string()
+    .max(100)
+    .required("First Name is a required field"),
+  lastName: Yup.string()
+    .max(100)
+    .required(),
+  email: Yup.string()
+    .max(70)
+    .required()
+    .email(),
+  streetAddress: Yup.string()
+    .max(100)
+    .required(),
+  city: Yup.string()
+    .max(70)
+    .required(),
+  state: Yup.string()
+    .max(2)
+    .required(),
+  zipcode: Yup.string()
+    .max(10)
+    .min(5)
+});
 
 // This component renders as a child of clientview when editing
 // the client (path is /clients/%clientid/edit)
@@ -96,182 +113,206 @@ class ClientForm extends Component {
     return (
       <Mutation mutation={chosen_mutation} onCompleted={() => this._confirm()}>
         {(mutateClient, { loading, error, data }) => (
-          <div>
-            <form
-              onSubmit={event => {
-                event.preventDefault();
-                let client_variables = {
-                  businessName: businessName,
-                  firstName: firstName,
-                  lastName: lastName,
-                  streetAddress: streetAddress,
-                  city: city,
-                  state: state,
-                  zipcode: zipcode,
-                  deadline: deadline,
-                  email: email
-                };
-                if (client_variables.deadline === "")
-                  client_variables.deadline = null;
-                for (let key in client_variables) {
-                  if (client_variables[key] === "") {
-                    if (this.props.mode === "edit")
-                      delete client_variables[key];
-                  }
+          <Formik
+            enableReinitialize
+            initialValues={{
+              businessName: businessName,
+              firstName: firstName,
+              lastName: lastName,
+              streetAddress: streetAddress,
+              city: city,
+              state: state,
+              zipcode: zipcode,
+              deadline: deadline,
+              email: email
+            }}
+            validationSchema={ClientSchema}
+            onSubmit={() => {
+              let client_variables = {
+                businessName: businessName,
+                firstName: firstName,
+                lastName: lastName,
+                streetAddress: streetAddress,
+                city: city,
+                state: state,
+                zipcode: zipcode,
+                deadline: deadline,
+                email: email
+              };
+              if (client_variables.deadline === "")
+                client_variables.deadline = null;
+              for (let key in client_variables) {
+                if (client_variables[key] === "") {
+                  if (this.props.mode === "edit") delete client_variables[key];
                 }
-                if (this.props.mode === "edit")
-                  client_variables.id = this.props.match.params.id;
-                mutateClient({
-                  variables: client_variables
-                });
-                this.setState({
-                  businessName: "",
-                  firstName: "",
-                  lastName: "",
-                  streetAddress: "",
-                  city: "",
-                  state: "AL",
-                  zipcode: "",
-                  deadline: "",
-                  email: ""
-                });
-              }}
-            >
-              <Typography variant="title">{title_text}</Typography>
-              <Grid container>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-businessName"
-                    label="Business Name"
-                    name="businessName"
-                    className={"modal_field"}
-                    value={businessName}
-                    onChange={this.handleChange("businessName")}
-                    helperText="Business Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-firstName"
-                    label="First Name"
-                    name="firstName"
-                    className={"modal_field"}
-                    value={firstName}
-                    onChange={this.handleChange("firstName")}
-                    helperText="First Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-lastName"
-                    label="Last Name"
-                    name="lastName"
-                    className={"modal_field"}
-                    value={lastName}
-                    onChange={this.handleChange("lastName")}
-                    helperText="Last Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-streetAddress"
-                    label="Street Address"
-                    name="streetAddress"
-                    className={"modal_field"}
-                    value={streetAddress}
-                    onChange={this.handleChange("streetAddress")}
-                    helperText="Street Address"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-email"
-                    label="Email"
-                    name="email"
-                    className={"modal_field"}
-                    value={email}
-                    onChange={this.handleChange("email")}
-                    helperText="Email"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-city"
-                    label="City"
-                    name="city"
-                    className={"modal_field"}
-                    value={city}
-                    onChange={this.handleChange("city")}
-                    helperText="City"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-state"
-                    select
-                    label="State"
-                    name="state"
-                    className={"modal_field"}
-                    value={state}
-                    onChange={this.handleChange("state")}
-                    SelectProps={{
-                      MenuProps: {
-                        className: "Mister Menu"
-                      }
-                    }}
-                    helperText="State"
-                    margin="normal"
-                  >
-                    {STATE_LIST.map(state => (
-                      <MenuItem key={state.label} value={state.label}>
-                        {state.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={3}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="field-zipcode"
-                      label="Zipcode"
-                      name="zipcode"
+              }
+              if (this.props.mode === "edit")
+                client_variables.id = this.props.match.params.id;
+              mutateClient({
+                variables: client_variables
+              });
+              this.setState({
+                businessName: "",
+                firstName: "",
+                lastName: "",
+                streetAddress: "",
+                city: "",
+                state: "AL",
+                zipcode: "",
+                deadline: "",
+                email: ""
+              });
+            }}
+          >
+            {({ errors, touched, handleSubmit, isSubmitting }) => (
+              <Form>
+                <Typography variant="title">{title_text}</Typography>
+                <Grid container>
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-businessName"
+                      label="Business Name"
+                      name="businessName"
                       className={"modal_field"}
-                      value={zipcode}
-                      onChange={this.handleChange("zipcode")}
-                      helperText="Zipcode"
+                      value={businessName}
+                      component={TextField}
+                      onChange={this.handleChange("businessName")}
+                      helperText="Business Name"
                       margin="normal"
                     />
                   </Grid>
-                </Grid>
-                <Grid item xs={3}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="field-deadline"
-                      label="Deadline"
-                      name="deadline"
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-firstName"
+                      label="First Name"
+                      name="firstName"
                       className={"modal_field"}
-                      value={deadline}
-                      onChange={this.handleChange("deadline")}
+                      value={firstName}
+                      component={TextField}
+                      onChange={this.handleChange("firstName")}
+                      helperText="First Name"
                       margin="normal"
-                      type="date"
-                      InputLabelProps={{
-                        shrink: true
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-lastName"
+                      label="Last Name"
+                      name="lastName"
+                      className={"modal_field"}
+                      value={lastName}
+                      component={TextField}
+                      onChange={this.handleChange("lastName")}
+                      helperText="Last Name"
+                      margin="normal"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-streetAddress"
+                      label="Street Address"
+                      name="streetAddress"
+                      className={"modal_field"}
+                      value={streetAddress}
+                      component={TextField}
+                      onChange={this.handleChange("streetAddress")}
+                      helperText="Street Address"
+                      margin="normal"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-email"
+                      label="Email"
+                      name="email"
+                      className={"modal_field"}
+                      value={email}
+                      component={TextField}
+                      onChange={this.handleChange("email")}
+                      helperText="Email"
+                      margin="normal"
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Field
+                      id="field-city"
+                      label="City"
+                      name="city"
+                      className={"modal_field"}
+                      value={city}
+                      component={TextField}
+                      onChange={this.handleChange("city")}
+                      helperText="City"
+                      margin="normal"
+                    />
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Field
+                      id="field-state"
+                      select
+                      label="State"
+                      name="state"
+                      className={"modal_field"}
+                      value={state}
+                      component={TextField}
+                      onChange={this.handleChange("state")}
+                      SelectProps={{
+                        MenuProps: {
+                          className: "Mister Menu"
+                        }
                       }}
-                    />
+                      helperText="State"
+                      margin="normal"
+                    >
+                      {STATE_LIST.map(state => (
+                        <MenuItem key={state.label} value={state.label}>
+                          {state.label}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Grid item xs={3}>
+                      <Field
+                        id="field-zipcode"
+                        label="Zipcode"
+                        name="zipcode"
+                        className={"modal_field"}
+                        value={zipcode}
+                        component={TextField}
+                        onChange={this.handleChange("zipcode")}
+                        helperText="Zipcode"
+                        margin="normal"
+                      />
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={3}>
+                    <Grid item xs={3}>
+                      <Field
+                        id="field-deadline"
+                        label="Deadline"
+                        name="deadline"
+                        className={"modal_field"}
+                        value={deadline}
+                        component={TextField}
+                        onChange={this.handleChange("deadline")}
+                        margin="normal"
+                        type="date"
+                        InputLabelProps={{
+                          shrink: true
+                        }}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              <div className="form-bottom-button">
-                <Button type="submit">{button_text}</Button>
-              </div>
-            </form>
-          </div>
+                <div className="form-bottom-button">
+                  <Button type="submit" disabled={isSubmitting}>
+                    {button_text}
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         )}
       </Mutation>
     );
