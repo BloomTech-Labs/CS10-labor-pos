@@ -26,6 +26,7 @@ def send_email(req):
     subject = f'New invoice from {user_name}'
     attachment = Attachment()
     attachment.type = 'application/pdf'
+    attachment.filename = 'Invoice_%s.pdf'
 
   content = Content(
     'text/html',
