@@ -15,7 +15,9 @@ const styles = theme => ({
     padding: "10px"
   },
   modal: {
-    padding: "20px"
+    padding: "20px",
+    width: "100%",
+    maxWidth: "600px"
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
@@ -69,6 +71,8 @@ const styles = theme => ({
   paper: {
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
     backgroundColor: theme.palette.background.default,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
@@ -78,7 +82,8 @@ const styles = theme => ({
     }
   },
   stepper: {
-    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`
+    padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
+    backgroundColor: theme.palette.background.default
   },
   buttons: {
     display: "flex",

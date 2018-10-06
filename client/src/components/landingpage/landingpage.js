@@ -137,14 +137,12 @@ class LandingPage extends Component {
           <Dialog
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
-            className="login-modal"
           >
             <Login modalDone={this.handleCloseModals} />
           </Dialog>
           <Dialog
             open={this.state.create_modal}
             onClose={this.handleCloseModals}
-            className="user-modal"
           >
             <CreateUser modalDone={this.handleLogin} />
           </Dialog>
