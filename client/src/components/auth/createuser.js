@@ -97,7 +97,8 @@ class CreateUser extends Component {
     localStorage.setItem(AUTH_TOKEN, token);
   };
 
-  submit = createUser => {
+  submit = createUser => event => {
+    event.preventDefault();
     createUser({
       variables: {
         businessName: this.state.businessName,
@@ -115,11 +116,9 @@ class CreateUser extends Component {
   };
 
   getStepContent(step) {
-    let content = null;
-
     switch (step) {
       case 0:
-        content = (
+        return (
           <UserForm
             onSubmit={this._next}
             previous={this._prev}
@@ -137,9 +136,8 @@ class CreateUser extends Component {
             password_touched={this.state.password_touched}
           />
         );
-        break;
       case 1:
-        content = (
+        return (
           <ContactForm
             username={this.state.username}
             password={this.state.password}
@@ -165,11 +163,9 @@ class CreateUser extends Component {
             handleBlur={this.handleBlur}
           />
         );
-        break;
       default:
         throw new Error("Unknown step");
     }
-    return content;
   }
 
   render() {
