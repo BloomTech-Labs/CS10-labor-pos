@@ -39,8 +39,11 @@ const styles = theme => ({
     padding: "10px",
     backgroundColor: theme.palette.lightened_background
   },
+  image: {
+    margin: "16px"
+  },
   typography: {
-    padding: "8px"
+    padding: "10px"
   },
   main_content: {
     textAlign: "center",
