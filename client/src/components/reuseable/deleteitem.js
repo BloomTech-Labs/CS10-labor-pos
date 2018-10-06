@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Button, Typography, Paper } from "@material-ui/core";
+import { Button, Typography, Paper, withStyles, Grid } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import {
   DELETE_JOB,
@@ -9,6 +9,7 @@ import {
   DELETE_TAG,
   DELETE_CLIENT
 } from "../../mutations";
+import { styles } from "../material-ui/styles.js";
 
 //  This component renders as a child of many components
 //  It presents the user with a message asking if they are sure
@@ -28,6 +29,7 @@ class DeleteItem extends Component {
     this.props.history.push(this.props.after_path);
   };
   render() {
+    const { classes } = this.props;
     let name = "";
     let chosen_mutation = "";
     switch (this.props.type) {
@@ -56,25 +58,43 @@ class DeleteItem extends Component {
         break;
     }
     return (
-      <Paper>
+      <Paper className={classes.modal}>
         <Typography variant="title" paragraph>
           Are you sure you want to delete {name}?
         </Typography>
-        <Mutation
-          mutation={chosen_mutation}
-          variables={{ id: this.props.item.id }}
-          onCompleted={data => this._confirm(data)}
-        >
-          {mutation => (
-            <Button onClick={mutation} type="submit">
-              Delete
+        <Grid container>
+          <Grid item xs={6} />
+          <Grid item xs={3}>
+            <Mutation
+              mutation={chosen_mutation}
+              variables={{ id: this.props.item.id }}
+              onCompleted={data => this._confirm(data)}
+            >
+              {mutation => (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={mutation}
+                  type="submit"
+                >
+                  Delete
+                </Button>
+              )}
+            </Mutation>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.props.cancelDelete}
+            >
+              Cancel
             </Button>
-          )}
-        </Mutation>
-        <Button onClick={this.props.cancelDelete}>Cancel</Button>
+          </Grid>
+        </Grid>
       </Paper>
     );
   }
 }
 
-export default withRouter(DeleteItem);
+export default withRouter(withStyles(styles)(DeleteItem));

@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Create, Delete } from "@material-ui/icons";
-import { IconButton, Typography, Dialog } from "@material-ui/core";
+import {
+  IconButton,
+  Typography,
+  Dialog,
+  withStyles,
+  Grid
+} from "@material-ui/core";
 import { DeleteItem } from "..";
-import "./itemcard.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of the card list component.
 //  It presents a small area of preview information for an individual item.
@@ -32,6 +38,7 @@ class ItemCard extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     let path = "";
     let name = "";
     switch (this.props.type) {
@@ -60,24 +67,33 @@ class ItemCard extends Component {
         break;
     }
     return (
-      <div className="item-card">
-        <div className="item-card-icons">
-          <Link to={`${path}/${this.props.item.id}/edit`}>
-            <IconButton>
-              <Create />
+      <div>
+        <Grid container>
+          <Grid item xs={3}>
+            <Link to={`${path}/${this.props.item.id}/edit`}>
+              <IconButton>
+                <Create />
+              </IconButton>
+            </Link>
+          </Grid>
+          <Grid item xs={6} />
+          <Grid item xs={3}>
+            <IconButton onClick={this.handleDeleteButton}>
+              <Delete />
             </IconButton>
-          </Link>
-          <IconButton onClick={this.handleDeleteButton}>
-            <Delete />
-          </IconButton>
-        </div>
-        <h4 className="item-card-name">
-          <Link to={`${path}/${this.props.item.id}`}>
-            <Typography variant="title" noWrap>
-              {name}
-            </Typography>
-          </Link>
-        </h4>
+          </Grid>
+        </Grid>
+
+        <Link to={`${path}/${this.props.item.id}`}>
+          <Typography
+            className={classes.card_title}
+            variant="subheading"
+            noWrap
+          >
+            {name}
+          </Typography>
+        </Link>
+
         <Dialog
           open={this.state.deleting}
           onClose={this.cancelDelete}
@@ -95,4 +111,4 @@ class ItemCard extends Component {
   }
 }
 
-export default withRouter(ItemCard);
+export default withRouter(withStyles(styles)(ItemCard));

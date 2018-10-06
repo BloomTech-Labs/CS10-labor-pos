@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_TAG_BY_ID } from "../../queries";
-import { Typography, Grid, IconButton, Card, Dialog } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  IconButton,
+  Card,
+  Dialog,
+  withStyles
+} from "@material-ui/core";
 import { Delete, Create } from "@material-ui/icons";
 import { ItemCard, DeleteItem } from "../../components";
 import { Link } from "react-router-dom";
-import "./tagview.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render on the /tags/%tagid route when the user is logged in
 //  It is a child of the home component.
@@ -29,6 +36,7 @@ class TagView extends Component {
     this.setState({ deleting: false });
   };
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_TAG_BY_ID}
@@ -73,17 +81,17 @@ class TagView extends Component {
                 spacing={24}
               >
                 <Grid item xs={3}>
-                  <Card>
+                  <Card className={classes.item_card}>
                     <ItemCard type="job" item={data.tag.job} />
                   </Card>
                 </Grid>
                 <Grid item xs={3}>
-                  <Card>
+                  <Card className={classes.item_card}>
                     <ItemCard type="note" item={data.tag.note} />
                   </Card>
                 </Grid>
                 <Grid item xs={3}>
-                  <Card>
+                  <Card className={classes.item_card}>
                     <ItemCard type="part" item={data.tag.part} />
                   </Card>
                 </Grid>
@@ -108,4 +116,4 @@ class TagView extends Component {
   }
 }
 
-export default withRouter(TagView);
+export default withRouter(withStyles(styles)(TagView));

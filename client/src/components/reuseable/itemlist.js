@@ -8,10 +8,12 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Dialog
+  Dialog,
+  withStyles
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { DeleteItem } from "../../components";
+import { styles } from "../material-ui/styles.js";
 
 //  This component shows a small, paginated list of items with add and delete options
 //  It renders as a child of individual view components to show related items to
@@ -58,6 +60,7 @@ class ItemList extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     let name_field = "";
     let path = "";
     switch (this.props.type) {
@@ -90,8 +93,10 @@ class ItemList extends Component {
       i++
     ) {
       let current_item = this.props.items[i].node;
+      let item_class = classes.list_item_reg;
+      if (i % 2) item_class = classes.list_item_light;
       list_items.push(
-        <ListItem key={i} dense button>
+        <ListItem key={i} dense button className={item_class}>
           <Link to={`${path}/${current_item.id}`}>
             <ListItemText>{current_item[name_field]}</ListItemText>
           </Link>
@@ -144,4 +149,4 @@ class ItemList extends Component {
   }
 }
 
-export default withRouter(ItemList);
+export default withRouter(withStyles(styles)(ItemList));

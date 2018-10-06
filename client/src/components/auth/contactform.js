@@ -1,182 +1,207 @@
-import React from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Mutation } from "react-apollo";
 import { CREATE_USER } from "../../mutations";
 import "./contactform.css";
 import { Button, Grid, MenuItem, Typography } from "@material-ui/core";
-import { Formik, Form, Field } from "formik";
-import { TextField } from "../../components";
-
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import { STATE_LIST } from "../../constants.js";
-const Yup = require("yup");
 
-const CreateUserSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .max(30, "Max length is 30 characters")
-    .required("First Name is a required field"),
-  businessName: Yup.string(),
-  lastName: Yup.string("Last name is a required field")
-    .max(150, "Maximum length is 150 characters")
-    .required(),
-  streetAddress: Yup.string()
-    .max(100, "Maximum length is 100 characters")
-    .required("Street Address is a required field"),
-  city: Yup.string()
-    .max(70)
-    .required("City is a required field"),
-  state: Yup.string().required("State is a required field"),
-  zipcode: Yup.string()
-    .max(10)
-    .min(5)
-    .required("Zipcode is a required field")
-});
+class ContactForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      businessName: "",
+      firstName: "",
+      lastName: "",
+      streetAddress: "",
+      zipcode: "",
+      city: "",
+      state: ""
+    };
+  }
 
-const ContactForm = props => {
-  return (
-    <React.Fragment>
-      <Typography variant="title" gutterBottom>
-        Address
-      </Typography>
-      <Mutation
-        mutation={CREATE_USER}
-        onCompleted={data => props._confirm(data)}
-      >
-        {(createUser, { loading, error, data }) => (
-          <Formik
-            enableReinitialize
-            initialValues={{
-              username: props.username,
-              password: props.password,
-              email: props.email,
-              firstName: props.firstName,
-              lastName: props.lastName,
-              businessName: props.BusinessName,
-              streetAddress: props.streetAddress,
-              city: props.city,
-              state: props.state,
-              zipcode: props.zipcode
-            }}
-            validationSchema={CreateUserSchema}
-            onSubmit={() => {
-              props.submit(createUser);
-            }}
-          >
-            {({ errors, touched }) => (
-              <Form>
+  render() {
+    const {
+      businessName,
+      firstName,
+      lastName,
+      streetAddress,
+      city,
+      state,
+      zipcode
+    } = this.props;
+    return (
+      <React.Fragment>
+        <Typography variant="title" gutterBottom>
+          Address
+        </Typography>
+        <Mutation
+          mutation={CREATE_USER}
+          onCompleted={data => this.props._confirm(data)}
+        >
+          {(createUser, { loading, error, data }) => {
+            return (
+              <ValidatorForm
+                onSubmit={this.props.submit(createUser)}
+                instantValidate={false}
+              >
                 <Grid container spacing={24}>
                   <Grid item xs={12} sm={6}>
-                    <Field
+                    <TextValidator
                       required
                       id="firstName"
                       name="firstName"
-                      component={TextField}
                       InputLabelProps={{ shrink: true }}
-                      fullWidth={true}
-                      value={props.firstName}
-                      onChange={props.onChangeFirstName}
                       label="First Name"
+                      fullWidth
+                      autoComplete="fname"
+                      value={firstName}
+                      validators={[
+                        "required",
+                        "isString",
+                        "maxStringLength:30"
+                      ]}
+                      onChange={this.props.onChangeFirstName}
+                      errorMessages={[
+                        "This is a required field",
+                        "Input must be a string",
+                        "Max length of field is 30 characters"
+                      ]}
                     />
-                    {errors.firstName && touched.firstName ? (
-                      <p>{errors.firstName}</p>
-                    ) : null}
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Field
+                    <TextValidator
                       required
                       id="lastName"
                       name="lastName"
                       InputLabelProps={{ shrink: true }}
-                      fullWidth={true}
-                      component={TextField}
-                      value={props.lastName}
-                      onChange={props.onChangeLastName}
                       label="Last Name"
+                      fullWidth
+                      autoComplete="lname"
+                      value={lastName}
+                      validators={[
+                        "required",
+                        "isString",
+                        "maxStringLength:150"
+                      ]}
+                      errorMessages={[
+                        "This is a required field",
+                        "Input must be a string",
+                        "Max length of field is 150 characters"
+                      ]}
+                      onChange={this.props.onChangeLastName}
                     />
-                    {errors.lastName && touched.lastName ? (
-                      <p>{errors.lastName}</p>
-                    ) : null}
                   </Grid>
                   <Grid item xs={12}>
-                    <Field
+                    <TextValidator
                       id="businessName"
                       label="Business Name"
                       name="businessName"
-                      fullWidth={true}
-                      component={TextField}
-                      value={props.businessName}
-                      onChange={props.onChangeBusinessName}
+                      fullWidth
+                      value={businessName}
+                      validators={["isString"]}
+                      errorMessages={["Input must be a string"]}
+                      onChange={this.props.onChangeBusinessName}
                     />
-                    {errors.businessName && touched.businessName ? (
-                      <p>{errors.businessName}</p>
-                    ) : null}
                   </Grid>
                   <Grid item xs={12}>
-                    <Field
+                    <TextValidator
                       required
                       id="streetAddress"
                       name="streetAddress"
-                      fullWidth={true}
-                      component={TextField}
-                      value={props.streetAddress}
-                      onChange={props.onChangeStreetAddress}
                       label="Street Address"
+                      fullWidth
+                      autoComplete="street address"
+                      value={streetAddress}
+                      validators={[
+                        "required",
+                        "isString",
+                        "maxStringLength:100"
+                      ]}
+                      errorMessages={[
+                        "This is a required field",
+                        "Input must be a string",
+                        "Max length of field is 100 characters"
+                      ]}
+                      onChange={this.props.onChangeStreetAddress}
                     />
-                    {errors.streetAddress && touched.streetAddress ? (
-                      <p>{errors.streetAddress}</p>
-                    ) : null}
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Field
+                    <TextValidator
                       required
                       id="city"
                       name="city"
                       InputLabelProps={{ shrink: true }}
-                      fullWidth={true}
-                      component={TextField}
-                      value={props.city}
-                      onChange={props.onChangeCity}
                       label="City"
+                      fullWidth
+                      autoComplete="city"
+                      value={city}
+                      validators={[
+                        "required",
+                        "isString",
+                        "maxStringLength:70"
+                      ]}
+                      errorMessages={[
+                        "This is a required field",
+                        "Input must be a string",
+                        "Max length of field is 70 characters"
+                      ]}
+                      onChange={this.props.onChangeCity}
                     />
-                    {errors.city && touched.city ? <p>{errors.city}</p> : null}
                   </Grid>
                   <Grid item xs={12} sm={6}>
-                    <Field
+                    <TextValidator
                       id="state"
                       required
                       select
                       InputLabelProps={{ shrink: true }}
                       label="State"
                       name="state"
-                      value={props.state}
-                      component={TextField}
-                      fullWidth={true}
-                      onChange={props.onChangeState}
+                      className={"modal_field"}
+                      value={state}
+                      fullWidth
+                      onChange={this.props.onChangeState}
+                      validators={["required"]}
+                      errorMessages={["This is a required field"]}
+                      SelectProps={{
+                        MenuProps: {
+                          className: "Mister Menu"
+                        }
+                      }}
+                      helperText="State"
                     >
                       {STATE_LIST.map(state => (
                         <MenuItem key={state.label} value={state.label}>
                           {state.label}
                         </MenuItem>
                       ))}
-                    </Field>
-                    {errors.state && touched.state ? (
-                      <p>{errors.state}</p>
-                    ) : null}
+                    </TextValidator>
                   </Grid>
                   <Grid item xs={12}>
-                    <Field
+                    <TextValidator
                       required
                       id="zipcode"
                       name="zipcode"
                       InputLabelProps={{ shrink: true }}
-                      fullWidth={true}
-                      component={TextField}
-                      value={props.zipcode}
-                      onChange={props.onChangeZipcode}
-                      label="Zipcode"
+                      label="Zipcode / Postal code"
+                      fullWidth
+                      autoComplete="postal-code"
+                      value={zipcode}
+                      validators={[
+                        "required",
+                        "isString",
+                        "maxStringLength:10",
+                        "minStringLength:5"
+                      ]}
+                      errorMessages={[
+                        "This is a required field",
+                        "Input must be a string",
+                        "Max length for field is 10 characters",
+                        "Min length for field is 5 characters"
+                      ]}
+                      onChange={this.props.onChangeZipcode}
                     />
-                    {errors.zipcode && touched.zipcode ? (
-                      <p>{errors.zipcode}</p>
-                    ) : null}
                   </Grid>
                   <Grid item xs={12}>
                     <div className="HELL">
@@ -191,13 +216,17 @@ const ContactForm = props => {
                     </div>
                   </Grid>
                 </Grid>
-              </Form>
-            )}
-          </Formik>
-        )}
-      </Mutation>
-    </React.Fragment>
-  );
-};
+                {error && (
+                  <Typography color="error">{`error: ${error}`}</Typography>
+                )}
+                {loading && <Typography>Loading ...</Typography>}
+              </ValidatorForm>
+            );
+          }}
+        </Mutation>
+      </React.Fragment>
+    );
+  }
+}
 
 export default withRouter(ContactForm);

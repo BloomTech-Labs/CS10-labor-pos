@@ -6,13 +6,14 @@ import {
   Grid,
   FormControlLabel,
   Checkbox,
-  Typography
+  Typography,
+  withStyles
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { withRouter } from "react-router";
 import { CREATE_JOB, UPDATE_JOB } from "../../mutations";
 import { QUERY_ALL_CLIENTS } from "../../queries";
-import "./jobform.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render the forms to create and edit jobs.
 //
@@ -61,6 +62,7 @@ class JobForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const { client, name, labor, description, deadline, complete } = this.state;
     let chosen_mutation = CREATE_JOB;
     let title_text = "Add Job";
@@ -99,7 +101,6 @@ class JobForm extends Component {
               >
                 {(mutateJob, { loading, error, data }) => (
                   <div>
-                    <Typography variant="title">{title_text}</Typography>
                     <form
                       onSubmit={event => {
                         event.preventDefault();
@@ -134,6 +135,12 @@ class JobForm extends Component {
                         });
                       }}
                     >
+                      <Typography
+                        className={classes.typography}
+                        variant="title"
+                      >
+                        {title_text}
+                      </Typography>
                       <Grid container>
                         <Grid item xs={6}>
                           <TextField
@@ -171,7 +178,8 @@ class JobForm extends Component {
                             margin="normal"
                           />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={1} />
+                        <Grid item xs={10}>
                           <TextField
                             id="field-description"
                             label="Description"
@@ -180,13 +188,14 @@ class JobForm extends Component {
                             rows="8"
                             rowsMax="8"
                             name="description"
-                            className={"modal_field"}
+                            className={classes.field}
                             value={description}
                             onChange={this.handleChange("description")}
                             margin="normal"
                             variant="outlined"
                           />
                         </Grid>
+                        <Grid item xs={1} />
                         <Grid item xs={4}>
                           <TextField
                             id="field-labor"
@@ -225,13 +234,20 @@ class JobForm extends Component {
                             }}
                           />
                         </Grid>
-                        <div className="form-bottom-button">
-                          <Button type="submit">{button_text}</Button>
-                        </div>
+                        <Grid item xs={12}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            className={classes.padded_button}
+                            type="submit"
+                          >
+                            {button_text}
+                          </Button>
+                        </Grid>
                       </Grid>
                     </form>
-                    {loading && <p>Saving job information</p>}
-                    {(data || error) && <p>Success!</p>}
+                    {loading && <p>Saving job information...</p>}
+                    {error && <p>{error}</p>}
                   </div>
                 )}
               </Mutation>
@@ -248,4 +264,4 @@ class JobForm extends Component {
   };
 }
 
-export default withRouter(JobForm);
+export default withRouter(withStyles(styles)(JobForm));

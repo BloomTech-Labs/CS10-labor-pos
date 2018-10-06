@@ -7,7 +7,6 @@ import {
   Card,
   withStyles
 } from "@material-ui/core";
-import "./landingpage.css";
 import { styles } from "../material-ui/styles.js";
 import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
@@ -75,6 +74,7 @@ class LandingPage extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const authToken = localStorage.getItem(AUTH_TOKEN);
     //If the user is authenticated, we render the home component instead.
     if (authToken) {
@@ -94,24 +94,27 @@ class LandingPage extends Component {
           <Grid container>
             <Grid item xs={11} />
             <Grid item xs={1}>
-              <Card>
-                <Button variant="outlined" onClick={this.handleLogin}>
-                  Log In
-                </Button>
-              </Card>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={this.handleLogin}
+                className={classes.padded_button}
+              >
+                Log In
+              </Button>
             </Grid>
           </Grid>
-          <div className="landing-buttons" />
-          <div className="landing-blurb">
-            <Card className="landing-card">
+          <div>
+            <Card className={classes.layout}>
               <img
                 alt="A golden raccoon logo"
                 src={require("../../goldracoon.png")}
+                className={classes.image}
               />
-              <Typography variant="title">
+              <Typography className={classes.typography} variant="title">
                 Contract Alchemy: Turning POS Into Gold
               </Typography>
-              <Typography paragraph>
+              <Typography className={classes.typography} paragraph>
                 contractAlchemy will make you live forever and be infinitely
                 wealthy. And you'll always find a good parking spot. Not really,
                 but it's still pretty great. contractAlchemy is a tool that
@@ -121,6 +124,7 @@ class LandingPage extends Component {
                 don't buy our app you're a meanie-poopface.
               </Typography>
               <Button
+                className={classes.padded_button}
                 variant="contained"
                 color="primary"
                 onClick={this.handleCreateButton}
@@ -133,14 +137,12 @@ class LandingPage extends Component {
           <Dialog
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
-            className="login-modal"
           >
             <Login modalDone={this.handleCloseModals} />
           </Dialog>
           <Dialog
             open={this.state.create_modal}
             onClose={this.handleCloseModals}
-            className="user-modal"
           >
             <CreateUser modalDone={this.handleLogin} />
           </Dialog>

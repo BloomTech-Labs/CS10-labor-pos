@@ -31,17 +31,44 @@ const UserForm = props => {
           props.onSubmit();
         }}
       >
-        {({ errors, touched }) => {
-          let validity = !(
-            !!errors.username ||
-            !!errors.password ||
-            !!errors.email
-          );
-          {
-            /* if (validity !== props.valid) {
-            return props.errorComm(validity);
-          } */
+        {({ errors, touched, isValid, handleChange }) => {
+          let validity = {
+            username: !!errors.username,
+            password: !!errors.password,
+            email: !!errors.email
+          };
+
+          console.log(errors);
+          console.log(touched);
+          console.log(props.handleTouch);
+          console.log(props.email_touched);
+          console.log(validity);
+          console.log(props.valid);
+          if (
+            !!touched.email !== !!props.email_touched &&
+            !props.email_touched
+          ) {
+            props.handleTouch("email_touched");
           }
+          if (
+            !!touched.password !== !!props.password_touched &&
+            !props.password_touched
+          ) {
+            props.handleTouch("password_touched");
+          }
+          if (
+            !!touched.username !== !!props.username_touched &&
+            !props.username_touched
+          ) {
+            props.handleTouch("username_touched");
+          }
+
+          for (let key in validity) {
+            if (validity[key] !== props.valid[key]) {
+              props.errorComm(validity);
+            }
+          }
+
           return (
             <React.Fragment>
               <Typography variant="title" gutterBottom>
@@ -65,13 +92,16 @@ const UserForm = props => {
                         placeholder="Username"
                         component={TextField}
                         fullWidth={true}
-                        onChange={props.onChangeUsername}
+                        onChange={e => {
+                          handleChange(e);
+                          props.onChangeUsername(e);
+                        }}
                         value={props.username}
                         label="Username"
                         required
                       />
-                      {errors.username && touched.username ? (
-                        <p>{errors.username}</p>
+                      {props.valid.username && props.email_touched ? (
+                        <Typography color="error">{errors.username}</Typography>
                       ) : null}
                     </div>
                   </Grid>
@@ -82,13 +112,16 @@ const UserForm = props => {
                       placeholder="Please select a secure password"
                       component={TextField}
                       fullWidth={true}
-                      onChange={props.onChangePassword}
+                      onChange={e => {
+                        handleChange(e);
+                        props.onChangePassword(e);
+                      }}
                       value={props.password}
                       label="Password"
                       required
                     />
-                    {errors.password && touched.password ? (
-                      <p>{errors.password}</p>
+                    {props.valid.password && props.email_touched ? (
+                      <Typography color="error">{errors.password}</Typography>
                     ) : null}
                   </Grid>
                   <Grid item xs={12}>
@@ -98,13 +131,16 @@ const UserForm = props => {
                       placeholder="Email"
                       component={TextField}
                       fullWidth={true}
-                      onChange={props.onChangeEmail}
+                      onChange={e => {
+                        handleChange(e);
+                        props.onChangeEmail(e);
+                      }}
                       value={props.email}
                       label="Email"
                       required
                     />
-                    {errors.email && touched.email ? (
-                      <p>{errors.email}</p>
+                    {props.valid.email && props.email_touched ? (
+                      <Typography color="error">{errors.email}</Typography>
                     ) : null}
                   </Grid>
                 </Grid>

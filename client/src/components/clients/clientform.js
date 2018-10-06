@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Button, MenuItem, Grid, Typography } from "@material-ui/core";
+import {
+  Button,
+  MenuItem,
+  Grid,
+  Typography,
+  withStyles
+} from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
+import { styles } from "../material-ui/styles";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
 const Yup = require("yup");
 
@@ -86,6 +93,7 @@ class ClientForm extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     const {
       businessName,
       firstName,
@@ -324,4 +332,4 @@ class ClientForm extends Component {
   };
 }
 
-export default withRouter(ClientForm);
+export default withRouter(withStyles(styles)(ClientForm));

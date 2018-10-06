@@ -14,12 +14,14 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Hidden
+  Hidden,
+  withStyles
 } from "@material-ui/core";
 import { Query, Mutation } from "react-apollo";
 import { SETTINGS_QUERY } from "../../queries.js";
 import { UPDATE_USER } from "../../mutations.js";
 import { STATE_LIST } from "../../constants";
+import { styles } from "../material-ui/styles.js";
 import jwt_decode from "jwt-decode";
 
 //  This component will render on the /settings route when the user is logged in
@@ -68,6 +70,8 @@ class Settings extends Component {
   };
 
   render() {
+    let { classes } = this.props;
+    console.log(classes);
     const {
       oldPassword,
       newPassword,
@@ -110,24 +114,29 @@ class Settings extends Component {
                 <Grid container>
                   <Grid item xs={4} />
                   <Grid item xs={4}>
-                    <Typography variant="display3">Settings</Typography>
+                    <Typography variant="title" className={classes.typography}>
+                      Settings
+                    </Typography>
                   </Grid>
                   <Grid item xs={4}>
+                    <IconButton disabled={!premium}>
+                      <Grade />
+                    </IconButton>
                     <Hidden xsUp={!premium}>
-                      <IconButton>
-                        <Grade />
-                      </IconButton>
-                      <Typography>
+                      <Typography className={classes.typography}>
                         Premium member paid until {paidUntil}
                       </Typography>
                     </Hidden>
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={6}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Change Password
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={5}>
                           <TextField
@@ -162,10 +171,13 @@ class Settings extends Component {
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Business Name
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={10}>
                           <TextField
@@ -186,10 +198,13 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Name
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={5}>
                           <TextField
@@ -223,10 +238,13 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Address
                     </Typography>
-                    <Paper>
+                    <Paper className={classes.card}>
                       <Grid container>
                         <Grid item xs={11}>
                           <TextField
@@ -292,12 +310,19 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={9} />
                   <Grid item xs={2}>
-                    <Button type="submit">Save Changes</Button>
+                    <Button
+                      className={classes.padded_button}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                    >
+                      Save Changes
+                    </Button>
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Paper elevation={4} square>
+                    <Paper elevation={4} square className={classes.card}>
                       <Table>
                         <TableHead>
                           <TableRow>
@@ -406,11 +431,13 @@ class SettingsWrapper extends Component {
             parts: data.allClients.edges.length,
             tags: data.allClients.edges.length
           };
-          return <Settings user={user} item_counts={item_counts} />;
+          return (
+            <Settings user={user} item_counts={item_counts} {...this.props} />
+          );
         }}
       </Query>
     );
   };
 }
 
-export default withRouter(SettingsWrapper);
+export default withRouter(withStyles(styles)(SettingsWrapper));
