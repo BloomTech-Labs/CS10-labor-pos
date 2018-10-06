@@ -67,7 +67,10 @@ class CardList extends Component {
             <IconButton>
               <AddCircle />
             </IconButton>
-            <Typography>{`New ${this.props.type}`}</Typography>
+            <Typography
+              className={classes.typography}
+              variant="subheading"
+            >{`New ${this.props.type}`}</Typography>
           </Link>
         </Card>
       </Grid>

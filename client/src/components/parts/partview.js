@@ -54,7 +54,9 @@ class PartView extends Component {
                 </Link>
               </Grid>
               <Grid item xs={10}>
-                <Typography variant="title">{data.part.name}</Typography>
+                <Typography className={classes.typography} variant="title">
+                  {data.part.name}
+                </Typography>
               </Grid>
               <Grid item xs={1}>
                 <IconButton onClick={this.handleDeleteButton}>
@@ -62,11 +64,15 @@ class PartView extends Component {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography paragraph>{data.part.description}</Typography>
+                <Typography paragraph className={classes.typography}>
+                  {data.part.description}
+                </Typography>
               </Grid>
               <Grid item xs={2}>
                 <Card className={classes.card}>
-                  <Typography>{`Cost: $${data.part.cost}`}</Typography>
+                  <Typography className={classes.typography}>{`Cost: $${
+                    data.part.cost
+                  }`}</Typography>
                 </Card>
               </Grid>
               <Grid item xs={10}>

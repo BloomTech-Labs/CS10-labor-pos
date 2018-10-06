@@ -114,21 +114,26 @@ class Settings extends Component {
                 <Grid container>
                   <Grid item xs={4} />
                   <Grid item xs={4}>
-                    <Typography variant="display3">Settings</Typography>
+                    <Typography variant="title" className={classes.typography}>
+                      Settings
+                    </Typography>
                   </Grid>
                   <Grid item xs={4}>
+                    <IconButton disabled={!premium}>
+                      <Grade />
+                    </IconButton>
                     <Hidden xsUp={!premium}>
-                      <IconButton>
-                        <Grade />
-                      </IconButton>
-                      <Typography>
+                      <Typography className={classes.typography}>
                         Premium member paid until {paidUntil}
                       </Typography>
                     </Hidden>
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={6}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Change Password
                     </Typography>
                     <Paper className={classes.card}>
@@ -166,7 +171,10 @@ class Settings extends Component {
                   </Grid>
                   <Grid item xs={1} />
                   <Grid item xs={3}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Business Name
                     </Typography>
                     <Paper className={classes.card}>
@@ -190,7 +198,10 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Name
                     </Typography>
                     <Paper className={classes.card}>
@@ -227,7 +238,10 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={1} />
                   <Grid item xs={10}>
-                    <Typography gutterBottom variant="title">
+                    <Typography
+                      className={classes.typography}
+                      variant="subheading"
+                    >
                       Address
                     </Typography>
                     <Paper className={classes.card}>

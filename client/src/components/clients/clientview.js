@@ -55,13 +55,7 @@ class ClientView extends Component {
           return (
             <div>
               <div>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-around"
-                  alignItems="center"
-                  spacing={24}
-                >
+                <Grid container>
                   <Grid item xs={1}>
                     <Link to={`/clients/${data.client.id}/edit`}>
                       <IconButton>

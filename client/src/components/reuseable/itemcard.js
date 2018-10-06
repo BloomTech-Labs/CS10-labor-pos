@@ -85,7 +85,11 @@ class ItemCard extends Component {
         </Grid>
 
         <Link to={`${path}/${this.props.item.id}`}>
-          <Typography className={classes.card_title} variant="title" noWrap>
+          <Typography
+            className={classes.card_title}
+            variant="subheading"
+            noWrap
+          >
             {name}
           </Typography>
         </Link>

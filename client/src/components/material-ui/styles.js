@@ -58,6 +58,9 @@ const styles = theme => ({
     marginBottom: "32px",
     backgroundColor: theme.palette.background.default
   },
+  pad_me: {
+    padding: "6px 20px"
+  },
   paper: {
     marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 3,
