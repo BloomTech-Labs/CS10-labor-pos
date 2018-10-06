@@ -7,7 +7,6 @@ import {
   Card,
   withStyles
 } from "@material-ui/core";
-import "./landingpage.css";
 import { styles } from "../material-ui/styles.js";
 import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
