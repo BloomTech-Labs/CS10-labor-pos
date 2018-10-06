@@ -25,16 +25,24 @@ class App extends Component {
     //  The app will default to a light theme unless the dark_theme variable is set.
     let theme_type = "light";
     let lightened_background = "#f5f5f5";
+    let default_color = "#ECEFF1";
+    let paper_color = "#fafafa";
     if (this.state.dark_theme) {
       theme_type = "dark";
       lightened_background = "#616161";
+      default_color = "#263238";
+      paper_color = "#424242";
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({
       palette: {
         type: theme_type,
         secondary: indigo,
-        lightened_background: lightened_background
+        lightened_background: lightened_background,
+        background: {
+          paper: paper_color,
+          default: default_color
+        }
       }
     });
     return (
