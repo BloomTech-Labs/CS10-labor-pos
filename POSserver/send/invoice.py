@@ -31,10 +31,11 @@ def send_email(req):
     'text/html',
     f'''
     <p>Hi <b>{client_name}</b></p>
-    <p>You have a new invoice from <b>{user_name}</b>. To view your invoice, open the attached PDF or view <insert link>.</p> 
+    <p>You have a new invoice from <b>{user_name}</b>. To view your invoice, open the attached PDF.</p> 
     '''
   )
 
   mail = Mail(from_email, subject, to_email, content)
   response = sg.client.mail.send.post(request_body=mail.get())
  
+ return HttpResponse()
