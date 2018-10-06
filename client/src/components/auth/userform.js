@@ -31,19 +31,13 @@ const UserForm = props => {
           props.onSubmit();
         }}
       >
-        {({ errors, touched, isValid, handleChange }) => {
+        {({ errors, touched, handleChange }) => {
           let validity = {
             username: !!errors.username,
             password: !!errors.password,
             email: !!errors.email
           };
 
-          console.log(errors);
-          console.log(touched);
-          console.log(props.handleTouch);
-          console.log(props.email_touched);
-          console.log(validity);
-          console.log(props.valid);
           if (
             !!touched.email !== !!props.email_touched &&
             !props.email_touched
@@ -79,7 +73,7 @@ const UserForm = props => {
                   // There's a flaw in this logic - button can toggle
                   // so that if you have multiple fields with errors,
                   // error state becomes falsy and button becomes clickable
-                  if (validity != props.valid) {
+                  if (validity !== props.valid) {
                     props.errorComm(validity);
                   }
                 }}
