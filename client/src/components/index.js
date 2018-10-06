@@ -16,7 +16,6 @@ import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
 import DeleteItem from "./reuseable/deleteitem";
 import EditJob from "./jobs/editjob";
-import Invoices from "./invoices/invoices";
 import Home from "./home/home";
 import SideNav from "./home/sidenav";
 import Start from "./home/start";
@@ -56,7 +55,6 @@ export {
   JobInvoice,
   EditJob,
   DeleteItem,
-  Invoices,
   Home,
   SideNav,
   Start,

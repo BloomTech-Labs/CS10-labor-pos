@@ -130,7 +130,6 @@ class Home extends Component {
             <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
-            <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/createtag" component={AddTag} />
             <Route exact path="/tags/:id" component={TagView} />
