@@ -6,12 +6,14 @@ import {
   ExpansionPanelSummary,
   FormControlLabel,
   Switch,
-  MenuItem
+  MenuItem,
+  withStyles,
+  Avatar
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import "./sidenav.css";
+import { styles } from "../material-ui/styles.js";
 
 //This is the side nav component that renders in the nav drawer in the home component
 class SideNav extends Component {
@@ -25,16 +27,22 @@ class SideNav extends Component {
     });
   };
   render() {
+    const { classes } = this.props;
     const { expanded } = this.state;
     const path = this.props.location.pathname;
     return (
-      <div className="controlled-nav-accordion">
+      <div>
         {/*TODO: These buttons can be in routes to dynamically display based on what is needed
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est tags would have a smaller create tag button under it.*/}
         <Divider />
-        <Link to="/">
+        <Link to="/" className={classes.sidenav_top}>
+          <Avatar
+            alt="A golden raccoon logo"
+            src={require("../../goldracoon.png")}
+            className={classes.image}
+          />
           <MenuItem selected={path === "/"}>Home</MenuItem>
         </Link>
 
@@ -45,7 +53,7 @@ class SideNav extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <MenuItem selected={path.includes("client")}>Clients</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/clients">
               <MenuItem selected={path.includes("clients")}>View</MenuItem>
             </Link>
@@ -67,15 +75,12 @@ class SideNav extends Component {
               Jobs
             </MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/jobs">
               <MenuItem selected={path.includes("jobs")}>View</MenuItem>
             </Link>
             <Link to="/createjob">
               <MenuItem selected={path.includes("createjob")}>Create</MenuItem>
-            </Link>
-            <Link to="/invoices">
-              <MenuItem selected={path.includes("invoices")}>Invoices</MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -86,7 +91,7 @@ class SideNav extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <MenuItem selected={path.includes("note")}>Notes</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/notes">
               <MenuItem selected={path.includes("notes")}>View</MenuItem>
             </Link>
@@ -102,7 +107,7 @@ class SideNav extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <MenuItem selected={path.includes("tag")}>Tags</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/tags">
               <MenuItem selected={path.includes("tags")}>View</MenuItem>
             </Link>
@@ -118,7 +123,7 @@ class SideNav extends Component {
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <MenuItem selected={path.includes("part")}>Parts</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/parts">
               <MenuItem selected={path.includes("parts")}>View</MenuItem>
             </Link>
@@ -138,7 +143,7 @@ class SideNav extends Component {
               Settings
             </MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails className={classes.nav_menu}>
             <Link to="/settings">
               <MenuItem selected={path.includes("settings")}>Main</MenuItem>
             </Link>
@@ -166,4 +171,4 @@ class SideNav extends Component {
   }
 }
 
-export default withRouter(SideNav);
+export default withRouter(withStyles(styles)(SideNav));

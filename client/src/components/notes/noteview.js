@@ -2,10 +2,18 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_NOTE_BY_ID } from "../../queries";
-import { Typography, Grid, IconButton, Dialog } from "@material-ui/core";
+import {
+  Typography,
+  Grid,
+  IconButton,
+  Dialog,
+  withStyles,
+  Card
+} from "@material-ui/core";
 import { Delete, Create } from "@material-ui/icons";
 import { CardList, DeleteItem } from "../../components";
 import { Link } from "react-router-dom";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of home on the
 //  /notes/%noteid route when the user is logged in.
@@ -31,6 +39,7 @@ class NoteView extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_NOTE_BY_ID}
@@ -69,14 +78,16 @@ class NoteView extends Component {
               <Typography paragraph>{data.note.content}</Typography>
               <Grid container>
                 <Grid item xs={2}>
-                  <Typography>
-                    Created On:{" "}
-                    {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
-                  </Typography>
-                  <Typography>
-                    Modified On:{" "}
-                    {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
-                  </Typography>
+                  <Card className={classes.card}>
+                    <Typography>
+                      Created On:{" "}
+                      {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+                    </Typography>
+                    <Typography>
+                      Modified On:{" "}
+                      {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+                    </Typography>
+                  </Card>
                 </Grid>
                 <Grid item xs={10}>
                   <CardList
@@ -107,4 +118,4 @@ class NoteView extends Component {
   }
 }
 
-export default withRouter(NoteView);
+export default withRouter(withStyles(styles)(NoteView));

@@ -8,11 +8,13 @@ import {
   Grid,
   Dialog,
   IconButton,
-  Divider
+  Divider,
+  withStyles,
+  Card
 } from "@material-ui/core";
 import { CardList, DeleteItem } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
-import "./clientview.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component renders a s a child of home on the path
 //  /clients/%clientid.  It presents the user with all information
@@ -38,6 +40,7 @@ class ClientView extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -51,14 +54,8 @@ class ClientView extends Component {
           else name = `${data.client.firstName} ${data.client.lastName}`;
           return (
             <div>
-              <div className="client-view-top">
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-around"
-                  alignItems="center"
-                  spacing={24}
-                >
+              <div>
+                <Grid container>
                   <Grid item xs={1}>
                     <Link to={`/clients/${data.client.id}/edit`}>
                       <IconButton>
@@ -67,7 +64,9 @@ class ClientView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography variant="title">{name}</Typography>
+                    <Typography className={classes.typography} variant="title">
+                      {name}
+                    </Typography>
                   </Grid>
                   <Grid item xs={1}>
                     <IconButton onClick={this.handleDeleteButton}>
@@ -76,52 +75,59 @@ class ClientView extends Component {
                   </Grid>
                 </Grid>
               </div>
-              <Typography paragraph>{data.client.description}</Typography>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography align="left">
-                    Business Name: {data.client.businessName}
-                  </Typography>
+              <Card className={classes.card}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Typography className={classes.typography} align="left">
+                      Business Name: {data.client.businessName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      Street Number: {data.client.streetNumber}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      Unit Number: {data.client.unitNumber}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      Street Name: {data.client.streetName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography
+                      className={classes.typography}
+                      align="left"
+                    >{`Name: ${data.client.firstName} ${
+                      data.client.lastName
+                    }`}</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      City: {data.client.city}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      State: {data.client.state}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography className={classes.typography} align="left">
+                      Zip: {data.client.zipcode}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    {data.client.deadline}
+                  </Grid>
                 </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Street Number: {data.client.streetNumber}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Unit Number: {data.client.unitNumber}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Street Name: {data.client.streetName}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography align="left">{`Name: ${data.client.firstName} ${
-                    data.client.lastName
-                  }`}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">City: {data.client.city}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    State: {data.client.state}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Zip: {data.client.zipcode}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  {data.client.deadline}
-                </Grid>
-              </Grid>
+              </Card>
               <Divider />
               <Typography
+                className={classes.typography}
                 align="left"
                 variant="subheading"
               >{`Jobs for ${name}:`}</Typography>
@@ -133,6 +139,7 @@ class ClientView extends Component {
               />
               <Divider />
               <Typography
+                className={classes.typography}
                 align="left"
                 variant="subheading"
               >{`Notes for ${name}:`}</Typography>
@@ -162,4 +169,4 @@ class ClientView extends Component {
   }
 }
 
-export default withRouter(ClientView);
+export default withRouter(withStyles(styles)(ClientView));
