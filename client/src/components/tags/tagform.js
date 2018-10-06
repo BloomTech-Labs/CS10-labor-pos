@@ -101,41 +101,48 @@ class TagForm extends Component {
               onCompleted={() => this._confirm()}
             >
               {(mutateJob, { loading, error, data }) => (
-                <Grid container>
-                  <Grid item xs={1} />
-                  <Grid item xs={10}>
-                    <Typography variant="title">{title_text}</Typography>
-                    <form
-                      onSubmit={event => {
-                        event.preventDefault();
-                        let tag_variables = {
-                          name: name,
-                          description: description,
-                          job: job,
-                          part: part,
-                          note: note
-                        };
+                <form
+                  onSubmit={event => {
+                    event.preventDefault();
+                    let tag_variables = {
+                      name: name,
+                      description: description,
+                      job: job,
+                      part: part,
+                      note: note
+                    };
 
-                        for (let key in tag_variables) {
-                          if (tag_variables[key] === "") {
-                            if (this.props.mode === "edit")
-                              delete tag_variables[key];
-                          }
-                        }
+                    for (let key in tag_variables) {
+                      if (tag_variables[key] === "") {
                         if (this.props.mode === "edit")
-                          tag_variables.id = this.props.match.params.id;
-                        mutateJob({
-                          variables: tag_variables
-                        });
-                        this.setState({
-                          name: "",
-                          description: "",
-                          job: job,
-                          part: part,
-                          note: note
-                        });
-                      }}
-                    >
+                          delete tag_variables[key];
+                      }
+                    }
+                    if (this.props.mode === "edit")
+                      tag_variables.id = this.props.match.params.id;
+                    mutateJob({
+                      variables: tag_variables
+                    });
+                    this.setState({
+                      name: "",
+                      description: "",
+                      job: job,
+                      part: part,
+                      note: note
+                    });
+                  }}
+                >
+                  {" "}
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.typography}
+                        variant="title"
+                      >
+                        {title_text}
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12}>
                       <TextField
                         id="field-name"
                         label="Name"
@@ -145,6 +152,9 @@ class TagForm extends Component {
                         helperText="Tag Name"
                         margin="normal"
                       />
+                    </Grid>
+                    <Grid item xs={1} />
+                    <Grid item xs={10}>
                       <TextField
                         id="field-description"
                         label="Description"
@@ -159,97 +169,94 @@ class TagForm extends Component {
                         margin="normal"
                         variant="outlined"
                       />
+                    </Grid>
+                    <Grid item xs={1} />
 
-                      <Grid container>
-                        <Grid item xs={4}>
-                          <TextField
-                            id="field-job"
-                            select
-                            label="Job"
-                            name="job"
-                            className={"modal_field"}
-                            value={job}
-                            onChange={this.handleChange("job")}
-                            SelectProps={{
-                              MenuProps: {
-                                className: "Mister Menu"
-                              }
-                            }}
-                            helperText="Select Job"
-                            margin="normal"
-                          >
-                            {job_list.map(job => (
-                              <MenuItem key={job.value} value={job.value}>
-                                {job.label}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <TextField
-                            id="field-note"
-                            select
-                            label="Note"
-                            name="note"
-                            className={"modal_field"}
-                            value={note}
-                            onChange={this.handleChange("note")}
-                            SelectProps={{
-                              MenuProps: {
-                                className: "Mister Menu"
-                              }
-                            }}
-                            helperText="Select Note"
-                            margin="normal"
-                          >
-                            {note_list.map(note => (
-                              <MenuItem key={note.value} value={note.value}>
-                                {note.label}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </Grid>
-                        <Grid item xs={4}>
-                          <TextField
-                            id="field-part"
-                            select
-                            label="Part"
-                            name="part"
-                            className={"modal_field"}
-                            value={part}
-                            onChange={this.handleChange("part")}
-                            SelectProps={{
-                              MenuProps: {
-                                className: "Mister Menu"
-                              }
-                            }}
-                            helperText="Select Part"
-                            margin="normal"
-                          >
-                            {part_list.map(part => (
-                              <MenuItem key={part.value} value={part.value}>
-                                {part.label}
-                              </MenuItem>
-                            ))}
-                            )}
-                          </TextField>
-                        </Grid>
-                      </Grid>
-
-                      <div>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          className={classes.padded_button}
-                        >
-                          {button_text}
-                        </Button>
-                      </div>
-                    </form>
+                    <Grid item xs={4}>
+                      <TextField
+                        id="field-job"
+                        select
+                        label="Job"
+                        name="job"
+                        className={"modal_field"}
+                        value={job}
+                        onChange={this.handleChange("job")}
+                        SelectProps={{
+                          MenuProps: {
+                            className: "Mister Menu"
+                          }
+                        }}
+                        helperText="Select Job"
+                        margin="normal"
+                      >
+                        {job_list.map(job => (
+                          <MenuItem key={job.value} value={job.value}>
+                            {job.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        id="field-note"
+                        select
+                        label="Note"
+                        name="note"
+                        className={"modal_field"}
+                        value={note}
+                        onChange={this.handleChange("note")}
+                        SelectProps={{
+                          MenuProps: {
+                            className: "Mister Menu"
+                          }
+                        }}
+                        helperText="Select Note"
+                        margin="normal"
+                      >
+                        {note_list.map(note => (
+                          <MenuItem key={note.value} value={note.value}>
+                            {note.label}
+                          </MenuItem>
+                        ))}
+                      </TextField>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <TextField
+                        id="field-part"
+                        select
+                        label="Part"
+                        name="part"
+                        className={"modal_field"}
+                        value={part}
+                        onChange={this.handleChange("part")}
+                        SelectProps={{
+                          MenuProps: {
+                            className: "Mister Menu"
+                          }
+                        }}
+                        helperText="Select Part"
+                        margin="normal"
+                      >
+                        {part_list.map(part => (
+                          <MenuItem key={part.value} value={part.value}>
+                            {part.label}
+                          </MenuItem>
+                        ))}
+                        )}
+                      </TextField>
+                    </Grid>
                   </Grid>
-                  <Grid item xs={1} />
-                </Grid>
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      className={classes.padded_button}
+                    >
+                      {button_text}
+                    </Button>
+                  </div>
+                </form>
               )}
             </Mutation>
           );
