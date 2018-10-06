@@ -81,17 +81,17 @@ class TagView extends Component {
                 spacing={24}
               >
                 <Grid item xs={3}>
-                  <Card className={classes.card}>
+                  <Card className={classes.item_card}>
                     <ItemCard type="job" item={data.tag.job} />
                   </Card>
                 </Grid>
                 <Grid item xs={3}>
-                  <Card className={classes.card}>
+                  <Card className={classes.item_card}>
                     <ItemCard type="note" item={data.tag.note} />
                   </Card>
                 </Grid>
                 <Grid item xs={3}>
-                  <Card className={classes.card}>
+                  <Card className={classes.item_card}>
                     <ItemCard type="part" item={data.tag.part} />
                   </Card>
                 </Grid>

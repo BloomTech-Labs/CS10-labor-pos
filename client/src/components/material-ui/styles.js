@@ -31,6 +31,10 @@ const styles = theme => ({
   padded_button: {
     margin: "16px"
   },
+  nav_menu: {
+    display: "flex",
+    flexDirection: "column"
+  },
   list_item_reg: {
     padding: "10px",
     backgroundColor: theme.palette.background.paper

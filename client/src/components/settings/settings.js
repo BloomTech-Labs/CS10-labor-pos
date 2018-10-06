@@ -296,7 +296,12 @@ class Settings extends Component {
                   <Grid item xs={1} />
                   <Grid item xs={9} />
                   <Grid item xs={2}>
-                    <Button variant="contained" color="primary" type="submit">
+                    <Button
+                      className={classes.padded_button}
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                    >
                       Save Changes
                     </Button>
                   </Grid>
