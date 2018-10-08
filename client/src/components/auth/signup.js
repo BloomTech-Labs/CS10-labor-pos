@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import { Formik, Field, Form } from "formik";
 import {
   Grid,
   withStyles,
@@ -8,12 +8,14 @@ import {
   StepLabel,
   Paper,
   CssBaseline,
-  Typography
+  Typography,
+  FormControl,
+  Button
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
 import { CREATE_USER } from "../../mutations";
 import { withRouter } from "react-router";
-import { TextField, Select } from "../../components";
+import { TextField } from "../../components";
 import { styles } from "../material-ui/styles";
 import { STATE_LIST } from "../../constants";
 import { AUTH_TOKEN } from "../../constants.js";
@@ -132,50 +134,61 @@ class Wizard extends Component {
         enableReinitialize={false}
         validationSchema={ValidationSchemas[page]}
         onSubmit={this.handleSubmit}
-        render={({ values, handleSubmit, isSubmitting, isValid }) => (
+        render={({ values, handleSubmit, isValid }) => (
           <Mutation
             mutation={CREATE_USER}
             onCompleted={data => this._confirm(data)}
           >
             {createUser => (
-              <Form onSubmit={handleSubmit}>
-                <Stepper activeStep={page}>
-                  {steps.map(label => (
-                    <Step key={label}>
-                      <StepLabel>{label}</StepLabel>
-                    </Step>
-                  ))}
-                </Stepper>
-                {activePage}
-                <div className="buttons">
-                  {page > 0 && (
-                    <button
-                      type="button"
-                      className="secondary"
-                      onClick={this.previous}
-                    >
-                      « Previous
-                    </button>
-                  )}
-                  {console.log("Last page?", page)}
-                  {console.log("isValid", isValid)}
-                  {console.log("isSubmitting", isSubmitting)}
-                  {!isLastPage && <button type="submit">Next »</button>}
-                  {isLastPage && (
-                    <button
-                      role="button"
-                      type="submit"
-                      disabled={!isValid}
-                      onClick={e => {
-                        e.preventDefault();
-                        this.submit(createUser, values, e);
-                      }}
-                    >
-                      Create Account
-                    </button>
-                  )}
-                </div>
-              </Form>
+              <Grid container>
+                <Form onSubmit={handleSubmit}>
+                  <Stepper activeStep={page}>
+                    {steps.map(label => (
+                      <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                      </Step>
+                    ))}
+                  </Stepper>
+                  <Typography variant="display1" align="center">
+                    Sign up with email
+                  </Typography>
+                  {activePage}
+                  <div
+                    className="buttons"
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    {page > 0 && (
+                      <Button
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                        onClick={this.previous}
+                      >
+                        « Previous
+                      </Button>
+                    )}
+                    {!isLastPage && (
+                      <button type="submit" color="primary" variant="contained">
+                        Next »
+                      </button>
+                    )}
+                    {isLastPage && (
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={!isValid}
+                        onClick={e => {
+                          e.preventDefault();
+                          this.submit(createUser, values, e);
+                        }}
+                      >
+                        Create Account
+                      </Button>
+                    )}
+                  </div>
+                </Form>
+              </Grid>
             )}
           </Mutation>
         )}
@@ -208,68 +221,44 @@ const CreateUser = props => (
       <Wizard.Page>
         <main className={props.classes.layout}>
           <Paper className={props.classes.paper}>
-            <Typography variant="display1" align="center">
-              Sign up with email
-            </Typography>
-            <Grid container>
-              <Grid xs={5}>
-                <Field
-                  name="username"
-                  placeholder="Username"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Username"
-                  required
-                />
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid xs={1} />
-              <Grid xs={5}>
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="Please select a secure password"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Password"
-                  required
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid xs={12}>
-                <Field
-                  name="email"
-                  type="email"
-                  placeholder="Email"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Email"
-                  required
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-            </Grid>
+            <FormControl margin="normal" fullWidth>
+              <Field
+                name="username"
+                placeholder="Username"
+                component={TextField}
+                fullWidth={true}
+                label="Username"
+                required
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <Field
+                name="password"
+                type="password"
+                placeholder="Please select a secure password"
+                component={TextField}
+                fullWidth={true}
+                label="Password"
+                required
+              />
+            </FormControl>
+            <FormControl margin="normal" fullWidth>
+              <Field
+                name="email"
+                type="email"
+                placeholder="Email"
+                component={TextField}
+                fullWidth={true}
+                label="Email"
+                required
+              />
+            </FormControl>
           </Paper>
         </main>
       </Wizard.Page>
       <Wizard.Page>
         <main className={props.classes.layout}>
           <Paper className={props.classes.paper}>
-            <Typography variant="display1" align="center">
-              Sign up with email
-            </Typography>
             <Grid container>
               <Grid item xs={12}>
                 <Field
@@ -279,11 +268,6 @@ const CreateUser = props => (
                   fullWidth={true}
                   label="First Name"
                   required
-                />
-                <ErrorMessage
-                  name="firstName"
-                  component="div"
-                  className="field-error"
                 />
               </Grid>
               <Grid item xs={12}>
@@ -295,11 +279,6 @@ const CreateUser = props => (
                   label="Last Name"
                   required
                 />
-                <ErrorMessage
-                  name="lastName"
-                  component="div"
-                  className="field-error"
-                />
               </Grid>
 
               <Field
@@ -310,11 +289,6 @@ const CreateUser = props => (
                 label="Business Name"
                 required
               />
-              <ErrorMessage
-                name="businessName"
-                component="div"
-                className="field-error"
-              />
               <Field
                 name="streetAddress"
                 placeholder="Street Address"
@@ -322,11 +296,6 @@ const CreateUser = props => (
                 fullWidth={true}
                 label="Street Address"
                 required
-              />
-              <ErrorMessage
-                name="streetAddress"
-                component="div"
-                className="field-error"
               />
               <Field
                 name="city"
@@ -336,26 +305,15 @@ const CreateUser = props => (
                 label="City"
                 required
               />
-              <ErrorMessage
-                name="city"
-                component="div"
-                className="field-error"
-              />
               <Field
                 id="field-state"
-                select
+                select="true"
                 label="State"
                 name="state"
                 placeholder="State"
                 component="select"
-                type="text"
-                SelectProps={{
-                  MenuProps: {
-                    className: "mister menu"
-                  }
-                }}
-                helperText="State"
                 margin="normal"
+                style={{ width: "100%", marginTop: "24px", height: "24px" }}
               >
                 {STATE_LIST.map(state => (
                   <option key={state.label} value={state.label}>
@@ -363,11 +321,6 @@ const CreateUser = props => (
                   </option>
                 ))}
               </Field>
-              <ErrorMessage
-                name="state"
-                component="div"
-                className="field-error"
-              />
               <Field
                 name="zipcode"
                 placeholder="Zipcode"
@@ -375,11 +328,6 @@ const CreateUser = props => (
                 fullWidth={true}
                 label="Zipcode"
                 required
-              />
-              <ErrorMessage
-                name="zipcode"
-                component="div"
-                className="field-error"
               />
             </Grid>
           </Paper>
