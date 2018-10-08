@@ -116,13 +116,10 @@ class LandingPage extends Component {
                 Contract Alchemy: Turning POS Into Gold
               </Typography>
               <Typography className={classes.typography} paragraph>
-                Are you tired of balancing multiple projects? <br />
-                Do you find yourself struggling with spreadsheet after
-                spreadsheet trying to keep track of how much you’re owed from
-                whom? <br /> Struggle no more!
+                {"Are you tired of balancing multiple projects?"} <br />
+                {"Do you find yourself struggling with spreadsheet after spreadsheet trying to keep track of how much you’re owed from whom?"} <br /> {"Struggle no more!"}
                 <br />
-                Here at contractAlchemy, we're here to help you organize your
-                contracts so you have more time to do the things you want to do.
+                {"Here at contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."}
               </Typography>
               <Button
                 className={classes.padded_button}
