@@ -8,7 +8,8 @@ import {
   withStyles
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
-import { Login, Home, CreateUser } from "../../components";
+import { Login, Home } from "../../components";
+import CreateUser from "../auth/signup";
 import { AUTH_TOKEN } from "../../constants";
 import { withRouter } from "react-router";
 
