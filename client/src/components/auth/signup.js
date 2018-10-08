@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import {
   Grid,
   withStyles,
@@ -48,7 +48,7 @@ const ContractorSchema = Yup.object().shape({
   city: Yup.string()
     .max(70, "City must be fewer than 70 characters")
     .required("City is a required field"),
-  state: Yup.string().required(),
+  state: Yup.string().required("State is a required field"),
   zipcode: Yup.string()
     .max(10)
     .min(5)
@@ -140,55 +140,53 @@ class Wizard extends Component {
             onCompleted={data => this._confirm(data)}
           >
             {createUser => (
-              <Grid container>
-                <Form onSubmit={handleSubmit}>
-                  <Stepper activeStep={page}>
-                    {steps.map(label => (
-                      <Step key={label}>
-                        <StepLabel>{label}</StepLabel>
-                      </Step>
-                    ))}
-                  </Stepper>
-                  <Typography variant="display1" align="center">
-                    Sign up with email
-                  </Typography>
-                  {activePage}
-                  <div
-                    className="buttons"
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    {page > 0 && (
-                      <Button
-                        type="submit"
-                        color="primary"
-                        variant="contained"
-                        onClick={this.previous}
-                      >
-                        « Previous
-                      </Button>
-                    )}
-                    {!isLastPage && (
-                      <button type="submit" color="primary" variant="contained">
-                        Next »
-                      </button>
-                    )}
-                    {isLastPage && (
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        disabled={!isValid}
-                        onClick={e => {
-                          e.preventDefault();
-                          this.submit(createUser, values, e);
-                        }}
-                      >
-                        Create Account
-                      </Button>
-                    )}
-                  </div>
-                </Form>
-              </Grid>
+              <Form onSubmit={handleSubmit} style={{ margin: "auto" }}>
+                <Stepper activeStep={page}>
+                  {steps.map(label => (
+                    <Step key={label}>
+                      <StepLabel>{label}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+                <Typography variant="display1" align="center">
+                  Sign up with email
+                </Typography>
+                {activePage}
+                <div
+                  className="buttons"
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  {page > 0 && (
+                    <Button
+                      type="submit"
+                      color="primary"
+                      variant="contained"
+                      onClick={this.previous}
+                    >
+                      « Previous
+                    </Button>
+                  )}
+                  {!isLastPage && (
+                    <button type="submit" color="primary" variant="contained">
+                      Next »
+                    </button>
+                  )}
+                  {isLastPage && (
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      disabled={!isValid}
+                      onClick={e => {
+                        e.preventDefault();
+                        this.submit(createUser, values, e);
+                      }}
+                    >
+                      Create Account
+                    </Button>
+                  )}
+                </div>
+              </Form>
             )}
           </Mutation>
         )}
@@ -219,119 +217,114 @@ const CreateUser = props => (
       }}
     >
       <Wizard.Page>
-        <main className={props.classes.layout}>
-          <Paper className={props.classes.paper}>
-            <FormControl margin="normal" fullWidth>
-              <Field
-                name="username"
-                placeholder="Username"
-                component={TextField}
-                fullWidth={true}
-                label="Username"
-                required
-              />
-            </FormControl>
-            <FormControl margin="normal" fullWidth>
-              <Field
-                name="password"
-                type="password"
-                placeholder="Please select a secure password"
-                component={TextField}
-                fullWidth={true}
-                label="Password"
-                required
-              />
-            </FormControl>
-            <FormControl margin="normal" fullWidth>
-              <Field
-                name="email"
-                type="email"
-                placeholder="Email"
-                component={TextField}
-                fullWidth={true}
-                label="Email"
-                required
-              />
-            </FormControl>
-          </Paper>
-        </main>
+        <Paper className={props.classes.paper}>
+          <FormControl margin="normal" fullWidth>
+            <Field
+              name="username"
+              placeholder="Username"
+              component={TextField}
+              fullWidth={true}
+              label="Username"
+              required
+            />
+            <Field
+              name="password"
+              type="password"
+              placeholder="Please select a secure password"
+              component={TextField}
+              fullWidth={true}
+              label="Password"
+              required
+            />
+            <Field
+              name="email"
+              type="email"
+              placeholder="Email"
+              component={TextField}
+              fullWidth={true}
+              label="Email"
+              required
+            />
+          </FormControl>
+        </Paper>
       </Wizard.Page>
       <Wizard.Page>
-        <main className={props.classes.layout}>
-          <Paper className={props.classes.paper}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Field
-                  name="firstName"
-                  placeholder="First Name"
-                  component={TextField}
-                  fullWidth={true}
-                  label="First Name"
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="lastName"
-                  placeholder="Last Name"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Last Name"
-                  required
-                />
-              </Grid>
-
-              <Field
-                name="businessName"
-                placeholder="Business Name"
-                component={TextField}
-                fullWidth={true}
-                label="Business Name"
-                required
-              />
-              <Field
-                name="streetAddress"
-                placeholder="Street Address"
-                component={TextField}
-                fullWidth={true}
-                label="Street Address"
-                required
-              />
-              <Field
-                name="city"
-                placeholder="City"
-                component={TextField}
-                fullWidth={true}
-                label="City"
-                required
-              />
-              <Field
-                id="field-state"
-                select="true"
-                label="State"
-                name="state"
-                placeholder="State"
-                component="select"
-                margin="normal"
-                style={{ width: "100%", marginTop: "24px", height: "24px" }}
-              >
-                {STATE_LIST.map(state => (
-                  <option key={state.label} value={state.label}>
-                    {state.label}
-                  </option>
-                ))}
-              </Field>
-              <Field
-                name="zipcode"
-                placeholder="Zipcode"
-                component={TextField}
-                fullWidth={true}
-                label="Zipcode"
-                required
-              />
-            </Grid>
-          </Paper>
-        </main>
+        <Paper className={props.classes.paper}>
+          <FormControl margin="normal" fullWidth>
+            <Field
+              name="firstName"
+              placeholder="First Name"
+              component={TextField}
+              fullWidth={true}
+              label="First Name"
+              required
+            />
+            <Field
+              name="lastName"
+              placeholder="Last Name"
+              component={TextField}
+              fullWidth={true}
+              label="Last Name"
+              required
+            />
+            <Field
+              name="businessName"
+              placeholder="Business Name"
+              component={TextField}
+              fullWidth={true}
+              label="Business Name"
+              required
+            />
+            <Field
+              name="streetAddress"
+              placeholder="Street Address"
+              component={TextField}
+              fullWidth={true}
+              label="Street Address"
+              required
+            />
+            <Field
+              name="city"
+              placeholder="City"
+              component={TextField}
+              fullWidth={true}
+              label="City"
+              required
+            />
+            <Field
+              id="field-state"
+              select="true"
+              label="State"
+              name="state"
+              placeholder="State"
+              component="select"
+              margin="normal"
+              className={props.classes.state_field}
+            >
+              {STATE_LIST.map(state => (
+                <option key={state.label} value={state.label}>
+                  {state.label}
+                </option>
+              ))}
+            </Field>
+            <ErrorMessage
+              name="state"
+              component="div"
+              style={{
+                color: "#f44336",
+                fontWeight: "300"
+              }}
+            />
+            <Field
+              name="zipcode"
+              placeholder="Zipcode"
+              component={TextField}
+              fullWidth={true}
+              label="Zipcode"
+              required
+            />
+          </FormControl>
+        </Paper>
       </Wizard.Page>
     </Wizard>
   </React.Fragment>

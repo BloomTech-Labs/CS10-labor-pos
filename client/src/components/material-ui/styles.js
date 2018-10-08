@@ -69,8 +69,8 @@ const styles = theme => ({
     padding: "6px 20px"
   },
   paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
@@ -92,6 +92,20 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
+  },
+  state_field: {
+    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    fontSize: "16px",
+    fontStretch: "100%",
+    fontWeight: "400",
+    lineHeight: "19px",
+    width: "100%",
+    marginTop: "24px",
+    height: "24px",
+    border: "0",
+    backgroundColor: "initial",
+    color: "rgba(255, 255, 255, 0.7)",
+    borderBottom: "1px solid"
   }
 });
 export { styles };
