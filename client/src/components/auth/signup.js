@@ -7,6 +7,7 @@ import {
   Stepper,
   StepLabel,
   Paper,
+  CssBaseline,
   Typography
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
@@ -19,7 +20,7 @@ import { AUTH_TOKEN } from "../../constants.js";
 const Yup = require("yup");
 
 const UserSchema = Yup.object().shape({
-  username: Yup.string()
+  username: Yup.string("Username is a required field")
     .max(150, "Username must be under 150 characters")
     .required("Username is a required field"),
   password: Yup.string().required("Password is a required field"),
@@ -35,21 +36,21 @@ const ContractorSchema = Yup.object().shape({
   ),
   firstName: Yup.string()
     .max(30, "First name must be fewer than 30 characters")
-    .required(),
+    .required("First Name is a required field"),
   lastName: Yup.string()
     .max(150, "Last Name must be fewer than 150 characters")
-    .required(),
+    .required("Last Name is a required field"),
   streetAddress: Yup.string()
     .max(150, "Street Address must be fewer than 100 characters")
-    .required(),
+    .required("Street Address is a required field"),
   city: Yup.string()
     .max(70, "City must be fewer than 70 characters")
-    .required(),
+    .required("City is a required field"),
   state: Yup.string().required(),
   zipcode: Yup.string()
     .max(10)
     .min(5)
-    .required()
+    .required("Zipcode is a required field")
 });
 
 const ValidationSchemas = [UserSchema, ContractorSchema];
@@ -136,7 +137,7 @@ class Wizard extends Component {
             mutation={CREATE_USER}
             onCompleted={data => this._confirm(data)}
           >
-            {(createUser, { loading, error, data }) => (
+            {createUser => (
               <Form onSubmit={handleSubmit}>
                 <Stepper activeStep={page}>
                   {steps.map(label => (
@@ -184,33 +185,34 @@ class Wizard extends Component {
 }
 
 const CreateUser = props => (
-  <main>
-    {console.log("props of create", props)}
-    <Paper>
-      <Typography variant="display1" align="center">
-        Sign up with email
-      </Typography>
-      <Wizard
-        initialValues={{
-          username: "",
-          password: "",
-          email: "",
-          firstName: "",
-          lastName: "",
-          businessName: "",
-          streetAddress: "",
-          city: "",
-          state: "",
-          zipcode: ""
-        }}
-        onSubmit={actions => {
-          actions.setSubmitting(false);
-        }}
-      >
-        <Wizard.Page>
-          <div>
-            <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
+  <React.Fragment>
+    <CssBaseline />
+
+    <Wizard
+      initialValues={{
+        username: "",
+        password: "",
+        email: "",
+        firstName: "",
+        lastName: "",
+        businessName: "",
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipcode: ""
+      }}
+      onSubmit={actions => {
+        actions.setSubmitting(false);
+      }}
+    >
+      <Wizard.Page>
+        <main className={props.classes.layout}>
+          <Paper className={props.classes.paper}>
+            <Typography variant="display1" align="center">
+              Sign up with email
+            </Typography>
+            <Grid container>
+              <Grid xs={5}>
                 <Field
                   name="username"
                   placeholder="Username"
@@ -225,7 +227,8 @@ const CreateUser = props => (
                   className="field-error"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid xs={1} />
+              <Grid xs={5}>
                 <Field
                   name="password"
                   type="password"
@@ -241,7 +244,7 @@ const CreateUser = props => (
                   className="field-error"
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid xs={12}>
                 <Field
                   name="email"
                   type="email"
@@ -258,12 +261,17 @@ const CreateUser = props => (
                 />
               </Grid>
             </Grid>
-          </div>
-        </Wizard.Page>
-        <Wizard.Page>
-          <div>
-            <Grid container spacing={24}>
-              <Grid item xs={12} sm={6}>
+          </Paper>
+        </main>
+      </Wizard.Page>
+      <Wizard.Page>
+        <main className={props.classes.layout}>
+          <Paper className={props.classes.paper}>
+            <Typography variant="display1" align="center">
+              Sign up with email
+            </Typography>
+            <Grid container>
+              <Grid item xs={12}>
                 <Field
                   name="firstName"
                   placeholder="First Name"
@@ -278,7 +286,7 @@ const CreateUser = props => (
                   className="field-error"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <Field
                   name="lastName"
                   placeholder="Last Name"
@@ -293,101 +301,92 @@ const CreateUser = props => (
                   className="field-error"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Field
-                  name="businessName"
-                  placeholder="Business Name"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Business Name"
-                  required
-                />
-                <ErrorMessage
-                  name="businessName"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="streetAddress"
-                  placeholder="Street Address"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Street Address"
-                  required
-                />
-                <ErrorMessage
-                  name="streetAddress"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="city"
-                  placeholder="City"
-                  component={TextField}
-                  fullWidth={true}
-                  label="City"
-                  required
-                />
-                <ErrorMessage
-                  name="city"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <Field
-                  id="field-state"
-                  select
-                  label="State"
-                  name="state"
-                  placeholder="State"
-                  component="select"
-                  type="text"
-                  SelectProps={{
-                    MenuProps: {
-                      className: "mister menu"
-                    }
-                  }}
-                  helperText="State"
-                  margin="normal"
-                >
-                  {STATE_LIST.map(state => (
-                    <option key={state.label} value={state.label}>
-                      {state.label}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="state"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="zipcode"
-                  placeholder="Zipcode"
-                  component={TextField}
-                  fullWidth={true}
-                  label="Zipcode"
-                  required
-                />
-                <ErrorMessage
-                  name="zipcode"
-                  component="div"
-                  className="field-error"
-                />
-              </Grid>
+
+              <Field
+                name="businessName"
+                placeholder="Business Name"
+                component={TextField}
+                fullWidth={true}
+                label="Business Name"
+                required
+              />
+              <ErrorMessage
+                name="businessName"
+                component="div"
+                className="field-error"
+              />
+              <Field
+                name="streetAddress"
+                placeholder="Street Address"
+                component={TextField}
+                fullWidth={true}
+                label="Street Address"
+                required
+              />
+              <ErrorMessage
+                name="streetAddress"
+                component="div"
+                className="field-error"
+              />
+              <Field
+                name="city"
+                placeholder="City"
+                component={TextField}
+                fullWidth={true}
+                label="City"
+                required
+              />
+              <ErrorMessage
+                name="city"
+                component="div"
+                className="field-error"
+              />
+              <Field
+                id="field-state"
+                select
+                label="State"
+                name="state"
+                placeholder="State"
+                component="select"
+                type="text"
+                SelectProps={{
+                  MenuProps: {
+                    className: "mister menu"
+                  }
+                }}
+                helperText="State"
+                margin="normal"
+              >
+                {STATE_LIST.map(state => (
+                  <option key={state.label} value={state.label}>
+                    {state.label}
+                  </option>
+                ))}
+              </Field>
+              <ErrorMessage
+                name="state"
+                component="div"
+                className="field-error"
+              />
+              <Field
+                name="zipcode"
+                placeholder="Zipcode"
+                component={TextField}
+                fullWidth={true}
+                label="Zipcode"
+                required
+              />
+              <ErrorMessage
+                name="zipcode"
+                component="div"
+                className="field-error"
+              />
             </Grid>
-          </div>
-        </Wizard.Page>
-      </Wizard>
-    </Paper>
-  </main>
+          </Paper>
+        </main>
+      </Wizard.Page>
+    </Wizard>
+  </React.Fragment>
 );
 
 export default withRouter(withStyles(styles)(CreateUser));
