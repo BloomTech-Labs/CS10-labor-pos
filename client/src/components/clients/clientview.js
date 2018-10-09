@@ -105,9 +105,6 @@ class ClientView extends Component {
                     Zip: {data.client.zipcode}
                   </Typography>
                 </Grid>
-                <Grid item xs={6}>
-                  {data.client.deadline}
-                </Grid>
               </Grid>
               <Divider />
               <Typography

@@ -70,6 +70,12 @@ const styles = theme => ({
     fontWeight: "900",
     fontFamily: "Roboto, sans-serif"
   },
+  typography_paragraph: {
+    paddingTop: "20px",
+    fontSize: "18px",
+    fontWeight: "600",
+    fontFamily: "Roboto"
+  },
   main_content: {
     textAlign: "center",
     margin: "auto",
@@ -80,7 +86,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default
   },
   pad_me: {
-    padding: "6px 20px"
+    padding: "20px 30px"
   },
   paper: {
     marginTop: theme.spacing.unit * 2,

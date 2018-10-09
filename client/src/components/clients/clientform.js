@@ -35,7 +35,7 @@ const ClientSchema = Yup.object().shape({
     .email(),
   streetAddress: Yup.string()
     .max(100)
-    .required("Street Address is required"),
+    .required("Address is required"),
   city: Yup.string()
     .max(70)
     .required("City is required"),
@@ -43,8 +43,7 @@ const ClientSchema = Yup.object().shape({
   zipcode: Yup.string()
     .max(10)
     .min(5)
-    .required("Zipcode is required"),
-  deadline: Yup.date()
+    .required("Zipcode is required")
 });
 
 // This component renders as a child of clientview when editing
@@ -264,23 +263,6 @@ class ClientForm extends Component {
                             value={values.zipcode}
                             component={TextField}
                             margin="normal"
-                          />
-                          <Field
-                            id="field-deadline"
-                            label="Deadline"
-                            name="deadline"
-                            variant="outlined"
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.deadline}
-                            component={TextField}
-                            margin="normal"
-                            type="date"
-                            InputLabelProps={{
-                              shrink: true
-                            }}
                           />
                         </div>
                       </Paper>
