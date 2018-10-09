@@ -20,6 +20,9 @@ import { styles } from "../material-ui/styles.js";
 //  PROPS:
 //    mode: Accepts "create" or "edit"; indicates what the component should be doing
 //    job: In edit mode, a job will be passed down from the parent component.
+//    parent: In create mode, an object describing the client the job is being created for.
+//    after_url: Where to navigate after submitting the form.
+//    cancelAdd: a method from the parent to close the modal
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
 class JobForm extends Component {
@@ -58,6 +61,8 @@ class JobForm extends Component {
         deadline: edit_job.deadline,
         complete: edit_job.complete
       });
+    } else if (this.props.mode === "create") {
+      this.setState({ client: this.props.parent.id });
     }
   };
 
@@ -67,13 +72,15 @@ class JobForm extends Component {
     let chosen_mutation = CREATE_JOB;
     let title_text = "Add Job";
     let button_text = "Create";
+    let client_helper_text = "";
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_JOB;
       title_text = `Update ${this.props.job.name}`;
       button_text = "Update";
+      client_helper_text = "Select Client";
     }
     return (
-      <div>
+      <div className={classes.pad_me}>
         <Query query={QUERY_ALL_CLIENTS}>
           {({ loading, error, data }) => {
             if (loading) return "Loading...";
@@ -145,6 +152,7 @@ class JobForm extends Component {
                         <Grid item xs={6}>
                           <TextField
                             id="field-client"
+                            disabled={this.props.mode === "create"}
                             select
                             label="Client"
                             name="client"
@@ -156,7 +164,7 @@ class JobForm extends Component {
                                 className: "Mister Menu"
                               }
                             }}
-                            helperText="Select Client"
+                            helperText={client_helper_text}
                             margin="normal"
                           >
                             {client_list.map(client => (
@@ -243,6 +251,17 @@ class JobForm extends Component {
                           >
                             {button_text}
                           </Button>
+                          <Button
+                            variant="contained"
+                            color="secondary"
+                            className={classes.padded_button}
+                            onClick={e => {
+                              e.preventDefault();
+                              this.props.cancelAdd();
+                            }}
+                          >
+                            Cancel
+                          </Button>
                         </Grid>
                       </Grid>
                     </form>
@@ -260,7 +279,7 @@ class JobForm extends Component {
 
   _confirm = () => {
     window.location.reload();
-    this.props.history.push("/jobs");
+    this.props.history.push(this.props.after_url);
   };
 }
 

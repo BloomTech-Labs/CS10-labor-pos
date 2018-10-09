@@ -66,7 +66,7 @@ const styles = theme => ({
   },
 
   typography: {
-    paddingTop: "60px",
+    paddingTop: "20px",
     fontSize: "24px",
     fontWeight: "900",
     fontFamily: "Roboto, sans-serif"
@@ -77,7 +77,6 @@ const styles = theme => ({
     fontWeight: "600",
     fontFamily: "Roboto"
   },
-  typography_title: {},
   main_content: {
     textAlign: "center",
     margin: "auto",

@@ -10,9 +10,9 @@ import {
   IconButton,
   Divider,
   withStyles,
-  Card
+  withMobileDialog
 } from "@material-ui/core";
-import { CardList, DeleteItem } from "../../components";
+import { CardList, DeleteItem, JobForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -27,20 +27,22 @@ class ClientView extends Component {
   constructor() {
     super();
     this.state = {
-      deleting: false
+      deleting: false,
+      add_job: false,
+      add_note: false
     };
   }
 
-  handleDeleteButton = () => {
-    this.setState({ deleting: true });
+  openModal = name => () => {
+    this.setState({ [name]: true });
   };
 
-  cancelDelete = () => {
-    this.setState({ deleting: false });
+  cancelModal = name => () => {
+    this.setState({ [name]: false });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, fullScreen } = this.props;
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -68,7 +70,7 @@ class ClientView extends Component {
                         <Create />
                       </IconButton>
                     </Link>
-                    <IconButton onClick={this.handleDeleteButton}>
+                    <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -116,6 +118,8 @@ class ClientView extends Component {
                 columns={4}
                 type="job"
                 items={data.client.jobSet.edges}
+                createMethod={this.openModal("add_job")}
+                cancelCreateMethod={this.cancelModal("add_job")}
               />
               <Divider />
               <Typography
@@ -128,17 +132,31 @@ class ClientView extends Component {
                 columns={4}
                 type="note"
                 items={data.client.noteSet.edges}
+                createMethod={this.openModal("add_note")}
+                cancelCreateMethod={this.cancelModal("add_note")}
               />
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelDelete}
-                className="delete-modal"
+                onClose={this.cancelModal("deleting")}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelDelete}
+                  cancelDelete={this.cancelModal("deleting")}
                   type="client"
                   item={data.client}
                   after_path="/clients"
+                />
+              </Dialog>
+              <Dialog
+                open={this.state.add_job}
+                onClose={this.cancelModal("add_job")}
+                fullScreen={fullScreen}
+              >
+                <JobForm
+                  mode="create"
+                  parent={{ type: "client", id: data.client.id }}
+                  after_url={this.props.location.pathname}
+                  cancelAdd={this.cancelModal("add_job")}
                 />
               </Dialog>
             </div>
@@ -149,4 +167,4 @@ class ClientView extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(ClientView));
+export default withRouter(withMobileDialog()(withStyles(styles)(ClientView)));
