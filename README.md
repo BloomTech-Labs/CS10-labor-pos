@@ -133,7 +133,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - Bcrypt
 
-  - Django's default hashing algorithm is PBKDF2 but we were more familiar with bcrypt password hashing, having implemented it it every security-based project, so felt safer using it as our password hashing algorithm.
+  - Django's default hashing algorithm is PBKDF2 but we were more familiar with bcrypt password hashing, having implemented it in every security-based project, so felt safer using it as our password hashing algorithm.
 
 - Heroku
   - We chose Heroku for roughly the same reason we chose Netlify, with the addendum that we also wanted a deployment site that would interact well with a Postgres database.
