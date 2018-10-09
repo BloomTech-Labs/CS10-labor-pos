@@ -53,22 +53,21 @@ class ClientView extends Component {
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
           return (
-            <div>
+            <div className={classes.pad_me}>
               <div>
                 <Grid container>
-                  <Grid item xs={1}>
+                  <Grid item xs={2} />
+                  <Grid item xs={8}>
+                    <Typography className={classes.typography} variant="title">
+                      {name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
                     <Link to={`/clients/${data.client.id}/edit`}>
                       <IconButton>
                         <Create />
                       </IconButton>
                     </Link>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography className={classes.typography} variant="title">
-                      {name}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={1}>
                     <IconButton onClick={this.handleDeleteButton}>
                       <Delete />
                     </IconButton>

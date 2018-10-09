@@ -100,7 +100,7 @@ class TagForm extends Component {
               mutation={chosen_mutation}
               onCompleted={() => this._confirm()}
             >
-              {(mutateJob, { loading, error, data }) => (
+              {(mutateTag, { loading, error, data }) => (
                 <form
                   onSubmit={event => {
                     event.preventDefault();
@@ -120,7 +120,7 @@ class TagForm extends Component {
                     }
                     if (this.props.mode === "edit")
                       tag_variables.id = this.props.match.params.id;
-                    mutateJob({
+                    mutateTag({
                       variables: tag_variables
                     });
                     this.setState({
