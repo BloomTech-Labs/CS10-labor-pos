@@ -1793,11 +1793,6 @@ boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@^4.1.3:
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.3.tgz#0eb371af2c8448e8c210411d0cb824a6409a12be"
-  integrity sha512-rDFIzgXcof0jDyjNosjv4Sno77X4KuPeFxG2XZZv1/Kc8DRVGVADdoQyyOVDwPqL36DDmtCQbrpMCqvpPLJQ0w==
-
 bottleneck@^1.12.0:
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/bottleneck/-/bottleneck-1.16.0.tgz#d6ce13808527afc80b69092f15606655e5b21f1a"
@@ -7895,13 +7890,6 @@ react-fast-compare@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-1.0.0.tgz#813a039155e49b43ceffe99528fe5e9d97a6c938"
   integrity sha512-dcQpdWr62flXQJuM8/bVEY5/10ad2SYBUafp8H4q4WHR3fTA/MMlp8mpzX12I0CCoEJc1P6QdiMg7U+7lFS6Rw==
 
-react-form-validator-core@0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/react-form-validator-core/-/react-form-validator-core-0.5.0.tgz#dfb669bd9475b7dd1c275096f7f3414a6fb3077a"
-  integrity sha512-o9L/ulTXaCPnt6wHByc31xGqcLzJFAXNXqlyFqkrXkCmMq7h5JKyOH80p2jviYn0DZ3YN1nK+7uccK1K+Lh8mA==
-  dependencies:
-    react-lifecycles-compat "^3.0.2"
-
 react-jss@^8.1.0:
   version "8.6.1"
   resolved "https://registry.yarnpkg.com/react-jss/-/react-jss-8.6.1.tgz#a06e2e1d2c4d91b4d11befda865e6c07fbd75252"
@@ -7917,13 +7905,6 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
-
-react-material-ui-form-validator@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-material-ui-form-validator/-/react-material-ui-form-validator-2.0.2.tgz#6e1f4178a556805e86561904dcf7a5a75371cec3"
-  integrity sha512-L7QAvr+f4uHIjlEgjq5dCnLTEQKSsvBhDkkP835D7Oba6zcezHGlE7K1PKf7ia7jIZOmzufiUTBSO2M4K/PMVQ==
-  dependencies:
-    react-form-validator-core "0.5.0"
 
 react-router-dom@^4.3.1:
   version "4.3.1"

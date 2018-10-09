@@ -16,9 +16,6 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
 const Yup = require("yup");
 
-//  This component can dynamically update or create
-//  a note depeinding on the props it's given.
-
 //Schema for validation
 const NoteSchema = Yup.object().shape({
   title: Yup.string()
@@ -29,6 +26,8 @@ const NoteSchema = Yup.object().shape({
   job: Yup.string()
 });
 
+//  This component can dynamically update or create
+//  a note depeinding on the props it's given.
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r5720
 class NoteForm extends Component {
   render() {
@@ -96,7 +95,7 @@ class NoteForm extends Component {
             });
           }
           return (
-            //  Give initial values to Formik from the edit_client object
+            //  Give initial values to Formik from the edit_note object
             <Formik
               initialValues={{
                 client: edit_note.client,

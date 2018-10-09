@@ -174,9 +174,7 @@ const DETAILED_CLIENT_BY_ID = gql`
       businessName
       firstName
       lastName
-      streetNumber
-      unitNumber
-      streetName
+      streetAddress
       city
       state
       zipcode

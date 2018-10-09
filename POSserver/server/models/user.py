@@ -78,7 +78,7 @@ class User(AbstractUser):
         ("VI", "Virgin Islands"),
         ("GU", "Guam"),
     )
-    state = models.CharField(max_length=2, choices=state_choices, default="AL")
+    state = models.CharField(max_length=2, choices=state_choices)
     zipcode = models.CharField(max_length=10)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     modified_at = models.DateTimeField(auto_now=True)
@@ -90,15 +90,18 @@ class User(AbstractUser):
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
     def welcome_mail(sender, instance, **kwargs):
-        if kwargs['created']:
+        if kwargs["created"]:
             model = get_user_model()
             user_email = instance.email
             sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
             from_email = Email("nphillip78@gmail.com")
             to_email = Email(user_email)
             subject = "Welcome to contractAlchemy!"
-            content = Content("text/plain", "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place. Premium users gain access to all of our features with an unlimited number of records. Our free membership includes access to all features for up to 8 records at a time - 8 clients, 8 jobs,etc. You can upgrade to premium at any time.")
-            mail = Mail(from_email, subject, to_email, content,)
+            content = Content(
+                "text/plain",
+                "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place. Premium users gain access to all of our features with an unlimited number of records. Our free membership includes access to all features for up to 8 records at a time - 8 clients, 8 jobs,etc. You can upgrade to premium at any time.",
+            )
+            mail = Mail(from_email, subject, to_email, content)
             response = sg.client.mail.send.post(request_body=mail.get())
             print(response.status_code)
             print(response.body)

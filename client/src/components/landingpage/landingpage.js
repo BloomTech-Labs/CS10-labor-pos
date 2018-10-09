@@ -5,7 +5,8 @@ import {
   Grid,
   Typography,
   Card,
-  withStyles
+  withStyles,
+  withMobileDialog
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
 import { Login, Home, CreateUser } from "../../components";
@@ -74,7 +75,7 @@ class LandingPage extends Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, fullScreen } = this.props;
     const authToken = localStorage.getItem(AUTH_TOKEN);
     //If the user is authenticated, we render the home component instead.
     if (authToken) {
@@ -114,14 +115,19 @@ class LandingPage extends Component {
               <Typography className={classes.typography} variant="title">
                 Contract Alchemy: Turning POS Into Gold
               </Typography>
-              <Typography className={classes.typography} paragraph>
-                contractAlchemy will make you live forever and be infinitely
-                wealthy. And you'll always find a good parking spot. Not really,
-                but it's still pretty great. contractAlchemy is a tool that
-                organizes your clients, jobs, parts, and invoices all in one
-                place! With contractAlchemy invoicing your customers and getting
-                paid has never been easier. Turn your POS into gold! And if you
-                don't buy our app you're a meanie-poopface.
+              <Typography
+                className={classes.typography_paragraph}
+                paragraph
+              >
+                {"Are you tired of balancing multiple projects?"} <br />
+                {
+                  "Do you find yourself struggling with spreadsheet after spreadsheet trying to keep track of how much you’re owed from whom?"
+                }{" "}
+                <br /> {"Struggle no more!"}
+                <br />
+                {
+                  "Here at contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."
+                }
               </Typography>
               <Button
                 className={classes.padded_button}
@@ -135,12 +141,14 @@ class LandingPage extends Component {
           </div>
           {/*We use material ui dialog components for our modals.*/}
           <Dialog
+            fullScreen={fullScreen}
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
           >
             <Login modalDone={this.handleCloseModals} />
           </Dialog>
           <Dialog
+            fullScreen={fullScreen}
             open={this.state.create_modal}
             onClose={this.handleCloseModals}
           >
@@ -152,4 +160,4 @@ class LandingPage extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(LandingPage));
+export default withRouter(withMobileDialog()(withStyles(styles)(LandingPage)));
