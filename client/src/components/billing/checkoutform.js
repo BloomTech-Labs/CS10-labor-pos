@@ -43,7 +43,7 @@ class CheckoutForm extends Component {
           this.setState({ loading: true });
           // use fetch or some other AJAX library here if you dont want to use axios
           fetch("http://localhost:8000/graphql/", {
-            data: {
+            body: {
               query: `
               mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
               createStripeCardToken(input: $input) {
