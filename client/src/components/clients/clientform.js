@@ -1,16 +1,17 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import { withRouter } from "react-router";
 import {
   Button,
-  // MenuItem,
   Grid,
   Typography,
-  withStyles
-  // Select
+  withStyles,
+  Paper,
+  FormControl
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-import { Formik, Form, Field } from "formik";
-import { TextField, Select } from "../../components";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
 import { styles } from "../material-ui/styles";
 // import Select from "react-select";
@@ -24,24 +25,26 @@ const ClientSchema = Yup.object().shape({
   ),
   firstName: Yup.string()
     .max(100)
-    .required("First Name is a required field"),
+    .required("First Name is required"),
   lastName: Yup.string()
     .max(100)
-    .required(),
+    .required("Last Name is required"),
   email: Yup.string()
     .max(70)
-    .required()
+    .required("Email is required")
     .email(),
   streetAddress: Yup.string()
     .max(100)
-    .required(),
+    .required("Street Address is required"),
   city: Yup.string()
     .max(70)
-    .required(),
-  state: Yup.string().required(),
+    .required("City is required"),
+  state: Yup.string().required("State is required"),
   zipcode: Yup.string()
     .max(10)
     .min(5)
+    .required("Zipcode is required"),
+  deadline: Yup.date()
 });
 
 // This component renders as a child of clientview when editing
@@ -55,27 +58,15 @@ class ClientForm extends Component {
     let chosen_mutation = CREATE_CLIENT;
     let title_text = "Add Client";
     let button_text = "Create";
-    let edit_client = {
-      firstName: "",
-      lastName: "",
-      businessName: "",
-      streetAddress: "",
-      city: "",
-      state: "",
-      zipcode: ""
-    };
+    let edit_client = {};
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_CLIENT;
-
+      button_text = "Update";
       for (let key in this.props.client) {
-        if (
-          this.props.client[key] === null ||
-          this.props.client[key] === undefined
-        )
-          edit_client[key] = "";
+        if (this.props.client[key] === null) edit_client[key] = "";
         else edit_client[key] = this.props.client[key];
       }
-      button_text = "Update";
+
       if (this.props.client.businessName)
         title_text = `Update ${this.props.client.businessName}`;
       else
@@ -101,23 +92,15 @@ class ClientForm extends Component {
           event.preventDefault();
         }}
       >
-        {({
-          errors,
-          touched,
-          values,
-          isValid,
-          handleChange,
-          handleBlur,
-          setFieldValue,
-          setFieldTouched
-        }) => {
+        {({ values, isValid, handleSubmit }) => {
+          console.log("This.props in Formik", this.props);
           return (
             // This will submit either a create client or update client mutation
             <Mutation
               mutation={chosen_mutation}
               onCompleted={() => this._confirm()}
             >
-              {(mutateClient, { loading, error, data }) => (
+              {mutateClient => (
                 <div>
                   {/* This Formik form replaced a base html form
            client_variables is the variables object given to the mutation
@@ -135,157 +118,162 @@ class ClientForm extends Component {
                         state: values.state,
                         zipcode: values.zipcode
                       };
-                      // Here we strip off any empty strings from the variables
-                      for (let key in client_variables) {
-                        if (client_variables[key] === "") {
-                          if (this.props.mode === "edit")
+                      if (this.props.mode === "edit") {
+                        client_variables.id = this.props.match.params.id;
+                        for (let key in client_variables) {
+                          if (client_variables[key] === "")
                             delete client_variables[key];
                         }
                       }
-                      // If we are in edit mode, we need to send up the client id
-                      if (this.props.mode === "edit")
-                        client_variables.id = this.props.match.params.id;
-                      // Send the mutation ...
-                      mutateClient({
+
+                      return mutateClient({
                         variables: client_variables
                       });
                     }}
                   >
                     {/* Now the form: Uses grids for positioning */}
-                    <div className={classes.root}>
-                      <Grid
-                        container
-                        spacing={24}
-                        className={classes.container}
-                      >
-                        <Grid item xs={12}>
-                          <Typography
-                            variant="title"
-                            className={classes.typography}
-                          >
-                            {title_text}
-                          </Typography>
-                        </Grid>
-                        <Grid item xs>
-                          <Field
-                            id="field-businessName"
-                            label="Business Name"
-                            name="businessName"
-                            className={classes.textField}
-                            value={values.businessName}
-                            component={TextField}
-                            helperText="Business Name"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Field
-                            id="field-firstName"
-                            label="First Name"
-                            name="firstName"
-                            className={classes.textField}
-                            value={values.firstName}
-                            component={TextField}
-                            helperText="First Name"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <Field
-                            id="field-lastName"
-                            label="Last Name"
-                            name="lastName"
-                            className={classes.textField}
-                            value={values.lastName}
-                            component={TextField}
-                            helperText="Last Name"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Field
-                            id="field-streetAddress"
-                            label="Street Address"
-                            name="streetAddress"
-                            className={classes.textField}
-                            value={values.streetAddress}
-                            component={TextField}
-                            helperText="Street Address"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Field
-                            id="field-email"
-                            label="Email"
-                            name="email"
-                            className={classes.textField}
-                            value={values.email}
-                            component={TextField}
-                            helperText="Email"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Field
-                            id="field-city"
-                            label="City"
-                            name="city"
-                            className={classes.textField}
-                            value={values.city}
-                            component={TextField}
-                            helperText="City"
-                            margin="normal"
-                          />
-                        </Grid>
-                        <Grid item xs>
-                          <Select
-                            id="field-state"
-                            select
-                            label="State"
-                            name="state"
-                            placeholder="State"
-                            className={classes.textField}
-                            value={values.state}
-                            onChange={setFieldValue}
-                            onBlur={setFieldTouched}
-                            component={TextField}
-                            error={errors.state}
-                            touched={touched.state}
-                            type="text"
-                            SelectProps={{
-                              MenuProps: {
-                                className: classes.menu
-                              }
-                            }}
-                            helperText="State"
-                            margin="normal"
-                          >
-                            {STATE_LIST.map(state => (
-                              <option key={state.label} value={state.label}>
-                                {state.label}
-                              </option>
-                            ))}
-                          </Select>
-                        </Grid>
-                        <Grid item xs>
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="title"
+                          className={classes.typography}
+                        >
+                          {title_text}
+                        </Typography>
+                      </Grid>
+                      <Paper margin="normal" className={classes.paper}>
+                        <Field
+                          id="field-businessName"
+                          label="Business Name"
+                          name="businessName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.businessName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-firstName"
+                          label="First Name"
+                          name="firstName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.firstName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-lastName"
+                          label="Last Name"
+                          name="lastName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.lastName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-email"
+                          label="Email"
+                          name="email"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.email}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-streetAddress"
+                          label="Street Address"
+                          name="streetAddress"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.streetAddress}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-city"
+                          label="City"
+                          name="city"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.city}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <div className={classNames(classes.margin)}>
+                          <FormControl>
+                            <Field
+                              id="field-state"
+                              select="true"
+                              label="State"
+                              name="state"
+                              placeholder="State"
+                              component="select"
+                              margin="normal"
+                              className={classNames(
+                                classes.margin,
+                                classes.textField,
+                                classes.state_field
+                              )}
+                              style={{ width: "194px", height: "55px" }}
+                            >
+                              {STATE_LIST.map(state => (
+                                <option key={state.label} value={state.label}>
+                                  {state.label}
+                                </option>
+                              ))}
+                            </Field>
+                            <ErrorMessage
+                              name="state"
+                              component="div"
+                              style={{
+                                color: "#f44336",
+                                fontWeight: "300"
+                              }}
+                            />
+                          </FormControl>
                           <Field
                             id="field-zipcode"
                             label="Zipcode"
                             name="zipcode"
-                            className={classes.textField}
+                            variant="outlined"
+                            className={classNames(
+                              classes.margin,
+                              classes.textField
+                            )}
                             value={values.zipcode}
                             component={TextField}
-                            helperText="Zipcode"
                             margin="normal"
                           />
-                        </Grid>
-                        <Grid item xs>
                           <Field
                             id="field-deadline"
                             label="Deadline"
                             name="deadline"
-                            className={classes.textField}
+                            variant="outlined"
+                            className={classNames(
+                              classes.margin,
+                              classes.textField
+                            )}
                             value={values.deadline}
                             component={TextField}
                             margin="normal"
@@ -294,21 +282,24 @@ class ClientForm extends Component {
                               shrink: true
                             }}
                           />
-                        </Grid>
-                      </Grid>
-                      <div className="form-bottom-button">
+                        </div>
+                      </Paper>
+                      <div
+                        className="form-bottom-button"
+                        style={{ margin: "auto" }}
+                      >
                         <Button
                           type="submit"
                           disabled={!isValid}
                           variant="contained"
                           color="primary"
                           className={classes.padded_button}
-                          type="submit"
+                          style={{ marginBottom: "50px" }}
                         >
                           {button_text}
                         </Button>
                       </div>
-                    </div>
+                    </Grid>
                   </Form>
                 </div>
               )}

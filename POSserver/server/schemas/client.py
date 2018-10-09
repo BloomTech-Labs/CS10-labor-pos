@@ -164,6 +164,7 @@ class UpdateClient(graphene.Mutation):
                 updated_client.deadline = deadline
             if business_name != "":
                 updated_client.business_name = business_name
+            updated_client.save()
             return UpdateClient(
                 client=updated_client,
                 ok=True,

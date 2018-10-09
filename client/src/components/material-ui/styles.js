@@ -1,4 +1,14 @@
 const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  margin: {
+    margin: theme.spacing.unit
+  },
+  textField: {
+    flexBasis: "auto"
+  },
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
@@ -28,7 +38,8 @@ const styles = theme => ({
   },
   field: {
     backgroundColor: theme.palette.background.paper,
-    margin: "10px"
+    margin: "10px",
+    width: "50%"
   },
   padded_button: {
     margin: "16px"
@@ -54,7 +65,10 @@ const styles = theme => ({
     justifyContent: "flex-start"
   },
   typography: {
-    padding: "10px"
+    paddingTop: "60px",
+    fontSize: "24px",
+    fontWeight: "900",
+    fontFamily: "Roboto, sans-serif"
   },
   main_content: {
     textAlign: "center",
@@ -96,11 +110,8 @@ const styles = theme => ({
   state_field: {
     fontFamily: "Roboto, Helvetica, Arial, sans-serif",
     fontSize: "16px",
-    fontStretch: "100%",
     fontWeight: "400",
     lineHeight: "19px",
-    width: "100%",
-    marginTop: "24px",
     height: "24px",
     border: "0",
     backgroundColor: "initial",
