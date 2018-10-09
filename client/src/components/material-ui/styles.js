@@ -1,4 +1,14 @@
 const styles = theme => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  margin: {
+    margin: theme.spacing.unit
+  },
+  textField: {
+    flexBasis: "auto"
+  },
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
@@ -28,7 +38,8 @@ const styles = theme => ({
   },
   field: {
     backgroundColor: theme.palette.background.paper,
-    margin: "10px"
+    margin: "10px",
+    width: "50%"
   },
   padded_button: {
     margin: "16px"
@@ -54,7 +65,16 @@ const styles = theme => ({
     justifyContent: "flex-start"
   },
   typography: {
-    padding: "10px"
+    paddingTop: "60px",
+    fontSize: "24px",
+    fontWeight: "900",
+    fontFamily: "Roboto, sans-serif"
+  },
+  typography_paragraph: {
+    paddingTop: "20px",
+    fontSize: "18px",
+    fontWeight: "600",
+    fontFamily: "Roboto"
   },
   main_content: {
     textAlign: "center",
@@ -66,11 +86,11 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default
   },
   pad_me: {
-    padding: "6px 20px"
+    padding: "20px 30px"
   },
   paper: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
@@ -92,6 +112,17 @@ const styles = theme => ({
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
+  },
+  state_field: {
+    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    fontSize: "16px",
+    fontWeight: "400",
+    lineHeight: "19px",
+    height: "24px",
+    border: "0",
+    backgroundColor: "initial",
+    color: "rgba(255, 255, 255, 0.7)",
+    borderBottom: "1px solid"
   }
 });
 export { styles };
