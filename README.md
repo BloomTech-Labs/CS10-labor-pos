@@ -24,11 +24,9 @@
 - [Rough Page Layout](#rough-page-layout)
   - [Home Page](#home-page)
   - [Client Views](#client-views)
-  - [Invoice Pages](#invoice-pages)
   - [Job Views](#job-views)
   - [Note Views](#note-views)
   - [Part Views](#part-views)
-  - [Tag Views](#tag-views)
   - [Settings](#settings)
   - [Billing](#billing)
 - [Models](#models)
@@ -37,14 +35,12 @@
   - [Job Model](#job-model)
   - [Part Model](#part-model)
   - [Note Model](#note-model)
-  - [Tag Model](#tag-model)
 - [Queries](#queries)
   - [On User Model](#on-user-model)
   - [On Client Model](#on-client-model)
   - [On Job Model](#on-job-model)
   - [On Note Model](#on-note-model)
   - [On Part Model](#on-part-model)
-  - [On Tag Model](#on-tag-model)
 - [Mutations](#mutations)
   - [User Mutations](#user-mutations)
     - [Create User](#create-user)
@@ -66,10 +62,6 @@
     - [Create Part](#create-part)
     - [Edit Part](#edit-part)
     - [Delete Part](#delete-part)
-  - [Tag Mutations](#tag-mutations)
-    - [Create Tag](#create-tag)
-    - [Edit Tag](#edit-tag)
-    - [Delete Tag](#delete-tag)
   - [Auth Mutations](#auth-mutations)
     - [Token Auth](#token-auth)
     - [Verify Token](#verify-token)
@@ -101,7 +93,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - React.js
 
-  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other. We also knew that Redux has the tendency to overcomplicate an otherwise uncomplicated application created at a small scale and so didn't feel like this application would be a good candidate for Redux. If we needed to make use of a more globally available state, we reasoned, we could just pull in from the new context API.
+  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other.
 
 - Material Design
 
@@ -198,23 +190,6 @@ Authorization is handled on the model level, with each model query checking to s
 <details>
 <summary>
 
-## Invoice Pages:
-
-</h2></summary>
-
-![Invoices](/client/page_layout/InvoicesPage.png)
-
-<h2 align="center">
-  Invoice View:
-</h2>
-
-![InvoiceView](/client/page_layout/InvoiceView.png)
-
-</details>
-
-<details>
-<summary>
-
 ## Job Views:
 
 </summary>
@@ -296,35 +271,6 @@ Authorization is handled on the model level, with each model query checking to s
 ![PartViewAndEdit](/client/page_layout/PartViewAndEdit.png)
 
 </details>
-
-<details>
-<summary>
-
-## Tag Views:
-
-</summary>
-
-<h2 align="center">
-  Tag Creation (click to view):
-</h2>
-
-![TagCreation](/client/page_layout/TagCreation.png)
-
-<h2 align="center">
-  Tags Page (click to view):
-</h2>
-
-![TagsPage](/client/page_layout/TagsPage.png)
-
-<h2 align="center">
-  Tag View and Edit (click to view):
-</h2>
-
-![TagViewAndEdit](/client/page_layout/TagViewAndEdit.png)
-
-</details>
-
-<details><summary>
 
 ## Settings:
 
@@ -559,28 +505,11 @@ Fields on the Note Model:
 - modified_at = DateTimeField(auto_now=True)
 ```
 
-### Tag Model
-
-The ability to add a tag to a note, client, part, or job - our plans are to enable searching by tag if time allows.
-
-Fields on the Tag Model:
-
-```
-- user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-- job = ForeignKey(Job, on_delete=models.CASCADE, blank=True, null=True)
-- note = ForeignKey(Note, on_delete=models.CASCADE, blank=True, null=True)
-- part = ForeignKey(Part, on_delete=models.CASCADE, blank=True, null=True)
-- name = CharField(max_length=128)
-- description = TextField(blank=True)
-- created_at = DateTimeField(auto_now_add=True)
-- modified_at = DateTimeField(auto_now=True)
-```
-
 ## Queries
 
 ### On User Model:
 
-- user(id: ID!) query will search for a single id and return the client with that id (can also return clientSet, jobSet, noteSet, tagSet, and partSet - so edge/node returns of associated items(which can be filtered))
+- user(id: ID!) query will search for a single id and return the client with that id (can also return clientSet, jobSet, noteSet, and partSet - so edge/node returns of associated items(which can be filtered))
 - allUsers query will return all users (this is for our testing, not for the frontend - filtering by logged in user will be in place after testing)
 
 ### On Client Model:
@@ -590,23 +519,18 @@ Fields on the Tag Model:
 
 ### On Job Model:
 
-- job(id: ID!) query will search for a single id and return the job with that id(can also return tagSet, noteSet, and partSet - so edge/node returns of associated items (which can be filtered))
+- job(id: ID!) query will search for a single id and return the job with that id(can also return noteSet, and partSet - so edge/node returns of associated items (which can be filtered))
 - allJobs query will return all jobs for the logged in User
 
 ### On Note Model:
 
-- note(id: ID!) query will search for a single id and return the note with that id (can also return tagSet)
+- note(id: ID!) query will search for a single id and return the note with that id
 - allNotes query will return all notes for the logged in User
 
 ### On Part Model:
 
-- part(id: ID!) query will search for a single id and return the part with that id (can also return associated jobs and associated tags
+- part(id: ID!) query will search for a single id and return the part with that id (can also return associated jobs
 - allParts query will return all parts for the logged in User
-
-### On Tag Model:
-
-- tag(id: ID!) query will search for a single id and return the tag with that id (can also return associated jobs, notes, and parts)
-- allTags query will return all tags for the logged in User
 
 ## Mutations:
 
@@ -737,31 +661,37 @@ createPart(job: ID!, name: String!, description, cost: Float) {
 
 #### Edit Part:
 
-WIP
+```
+  updatePart(
+    $cost: Float
+    $description: String
+    $id: ID!
+    $job: ID
+    $name: String
+  ) {
+    updatePart(
+      cost: $cost
+      description: $description
+      id: $id
+      job: $job
+      name: $name
+    ) {
+      part {
+        id
+      }
+    }
+  }
+```
 
 #### Delete Part:
 
-WIP
-
-### Tag Mutations
-
-#### Create Tag:
-
 ```
-createTag(job: ID, note: ID, part: ID, name: String!, description: String) {
-  tag {
-    // whatever arguments client wants from mutation
+  mutation deletePart($id: ID!) {
+    deletePart(id: $id) {
+      ok
+    }
   }
-}
 ```
-
-#### Edit Tag:
-
-WIP
-
-#### Delete Tag:
-
-WIP
 
 ### Auth Mutations
 
