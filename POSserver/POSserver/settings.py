@@ -60,9 +60,8 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "stripe",
     "sendgrid",
-    "twilio",
-    "post_office",
     "send",
+    "payment",
 ]
 
 
