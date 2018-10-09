@@ -17,19 +17,17 @@ def checkout(request):
         charge = stripe.Charge.create(
           amount=request.POST.get('amount', ''),
           currency=request.POST.get('currency', ''),
-          source=request.POST.get('source', ''),
+          source=request.POST.get('stripeToken', ''),
           description=request.POST.get('description', ''),
           statement_descriptor="contractAlchemy premium",
-          metatdata=('order_id': ???)
         )
 
-    print("___STATUS___", charge['status'])
-    if charge['status'] == 'succeeded':
-        return HttpResponse(json.dumps(
-            {'message': "Your transaction was successful."})
-        )
-    else:
-        raise stripe.error.CardError
+        if charge['status'] == 'succeeded':
+                return HttpResponse(json.dumps(
+                    {'message': "Your transaction was successful."})
+                    )
+        else:
+            raise stripe.error.CardError
     except stripe.error.CardError as e:
         body = e.json_body
         err = body.get('error', {})
@@ -84,10 +82,10 @@ def my_webhook_view(request):
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
 
-  try:
-    event = stripe.Webhook.construct_event(
-      payload, sig_header, endpoint_secret
-    )
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
   except ValueError as e:
     # Invalid payload
     return HttpResponse(status=400)

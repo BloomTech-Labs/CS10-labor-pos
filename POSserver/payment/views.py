@@ -3,6 +3,8 @@ import stripe
 import json
 from decouple import config
 from django.http import HttpResponse, JsonResponse
+from stripesubscriptions import CreateSubscription
+
 
 def monthly_subscription(req):
     if req.method == 'POST':

@@ -19,7 +19,7 @@ class CreateSubscription:
 
     def get_user(self):
         self.set_api_key()
-        self.User = User.objects.get(UserId=userId)
+        self.User = User.objects.get(UserId=id)
 
         return self.User
 
@@ -45,7 +45,7 @@ class CreateSubscription:
           source=self.id
         )
 
-    def update_user(self):
+    def update_User(self):
         self.create_customer()
         self.User.CustomerId = self.customer.id
         self.User.Subscription = self.sub

@@ -189,3 +189,7 @@ SERVER_EMAIL = "nphillips78@gmail.com"
 
 
 LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
+STRIPE_WEBHOOK_SECRET = "whsec_8KHXs8U07a2iRz4fequVxXo1tjN3PLRM"
+
+CORS_ORIGIN_WHITELIST = config('CORS_ORIGIN_WHITELIST', cast=lambda v: [s.strip() for s in v.split(',')])
+

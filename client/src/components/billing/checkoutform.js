@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 import "./billing.css";
-
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -35,59 +34,72 @@ class CheckoutForm extends Component {
       this.stripeHandler = window.StripeCheckout.configure({
         key: process.env.REACT_APP_publishable,
         image: "goldraccoon.png",
-        amount: 99,
+        amount: ".99",
         name: "contractAlchemy",
-        zipCode: "true",
-        billingAddress: "true",
+        zip_code: "true",
+        billing_address: "true",
         locale: "auto",
         token: token => {
-          this.setState({
-            loading: true,
-            token
-          });
-
+          this.setState({ loading: true });
           // use fetch or some other AJAX library here if you dont want to use axios
           fetch("http://localhost:8000/graphql/", {
+            data: {
+              query: `
+              mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
+              createStripeCardToken(input: $input) {
+                  token {
+                      id
+                      created
+                      livemode
+                      type
+                      used
+                      card {
+                          id
+                          brand
+                          exp_year
+                        } 
+                      }
+                  }
+              }
+              `
+            },
             method: "post",
             mode: "no-cors",
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json; charset=utf-8",
               Accept: "application/json"
-            },
-            body: JSON.stringify({
-              stripeToken: token.id
+            }
             })
-          });
+          }
         }
-      });
+       )});
 
       this.setState({
         stripeLoading: false,
         // loading needs to be explicitly set false so component will render in 'loaded' state.
         loading: false
       });
-    });
-  }
-
+    };
+  
   componentWillUnmount() {
     if (this.stripeHandler) {
       this.stripeHandler.close();
     }
   }
 
+
   yearlyMembership(e) {
     this.stripeHandler.open({
       image: "goldraccoon.png",
-      amount: 999,
+      amount: "999",
       name: "contractAlchemy",
       description: "Yearly Premium Subscription",
-      zipCode: "true",
-      billingAddress: "true",
+      zip_code: "true",
+      billing_address: "true",
       locale: "auto",
       panelLabel: "Buy Yearly Subscription",
-      allowRememberMe: false,
-      testOnlyUseMobileAlerts: false
+      allowRememberMe: false
     });
     e.preventDefault();
   }
@@ -95,7 +107,7 @@ class CheckoutForm extends Component {
   monthlyMembership(e) {
     this.stripeHandler.open({
       image: "goldraccoon.png",
-      amount: "999",
+      amount: "99",
       name: "contractAlchemy",
       description: "One Month Membership",
       zip_code: "true",
@@ -115,16 +127,10 @@ class CheckoutForm extends Component {
           <p>loading..</p>
         ) : (
           <div>
-            <button
-              onClick={this.setSubscriptionType}
-              value="yearly_subscription"
-            >
+            <button onClick={this.yearlyMembership}>
               Purchase Yearly Subscription
             </button>
-            <button
-              onClick={this.setSubscriptionType}
-              value="monthly_subscription"
-            >
+            <button onClick={this.monthlyMembership}>
               Purchase One Month Membership
             </button>
           </div>
@@ -134,4 +140,6 @@ class CheckoutForm extends Component {
   }
 }
 
+
+// injectStripe wraps the component, creating new component with a stripe prop that contains stripe object
 export default CheckoutForm;
