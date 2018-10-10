@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  TextField,
   Button,
   MenuItem,
   Grid,
@@ -33,7 +32,7 @@ const JobSchema = Yup.object().shape({
   client: Yup.string().required(),
   description: Yup.string().required(),
   labor: Yup.string(),
-  deadline: Yup().date(),
+  deadline: Yup.date(),
 })
 
 class JobForm extends Component {
@@ -93,7 +92,7 @@ class JobForm extends Component {
                   event.preventDefault();
                  }}
                >
-       {({ errors, touched, values, isValid, handlechange, handleBlur }) => {
+       {({ errors, touched, values, isValid, handleChange, handleBlur }) => {
             return (
               <Mutation
                 mutation={chosen_mutation}
@@ -137,7 +136,7 @@ class JobForm extends Component {
                       </Typography>
                       </Grid>
                         <Grid item xs={12}>
-                          <TextField
+                          <Field
                             id="field-name"
                             label="Name"
                             name="name"
@@ -149,7 +148,7 @@ class JobForm extends Component {
                         </Grid>
                         <Grid item xs={1} />
                         <Grid item xs={10}>
-                          <TextField
+                          <Field
                             id="field-description"
                             label="Description"
                             multiline
@@ -190,7 +189,7 @@ class JobForm extends Component {
                         </Grid>
                         <Grid item xs={1} />
                         <Grid item xs={6}>
-                          <TextField
+                          <Field
                             id="field-labor"
                             label="Labor"
                             name="labor"
