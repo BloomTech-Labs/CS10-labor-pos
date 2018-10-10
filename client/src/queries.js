@@ -278,6 +278,22 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
+const QUERY_ALL_CHARGES = gql`
+  query {
+    allCharges {
+      edges {
+        node {
+          amount
+          status
+          token
+          id
+        }
+      }
+    }
+  }
+`;
+
+
 const SETTINGS_QUERY = gql`
   query {
     allUsers {

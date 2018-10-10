@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
 import "./billing.css";
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,7 @@ class CheckoutForm extends Component {
         token: token => {
           this.setState({ loading: true });
           // use fetch or some other AJAX library here if you dont want to use axios
-          fetch("http://localhost:8000/graphql/", {
+          fetch("http://127:0.0.0.1:8000/graphql/", {
             body: {
               query: `
               mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
