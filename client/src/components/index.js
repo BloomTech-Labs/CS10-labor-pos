@@ -33,6 +33,7 @@ import EditPart from "./parts/editpart.js";
 import EditTag from "./tags/edittag.js";
 import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
+import JobForm from "./jobs/jobform.js";
 
 export {
   Tags,
@@ -69,5 +70,6 @@ export {
   EditPart,
   EditTag,
   EditNote,
-  TextField
+  TextField,
+  JobForm
 };

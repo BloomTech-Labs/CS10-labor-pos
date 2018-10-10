@@ -10,9 +10,10 @@ import {
   IconButton,
   Divider,
   withStyles,
-  Card
+  withMobileDialog,
+  Paper
 } from "@material-ui/core";
-import { CardList, DeleteItem } from "../../components";
+import { CardList, DeleteItem, JobForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -27,20 +28,22 @@ class ClientView extends Component {
   constructor() {
     super();
     this.state = {
-      deleting: false
+      deleting: false,
+      add_job: false,
+      add_note: false
     };
   }
 
-  handleDeleteButton = () => {
-    this.setState({ deleting: true });
+  openModal = name => () => {
+    this.setState({ [name]: true });
   };
 
-  cancelDelete = () => {
-    this.setState({ deleting: false });
+  cancelModal = name => () => {
+    this.setState({ [name]: false });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, fullScreen } = this.props;
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -53,23 +56,32 @@ class ClientView extends Component {
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
           return (
-            <div>
+            <div className={classes.pad_me}>
               <div>
                 <Grid container>
-                  <Grid item xs={1}>
+                  <Grid item xs={2} />
+                  <Grid item xs={8}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <Typography
+                        className={classes.typography}
+                        variant="title"
+                      >
+                        {name}
+                      </Typography>
+                    </div>
+                  </Grid>
+                  <Grid item xs={2}>
                     <Link to={`/clients/${data.client.id}/edit`}>
                       <IconButton>
                         <Create />
                       </IconButton>
                     </Link>
-                  </Grid>
-                  <Grid item xs={10}>
-                    <Typography className={classes.typography} variant="title">
-                      {name}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={1}>
-                    <IconButton onClick={this.handleDeleteButton}>
+                    <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -107,40 +119,72 @@ class ClientView extends Component {
                 </Grid>
               </Grid>
               <Divider />
-              <Typography
-                className={classes.typography}
-                align="left"
-                variant="subheading"
-              >{`Jobs for ${name}:`}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <Typography
+                  className={classes.typography}
+                  align="left"
+                  variant="subheading"
+                >{`Jobs for ${name}:`}</Typography>
+              </div>
               <CardList
                 rows={1}
                 columns={4}
                 type="job"
                 items={data.client.jobSet.edges}
+                createMethod={this.openModal("add_job")}
+                cancelCreateMethod={this.cancelModal("add_job")}
               />
               <Divider />
-              <Typography
-                className={classes.typography}
-                align="left"
-                variant="subheading"
-              >{`Notes for ${name}:`}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <Typography
+                  className={classes.typography}
+                  align="left"
+                  variant="subheading"
+                >{`Notes for ${name}:`}</Typography>
+              </div>
               <CardList
                 rows={1}
                 columns={4}
                 type="note"
                 items={data.client.noteSet.edges}
+                createMethod={this.openModal("add_note")}
+                cancelCreateMethod={this.cancelModal("add_note")}
               />
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelDelete}
-                className="delete-modal"
+                onClose={this.cancelModal("deleting")}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelDelete}
+                  cancelDelete={this.cancelModal("deleting")}
                   type="client"
                   item={data.client}
                   after_path="/clients"
                 />
+              </Dialog>
+              <Dialog
+                open={this.state.add_job}
+                onClose={this.cancelModal("add_job")}
+                fullScreen={fullScreen}
+              >
+                <Paper className={classes.paper}>
+                  <JobForm
+                    mode="create"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_url={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_job")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );
@@ -150,4 +194,4 @@ class ClientView extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(ClientView));
+export default withRouter(withMobileDialog()(withStyles(styles)(ClientView)));

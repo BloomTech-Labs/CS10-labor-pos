@@ -97,7 +97,7 @@ class LandingPage extends Component {
             <Grid item xs={1}>
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={this.handleLogin}
                 className={classes.padded_button}
               >
@@ -115,10 +115,7 @@ class LandingPage extends Component {
               <Typography className={classes.typography} variant="title">
                 Contract Alchemy: Turning POS Into Gold
               </Typography>
-              <Typography
-                className={classes.typography_paragraph}
-                paragraph
-              >
+              <Typography className={classes.typography_paragraph} paragraph>
                 {"Are you tired of balancing multiple projects?"} <br />
                 {
                   "Do you find yourself struggling with spreadsheet after spreadsheet trying to keep track of how much you’re owed from whom?"
