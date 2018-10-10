@@ -10,7 +10,8 @@ import {
   IconButton,
   Divider,
   withStyles,
-  withMobileDialog
+  withMobileDialog,
+  Paper
 } from "@material-ui/core";
 import { CardList, DeleteItem, JobForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
@@ -60,9 +61,19 @@ class ClientView extends Component {
                 <Grid container>
                   <Grid item xs={2} />
                   <Grid item xs={8}>
-                    <Typography className={classes.typography} variant="title">
-                      {name}
-                    </Typography>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <Typography
+                        className={classes.typography}
+                        variant="title"
+                      >
+                        {name}
+                      </Typography>
+                    </div>
                   </Grid>
                   <Grid item xs={2}>
                     <Link to={`/clients/${data.client.id}/edit`}>
@@ -108,11 +119,18 @@ class ClientView extends Component {
                 </Grid>
               </Grid>
               <Divider />
-              <Typography
-                className={classes.typography}
-                align="left"
-                variant="subheading"
-              >{`Jobs for ${name}:`}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <Typography
+                  className={classes.typography}
+                  align="left"
+                  variant="subheading"
+                >{`Jobs for ${name}:`}</Typography>
+              </div>
               <CardList
                 rows={1}
                 columns={4}
@@ -122,11 +140,18 @@ class ClientView extends Component {
                 cancelCreateMethod={this.cancelModal("add_job")}
               />
               <Divider />
-              <Typography
-                className={classes.typography}
-                align="left"
-                variant="subheading"
-              >{`Notes for ${name}:`}</Typography>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center"
+                }}
+              >
+                <Typography
+                  className={classes.typography}
+                  align="left"
+                  variant="subheading"
+                >{`Notes for ${name}:`}</Typography>
+              </div>
               <CardList
                 rows={1}
                 columns={4}
@@ -152,12 +177,14 @@ class ClientView extends Component {
                 onClose={this.cancelModal("add_job")}
                 fullScreen={fullScreen}
               >
-                <JobForm
-                  mode="create"
-                  parent={{ type: "client", id: data.client.id }}
-                  after_url={this.props.location.pathname}
-                  cancelAdd={this.cancelModal("add_job")}
-                />
+                <Paper className={classes.paper}>
+                  <JobForm
+                    mode="create"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_url={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_job")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );

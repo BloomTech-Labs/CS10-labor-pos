@@ -39,7 +39,10 @@ const styles = theme => ({
   field: {
     backgroundColor: theme.palette.background.paper,
     margin: "10px",
-    width: "50%"
+    width: "90%"
+  },
+  field_small: {
+    width: "90%"
   },
   padded_button: {
     margin: "16px"
@@ -63,6 +66,9 @@ const styles = theme => ({
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "flex-start"
+  },
+  sidenav: {
+    backgroundColor: theme.palette.background.default
   },
 
   typography: {

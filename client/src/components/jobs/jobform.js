@@ -142,13 +142,23 @@ class JobForm extends Component {
                         });
                       }}
                     >
-                      <Typography
-                        className={classes.typography}
-                        variant="title"
-                      >
-                        {title_text}
-                      </Typography>
                       <Grid container>
+                        <Grid item xs={12}>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "center"
+                            }}
+                          >
+                            <Typography
+                              className={classes.typography}
+                              variant="title"
+                            >
+                              {title_text}
+                            </Typography>
+                          </div>
+                        </Grid>
+
                         <Grid item xs={6}>
                           <TextField
                             id="field-client"
@@ -192,7 +202,6 @@ class JobForm extends Component {
                             id="field-description"
                             label="Description"
                             multiline
-                            fullWidth
                             rows="8"
                             rowsMax="8"
                             name="description"
@@ -209,12 +218,13 @@ class JobForm extends Component {
                             id="field-labor"
                             label="Labor"
                             name="labor"
-                            className={"modal_field"}
+                            className={classes.field_small}
                             value={labor}
                             onChange={this.handleChange("labor")}
                             margin="normal"
                           />
                         </Grid>
+
                         <Grid item xs={4}>
                           <FormControlLabel
                             control={
@@ -232,7 +242,7 @@ class JobForm extends Component {
                             id="field-deadline"
                             label="Deadline"
                             name="deadline"
-                            className={"modal_field"}
+                            className={classes.field_small}
                             value={deadline}
                             onChange={this.handleChange("deadline")}
                             margin="normal"
@@ -243,25 +253,32 @@ class JobForm extends Component {
                           />
                         </Grid>
                         <Grid item xs={12}>
-                          <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.padded_button}
-                            type="submit"
-                          >
-                            {button_text}
-                          </Button>
-                          <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.padded_button}
-                            onClick={e => {
-                              e.preventDefault();
-                              this.props.cancelAdd();
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between"
                             }}
                           >
-                            Cancel
-                          </Button>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              className={classes.padded_button}
+                              onClick={e => {
+                                e.preventDefault();
+                                this.props.cancelAdd();
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              className={classes.padded_button}
+                              type="submit"
+                            >
+                              {button_text}
+                            </Button>
+                          </div>
                         </Grid>
                       </Grid>
                     </form>
