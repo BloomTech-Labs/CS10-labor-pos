@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import {
   Button,
-  MenuItem,
   Grid,
   FormControlLabel,
   Checkbox,
   Typography,
   withStyles,
-  Select
 } from "@material-ui/core";
+import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
 import { Formik, Form, Field } from "formik";
 import { withRouter } from "react-router";
@@ -137,6 +136,7 @@ class JobForm extends Component {
                       </Grid>
                         <Grid item xs={12}>
                           <Field
+                            component={TextField}
                             id="field-name"
                             label="Name"
                             name="name"
@@ -149,6 +149,7 @@ class JobForm extends Component {
                         <Grid item xs={1} />
                         <Grid item xs={10}>
                           <Field
+                            component={TextField}
                             id="field-description"
                             label="Description"
                             multiline
@@ -162,34 +163,37 @@ class JobForm extends Component {
                             variant="outlined"
                           />
                            <Grid item xs={6}>
-                              <Select
+                              <Field
                                 id="field-client"
+                                select="true"
                                 label="Client"
                                 name="client"
-                                className={"modal_field"}
-                                value={values.client}
-                                error={
-                                  errors.client &&
-                                  touched.client &&
-                                  errors.client
-                                }
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                placeholder="Client"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.client_field
+                                )}
+                                style={{width:"194px",
+                                height: "55px" }}
                               >
+                              
+                                
                                 {client_list.map(client => (
-                                  <MenuItem
+                                  <option
                                     key={client.value}
                                     value={client.value}
                                   >
                                     {client.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
-                              </Select>
+                             </Field>
                             </Grid>
                         </Grid>
                         <Grid item xs={1} />
                         <Grid item xs={6}>
                           <Field
+                            component={TextField}
                             id="field-labor"
                             label="Labor"
                             name="labor"
@@ -210,23 +214,21 @@ class JobForm extends Component {
                             label="Job Complete"
                           />
                         </Grid>
-                        <Grid item xs={6}>
+                        {/*<Grid item xs={6}>
                           <TextField
+                            component={TextField}
                             id="field-deadline"
                             label="Deadline"
                             name="deadline"
                             className={"modal_field"}
                             value={values.deadline}
-                            onChange={e =>{
-                              handleChange(e);
-                            }}
                             margin="normal"
                             type="date"
                             InputLabelProps={{
                               shrink: true
                             }}
                           />
-                        </Grid>
+                        </Grid>*/}
                           <Button
                             disabled={!isValid}
                             variant="contained"

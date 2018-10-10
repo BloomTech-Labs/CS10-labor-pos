@@ -3,11 +3,10 @@ import { withRouter } from "react-router";
 import {
   Typography,
   Grid,
-  MenuItem,
   Button,
   withStyles,
-  Select
 } from "@material-ui/core";
+import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_PART, UPDATE_PART } from "../../mutations.js";
 import { QUERY_ALL_JOBS } from "../../queries.js";
@@ -180,38 +179,32 @@ class PartForm extends Component {
                                label="Cost"
                                name="cost"
                                className={"modal_field"}
-                               value={values.cost}
-                               onChange={this.handleChange("cost")}
+                               value={values.cost}                            
                                margin="normal"
                             />
                       </Grid>
                             <Grid item xs={1} />
                             {/*The pulldown form items using the arrays we built above*/}
                             <Grid item xs={6}>
-                              <Select
+                              <Field
                                 id="field-job"
+                                select="true"
                                 label="Job"
                                 name="job"
-                                className={"modal_field"}
-                                value={values.job}
-                                error={
-                                  errors.job &&
-                                  touched.job &&
-                                  errors.job
-                                }
-                                onChange={e => {
-                                  console.log(values.job.id);
-                                  console.log(e);
-                                  handleChange(e);
-                                }}
-                                onBlur={handleBlur}
+                                placeholder="Job"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.job_field
+                                )}
+                                 style={{ width: "194px", height: "55px" }}
                               >
                                 {job_list.map(job => (
-                                  <MenuItem key={job.value} value={job.value}>
+                                  <option key={job.value} value={job.value}>
                                     {job.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
-                              </Select>
+                              </Field>
                             </Grid>
                           </Grid>
                           <Button
