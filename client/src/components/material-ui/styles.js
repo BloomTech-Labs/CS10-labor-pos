@@ -65,7 +65,7 @@ const styles = theme => ({
     justifyContent: "flex-start"
   },
   typography: {
-    paddingTop: "60px",
+    paddingTop: "20px",
     fontSize: "24px",
     fontWeight: "900",
     fontFamily: "Roboto, sans-serif"
@@ -75,6 +75,9 @@ const styles = theme => ({
     fontSize: "18px",
     fontWeight: "600",
     fontFamily: "Roboto"
+  },
+  typography_title: {
+    fontSize: "50px"
   },
   main_content: {
     textAlign: "center",

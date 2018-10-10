@@ -6,10 +6,10 @@ import {
   Card,
   IconButton,
   Typography,
-  withStyles
+  withStyles,
+  Hidden
 } from "@material-ui/core";
 import { ItemCard } from "../../components";
-import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
 
 //  This component shows a list of cards representing one of our item types.
@@ -63,15 +63,13 @@ class CardList extends Component {
     card_array.push(
       <Grid item xs={12 / this.props.columns} key={-1}>
         <Card raised className={classes.card}>
-          <Link to={`/create${this.props.type}`}>
-            <IconButton>
-              <AddCircle />
-            </IconButton>
-            <Typography
-              className={classes.typography}
-              variant="subheading"
-            >{`New ${this.props.type}`}</Typography>
-          </Link>
+          <IconButton onClick={this.props.createMethod}>
+            <AddCircle />
+          </IconButton>
+          <Typography
+            className={classes.typography}
+            variant="subheading"
+          >{`New ${this.props.type}`}</Typography>
         </Card>
       </Grid>
     );
