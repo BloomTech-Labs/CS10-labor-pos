@@ -6,7 +6,7 @@ import stripe
 # Create your models here.
 
 
-class Token(models.model):
+class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.CharField(default="")
     livemode = models.BooleanField(default=False)

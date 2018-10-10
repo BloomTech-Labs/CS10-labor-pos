@@ -7,13 +7,17 @@ import {
   FormControlLabel,
   Checkbox,
   Typography,
-  withStyles
+  withStyles,
+  Select
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
+import { Formik, Form, Field } from "formik";
 import { withRouter } from "react-router";
 import { CREATE_JOB, UPDATE_JOB } from "../../mutations";
 import { QUERY_ALL_CLIENTS } from "../../queries";
 import { styles } from "../material-ui/styles.js";
+import { TextField } from "../../components";
+const Yup = require("yup");
 
 //  This component will render the forms to create and edit jobs.
 //
@@ -22,58 +26,39 @@ import { styles } from "../material-ui/styles.js";
 //    job: In edit mode, a job will be passed down from the parent component.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
+const JobSchema = Yup.object().shape({
+  title: Yup.string()
+    .max(100, "Title must be under 100 characters")
+    .required(),
+  client: Yup.string().required(),
+  description: Yup.string().required(),
+  labor: Yup.string(),
+  deadline: Yup().date(),
+})
+
 class JobForm extends Component {
-  state = {
-    client: "",
-    name: "",
-    labor: "",
-    description: "",
-    deadline: "",
-    complete: false
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
-  toggleComplete = event => {
-    this.setState({ complete: event.target.checked });
-  };
-
-  componentDidMount = () => {
-    if (this.props.mode === "edit") {
-      let edit_job = {};
-      for (let key in this.props.job) {
-        if (this.props.job[key] === null || this.props.job[key] === undefined)
-          edit_job[key] = "";
-        else edit_job[key] = this.props.job[key];
-      }
-      this.setState({
-        client: edit_job.client.id,
-        name: edit_job.name,
-        labor: edit_job.labor,
-        description: edit_job.description,
-        deadline: edit_job.deadline,
-        complete: edit_job.complete
-      });
-    }
-  };
-
-  render() {
+    render() {
     const { classes } = this.props;
-    const { client, name, labor, description, deadline, complete } = this.state;
     let chosen_mutation = CREATE_JOB;
     let title_text = "Add Job";
     let button_text = "Create";
+    let edit_job = {
+      title: "",
+      client: "",
+      description: "",
+      labor: "",
+      deadline: ""
+    };
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_JOB;
       title_text = `Update ${this.props.job.name}`;
       button_text = "Update";
+      for (let key in this.props.job) {
+        if (this.props.job[key] === null) edit_job[key] = "";
+        else edit_job[key] = this.props.job[key];
+      }
     }
-    return (
-      <div>
+    return(
         <Query query={QUERY_ALL_CLIENTS}>
           {({ loading, error, data }) => {
             if (loading) return "Loading...";
@@ -95,22 +80,37 @@ class JobForm extends Component {
                 });
             }
             return (
+              <Formik 
+                initialValues={{
+                  client: edit_job.client,
+                  title: edit_job.title,
+                  description: edit_job.description,
+                  labor: edit_job.labor,
+                  deadline: edit_job.deadline
+                  }}
+                  validationSchema={JobSchema}
+                  onSubmit={event => {
+                  event.preventDefault();
+                 }}
+               >
+       {({ errors, touched, values, isValid, handlechange, handleBlur }) => {
+            return (
               <Mutation
                 mutation={chosen_mutation}
                 onCompleted={() => this._confirm()}
               >
                 {(mutateJob, { loading, error, data }) => (
                   <div>
-                    <form
+                    <Form
                       onSubmit={event => {
                         event.preventDefault();
                         let job_variables = {
-                          client: client,
-                          name: name,
-                          labor: labor,
-                          description: description,
-                          deadline: deadline,
-                          complete: complete
+                          client: values.client,
+                          name: values.name,
+                          labor: values.labor,
+                          description: values.description,
+                          deadline: values.deadline,
+                          complete: values.complete
                         };
                         if (job_variables.deadline === "")
                           job_variables.deadline = null;
@@ -125,55 +125,24 @@ class JobForm extends Component {
                         mutateJob({
                           variables: job_variables
                         });
-                        this.setState({
-                          client: "",
-                          name: "",
-                          labor: "",
-                          description: "",
-                          deadline: "",
-                          complete: false
-                        });
                       }}
                     >
-                      <Typography
-                        className={classes.typography}
-                        variant="title"
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="title"
+                          className={classes.typography}
                       >
                         {title_text}
                       </Typography>
-                      <Grid container>
-                        <Grid item xs={6}>
-                          <TextField
-                            id="field-client"
-                            select
-                            label="Client"
-                            name="client"
-                            className={"modal_field"}
-                            value={client}
-                            onChange={this.handleChange("client")}
-                            SelectProps={{
-                              MenuProps: {
-                                className: "Mister Menu"
-                              }
-                            }}
-                            helperText="Select Client"
-                            margin="normal"
-                          >
-                            {client_list.map(client => (
-                              <MenuItem key={client.value} value={client.value}>
-                                {client.label}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </Grid>
-                        <Grid item xs={6}>
+                      </Grid>
+                        <Grid item xs={12}>
                           <TextField
                             id="field-name"
                             label="Name"
                             name="name"
                             className={"modal_field"}
-                            value={name}
-                            onChange={this.handleChange("name")}
+                            value={values.name}
                             helperText="Job Name"
                             margin="normal"
                           />
@@ -189,44 +158,69 @@ class JobForm extends Component {
                             rowsMax="8"
                             name="description"
                             className={classes.field}
-                            value={description}
-                            onChange={this.handleChange("description")}
+                            value={values.description}
                             margin="normal"
                             variant="outlined"
                           />
+                           <Grid item xs={6}>
+                              <Select
+                                id="field-client"
+                                label="Client"
+                                name="client"
+                                className={"modal_field"}
+                                value={values.client}
+                                error={
+                                  errors.client &&
+                                  touched.client &&
+                                  errors.client
+                                }
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                              >
+                                {client_list.map(client => (
+                                  <MenuItem
+                                    key={client.value}
+                                    value={client.value}
+                                  >
+                                    {client.label}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </Grid>
                         </Grid>
                         <Grid item xs={1} />
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                           <TextField
                             id="field-labor"
                             label="Labor"
                             name="labor"
                             className={"modal_field"}
-                            value={labor}
-                            onChange={this.handleChange("labor")}
+                            value={values.labor}
                             margin="normal"
                           />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                           <FormControlLabel
                             control={
                               <Checkbox
-                                checked={complete}
+                                checked={values.complete}
                                 onChange={this.toggleComplete}
-                                value="complete"
+                                value={values.complete}
                               />
                             }
                             label="Job Complete"
                           />
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                           <TextField
                             id="field-deadline"
                             label="Deadline"
                             name="deadline"
                             className={"modal_field"}
-                            value={deadline}
-                            onChange={this.handleChange("deadline")}
+                            value={values.deadline}
+                            onChange={e =>{
+                              handleChange(e);
+                            }}
                             margin="normal"
                             type="date"
                             InputLabelProps={{
@@ -234,8 +228,8 @@ class JobForm extends Component {
                             }}
                           />
                         </Grid>
-                        <Grid item xs={12}>
                           <Button
+                            disabled={!isValid}
                             variant="contained"
                             color="primary"
                             className={classes.padded_button}
@@ -243,9 +237,8 @@ class JobForm extends Component {
                           >
                             {button_text}
                           </Button>
-                        </Grid>
                       </Grid>
-                    </form>
+                    </Form>
                     {loading && <p>Saving job information...</p>}
                     {error && <p>{error}</p>}
                   </div>
@@ -253,10 +246,12 @@ class JobForm extends Component {
               </Mutation>
             );
           }}
-        </Query>
-      </div>
+        </Formik>
     );
-  }
+  }}
+ </Query>
+    );
+};
 
   _confirm = () => {
     window.location.reload();

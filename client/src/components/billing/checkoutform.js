@@ -23,7 +23,7 @@ class CheckoutForm extends Component {
         onload();
       };
       script.src = "https://checkout.stripe.com/checkout.js";
-      document.head.appendChild(script);
+      document.body.appendChild(script);
     } else {
       onload();
     }
