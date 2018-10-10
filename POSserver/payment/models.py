@@ -13,7 +13,7 @@ import stripe
 class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created = models.CharField(default="", max_length=100)
-    livemode = models.BooleanField(default=False)
+    livemode = models.BooleanField(default=False, blank=True)
     type = models.CharField(default="", max_length=25)
     used = models.BooleanField(default=False)
 

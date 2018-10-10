@@ -278,6 +278,26 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
+const CREATE_CARD_TOKEN = gql`
+  mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
+    createStripeCardToken(input: $input) {
+      token {
+        id
+        created
+        livemode
+        type
+        used
+        card {
+          id
+          brand
+          exp_year
+        } 
+        }
+    }
+}
+`
+
+
 const QUERY_ALL_CHARGES = gql`
   query {
     allCharges {

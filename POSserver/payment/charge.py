@@ -15,10 +15,10 @@ stripe.log = 'info'
 def checkout(request):
     try:
         charge = stripe.Charge.create(
-          amount=request.POST.get('amount', ''),
-          currency=request.POST.get('currency', ''),
-          source=request.POST.get('stripeToken', ''),
-          description=request.POST.get('description', ''),
+          amount=request.get('amount', ''),
+          currency=request.get('currency', ''),
+          source=request.get('stripeToken', ''),
+          description=request.get('description', ''),
           statement_descriptor="contractAlchemy premium",
         )
 
