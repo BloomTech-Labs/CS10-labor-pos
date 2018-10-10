@@ -26,8 +26,8 @@ const Yup = require("yup");
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
 const JobSchema = Yup.object().shape({
-  title: Yup.string()
-    .max(100, "Title must be under 100 characters")
+  name: Yup.string()
+    .max(100, "Name must be under 100 characters")
     .required(),
   client: Yup.string().required(),
   description: Yup.string().required(),
