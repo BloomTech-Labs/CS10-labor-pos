@@ -22,7 +22,7 @@ class Charge_Type(DjangoObjectType):
 
 
 class Query(graphene.ObjectType):
-    charge = graphene.Node.Field(Chare_Type)
+    charge = graphene.Node.Field(Charge_Type)
     all_charges = DjangoFilterConnectionField(Charge_Type)
 
     def resolve_all_charges(self, info, **kwargs):
@@ -33,7 +33,7 @@ class Query(graphene.ObjectType):
             return Charge.objects.filter(user=user)
 
 
-class CreateCharge(graphene.Mutation):
+class CreateStripeCharge(graphene.Mutation):
     class Arguments:
         amount = graphene.String()
         captured = graphene.Boolean()
@@ -58,7 +58,7 @@ class CreateCharge(graphene.Mutation):
 
         user = info.context.user
         if user.is_anonymous:
-            return CreateCharge(ok=False, status="Must be logged in")
+            return CreateStripeCharge(ok=False, status="Must be logged in")
         else:
             new_charge = Charge(
               amount=amount,
@@ -70,8 +70,8 @@ class CreateCharge(graphene.Mutation):
         )
 
         new_charge.save()
-        return CreateCharge(charge=new_charge, ok=True, status="ok")
+        return CreateStripeCharge(charge=new_charge, ok=True, status="ok")
 
 
 class ChargeMutation(graphene.ObjectType):
-    create_charge = CreateCharge.Field()
+    create_stripe_charge = CreateStripeCharge.Field()

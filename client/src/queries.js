@@ -278,25 +278,25 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
-const CREATE_CARD_TOKEN = gql`
-  mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
-    createStripeCardToken(input: $input) {
-      token {
+const STRIPE_TOKEN_BY_ID = gql`
+  query($id: ID!) {
+    token(id: $id) {
+      id
+      user {
         id
-        created
-        livemode
-        type
-        used
-        card {
-          id
-          brand
-          exp_year
-        } 
-        }
+      }
+      type
+      created
+      used
+      card {
+        id
+        brand
+        exp_year
+      }
     }
-}
-`
-
+  }
+  `;
+      
 
 const QUERY_ALL_CHARGES = gql`
   query {
