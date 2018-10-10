@@ -6,26 +6,16 @@ import stripe
 # Create your models here.
 
 
-class Token(models.model):
+class Token(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created = models.CharField()
+    # created = models.CharField()
     livemode = models.BooleanField(default=False)
-    type = models.CharField()
+    # type = models.CharField()
     used = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{id}"
 
 
-class Charge(models.model):
+class Charge(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    
-
-
-
-
-
-
-
-
-

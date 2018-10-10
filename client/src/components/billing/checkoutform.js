@@ -1,11 +1,15 @@
 /* eslint-disable no-console */
 import React, { Component } from "react";
+import gql from "graphql-tag";
 import "./billing.css";
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: true,
+      description: "",
+      amount: "",
       stripeLoading: true
     };
     // onStripeUpdate must be bound or else clicking on button will produce error.
@@ -33,70 +37,62 @@ class CheckoutForm extends Component {
     this.loadStripe(() => {
       this.stripeHandler = window.StripeCheckout.configure({
         key: process.env.REACT_APP_publishable,
-        image: "goldraccoon.png",
-        amount: ".99",
+        image: "https://bestpos.netlify.com/goldraccoon.png",
+        color: "black",
+        amount: this.state.amount,
         name: "contractAlchemy",
-        zip_code: "true",
-        billing_address: "true",
+        zipCode: true,
+        billingAddress: true,
         locale: "auto",
         token: token => {
           this.setState({ loading: true });
           // use fetch or some other AJAX library here if you dont want to use axios
           fetch("http://localhost:8000/graphql/", {
-            body: {
-              query: `
-              mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
-              createStripeCardToken(input: $input) {
-                  token {
-                      id
-                      created
-                      livemode
-                      type
-                      used
-                      card {
-                          id
-                          brand
-                          exp_year
-                        } 
-                      }
-                  }
-              }
-              `
-            },
             method: "post",
             mode: "no-cors",
             headers: {
               "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json; charset=utf-8",
+              "Content-Type": "application/json",
               Accept: "application/json"
-            }
-            })
-          }
+            },
+            body: JSON.stringify(
+              `query: { query { description: ${
+                this.state.description
+              }, source: ${token.id}, currency: USD, amount: ${
+                this.state.amount
+              } }}`
+            )
+          });
         }
-       )});
-
-      this.setState({
-        stripeLoading: false,
-        // loading needs to be explicitly set false so component will render in 'loaded' state.
-        loading: false
       });
-    };
-  
+    });
+
+    this.setState({
+      stripeLoading: false,
+      // loading needs to be explicitly set false so component will render in 'loaded' state.
+      loading: false
+    });
+  }
+
   componentWillUnmount() {
     if (this.stripeHandler) {
       this.stripeHandler.close();
     }
   }
 
-
   yearlyMembership(e) {
+    this.setState({
+      amount: 999,
+      description: "Yearly Premium Subscription"
+    });
     this.stripeHandler.open({
-      image: "goldraccoon.png",
-      amount: "999",
+      image: "https://bespos.netlify.com/goldraccoon.png",
+      color: "black",
+      amount: 999,
       name: "contractAlchemy",
       description: "Yearly Premium Subscription",
-      zip_code: "true",
-      billing_address: "true",
+      zipCode: true,
+      billingAddress: true,
       locale: "auto",
       panelLabel: "Buy Yearly Subscription",
       allowRememberMe: false
@@ -105,13 +101,18 @@ class CheckoutForm extends Component {
   }
 
   monthlyMembership(e) {
+    this.setState({
+      amount: 99,
+      description: "One Month Membership"
+    });
     this.stripeHandler.open({
-      image: "goldraccoon.png",
-      amount: "99",
+      image: "https://bestpos.netlify.com/goldraccoon.png",
+      color: "black",
+      amount: 99,
       name: "contractAlchemy",
       description: "One Month Membership",
-      zip_code: "true",
-      billing_address: "true",
+      zipCode: true,
+      billingAddress: true,
       locale: "auto",
       panelLabel: "Buy One Month Membership",
       allowRememberMe: false
@@ -139,7 +140,6 @@ class CheckoutForm extends Component {
     );
   }
 }
-
 
 // injectStripe wraps the component, creating new component with a stripe prop that contains stripe object
 export default CheckoutForm;
