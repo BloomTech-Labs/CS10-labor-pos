@@ -18,7 +18,7 @@ import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of home on the path /jobs/%jobid
 //  It will present the user with the job info from the database as well as
-//  paginated lists of associated notes, parts, and tags, and an invoice
+//  paginated lists of associated notes, parts, and an invoice
 //  generation button.
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
@@ -159,18 +159,6 @@ class JobView extends Component {
                         <ItemList
                           type="part"
                           items={data.job.partSet.edges}
-                          per_page={7}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Link to="/createtag">
-                          <Button className="job-list-button">
-                            Add a new tag
-                          </Button>
-                        </Link>
-                        <ItemList
-                          type="tag"
-                          items={data.job.tagSet.edges}
                           per_page={7}
                         />
                       </Grid>
