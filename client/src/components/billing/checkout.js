@@ -4,7 +4,8 @@ import { Query, Mutation } from "react-apollo";
 import { CREATE_STRIPE_CHARGE } from "../../mutations.js";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-import { Radio } from "@material-ui/core";
+import { FormControlLabel, Checkbox, Typography, Card, Grid } from "@material-ui/core";
+import { styles } from "../material-ui/styles.js";
 
 
 const mutation = gql`
@@ -50,6 +51,7 @@ class Checkout extends Component {
 
   getStripeToken = token =>  {
     const { subscriptionType } = this.state
+    console.log(subscriptionType)
 
     let apiURI = "http://127.0.0.1:8000/graphql/"
     
@@ -66,24 +68,56 @@ class Checkout extends Component {
 
   render () {
     return(
-      <React.Fragment>
-        <Radio
-        price={999}
-        label="Yearly Subscription - $9.99"
-        name="subscription"
-        onClick={this.setSubscriptionType}
-        value="yearly"
-        type="radio"
-        />
+      <div>
+      <Card>
+       <Typography paragraph>
+                {"contractAlchemy provides two tiers of service, free and premium."}
+        </Typography>
+              </Card>
+              <Card>
+                <Typography paragraph>
+                  { "Free users have access to all features but a limit of 8 of each item at one time - 8 clients, 8 jobs, etc."}
+                  </Typography>
+              </Card>
+              <Card>
+                <Typography paragraph>
+                {"Premium users have access to all features with an unlimited number of jobs, clients, and so on. We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99."} 
+                </Typography>
+                </Card>
+                <Card>
+                  <Typography paragraph>
+                 {"Choose your rate to subscribe and begin using yor premium access!"}
+                 </Typography>
+                </Card> 
 
-        <Radio
-        price={99}
-        label="Monthly Subscription -$.99"
-        name="subscription"
-        onClick={this.setSubscriptionType}
-        value="monthly"
-        type="radio"
-        />
+      <React.Fragment>
+        <FormControlLabel
+          control={
+            <Checkbox
+              price={999}
+              name="subscription"
+              onClick={this.setSubscriptionType}
+              value="yearly"
+              type="radio"
+              color="secondary"
+            />
+          }
+           label="Yearly Subscription - $9.99"
+          />
+        <FormControlLabel
+          control={
+          <Checkbox
+            price={99}
+            name="subscription"
+            onClick={this.setSubscriptionType}
+            value="monthly"
+            type="radio"
+            color="secondary"
+            />
+          }
+          label="Monthly Subscription - 99¢"
+          />
+         
         <StripeCheckout
           amount={this.state.subscriptionAmount}
           currency='USD'
@@ -96,6 +130,7 @@ class Checkout extends Component {
           billingAddress="true"
           />
           </React.Fragment>
+     </div>
     )
   }
 }

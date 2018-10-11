@@ -18,7 +18,6 @@ class Start extends Component {
         <Grid container>
           <Grid item xs={12}>
             <Typography className={classes.typography} variant="title">
-              Start Page
             </Typography>
           </Grid>
           <Grid item xs={1} />

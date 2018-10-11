@@ -4,7 +4,11 @@ import Checkout from './checkout.js'
 const Billing = () => {
   return (
     
-    <Checkout />
+    <Checkout
+      color="primary"
+      display="flex"
+      justify-content="flex-start"
+    />
   )
 }
 

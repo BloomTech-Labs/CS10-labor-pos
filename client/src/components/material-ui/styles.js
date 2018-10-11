@@ -120,9 +120,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
   },
-  radio: {
+  form_control_label: {
     display: "flex",
-    justifyContent: "flex-center"
+    justifyContent: "flex-start"
 
   },
   state_field: {

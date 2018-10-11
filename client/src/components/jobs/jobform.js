@@ -204,13 +204,13 @@ class JobForm extends Component {
                             margin="normal"
                           />
                         </Grid>
-                        <Grid item xs={6}>
+                       {/* <Grid item xs={6}>
                             className={classes.field_small}
                             value={labor}
                             onChange={this.handleChange("labor")}
                             margin="normal"
                           />
-                        </Grid>
+                        </Grid>*/}
 
                         <Grid item xs={4}>
                           <FormControlLabel
@@ -222,21 +222,6 @@ class JobForm extends Component {
                               />
                             }
                             label="Job Complete"
-                          />
-                        </Grid>
-                        {/*<Grid item xs={6}>
-                          <TextField
-                            component={TextField}
-                            id="field-deadline"
-                            label="Deadline"
-                            name="deadline"
-                            className={"modal_field"}
-                            value={values.deadline}
-                            margin="normal"
-                            type="date"
-                            InputLabelProps={{
-                              shrink: true
-                            }}
                           />
                         </Grid>
                         <Grid item xs={12}>
