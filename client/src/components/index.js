@@ -1,8 +1,6 @@
-import Tags from "./tags/tags";
-import AddTag from "./tags/addtag";
-import TagView from "./tags/tagview";
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
+import Checkout from "./billing/checkout"
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
@@ -16,7 +14,6 @@ import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
 import DeleteItem from "./reuseable/deleteitem";
 import EditJob from "./jobs/editjob";
-import Invoices from "./invoices/invoices";
 import Home from "./home/home";
 import SideNav from "./home/sidenav";
 import Start from "./home/start";
@@ -29,15 +26,13 @@ import ItemList from "./reuseable/itemlist.js";
 import CardList from "./reuseable/cardlist.js";
 import ItemCard from "./reuseable/itemcard.js";
 import EditClient from "./clients/editclient.js";
-import CreateUser from "./auth/createuser.js";
-import UserForm from "./auth/userform.js";
-import ContactForm from "./auth/contactform.js";
+import CreateUser from "./auth/signup.js";
 import EditPart from "./parts/editpart.js";
+import EditNote from "./notes/editnote.js";
+import TextField from "./material-ui/textfield.js";
+import JobForm from "./jobs/jobform.js";
 
 export {
-  Tags,
-  AddTag,
-  TagView,
   Settings,
   Billing,
   Parts,
@@ -53,7 +48,6 @@ export {
   JobInvoice,
   EditJob,
   DeleteItem,
-  Invoices,
   Home,
   SideNav,
   Start,
@@ -67,7 +61,9 @@ export {
   ItemCard,
   EditClient,
   CreateUser,
-  UserForm,
-  ContactForm,
-  EditPart
+  EditPart,
+  EditNote,
+  TextField,
+  Checkout,
+  JobForm
 };

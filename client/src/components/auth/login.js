@@ -6,13 +6,12 @@ import { SIGNIN_MUTATION } from "../../mutations";
 import {
   TextField,
   Button,
-  MenuItem,
   Grid,
-  FormControlLabel,
-  Card,
   Typography,
-  Paper
+  Paper,
+  withStyles
 } from "@material-ui/core";
+import { styles } from "../material-ui/styles";
 
 //The login component, to be rendered in a modal at the landing page
 class Login extends Component {
@@ -24,6 +23,7 @@ class Login extends Component {
 
   //TODO: make this component out of materialui stuff
   render() {
+    const { classes } = this.props;
     const { username, password } = this.state;
     return (
       <Paper>
@@ -61,25 +61,36 @@ class Login extends Component {
               />
             </Grid>
             <Grid item xs={1} />
-            <Grid item xs={9} />
-            <Grid item xs={2}>
+            <Grid item xs={12}>
               <Mutation
                 mutation={SIGNIN_MUTATION}
                 variables={{ username, password }}
                 onCompleted={data => this._confirm(data)}
               >
-                {mutation => (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={event => {
-                      event.preventDefault();
-                      mutation();
-                    }}
-                    type="submit"
-                  >
-                    Login
-                  </Button>
+                {(mutation, { loading, error, data }) => (
+                  <Grid container>
+                    <Grid item xs={1} />
+                    <Grid item xs={8}>
+                      {error && (
+                        <Typography color="error">{`error: ${error}`}</Typography>
+                      )}
+                      {loading && <Typography>Loading ...</Typography>}
+                    </Grid>
+                    <Grid item xs={3}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={event => {
+                          event.preventDefault();
+                          mutation();
+                        }}
+                        type="submit"
+                        className={classes.padded_button}
+                      >
+                        Login
+                      </Button>
+                    </Grid>
+                  </Grid>
                 )}
               </Mutation>
             </Grid>
@@ -110,4 +121,4 @@ class Login extends Component {
   };
 }
 
-export default withRouter(Login);
+export default withRouter(withStyles(styles)(Login));

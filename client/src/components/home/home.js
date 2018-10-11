@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import "./home.css";
 import {
-  Tags,
-  AddTag,
-  TagView,
   Settings,
   Billing,
   Parts,
@@ -18,17 +14,25 @@ import {
   JobView,
   JobInvoice,
   EditJob,
-  Invoices,
   SideNav,
   Start,
   Clients,
   AddClient,
   ClientView,
   EditClient,
-  EditPart
+  EditPart,
+  EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
-import { Hidden, IconButton, Drawer, Paper, Grid } from "@material-ui/core";
+import {
+  Hidden,
+  IconButton,
+  Drawer,
+  Paper,
+  Grid,
+  withStyles
+} from "@material-ui/core";
+import { styles } from "../material-ui/styles.js";
 import MenuIcon from "@material-ui/icons/Menu";
 
 //The home component is a container component that renders when the user is logged in and displays different
@@ -52,6 +56,7 @@ class Home extends Component {
   };
 
   render() {
+    let { classes } = this.props;
     return (
       <div>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
@@ -81,7 +86,11 @@ class Home extends Component {
               keepMounted: true
             }}
           >
-            <SideNav logout={this.logout} />
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              dark_theme={this.props.dark_theme}
+            />
           </Drawer>
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
@@ -98,7 +107,7 @@ class Home extends Component {
         {/*These are the routes that render different content components depending on the
         current path.*/}
         <main>
-          <Paper className="content_area">
+          <Paper className={classes.main_content}>
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
@@ -112,14 +121,9 @@ class Home extends Component {
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
-            <Route exact path="/notes/:id/edit" component={NoteView} />
-            <Route exact path="/tags" component={Tags} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/parts" component={Parts} />
-            <Route exact path="/invoices" component={Invoices} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/createtag" component={AddTag} />
-            <Route exact path="/tags/:id" component={TagView} />
-            <Route exact path="/tags/:id/edit" component={TagView} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
@@ -131,4 +135,4 @@ class Home extends Component {
   }
 }
 
-export default withRouter(Home);
+export default withRouter(withStyles(styles)(Home));

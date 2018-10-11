@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+/*import React, { Component } from "react";
 import { Elements } from "react-stripe-elements";
 import InjectedCheckoutForm from "./checkoutform";
 
@@ -17,3 +17,4 @@ class MyStoreCheckout extends Component {
 }
 
 export default MyStoreCheckout;
+*/

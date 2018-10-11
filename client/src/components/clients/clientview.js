@@ -8,11 +8,13 @@ import {
   Grid,
   Dialog,
   IconButton,
-  Divider
+  Divider,
+  withStyles,
+  withMobileDialog
 } from "@material-ui/core";
-import { CardList, DeleteItem } from "../../components";
+import { CardList, DeleteItem, JobForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
-import "./clientview.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component renders a s a child of home on the path
 //  /clients/%clientid.  It presents the user with all information
@@ -25,19 +27,23 @@ class ClientView extends Component {
   constructor() {
     super();
     this.state = {
-      deleting: false
+      deleting: false,
+      add_job: false,
+      add_note: false
     };
   }
 
-  handleDeleteButton = () => {
-    this.setState({ deleting: true });
+  openModal = name => () => {
+    this.setState({ [name]: true });
   };
 
-  cancelDelete = () => {
-    this.setState({ deleting: false });
+  cancelModal = name => () => {
+    this.setState({ [name]: false });
   };
 
   render() {
+    const { classes, fullScreen } = this.props;
+
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -49,16 +55,15 @@ class ClientView extends Component {
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
+
+          let job_items = data.client.jobSet.edges;
+          for (let i = 0; i < job_items.length; i++) {
+            job_items[i].node.client = { businessName: name };
+          }
           return (
             <div>
-              <div className="client-view-top">
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-around"
-                  alignItems="center"
-                  spacing={24}
-                >
+              <div>
+                <Grid container>
                   <Grid item xs={1}>
                     <Link to={`/clients/${data.client.id}/edit`}>
                       <IconButton>
@@ -67,10 +72,12 @@ class ClientView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={10}>
-                    <Typography variant="title">{name}</Typography>
+                    <Typography className={classes.typography} variant="title">
+                      {name}
+                    </Typography>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton onClick={this.handleDeleteButton}>
+                    <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -80,40 +87,36 @@ class ClientView extends Component {
               <Grid container>
                 <Grid item xs={6}>
                   <Typography align="left">
-                    {data.client.businessName}
+                    Business Name: {data.client.businessName}
                   </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    {data.client.streetNumber}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">{data.client.unitNumber}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">{data.client.streetName}</Typography>
                 </Grid>
                 <Grid item xs={6}>
-                  <Typography align="left">{`${data.client.firstName} ${
+                  <Typography align="left">
+                    Street Address: {data.client.streetAddress}
+                  </Typography>
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography align="left">{`Name: ${data.client.firstName} ${
                     data.client.lastName
                   }`}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.city}</Typography>
+                  <Typography align="left">City: {data.client.city}</Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.state}</Typography>
+                  <Typography align="left">
+                    State: {data.client.state}
+                  </Typography>
                 </Grid>
                 <Grid item xs={2}>
-                  <Typography align="left">{data.client.zipcode}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  {data.client.deadline}
+                  <Typography align="left">
+                    Zip: {data.client.zipcode}
+                  </Typography>
                 </Grid>
               </Grid>
               <Divider />
               <Typography
+                className={classes.typography}
                 align="left"
                 variant="subheading"
               >{`Jobs for ${name}:`}</Typography>
@@ -121,10 +124,13 @@ class ClientView extends Component {
                 rows={1}
                 columns={4}
                 type="job"
-                items={data.client.jobSet.edges}
+                items={job_items}
+                createMethod={this.openModal("add_job")}
+                cancelCreateMethod={this.cancelModal("add_job")}
               />
               <Divider />
               <Typography
+                className={classes.typography}
                 align="left"
                 variant="subheading"
               >{`Notes for ${name}:`}</Typography>
@@ -133,17 +139,31 @@ class ClientView extends Component {
                 columns={4}
                 type="note"
                 items={data.client.noteSet.edges}
+                createMethod={this.openModal("add_note")}
+                cancelCreateMethod={this.cancelModal("add_note")}
               />
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelDelete}
-                className="delete-modal"
+                onClose={this.cancelModal("deleting")}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelDelete}
+                  cancelDelete={this.cancelModal("deleting")}
                   type="client"
                   item={data.client}
                   after_path="/clients"
+                />
+              </Dialog>
+              <Dialog
+                open={this.state.add_job}
+                onClose={this.cancelModal("add_job")}
+                fullScreen={fullScreen}
+              >
+                <JobForm
+                  mode="create"
+                  parent={{ type: "client", id: data.client.id }}
+                  after_url={this.props.location.pathname}
+                  cancelAdd={this.cancelModal("add_job")}
                 />
               </Dialog>
             </div>
@@ -154,4 +174,4 @@ class ClientView extends Component {
   }
 }
 
-export default withRouter(ClientView);
+export default withRouter(withMobileDialog()(withStyles(styles)(ClientView)));

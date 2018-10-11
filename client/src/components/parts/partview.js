@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grid, Typography, IconButton, Dialog } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  IconButton,
+  Dialog,
+  withStyles,
+  Card
+} from "@material-ui/core";
 import { DETAILED_PART_BY_ID } from "../../queries.js";
 import { Query } from "react-apollo";
 import { CardList, DeleteItem } from "../../components";
 import { Delete, Create } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { styles } from "../material-ui/styles.js";
 
 //This component will render on the /parts/%partid route when the user is logged in
 //It is a child of the home component.
 //It will present the user with details about the individual part, as well as
-//a form to edit it and a paginated list of tags applied to it.
+//a form to edit it
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r773D
 class PartView extends Component {
-  constructor() {
-    super();
-    this.state = {
-      deleting: false
-    };
-  }
+  state = {
+    deleting: false
+  };
 
   handleDeleteButton = () => {
     this.setState({ deleting: true });
@@ -30,6 +35,7 @@ class PartView extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_PART_BY_ID}
@@ -48,7 +54,9 @@ class PartView extends Component {
                 </Link>
               </Grid>
               <Grid item xs={10}>
-                <Typography variant="title">{data.part.name}</Typography>
+                <Typography className={classes.typography} variant="title">
+                  {data.part.name}
+                </Typography>
               </Grid>
               <Grid item xs={1}>
                 <IconButton onClick={this.handleDeleteButton}>
@@ -56,16 +64,16 @@ class PartView extends Component {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography paragraph>{data.part.description}</Typography>
+                <Typography paragraph className={classes.typography}>
+                  {data.part.description}
+                </Typography>
               </Grid>
-              <Grid item xs={2}>{`Cost: \$${data.part.cost}`}</Grid>
-              <Grid item xs={10}>
-                <CardList
-                  columns={4}
-                  rows={1}
-                  type="tag"
-                  items={data.part.tagSet.edges}
-                />
+              <Grid item xs={2}>
+                <Card className={classes.card}>
+                  <Typography className={classes.typography}>{`Cost: $${
+                    data.part.cost
+                  }`}</Typography>
+                </Card>
               </Grid>
               <Dialog
                 open={this.state.deleting}
@@ -87,4 +95,4 @@ class PartView extends Component {
   }
 }
 
-export default withRouter(PartView);
+export default withRouter(withStyles(styles)(PartView));

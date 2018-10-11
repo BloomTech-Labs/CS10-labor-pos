@@ -6,7 +6,7 @@ from graphql_relay.node.node import from_global_id
 from django.contrib.auth.models import BaseUserManager
 from graphql_jwt.shortcuts import get_token
 
-auto_debug = True
+auto_debug = False
 
 
 class User_Type(DjangoObjectType):

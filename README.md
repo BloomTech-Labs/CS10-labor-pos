@@ -1,11 +1,7 @@
-<h1 align="center">
-CS10-Labor POS
-</h1>
+<h1 align="center">CS10-Labor POS</h1>
+<img src="client/page_layout/smallraccoon.svg" alt="Raccoon image from Stockio.com"/><p align="center" style="font-size:12px">Image from Stockio.com</p></pre>
 
-<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
-
-<div align="center">
-<h2>Brought to you by:</h2><br>
+<div align="center"><h2>Brought to you by:</h2>
 
 <a href="https://github.com/wajnurfes">Zach Campbell</a>
 
@@ -13,7 +9,7 @@ CS10-Labor POS
 
 <a href="https://github.com/AmyShackles">Amy Shackles</a>
 
-## </div>
+</div>
 
 # Table of Contents
 
@@ -28,11 +24,9 @@ CS10-Labor POS
 - [Rough Page Layout](#rough-page-layout)
   - [Home Page](#home-page)
   - [Client Views](#client-views)
-  - [Invoice Pages](#invoice-pages)
   - [Job Views](#job-views)
   - [Note Views](#note-views)
   - [Part Views](#part-views)
-  - [Tag Views](#tag-views)
   - [Settings](#settings)
   - [Billing](#billing)
 - [Models](#models)
@@ -41,14 +35,12 @@ CS10-Labor POS
   - [Job Model](#job-model)
   - [Part Model](#part-model)
   - [Note Model](#note-model)
-  - [Tag Model](#tag-model)
 - [Queries](#queries)
   - [On User Model](#on-user-model)
   - [On Client Model](#on-client-model)
   - [On Job Model](#on-job-model)
   - [On Note Model](#on-note-model)
   - [On Part Model](#on-part-model)
-  - [On Tag Model](#on-tag-model)
 - [Mutations](#mutations)
   - [User Mutations](#user-mutations)
     - [Create User](#create-user)
@@ -70,14 +62,12 @@ CS10-Labor POS
     - [Create Part](#create-part)
     - [Edit Part](#edit-part)
     - [Delete Part](#delete-part)
-  - [Tag Mutations](#tag-mutations)
-    - [Create Tag](#create-tag)
-    - [Edit Tag](#edit-tag)
-    - [Delete Tag](#delete-tag)
   - [Auth Mutations](#auth-mutations)
     - [Token Auth](#token-auth)
     - [Verify Token](#verify-token)
     - [Refresh Token](#refresh-token)
+  - [Styles and Theming](#styles-and-theming)
+    - [Light and Dark Themes](#light-and-dark-themes)
 
 ## Tech Stack
 
@@ -103,7 +93,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - React.js
 
-  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other. We had initially thought that the way that the application would need to be built, there would not be a high need for a global shared state within the application. If we needed to make use of a more globally available state, we reasoned, we could just pull in from the new context API. If we were to start the project from scratch, we might think a little longer on the decision of whether or not to implement Redux.
+  - We selected React as our frontend framework because we knew with the application we were planning on building, there were going to be a lot of reusable components all interacting with each other.
 
 - Material Design
 
@@ -135,7 +125,7 @@ Deployed [here](https://dashboard.heroku.com/apps/labs7-posserver)
 
 - Bcrypt
 
-  - Django's default hashing algorithm is PBKDF2 but we were more familiar with bcrypt password hashing, having implemented it it every security-based project, so felt safer using it as our password hashing algorithm.
+  - Django's default hashing algorithm is PBKDF2 but we were more familiar with bcrypt password hashing, having implemented it in every security-based project, so felt safer using it as our password hashing algorithm.
 
 - Heroku
   - We chose Heroku for roughly the same reason we chose Netlify, with the addendum that we also wanted a deployment site that would interact well with a Postgres database.
@@ -158,8 +148,8 @@ Authorization is handled on the model level, with each model query checking to s
 
 <details>
 <summary>
-
-## Home Page:</summary>
+  
+  ## Home Page:</summary>
 
 ![Home](/client/page_layout/HomeScreen.png)
 
@@ -194,23 +184,6 @@ Authorization is handled on the model level, with each model query checking to s
 </h2>
 
 ![ClientView](/client/page_layout/ClientView.png)
-
-</details>
-
-<details>
-<summary>
-
-## Invoice Pages:
-
-</h2></summary>
-
-![Invoices](/client/page_layout/InvoicesPage.png)
-
-<h2 align="center">
-  Invoice View:
-</h2>
-
-![InvoiceView](/client/page_layout/InvoiceView.png)
 
 </details>
 
@@ -298,35 +271,6 @@ Authorization is handled on the model level, with each model query checking to s
 ![PartViewAndEdit](/client/page_layout/PartViewAndEdit.png)
 
 </details>
-
-<details>
-<summary>
-
-## Tag Views:
-
-</summary>
-
-<h2 align="center">
-  Tag Creation (click to view):
-</h2>
-
-![TagCreation](/client/page_layout/TagCreation.png)
-
-<h2 align="center">
-  Tags Page (click to view):
-</h2>
-
-![TagsPage](/client/page_layout/TagsPage.png)
-
-<h2 align="center">
-  Tag View and Edit (click to view):
-</h2>
-
-![TagViewAndEdit](/client/page_layout/TagViewAndEdit.png)
-
-</details>
-
-<details><summary>
 
 ## Settings:
 
@@ -561,28 +505,11 @@ Fields on the Note Model:
 - modified_at = DateTimeField(auto_now=True)
 ```
 
-### Tag Model
-
-The ability to add a tag to a note, client, part, or job - our plans are to enable searching by tag if time allows.
-
-Fields on the Tag Model:
-
-```
-- user = ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-- job = ForeignKey(Job, on_delete=models.CASCADE, blank=True, null=True)
-- note = ForeignKey(Note, on_delete=models.CASCADE, blank=True, null=True)
-- part = ForeignKey(Part, on_delete=models.CASCADE, blank=True, null=True)
-- name = CharField(max_length=128)
-- description = TextField(blank=True)
-- created_at = DateTimeField(auto_now_add=True)
-- modified_at = DateTimeField(auto_now=True)
-```
-
 ## Queries
 
 ### On User Model:
 
-- user(id: ID!) query will search for a single id and return the client with that id (can also return clientSet, jobSet, noteSet, tagSet, and partSet - so edge/node returns of associated items(which can be filtered))
+- user(id: ID!) query will search for a single id and return the client with that id (can also return clientSet, jobSet, noteSet, and partSet - so edge/node returns of associated items(which can be filtered))
 - allUsers query will return all users (this is for our testing, not for the frontend - filtering by logged in user will be in place after testing)
 
 ### On Client Model:
@@ -592,23 +519,18 @@ Fields on the Tag Model:
 
 ### On Job Model:
 
-- job(id: ID!) query will search for a single id and return the job with that id(can also return tagSet, noteSet, and partSet - so edge/node returns of associated items (which can be filtered))
+- job(id: ID!) query will search for a single id and return the job with that id(can also return noteSet, and partSet - so edge/node returns of associated items (which can be filtered))
 - allJobs query will return all jobs for the logged in User
 
 ### On Note Model:
 
-- note(id: ID!) query will search for a single id and return the note with that id (can also return tagSet)
+- note(id: ID!) query will search for a single id and return the note with that id
 - allNotes query will return all notes for the logged in User
 
 ### On Part Model:
 
-- part(id: ID!) query will search for a single id and return the part with that id (can also return associated jobs and associated tags
+- part(id: ID!) query will search for a single id and return the part with that id (can also return associated jobs
 - allParts query will return all parts for the logged in User
-
-### On Tag Model:
-
-- tag(id: ID!) query will search for a single id and return the tag with that id (can also return associated jobs, notes, and parts)
-- allTags query will return all tags for the logged in User
 
 ## Mutations:
 
@@ -739,31 +661,37 @@ createPart(job: ID!, name: String!, description, cost: Float) {
 
 #### Edit Part:
 
-WIP
+```
+  updatePart(
+    $cost: Float
+    $description: String
+    $id: ID!
+    $job: ID
+    $name: String
+  ) {
+    updatePart(
+      cost: $cost
+      description: $description
+      id: $id
+      job: $job
+      name: $name
+    ) {
+      part {
+        id
+      }
+    }
+  }
+```
 
 #### Delete Part:
 
-WIP
-
-### Tag Mutations
-
-#### Create Tag:
-
 ```
-createTag(job: ID, note: ID, part: ID, name: String!, description: String) {
-  tag {
-    // whatever arguments client wants from mutation
+  mutation deletePart($id: ID!) {
+    deletePart(id: $id) {
+      ok
+    }
   }
-}
 ```
-
-#### Edit Tag:
-
-WIP
-
-#### Delete Tag:
-
-WIP
 
 ### Auth Mutations
 
@@ -790,6 +718,16 @@ refreshToken(token: String!) {
   payload
 }
 ```
+
+# Styles and Theming
+
+This project uses the Material Ui theme provider which cascades the defined theme down to all material ui components.
+Theme can be viewed and edited in App.js
+
+## Light and Dark Themes
+
+Once logged in, the user can click a switch in the sidenav to switch between a light colored and dark colored theme.
+The theme choice is saved on localstorage and localstorage is checked for a theme choice on reload.
 
 # Installation Instructions
 

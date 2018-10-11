@@ -2,17 +2,22 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { DETAILED_NOTE_BY_ID } from "../../queries";
-import { Typography, Grid, IconButton, Dialog } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import {
+  Typography,
+  Grid,
+  IconButton,
+  Dialog,
+  withStyles,
+  Card
+} from "@material-ui/core";
+import { Delete, Create } from "@material-ui/icons";
 import { CardList, DeleteItem } from "../../components";
-import NoteForm from "./noteform";
+import { Link } from "react-router-dom";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of home on the
 //  /notes/%noteid route when the user is logged in.
 //  It presents the user with the note title and content
-//  as well as a paginated list of tags associated with it
-//  and its created and modified dates.  It also provides
-//  a form to edit the note.
 
 class NoteView extends Component {
   constructor() {
@@ -31,6 +36,7 @@ class NoteView extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     return (
       <Query
         query={DETAILED_NOTE_BY_ID}
@@ -50,7 +56,14 @@ class NoteView extends Component {
                 alignItems="center"
                 spacing={24}
               >
-                <Grid item xs={11}>
+                <Grid item xs={1}>
+                  <Link to={`/notes/${data.note.id}/edit`}>
+                    <IconButton>
+                      <Create />
+                    </IconButton>
+                  </Link>
+                </Grid>
+                <Grid item xs={10}>
                   <Typography variant="title">{data.note.title}</Typography>
                 </Grid>
                 <Grid item xs={1}>
@@ -62,25 +75,18 @@ class NoteView extends Component {
               <Typography paragraph>{data.note.content}</Typography>
               <Grid container>
                 <Grid item xs={2}>
-                  <Typography>
-                    Created On:{" "}
-                    {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
-                  </Typography>
-                  <Typography>
-                    Modified On:{" "}
-                    {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
-                  </Typography>
-                </Grid>
-                <Grid item xs={10}>
-                  <CardList
-                    rows={1}
-                    columns={4}
-                    type="tag"
-                    items={data.note.tagSet.edges}
-                  />
+                  <Card className={classes.card}>
+                    <Typography>
+                      Created On:{" "}
+                      {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+                    </Typography>
+                    <Typography>
+                      Modified On:{" "}
+                      {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+                    </Typography>
+                  </Card>
                 </Grid>
               </Grid>
-              <NoteForm mode="edit" note={data.note} />
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelDelete}
@@ -101,4 +107,4 @@ class NoteView extends Component {
   }
 }
 
-export default withRouter(NoteView);
+export default withRouter(withStyles(styles)(NoteView));
