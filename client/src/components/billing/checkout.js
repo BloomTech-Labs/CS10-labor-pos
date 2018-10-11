@@ -53,14 +53,18 @@ class Checkout extends Component {
     const { subscriptionType } = this.state
     console.log(subscriptionType)
 
-    let apiURI = "http://127.0.0.1:8000/graphql/"
+    let apiURI = "http://localhost:8000/graphql/"
     
     const request = {
       method: 'POST',
+      headers: {
+              "Content-Type": "application/graphql",
+      },
       url: apiURI,
-      data: { token, jwt: localStorage.getItem('token') }
-    }
-
+      data: { token, jwt: localStorage.getItem('token') },
+      body: JSON.stringify({ query: '{ token: {$token} }' }),
+}
+       
     axios(request)
       .then(data => console.log(data))
       .catch(err => console.log(err))

@@ -55,13 +55,13 @@ class CheckoutForm extends Component {
               "Content-Type": "application/json",
               Accept: "application/json"
             },
-            body: JSON.stringify(
-              `query: { query { description: ${
+            body: JSON.stringify({
+              query: `{ query { description: ${
                 this.state.description
               }, source: ${token.id}, currency: USD, amount: ${
                 this.state.amount
               } }}`
-            )
+            })
           });
         }
       });
