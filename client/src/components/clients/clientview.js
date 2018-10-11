@@ -44,6 +44,7 @@ class ClientView extends Component {
 
   render() {
     const { classes, fullScreen } = this.props;
+
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -56,6 +57,11 @@ class ClientView extends Component {
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
+
+          let job_items = data.client.jobSet.edges;
+          for (let i = 0; i < job_items.length; i++) {
+            job_items[i].node.client = { businessName: name };
+          }
           return (
             <div>
               <div>
@@ -121,7 +127,7 @@ class ClientView extends Component {
                 rows={1}
                 columns={4}
                 type="job"
-                items={data.client.jobSet.edges}
+                items={job_items}
                 createMethod={this.openModal("add_job")}
                 cancelCreateMethod={this.cancelModal("add_job")}
                 after_path={this.props.location.pathname}
