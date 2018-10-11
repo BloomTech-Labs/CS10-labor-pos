@@ -5,8 +5,15 @@ const QUERY_ALL_JOBS = gql`
     allJobs {
       edges {
         node {
-          name
           id
+          name
+          deadline
+          client {
+            id
+            firstName
+            lastName
+            businessName
+          }
         }
       }
     }
@@ -22,6 +29,15 @@ const QUERY_ALL_CLIENTS = gql`
           lastName
           businessName
           id
+          jobSet {
+            edges {
+              node {
+                id
+                name
+                deadline
+              }
+            }
+          }
         }
       }
     }
@@ -36,6 +52,16 @@ const QUERY_ALL_NOTES = gql`
           id
           title
           content
+          client {
+            id
+            businessName
+            firstName
+            lastName
+          }
+          job {
+            id
+            name
+          }
         }
       }
     }
@@ -193,6 +219,12 @@ const DETAILED_CLIENT_BY_ID = gql`
           node {
             title
             content
+            client {
+              id
+              businessName
+              firstName
+              lastName
+            }
           }
         }
       }

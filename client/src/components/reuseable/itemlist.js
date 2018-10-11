@@ -24,6 +24,8 @@ import { styles } from "../material-ui/styles.js";
 //    items: the array of objects to be displayed in the list
 //    per_page: the number of list items to display per page
 
+// Space-efficient list kind of like cardlist but smaller
+
 class ItemList extends Component {
   constructor() {
     super();
