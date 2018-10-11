@@ -9,7 +9,7 @@ import NoteView from "./notes/noteview";
 import AddNote from "./notes/addnote";
 import LandingPage from "./landingpage/landingpage";
 import Jobs from "./jobs/jobs";
-import AddJob from "./jobs/addjob";
+
 import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
 import DeleteItem from "./reuseable/deleteitem";
@@ -31,6 +31,8 @@ import EditPart from "./parts/editpart.js";
 import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
 import JobForm from "./jobs/jobform.js";
+import NoteForm from "./notes/noteform.js";
+import PartForm from "./parts/partform.js";
 
 export {
   Settings,
@@ -43,7 +45,6 @@ export {
   AddNote,
   LandingPage,
   Jobs,
-  AddJob,
   JobView,
   JobInvoice,
   EditJob,
@@ -65,5 +66,7 @@ export {
   EditNote,
   TextField,
   CheckoutForm,
-  JobForm
+  JobForm,
+  NoteForm,
+  PartForm
 };

@@ -11,6 +11,10 @@ import { styles } from "../material-ui/styles.js";
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r6059
 class Clients extends Component {
+  handleCreate = () => {
+    this.props.history.push("/createclient");
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -19,7 +23,7 @@ class Clients extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
-            <div className={classes.pad_me}>
+            <div className={classes.margin}>
               <Typography variant="title" className={classes.typography}>
                 Clients
               </Typography>
@@ -28,6 +32,7 @@ class Clients extends Component {
                 type="client"
                 rows={2}
                 columns={4}
+                createMethod={this.handleCreate}
               />
             </div>
           );

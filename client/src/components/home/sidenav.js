@@ -79,9 +79,6 @@ class SideNav extends Component {
             <Link to="/jobs">
               <MenuItem selected={path.includes("jobs")}>View</MenuItem>
             </Link>
-            <Link to="/createjob">
-              <MenuItem selected={path.includes("createjob")}>Create</MenuItem>
-            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
@@ -100,22 +97,7 @@ class SideNav extends Component {
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "partpanel"}
-          onChange={this.handleChange("partpanel")}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <MenuItem selected={path.includes("part")}>Parts</MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.nav_menu}>
-            <Link to="/parts">
-              <MenuItem selected={path.includes("parts")}>View</MenuItem>
-            </Link>
-            <Link to="/createpart">
-              <MenuItem selected={path.includes("createpart")}>Create</MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+
         <ExpansionPanel
           expanded={expanded === "settingspanel"}
           onChange={this.handleChange("settingspanel")}

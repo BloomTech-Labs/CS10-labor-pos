@@ -20,6 +20,7 @@ import { styles } from "../material-ui/styles.js";
 //    rows: The number of rows to be shown.
 //    columns: The number of columns to be shown.  Takes 3, 4, or 6.
 //    items: An array of items to be listed.
+//    createMethod: the method for creating a new item
 
 class CardList extends Component {
   constructor() {
@@ -55,24 +56,29 @@ class CardList extends Component {
       card_array.push(
         <Grid item xs={12 / this.props.columns} key={i}>
           <Card raised className={classes.item_card}>
-            <ItemCard type={this.props.type} item={this.props.items[i].node} />
+            <ItemCard
+              after_path={this.props.after_path}
+              type={this.props.type}
+              item={this.props.items[i].node}
+            />
           </Card>
         </Grid>
       );
     }
-    card_array.push(
-      <Grid item xs={12 / this.props.columns} key={-1}>
-        <Card raised className={classes.card}>
-          <IconButton onClick={this.props.createMethod}>
-            <AddCircle />
-          </IconButton>
-          <Typography
-            className={classes.typography}
-            variant="subheading"
-          >{`New ${this.props.type}`}</Typography>
-        </Card>
-      </Grid>
-    );
+    if (this.props.location.pathname !== "/jobs")
+      card_array.push(
+        <Grid item xs={12 / this.props.columns} key={-1}>
+          <Card raised className={classes.card}>
+            <IconButton onClick={this.props.createMethod}>
+              <AddCircle />
+            </IconButton>
+            <Typography
+              className={classes.typography}
+              variant="subheading"
+            >{`New ${this.props.type}`}</Typography>
+          </Card>
+        </Grid>
+      );
     return (
       <div>
         <Grid

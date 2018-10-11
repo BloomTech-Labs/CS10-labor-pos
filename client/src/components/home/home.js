@@ -10,7 +10,6 @@ import {
   NoteView,
   AddNote,
   Jobs,
-  AddJob,
   JobView,
   JobInvoice,
   EditJob,
@@ -115,14 +114,12 @@ class Home extends Component {
             <Route exact path="/clients/:id/edit" component={EditClient} />
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/jobs/:id" component={JobView} />
-            <Route exact path="/createjob" component={AddJob} />
             <Route exact path="/jobs/:id/invoice" component={JobInvoice} />
             <Route exact path="/jobs/:id/edit" component={EditJob} />
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
             <Route exact path="/notes/:id/edit" component={EditNote} />
-            <Route exact path="/parts" component={Parts} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />

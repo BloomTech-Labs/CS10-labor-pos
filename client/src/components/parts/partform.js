@@ -6,7 +6,8 @@ import {
   Grid,
   MenuItem,
   Button,
-  withStyles
+  withStyles,
+  Hidden
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_PART, UPDATE_PART } from "../../mutations.js";
@@ -110,15 +111,15 @@ class PartForm extends Component {
                     }}
                   >
                     <Grid container>
-                      <Grid item xs={12}>
+                      <Grid container justify="center">
                         <Typography
-                          className={classes.typography}
+                          className={classes.typography_title}
                           variant="title"
                         >
                           {title_text}
                         </Typography>
                       </Grid>
-                      <Grid item xs={12}>
+                      <Grid container justify="center">
                         <TextField
                           id="field-name"
                           label="Name"
@@ -136,7 +137,6 @@ class PartForm extends Component {
                           id="field-description"
                           label="Description"
                           multiline
-                          fullWidth
                           rows="8"
                           rowsMax="8"
                           name="description"
@@ -148,7 +148,8 @@ class PartForm extends Component {
                         />
                       </Grid>
                       <Grid item xs={1} />
-                      <Grid item xs={6}>
+                      <Grid item xs={1} />
+                      <Grid item xs={5}>
                         <TextField
                           id="field-cost"
                           label="Cost"
@@ -159,7 +160,7 @@ class PartForm extends Component {
                           margin="normal"
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={5}>
                         <TextField
                           id="field-job"
                           select
@@ -183,17 +184,32 @@ class PartForm extends Component {
                           ))}
                         </TextField>
                       </Grid>
+                      <Grid item xs={1} />
                     </Grid>
-                    <div className="form-bottom-button">
+                    <Grid
+                      container
+                      justify="space-around"
+                      className={classes.margin}
+                    >
+                      <Hidden xsUp={this.props.mode !== "modal"}>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          className={classes.padded_button}
+                          onClick={this.props.cancelAdd}
+                        >
+                          Cancel
+                        </Button>
+                      </Hidden>
                       <Button
-                        className={classes.padded_button}
                         variant="contained"
                         color="primary"
+                        className={classes.padded_button}
                         type="submit"
                       >
                         {button_text}
                       </Button>
-                    </div>
+                    </Grid>
                   </form>
                 </div>
               )}
@@ -205,7 +221,7 @@ class PartForm extends Component {
   }
   _confirm = () => {
     window.location.reload();
-    this.props.history.push("/parts");
+    this.props.history.push(this.props.after_url);
   };
 }
 
