@@ -52,6 +52,7 @@ const ClientSchema = Yup.object().shape({
 // Then it sends a mutation on submit.
 class ClientForm extends Component {
   render() {
+    console.log(styles);
     // Get MaterialUI classes
     const { classes } = this.props;
     let chosen_mutation = CREATE_CLIENT;
@@ -232,12 +233,17 @@ class ClientForm extends Component {
                               className={classNames(
                                 classes.margin,
                                 classes.textField,
-                                classes.state_field
+                                classes.state_field,
+                                classes.menuitems
                               )}
                               style={{ width: "194px", height: "55px" }}
                             >
                               {STATE_LIST.map(state => (
-                                <option key={state.label} value={state.label}>
+                                <option
+                                  key={state.label}
+                                  value={state.label}
+                                  className={classes.menuitems}
+                                >
                                   {state.label}
                                 </option>
                               ))}

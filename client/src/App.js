@@ -48,6 +48,7 @@ class App extends Component {
         }
       }
     });
+    console.log(theme);
     return (
       <div className="App">
         <div className="hero-image">

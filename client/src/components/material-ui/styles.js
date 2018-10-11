@@ -46,6 +46,10 @@ const styles = theme => ({
   checkbox: {
     marginTop: "32px"
   },
+  menuitems: {
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default
+  },
   padded_button: {
     margin: "16px"
   },
