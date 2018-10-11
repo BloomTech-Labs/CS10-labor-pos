@@ -44,12 +44,11 @@ class ItemCard extends Component {
     let middleRow = "";
     let bottomRow = "";
 
-    /*  No longer using this.props.type being passed down from Cardlist 
+    /*  No longer using this.props.type being passed down from Cardlist
     That logic was breaking when it came to going to /client because
     it seemed to think that /client's type was client/note/job
     Now taking this.props.match.path off of React router */
     console.log("Item", this.props.item);
-    console.log("type", this.props.type);
     switch (this.props.type) {
       case "job":
         if (this.props.item.client.businessName) {
@@ -65,13 +64,13 @@ class ItemCard extends Component {
               Client: <br />
               {`${this.props.item.client.firstName} ${
                 this.props.item.client.lastName
-              }`}{" "}
+              }`}
             </React.Fragment>
           );
         }
         middleRow = (
           <React.Fragment>
-            Job: <br /> {`${this.props.item.name}`}{" "}
+            Job: <br /> {`${this.props.item.name}`}
           </React.Fragment>
         );
         if (this.props.item.deadline) {
@@ -139,7 +138,7 @@ class ItemCard extends Component {
         <Grid container>
           <Grid item xs={6} />
           <Grid item xs={3}>
-            <Link to={`${this.props.match.path}/${this.props.item.id}/edit`}>
+            <Link to={`/${this.props.type}s/${this.props.item.id}/edit`}>
               <IconButton>
                 <Create />
               </IconButton>
@@ -154,7 +153,7 @@ class ItemCard extends Component {
         <Typography variant="subheading" noWrap>
           {topRow}
         </Typography>
-        <Link to={`${this.props.match.path}/${this.props.item.id}`}>
+        <Link to={`/${this.props.type}s/${this.props.item.id}`}>
           <Typography variant="subheading" noWrap>
             {middleRow}
           </Typography>

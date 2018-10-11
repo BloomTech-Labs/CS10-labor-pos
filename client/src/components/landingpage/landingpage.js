@@ -141,6 +141,7 @@ class LandingPage extends Component {
             fullScreen={fullScreen}
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
+            PaperProps={{ className: classes.paper }}
           >
             <Login modalDone={this.handleCloseModals} />
           </Dialog>

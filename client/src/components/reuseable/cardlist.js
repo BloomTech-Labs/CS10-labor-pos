@@ -20,6 +20,7 @@ import { styles } from "../material-ui/styles.js";
 //    rows: The number of rows to be shown.
 //    columns: The number of columns to be shown.  Takes 3, 4, or 6.
 //    items: An array of items to be listed.
+//    createMethod: the method for creating a new item
 
 class CardList extends Component {
   constructor() {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { amber, orange, blueGrey, grey } from "@material-ui/core/colors";
+import { amber, yellow, grey } from "@material-ui/core/colors";
 
 class App extends Component {
   state = {
@@ -27,12 +27,12 @@ class App extends Component {
     let lightened_background = grey["100"];
     let default_color = "#d4c253";
     let paper_color = "#f0e370";
-    let primary_color = amber;
-    let secondary_color = orange;
+    let primary_color = yellow;
+    let secondary_color = amber;
     if (this.state.dark_theme) {
       theme_type = "dark";
       lightened_background = grey["700"];
-      default_color = "#5C4E04";
+      default_color = "#584A00";
       paper_color = "#262600";
     }
     //  Create the theme for the app.
