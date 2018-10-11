@@ -53,13 +53,6 @@ class Start extends Component {
               </Grid>
               <Grid item xs={4}>
                 <Card className={classes.card}>
-                  <Link to="/tags">
-                    <Button>Click to view tags</Button>
-                  </Link>
-                </Card>
-              </Grid>
-              <Grid item xs={4}>
-                <Card className={classes.card}>
                   <Link to="/parts">
                     <Button>Click to view parts</Button>
                   </Link>

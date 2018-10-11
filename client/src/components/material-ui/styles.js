@@ -83,6 +83,9 @@ const styles = theme => ({
     fontWeight: "600",
     fontFamily: "Roboto"
   },
+  typography_title: {
+    fontSize: "50px"
+  },
   main_content: {
     textAlign: "center",
     margin: "auto",

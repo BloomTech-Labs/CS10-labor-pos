@@ -1,9 +1,10 @@
-import Tags from "./tags/tags";
-import AddTag from "./tags/addtag";
-import TagView from "./tags/tagview";
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
+<<<<<<< HEAD
 import Checkout from "./billing/checkout"
+=======
+import CheckoutForm from "./billing/checkoutform";
+>>>>>>> 3d44c68b7f32bd7799da23f64b3ca95c659b3eb0
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
@@ -31,15 +32,11 @@ import ItemCard from "./reuseable/itemcard.js";
 import EditClient from "./clients/editclient.js";
 import CreateUser from "./auth/signup.js";
 import EditPart from "./parts/editpart.js";
-import EditTag from "./tags/edittag.js";
 import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
 import JobForm from "./jobs/jobform.js";
 
 export {
-  Tags,
-  AddTag,
-  TagView,
   Settings,
   Billing,
   Parts,
@@ -69,8 +66,8 @@ export {
   EditClient,
   CreateUser,
   EditPart,
-  EditTag,
   EditNote,
   TextField,
+  CheckoutForm,
   JobForm
 };

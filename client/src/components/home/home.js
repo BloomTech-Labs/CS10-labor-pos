@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import {
-  Tags,
-  AddTag,
-  TagView,
   Settings,
   Billing,
   Parts,
@@ -24,7 +21,6 @@ import {
   ClientView,
   EditClient,
   EditPart,
-  EditTag,
   EditNote
 } from "../../components";
 import { Route } from "react-router-dom";
@@ -126,12 +122,8 @@ class Home extends Component {
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
             <Route exact path="/notes/:id/edit" component={EditNote} />
-            <Route exact path="/tags" component={Tags} />
             <Route exact path="/parts" component={Parts} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/createtag" component={AddTag} />
-            <Route exact path="/tags/:id" component={TagView} />
-            <Route exact path="/tags/:id/edit" component={EditTag} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />

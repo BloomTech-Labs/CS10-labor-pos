@@ -24,6 +24,8 @@ import { styles } from "../material-ui/styles.js";
 //    items: the array of objects to be displayed in the list
 //    per_page: the number of list items to display per page
 
+// Space-efficient list kind of like cardlist but smaller
+
 class ItemList extends Component {
   constructor() {
     super();
@@ -75,10 +77,6 @@ class ItemList extends Component {
       case "note":
         name_field = "title";
         path = "/notes";
-        break;
-      case "tag":
-        name_field = "name";
-        path = "/tags";
         break;
       default:
         name_field = "first_name last_name";

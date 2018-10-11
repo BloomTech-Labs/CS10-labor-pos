@@ -6,7 +6,6 @@ import {
   DELETE_JOB,
   DELETE_NOTE,
   DELETE_PART,
-  DELETE_TAG,
   DELETE_CLIENT
 } from "../../mutations";
 import { styles } from "../material-ui/styles.js";
@@ -44,10 +43,6 @@ class DeleteItem extends Component {
       case "note":
         name = this.props.item.title;
         chosen_mutation = DELETE_NOTE;
-        break;
-      case "tag":
-        name = this.props.item.name;
-        chosen_mutation = DELETE_TAG;
         break;
       case "client":
         if (this.props.item.businessName) name = this.props.item.businessName;

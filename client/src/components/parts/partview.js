@@ -18,7 +18,7 @@ import { styles } from "../material-ui/styles.js";
 //This component will render on the /parts/%partid route when the user is logged in
 //It is a child of the home component.
 //It will present the user with details about the individual part, as well as
-//a form to edit it and a paginated list of tags applied to it.
+//a form to edit it
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/r773D
 class PartView extends Component {
@@ -74,14 +74,6 @@ class PartView extends Component {
                     data.part.cost
                   }`}</Typography>
                 </Card>
-              </Grid>
-              <Grid item xs={10}>
-                <CardList
-                  columns={4}
-                  rows={1}
-                  type="tag"
-                  items={data.part.tagSet.edges}
-                />
               </Grid>
               <Dialog
                 open={this.state.deleting}

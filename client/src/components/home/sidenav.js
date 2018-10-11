@@ -35,7 +35,7 @@ class SideNav extends Component {
         {/*TODO: These buttons can be in routes to dynamically display based on what is needed
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
-        id est tags would have a smaller create tag button under it.*/}
+        id est client would have a smaller create client button under it.*/}
         <Divider />
         <Link to="/" className={classes.sidenav_top}>
           <Avatar
@@ -97,22 +97,6 @@ class SideNav extends Component {
             </Link>
             <Link to="/createnote">
               <MenuItem selected={path.includes("createnote")}>Create</MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "tagpanel"}
-          onChange={this.handleChange("tagpanel")}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <MenuItem selected={path.includes("tag")}>Tags</MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.nav_menu}>
-            <Link to="/tags">
-              <MenuItem selected={path.includes("tags")}>View</MenuItem>
-            </Link>
-            <Link to="/createtag">
-              <MenuItem selected={path.includes("createtag")}>Create</MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
