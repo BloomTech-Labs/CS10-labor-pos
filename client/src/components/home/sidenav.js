@@ -79,9 +79,6 @@ class SideNav extends Component {
             <Link to="/jobs">
               <MenuItem selected={path.includes("jobs")}>View</MenuItem>
             </Link>
-            <Link to="/createjob">
-              <MenuItem selected={path.includes("createjob")}>Create</MenuItem>
-            </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel

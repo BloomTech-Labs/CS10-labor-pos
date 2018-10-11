@@ -9,7 +9,7 @@ import NoteView from "./notes/noteview";
 import AddNote from "./notes/addnote";
 import LandingPage from "./landingpage/landingpage";
 import Jobs from "./jobs/jobs";
-import AddJob from "./jobs/addjob";
+
 import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
 import DeleteItem from "./reuseable/deleteitem";
@@ -43,7 +43,6 @@ export {
   AddNote,
   LandingPage,
   Jobs,
-  AddJob,
   JobView,
   JobInvoice,
   EditJob,
