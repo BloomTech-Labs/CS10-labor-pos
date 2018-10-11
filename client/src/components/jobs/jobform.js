@@ -22,6 +22,9 @@ const Yup = require("yup");
 //  PROPS:
 //    mode: Accepts "create" or "edit"; indicates what the component should be doing
 //    job: In edit mode, a job will be passed down from the parent component.
+//    parent: In create mode, an object describing the client the job is being created for.
+//    after_url: Where to navigate after submitting the form.
+//    cancelAdd: a method from the parent to close the modal
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
 const JobSchema = Yup.object().shape({
@@ -153,7 +156,6 @@ class JobForm extends Component {
                             id="field-description"
                             label="Description"
                             multiline
-                            fullWidth
                             rows="8"
                             rowsMax="8"
                             name="description"
@@ -203,6 +205,14 @@ class JobForm extends Component {
                           />
                         </Grid>
                         <Grid item xs={6}>
+                            className={classes.field_small}
+                            value={labor}
+                            onChange={this.handleChange("labor")}
+                            margin="normal"
+                          />
+                        </Grid>
+
+                        <Grid item xs={4}>
                           <FormControlLabel
                             control={
                               <Checkbox
@@ -228,16 +238,35 @@ class JobForm extends Component {
                               shrink: true
                             }}
                           />
-                        </Grid>*/}
-                          <Button
-                            disabled={!isValid}
-                            variant="contained"
-                            color="primary"
-                            className={classes.padded_button}
-                            type="submit"
+                        </Grid>
+                        <Grid item xs={12}>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between"
+                            }}
                           >
-                            {button_text}
-                          </Button>
+                            <Button
+                              variant="contained"
+                              color="secondary"
+                              className={classes.padded_button}
+                              onClick={e => {
+                                e.preventDefault();
+                                this.props.cancelAdd();
+                              }}
+                            >
+                              Cancel
+                            </Button>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              className={classes.padded_button}
+                              type="submit"
+                            >
+                              {button_text}
+                            </Button>
+                          </div>
+                        </Grid>
                       </Grid>
                     </Form>
                     {loading && <p>Saving job information...</p>}
@@ -256,7 +285,7 @@ class JobForm extends Component {
 
   _confirm = () => {
     window.location.reload();
-    this.props.history.push("/jobs");
+    this.props.history.push(this.props.after_url);
   };
 }
 

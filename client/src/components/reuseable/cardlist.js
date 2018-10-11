@@ -6,10 +6,11 @@ import {
   Card,
   IconButton,
   Typography,
-  withStyles
+  withStyles,
+  Hidden
 } from "@material-ui/core";
 import { ItemCard } from "../../components";
-import { Link } from "react-router-dom";
+
 import { styles } from "../material-ui/styles.js";
 
 //  This component shows a list of cards representing one of our item types.
@@ -20,6 +21,7 @@ import { styles } from "../material-ui/styles.js";
 //    rows: The number of rows to be shown.
 //    columns: The number of columns to be shown.  Takes 3, 4, or 6.
 //    items: An array of items to be listed.
+//    createMethod: A method from the parent component to create a new instance of the item from the card.
 
 class CardList extends Component {
   constructor() {
@@ -63,15 +65,13 @@ class CardList extends Component {
     card_array.push(
       <Grid item xs={12 / this.props.columns} key={-1}>
         <Card raised className={classes.card}>
-          <Link to={`/create${this.props.type}`}>
-            <IconButton>
-              <AddCircle />
-            </IconButton>
-            <Typography
-              className={classes.typography}
-              variant="subheading"
-            >{`New ${this.props.type}`}</Typography>
-          </Link>
+          <IconButton onClick={this.props.createMethod}>
+            <AddCircle />
+          </IconButton>
+          <Typography
+            className={classes.typography}
+            variant="subheading"
+          >{`New ${this.props.type}`}</Typography>
         </Card>
       </Grid>
     );

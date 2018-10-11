@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import {
-  indigo,
-  blue,
-  cyan,
-  teal,
-  blueGrey,
-  grey
-} from "@material-ui/core/colors";
+import { amber, orange, blueGrey, grey } from "@material-ui/core/colors";
 
 class App extends Component {
   state = {
@@ -34,15 +27,13 @@ class App extends Component {
     let lightened_background = grey["100"];
     let default_color = blueGrey["50"];
     let paper_color = grey["50"];
-    let primary_color = indigo;
-    let secondary_color = cyan;
+    let primary_color = amber;
+    let secondary_color = orange;
     if (this.state.dark_theme) {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = blueGrey["900"];
       paper_color = grey["800"];
-      primary_color = blue;
-      secondary_color = teal;
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({
