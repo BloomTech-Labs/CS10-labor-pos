@@ -113,6 +113,11 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
   },
+  radio: {
+    display: "flex",
+    justifyContent: "flex-center"
+
+  },
   state_field: {
     fontFamily: "Roboto, Helvetica, Arial, sans-serif",
     fontSize: "16px",

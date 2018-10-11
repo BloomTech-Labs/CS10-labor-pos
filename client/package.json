@@ -22,6 +22,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
+    "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.1",
     "sendgrid": "^5.2.3",
     "subscriptions-transport-ws": "^0.9.14",
