@@ -10,9 +10,11 @@ import {
   IconButton,
   Button,
   withStyles,
-  Card
+  Card,
+  Paper,
+  withMobileDialog
 } from "@material-ui/core";
-import { ItemList, DeleteItem } from "../../components";
+import { ItemList, DeleteItem, NoteForm } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -27,20 +29,22 @@ class JobView extends Component {
   constructor() {
     super();
     this.state = {
-      deleting: false
+      deleting: false,
+      add_note: false,
+      add_part: false
     };
   }
 
-  handleDeleteButton = () => {
-    this.setState({ deleting: true });
+  openModal = name => () => {
+    this.setState({ [name]: true });
   };
 
-  cancelDelete = () => {
-    this.setState({ deleting: false });
+  cancelModal = name => () => {
+    this.setState({ [name]: false });
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, fullscreen } = this.props;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
@@ -113,7 +117,7 @@ class JobView extends Component {
                     <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton onClick={this.handleDeleteButton}>
+                    <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -139,11 +143,14 @@ class JobView extends Component {
                     >
                       <Grid item xs={4}>
                         {/*TODO: make these links pass the associated job to the create component*/}
-                        <Link to="/createnote">
-                          <Button className="job-list-button">
-                            Add a new note
-                          </Button>
-                        </Link>
+
+                        <Button
+                          onClick={this.openModal("add_note")}
+                          className="job-list-button"
+                        >
+                          Add a new note
+                        </Button>
+
                         <ItemList
                           type="note"
                           items={data.job.noteSet.edges}
@@ -181,15 +188,30 @@ class JobView extends Component {
               </div>
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelDelete}
+                onClose={this.cancelModal("deleting")}
                 className="delete-modal"
+                fullScreen={fullscreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelDelete}
+                  cancelDelete={this.cancelModal("deleting")}
                   type="job"
                   item={data.job}
                   after_path="/jobs"
                 />
+              </Dialog>
+              <Dialog
+                open={this.state.add_note}
+                onClose={this.cancelModal("add_note")}
+                fullScreen={fullscreen}
+              >
+                <Paper className={classes.paper}>
+                  <NoteForm
+                    mode="modal"
+                    parent={{ type: "job", id: data.job.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_note")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );
@@ -199,4 +221,4 @@ class JobView extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(JobView));
+export default withRouter(withMobileDialog()(withStyles(styles)(JobView)));

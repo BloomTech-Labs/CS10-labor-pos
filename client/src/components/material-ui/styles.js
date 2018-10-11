@@ -130,9 +130,9 @@ const styles = theme => ({
     lineHeight: "19px",
     height: "24px",
     border: "0",
-    backgroundColor: "initial",
-    color: "rgba(255, 255, 255, 0.7)",
-    borderBottom: "1px solid"
+    borderBottom: "1px solid",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default
   }
 });
 export { styles };

@@ -142,15 +142,15 @@ class JobForm extends Component {
                               <Field
                                 id="field-client"
                                 disabled={this.props.mode === "create"}
-                                select
                                 label="Client"
                                 name="client"
-                                component={TextField}
+                                component="select"
                                 placeholder="Client"
                                 value={values.client}
                                 className={classNames(
                                   classes.margin,
-                                  classes.textField
+                                  classes.textField,
+                                  classes.state_field
                                 )}
                                 style={{
                                   width: "194px",
@@ -158,12 +158,13 @@ class JobForm extends Component {
                                 }}
                               >
                                 {client_list.map(client => (
-                                  <MenuItem
+                                  <option
                                     key={client.value}
                                     value={client.value}
+                                    className={classes.menu_items}
                                   >
                                     {client.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
                               </Field>
                             </Grid>

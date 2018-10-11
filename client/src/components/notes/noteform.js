@@ -15,6 +15,7 @@ import { ALL_CLIENTS_AND_JOBS } from "../../queries.js";
 import { styles } from "../material-ui/styles.js";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
+import classNames from "classnames";
 const Yup = require("yup");
 
 //Schema for validation
@@ -67,6 +68,7 @@ class NoteForm extends Component {
       else if (this.props.parent.type === "job")
         edit_note.job = this.props.parent.id;
     }
+    console.log(edit_note);
     return (
       //  This query gets the names and ids of all clients and jobs to populate the pulldown menus
       <Query query={ALL_CLIENTS_AND_JOBS}>
@@ -93,6 +95,7 @@ class NoteForm extends Component {
                 }`
               });
           }
+          client_list.push({ value: "", label: "None" });
           //  Build the array for the job pulldown.  It's simpler than the client one.
           let job_list = [];
           let job_array = data.allJobs.edges;
@@ -102,6 +105,7 @@ class NoteForm extends Component {
               label: job_array[i].node.name
             });
           }
+          job_list.push({ value: "", label: "None" });
           return (
             //  Give initial values to Formik from the edit_note object
             <Formik
@@ -216,18 +220,22 @@ class NoteForm extends Component {
                                   this.props.mode === "modal" &&
                                   this.props.parent.type === "client"
                                 }
-                                component={TextField}
-                                select
-                                className={classes.textField}
+                                component="select"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.state_field
+                                )}
                                 value={values.client}
                               >
                                 {client_list.map(client => (
-                                  <MenuItem
+                                  <option
                                     key={client.value}
                                     value={client.value}
+                                    className={classes.menuitems}
                                   >
                                     {client.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
                               </Field>
                             </Grid>
@@ -235,20 +243,27 @@ class NoteForm extends Component {
                               <Field
                                 id="field-job"
                                 label="Job"
-                                select
                                 name="job"
                                 disabled={
                                   this.props.mode === "modal" &&
                                   this.props.parent.type === "job"
                                 }
-                                className={classes.textField}
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.state_field
+                                )}
                                 value={values.job}
-                                component={TextField}
+                                component="select"
                               >
                                 {job_list.map(job => (
-                                  <MenuItem key={job.value} value={job.value}>
+                                  <option
+                                    key={job.value}
+                                    value={job.value}
+                                    className={classes.menuitems}
+                                  >
                                     {job.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
                               </Field>
                             </Grid>

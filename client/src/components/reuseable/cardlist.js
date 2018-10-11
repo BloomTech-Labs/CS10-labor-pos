@@ -65,19 +65,20 @@ class CardList extends Component {
         </Grid>
       );
     }
-    card_array.push(
-      <Grid item xs={12 / this.props.columns} key={-1}>
-        <Card raised className={classes.card}>
-          <IconButton onClick={this.props.createMethod}>
-            <AddCircle />
-          </IconButton>
-          <Typography
-            className={classes.typography}
-            variant="subheading"
-          >{`New ${this.props.type}`}</Typography>
-        </Card>
-      </Grid>
-    );
+    if (this.props.location.pathname !== "/jobs")
+      card_array.push(
+        <Grid item xs={12 / this.props.columns} key={-1}>
+          <Card raised className={classes.card}>
+            <IconButton onClick={this.props.createMethod}>
+              <AddCircle />
+            </IconButton>
+            <Typography
+              className={classes.typography}
+              variant="subheading"
+            >{`New ${this.props.type}`}</Typography>
+          </Card>
+        </Grid>
+      );
     return (
       <div>
         <Grid
