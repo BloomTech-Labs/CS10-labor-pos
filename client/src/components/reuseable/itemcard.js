@@ -43,10 +43,12 @@ class ItemCard extends Component {
     let topRow = "";
     let middleRow = "";
     let bottomRow = "";
-    console.log("ITEM:", this.props.item);
-    console.log("TYPE:", this.props.type);
-    console.log("MATCH:", this.props.match);
 
+/*  No longer using this.props.type being passed down from Cardlist 
+    That logic was breaking when it came to going to /client because
+    it seemed to think that /client's type was client/note/job
+    Now taking this.props.match.path off of React router */
+    
     switch (this.props.match.path) {
       case "/jobs":
         if (this.props.item.client.businessName) {
