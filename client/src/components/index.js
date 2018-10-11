@@ -1,10 +1,6 @@
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
-<<<<<<< HEAD
 import Checkout from "./billing/checkout"
-=======
-import CheckoutForm from "./billing/checkoutform";
->>>>>>> 3d44c68b7f32bd7799da23f64b3ca95c659b3eb0
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
@@ -68,6 +64,6 @@ export {
   EditPart,
   EditNote,
   TextField,
-  CheckoutForm,
+  Checkout,
   JobForm
 };
