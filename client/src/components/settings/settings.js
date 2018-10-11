@@ -380,17 +380,6 @@ class Settings extends Component {
                             </TableCell>
                             <TableCell>unlimited!</TableCell>
                           </TableRow>
-                          <TableRow>
-                            <TableCell>Tags</TableCell>
-                            <TableCell numeric>
-                              {this.props.item_counts.tags}
-                            </TableCell>
-                            <TableCell numeric>8</TableCell>
-                            <TableCell numeric>
-                              {8 - this.props.item_counts.tags}
-                            </TableCell>
-                            <TableCell>unlimited!</TableCell>
-                          </TableRow>
                         </TableBody>
                       </Table>
                     </Paper>
@@ -428,8 +417,7 @@ class SettingsWrapper extends Component {
             clients: data.allClients.edges.length,
             jobs: data.allJobs.edges.length,
             notes: data.allNotes.edges.length,
-            parts: data.allClients.edges.length,
-            tags: data.allClients.edges.length
+            parts: data.allClients.edges.length
           };
           return (
             <Settings user={user} item_counts={item_counts} {...this.props} />

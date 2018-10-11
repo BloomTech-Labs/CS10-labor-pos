@@ -18,9 +18,6 @@ import { styles } from "../material-ui/styles.js";
 //  This component will render as a child of home on the
 //  /notes/%noteid route when the user is logged in.
 //  It presents the user with the note title and content
-//  as well as a paginated list of tags associated with it
-//  and its created and modified dates.  It also provides
-//  a form to edit the note.
 
 class NoteView extends Component {
   constructor() {
@@ -88,14 +85,6 @@ class NoteView extends Component {
                       {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
                     </Typography>
                   </Card>
-                </Grid>
-                <Grid item xs={10}>
-                  <CardList
-                    rows={1}
-                    columns={4}
-                    type="tag"
-                    items={data.note.tagSet.edges}
-                  />
                 </Grid>
               </Grid>
               <Dialog

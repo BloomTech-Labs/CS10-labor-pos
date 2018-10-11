@@ -64,7 +64,7 @@ class CreateJob(graphene.Mutation):
     status = graphene.String()
 
     def mutate(
-        self, info, client, name, description, complete, deadline=None, labor=""
+        self, info, client, name, description, complete=False, deadline="", labor=""
     ):
         # Will need to pass null or nothing in for empty deadline on frontend
         user = info.context.user
@@ -75,11 +75,15 @@ class CreateJob(graphene.Mutation):
                 client=Client.objects.get(pk=from_global_id(client)[1]),
                 name=name,
                 description=description,
-                labor=labor,
                 complete=complete,
-                deadline=deadline,
                 user=user,
             )
+            if labor != "":
+                new_job.labor = labor
+            if deadline != "":
+                new_job.deadline = deadline
+            if complete is not False:
+                new_job.complete = complete
             new_job.save()
             return CreateJob(job=new_job, ok=True, status="ok")
 

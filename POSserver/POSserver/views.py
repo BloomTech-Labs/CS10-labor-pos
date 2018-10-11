@@ -6,6 +6,7 @@ from .utils import render_to_pdf
 from server.models import Job, Part, Client, User
 from graphql_relay.node.node import from_global_id
 import json
+import stripe
 
 
 class GeneratePDF(View):
@@ -45,3 +46,17 @@ class GeneratePDF(View):
             response["Content-Disposition"] = content
             return response
         return HttpResponse("Not found")
+
+
+def charge(request):
+    if request.method == "POST":
+
+        token = request.form["stripeToken"]
+
+        charge = stripe.Charge.create(
+            amount=request.POST["amount"],
+            currency="usd",
+            description=request.POST["description"],
+            source=token,
+        )
+        return HttpResponse(charge)
