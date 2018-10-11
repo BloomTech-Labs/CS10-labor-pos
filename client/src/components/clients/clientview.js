@@ -10,7 +10,8 @@ import {
   IconButton,
   Divider,
   withStyles,
-  withMobileDialog
+  withMobileDialog,
+  Paper
 } from "@material-ui/core";
 import { CardList, DeleteItem, JobForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
@@ -108,11 +109,12 @@ class ClientView extends Component {
                   </Typography>
                 </Grid>
               </Grid>
-              <Divider />
+              <Divider className={classes.margin} />
               <Typography
                 className={classes.typography}
-                align="left"
+                align="center"
                 variant="subheading"
+                paragraph
               >{`Jobs for ${name}:`}</Typography>
               <CardList
                 rows={1}
@@ -125,7 +127,8 @@ class ClientView extends Component {
               <Divider />
               <Typography
                 className={classes.typography}
-                align="left"
+                paragraph
+                align="center"
                 variant="subheading"
               >{`Notes for ${name}:`}</Typography>
               <CardList
@@ -153,12 +156,14 @@ class ClientView extends Component {
                 onClose={this.cancelModal("add_job")}
                 fullScreen={fullScreen}
               >
-                <JobForm
-                  mode="create"
-                  parent={{ type: "client", id: data.client.id }}
-                  after_url={this.props.location.pathname}
-                  cancelAdd={this.cancelModal("add_job")}
-                />
+                <Paper className={classes.paper}>
+                  <JobForm
+                    mode="create"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_url={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_job")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );

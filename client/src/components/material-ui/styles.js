@@ -4,10 +4,11 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit * 2
   },
   textField: {
-    flexBasis: "auto"
+    flexBasis: "auto",
+    width: "90%"
   },
   layout: {
     width: "auto",
@@ -27,7 +28,8 @@ const styles = theme => ({
   modal: {
     padding: "20px",
     width: "100%",
-    maxWidth: "600px"
+    maxWidth: "600px",
+    margin: "auto"
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
@@ -39,7 +41,10 @@ const styles = theme => ({
   field: {
     backgroundColor: theme.palette.background.paper,
     margin: "10px",
-    width: "50%"
+    width: "90%"
+  },
+  checkbox: {
+    marginTop: "32px"
   },
   padded_button: {
     margin: "16px"
@@ -86,10 +91,8 @@ const styles = theme => ({
     maxWidth: "900px",
     marginTop: "32px",
     marginBottom: "32px",
+    padding: "16px 32px",
     backgroundColor: theme.palette.background.default
-  },
-  pad_me: {
-    padding: "20px 30px"
   },
   paper: {
     marginTop: theme.spacing.unit * 2,

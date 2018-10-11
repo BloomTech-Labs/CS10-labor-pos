@@ -21,7 +21,7 @@ class Notes extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
-            <div className={classes.pad_me}>
+            <div className={classes.margin}>
               <Typography className={classes.typography} variant="title">
                 Notes
               </Typography>

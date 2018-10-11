@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Button, Grid, Typography, withStyles } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Typography,
+  withStyles,
+  Hidden
+} from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
 import { Formik, Field, Form } from "formik";
@@ -96,7 +102,7 @@ class JobForm extends Component {
                     onCompleted={() => this._confirm()}
                   >
                     {(mutateJob, { loading, error }) => (
-                      <div>
+                      <div className={classes.modal}>
                         <Form
                           onSubmit={event => {
                             event.preventDefault();
@@ -121,7 +127,7 @@ class JobForm extends Component {
                           }}
                         >
                           <Grid container>
-                            <Grid item xs={12}>
+                            <Grid container justify="center">
                               <Typography
                                 variant="title"
                                 className={classes.typography_title}
@@ -176,7 +182,6 @@ class JobForm extends Component {
                                 id="field-description"
                                 label="Description"
                                 multiline
-                                fullWidth
                                 rows="8"
                                 rowsMax="8"
                                 name="description"
@@ -198,14 +203,22 @@ class JobForm extends Component {
                               />
                             </Grid>
                             <Grid item xs={4}>
-                              <Field
-                                checked={values.complete}
-                                name="complete"
-                                type="checkbox"
-                                value={values.complete}
-                                label="Completed?"
-                              />
-                              <Typography>Completed?</Typography>
+                              <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                                direction="column"
+                              >
+                                <Field
+                                  checked={values.complete}
+                                  name="complete"
+                                  type="checkbox"
+                                  value={values.complete}
+                                  label="Completed"
+                                  className={classes.checkbox}
+                                />
+                                <Typography>Completed</Typography>
+                              </Grid>
                             </Grid>
                             <Grid item xs={4}>
                               <Field
@@ -222,15 +235,27 @@ class JobForm extends Component {
                                 }}
                               />
                             </Grid>
-                            <Button
-                              disabled={!isValid}
-                              variant="contained"
-                              color="primary"
-                              className={classes.padded_button}
-                              type="submit"
-                            >
-                              {button_text}
-                            </Button>
+                            <Grid container justify="space-around">
+                              <Button
+                                disabled={!isValid}
+                                variant="contained"
+                                color="primary"
+                                className={classes.padded_button}
+                                type="submit"
+                              >
+                                {button_text}
+                              </Button>
+                              <Hidden xsUp={this.props.mode === "edit"}>
+                                <Button
+                                  variant="contained"
+                                  color="secondary"
+                                  className={classes.padded_button}
+                                  onClick={this.props.cancelAdd}
+                                >
+                                  Cancel
+                                </Button>
+                              </Hidden>
+                            </Grid>
                           </Grid>
                         </Form>
                         {loading && <p>Saving job information...</p>}

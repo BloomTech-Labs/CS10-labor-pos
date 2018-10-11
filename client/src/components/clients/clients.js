@@ -19,7 +19,7 @@ class Clients extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
-            <div className={classes.pad_me}>
+            <div className={classes.margin}>
               <Typography variant="title" className={classes.typography}>
                 Clients
               </Typography>
