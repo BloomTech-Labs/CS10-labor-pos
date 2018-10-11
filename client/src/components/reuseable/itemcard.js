@@ -49,6 +49,7 @@ class ItemCard extends Component {
     it seemed to think that /client's type was client/note/job
     Now taking this.props.match.path off of React router */
     console.log("Item", this.props.item);
+    console.log("type", this.props.type);
     switch (this.props.type) {
       case "job":
         if (this.props.item.client.businessName) {
