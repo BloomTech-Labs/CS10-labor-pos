@@ -123,6 +123,7 @@ class ClientView extends Component {
                 items={data.client.jobSet.edges}
                 createMethod={this.openModal("add_job")}
                 cancelCreateMethod={this.cancelModal("add_job")}
+                after_path={this.props.location.pathname}
               />
               <Divider />
               <Typography
@@ -160,7 +161,7 @@ class ClientView extends Component {
                   <JobForm
                     mode="create"
                     parent={{ type: "client", id: data.client.id }}
-                    after_url={this.props.location.pathname}
+                    after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_job")}
                   />
                 </Paper>

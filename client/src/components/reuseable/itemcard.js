@@ -99,7 +99,7 @@ class ItemCard extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.props.item}
-            after_path={path}
+            after_path={this.props.after_path}
           />
         </Dialog>
       </div>
