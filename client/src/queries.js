@@ -219,6 +219,12 @@ const DETAILED_CLIENT_BY_ID = gql`
           node {
             title
             content
+            client {
+              id
+              businessName
+              firstName
+              lastName
+            }
           }
         }
       }

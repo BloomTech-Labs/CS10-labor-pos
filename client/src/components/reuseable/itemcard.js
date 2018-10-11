@@ -44,13 +44,13 @@ class ItemCard extends Component {
     let middleRow = "";
     let bottomRow = "";
 
-/*  No longer using this.props.type being passed down from Cardlist 
+    /*  No longer using this.props.type being passed down from Cardlist 
     That logic was breaking when it came to going to /client because
     it seemed to think that /client's type was client/note/job
     Now taking this.props.match.path off of React router */
-    
-    switch (this.props.match.path) {
-      case "/jobs":
+    console.log("Item", this.props.item);
+    switch (this.props.type) {
+      case "job":
         if (this.props.item.client.businessName) {
           topRow = (
             <React.Fragment>
@@ -79,7 +79,7 @@ class ItemCard extends Component {
           bottomRow = "No deadline";
         }
         break;
-      case "/clients":
+      case "client":
         if (this.props.item.businessName)
           middleRow = this.props.item.businessName;
         else
@@ -87,7 +87,7 @@ class ItemCard extends Component {
             this.props.item.lastName
           }`;
         break;
-      case "/notes":
+      case "note":
         topRow = (
           <React.Fragment>
             Title: <br /> {`${this.props.item.title}`}
@@ -127,7 +127,7 @@ class ItemCard extends Component {
           }
         }
         break;
-      case "/parts":
+      case "part":
         middleRow = this.props.item.name;
         break;
       default:
