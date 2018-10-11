@@ -32,6 +32,7 @@ import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
 import JobForm from "./jobs/jobform.js";
 import NoteForm from "./notes/noteform.js";
+import PartForm from "./parts/partform.js";
 
 export {
   Settings,
@@ -66,5 +67,6 @@ export {
   TextField,
   CheckoutForm,
   JobForm,
-  NoteForm
+  NoteForm,
+  PartForm
 };

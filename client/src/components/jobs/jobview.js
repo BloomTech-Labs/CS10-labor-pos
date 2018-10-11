@@ -14,7 +14,7 @@ import {
   Paper,
   withMobileDialog
 } from "@material-ui/core";
-import { ItemList, DeleteItem, NoteForm } from "../../components";
+import { ItemList, DeleteItem, NoteForm, PartForm } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -158,11 +158,13 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
-                        <Link to="/createpart">
-                          <Button className="job-list-button">
-                            Add a new part
-                          </Button>
-                        </Link>
+                        <Button
+                          className="job-list-button"
+                          onClick={this.openModal("add_part")}
+                        >
+                          Add a new part
+                        </Button>
+
                         <ItemList
                           type="part"
                           items={data.job.partSet.edges}
@@ -210,6 +212,20 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                  />
+                </Paper>
+              </Dialog>
+              <Dialog
+                open={this.state.add_part}
+                onClose={this.cancelModal("add_part")}
+                fullScreen={fullscreen}
+              >
+                <Paper className={classes.paper}>
+                  <PartForm
+                    mode="modal"
+                    parent={{ type: "job", id: data.job.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_part")}
                   />
                 </Paper>
               </Dialog>
