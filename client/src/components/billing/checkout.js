@@ -62,7 +62,7 @@ class Checkout extends Component {
       },
       url: apiURI,
       data: { token, jwt: localStorage.getItem('token') },
-      body: JSON.stringify({ query: '{ token: {$token} }' }),
+      body: JSON.stringify({ query: '{ token: { id } }' }),
 }
        
     axios(request)
