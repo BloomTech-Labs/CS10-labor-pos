@@ -191,6 +191,7 @@ const DETAILED_CLIENT_BY_ID = gql`
       noteSet {
         edges {
           node {
+            id
             title
             content
           }

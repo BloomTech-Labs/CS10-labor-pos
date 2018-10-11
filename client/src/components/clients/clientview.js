@@ -13,7 +13,7 @@ import {
   withMobileDialog,
   Paper
 } from "@material-ui/core";
-import { CardList, DeleteItem, JobForm } from "../../components";
+import { CardList, DeleteItem, JobForm, NoteForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -50,6 +50,7 @@ class ClientView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
+          console.log("data: ", data);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let name;
@@ -163,6 +164,20 @@ class ClientView extends Component {
                     parent={{ type: "client", id: data.client.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_job")}
+                  />
+                </Paper>
+              </Dialog>
+              <Dialog
+                open={this.state.add_note}
+                onClose={this.cancelModal("add_note")}
+                fullScreen={fullScreen}
+              >
+                <Paper className={classes.paper}>
+                  <NoteForm
+                    mode="modal"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_note")}
                   />
                 </Paper>
               </Dialog>

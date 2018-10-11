@@ -4,7 +4,9 @@ import {
   Grid,
   Typography,
   withStyles,
-  Hidden
+  Hidden,
+  Select,
+  MenuItem
 } from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
@@ -55,6 +57,7 @@ class JobForm extends Component {
         if (this.props.job[key] === null) edit_job[key] = "";
         else edit_job[key] = this.props.job[key];
       }
+      if (this.props.job.client) edit_job.client = this.props.job.client.id;
     }
     if (this.props.mode === "create") {
       edit_job.client = this.props.parent.id;
@@ -139,15 +142,15 @@ class JobForm extends Component {
                               <Field
                                 id="field-client"
                                 disabled={this.props.mode === "create"}
-                                select="true"
+                                select
                                 label="Client"
                                 name="client"
-                                component="select"
+                                component={TextField}
                                 placeholder="Client"
+                                value={values.client}
                                 className={classNames(
                                   classes.margin,
-                                  classes.textField,
-                                  classes.state_field
+                                  classes.textField
                                 )}
                                 style={{
                                   width: "194px",
@@ -155,12 +158,12 @@ class JobForm extends Component {
                                 }}
                               >
                                 {client_list.map(client => (
-                                  <option
+                                  <MenuItem
                                     key={client.value}
                                     value={client.value}
                                   >
                                     {client.label}
-                                  </option>
+                                  </MenuItem>
                                 ))}
                               </Field>
                             </Grid>
@@ -236,15 +239,6 @@ class JobForm extends Component {
                               />
                             </Grid>
                             <Grid container justify="space-around">
-                              <Button
-                                disabled={!isValid}
-                                variant="contained"
-                                color="primary"
-                                className={classes.padded_button}
-                                type="submit"
-                              >
-                                {button_text}
-                              </Button>
                               <Hidden xsUp={this.props.mode === "edit"}>
                                 <Button
                                   variant="contained"
@@ -255,6 +249,15 @@ class JobForm extends Component {
                                   Cancel
                                 </Button>
                               </Hidden>
+                              <Button
+                                disabled={!isValid}
+                                variant="contained"
+                                color="primary"
+                                className={classes.padded_button}
+                                type="submit"
+                              >
+                                {button_text}
+                              </Button>
                             </Grid>
                           </Grid>
                         </Form>
