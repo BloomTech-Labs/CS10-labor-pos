@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import View
 import datetime
 from .utils import render_to_pdf
+from decouple import config
 from server.models import Job, Part, Client, User
 from graphql_relay.node.node import from_global_id
 import json
@@ -47,16 +48,19 @@ class GeneratePDF(View):
             return response
         return HttpResponse("Not found")
 
+    stripe.api_key = config("STRIPE_SECRET_KEY")
+    stripe.log = "info"
 
-def charge(request):
-    if request.method == "POST":
 
-        token = request.form["stripeToken"]
+def checkout(request):
+        if request.method == "POST":
 
-        charge = stripe.Charge.create(
-            amount=request.POST["amount"],
-            currency="usd",
-            description=request.POST["description"],
-            source=token,
-        )
-        return HttpResponse(charge)
+            token = request.form["stripeToken"]
+
+            checkout = stripe.Charge.create(
+                amount=request.POST["amount"],
+                currency="usd",
+                description=request.POST["description"],
+                source=token,
+            )
+            return HttpResponse(checkout)

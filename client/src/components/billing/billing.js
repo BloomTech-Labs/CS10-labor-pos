@@ -1,10 +1,14 @@
 import React from 'react';
-import CheckoutForm from './checkoutform.js'
+import Checkout from './checkout.js'
 
 const Billing = () => {
   return (
     
-    <CheckoutForm />
+    <Checkout
+      color="primary"
+      display="flex"
+      justify-content="flex-start"
+    />
   )
 }
 
