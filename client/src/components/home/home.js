@@ -120,7 +120,6 @@ class Home extends Component {
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
             <Route exact path="/notes/:id/edit" component={EditNote} />
-            <Route exact path="/parts" component={Parts} />
             <Route exact path="/settings" component={Settings} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />

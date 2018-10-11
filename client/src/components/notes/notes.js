@@ -13,6 +13,10 @@ import { styles } from "../material-ui/styles.js";
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r46CE
 class Notes extends Component {
+  handleCreate = () => {
+    this.props.history.push("/createnote");
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -30,6 +34,7 @@ class Notes extends Component {
                 type="note"
                 rows={2}
                 columns={4}
+                createMethod={this.handleCreate}
               />
             </div>
           );
