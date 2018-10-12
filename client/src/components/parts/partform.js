@@ -56,7 +56,10 @@ class PartForm extends Component {
       }
       //  Load in either the appropriate ids or empty strings for jobs
       if (edit_part.job) edit_part.job = edit_part.job.id;
+    } else if (this.props.mode === "modal") {
+      edit_part.job = this.props.parent.id;
     }
+
     return (
       <Query query={QUERY_ALL_JOBS}>
         {({ loading, error, data }) => {
@@ -74,7 +77,7 @@ class PartForm extends Component {
             <Formik
               initialValues={{
                 job: edit_part.job,
-                name: edit_part.title,
+                name: edit_part.name,
                 cost: edit_part.cost,
                 description: edit_part.description
               }}
@@ -177,7 +180,6 @@ class PartForm extends Component {
                               <Field
                                 component="select"
                                 id="field-job"
-                                select
                                 disabled={this.props.mode === "modal"}
                                 label="Job"
                                 name="job"
@@ -209,13 +211,12 @@ class PartForm extends Component {
                           >
                             <Hidden xsUp={this.props.mode !== "modal"}>
                               <Button
-                                disabled={!isValid}
+                                onClick={this.props.cancelAdd}
                                 variant="contained"
                                 color="secondary"
                                 className={classes.padded_button}
-                                type="submit"
                               >
-                                {button_text}
+                                Cancel
                               </Button>
                             </Hidden>
                             <Button
@@ -243,7 +244,7 @@ class PartForm extends Component {
 
   _confirm = () => {
     window.location.reload();
-    this.props.history.push("/parts");
+    this.props.history.push(this.props.after_path);
   };
 }
 
