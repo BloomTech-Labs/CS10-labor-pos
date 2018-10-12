@@ -168,9 +168,9 @@ class SideNav extends Component {
                   label="Default"
                 />
                 <FormControlLabel
-                  value="dark"
+                  value="forest"
                   control={<Radio />}
-                  label="Dark"
+                  label="Forest"
                 />
                 <FormControlLabel
                   value="ugly"
@@ -181,6 +181,11 @@ class SideNav extends Component {
                   value="bluegrey"
                   control={<Radio />}
                   label="Blue Grey"
+                />
+                <FormControlLabel
+                  value="banana"
+                  control={<Radio />}
+                  label="Banana"
                 />
               </RadioGroup>
             </FormControl>

@@ -24,15 +24,16 @@ class App extends Component {
 
   render() {
     //  The app will default to a light theme unless the dark_theme variable is set.
-    let theme_type = "light";
-    let lightened_background = grey["100"];
-    let default_color = "#d4c253";
-    let paper_color = "#f0e370";
+    let theme_type = "dark";
+    let lightened_background = grey["700"];
+    let default_color = "#5a4000";
+    let paper_color = "#130e00";
     let primary_color = yellow;
     let secondary_color = amber;
-    let base_background = "#846c04";
-    let sidenav_background = "#f0e370";
-    if (this.state.theme_string === "dark") {
+    let base_background = "#130e00";
+    let sidenav_background = "#000000";
+    let textfield_color = "#130e00";
+    if (this.state.theme_string === "forest") {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#584A00";
@@ -45,6 +46,7 @@ class App extends Component {
       paper_color = "#F50057";
       base_background = "#673AB7";
       sidenav_background = "#F50057";
+      textfield_color = "#00FF00";
     } else if (this.state.theme_string === "bluegrey") {
       theme_type = "dark";
       lightened_background = grey["700"];
@@ -52,6 +54,15 @@ class App extends Component {
       paper_color = grey["800"];
       base_background = blueGrey["500"];
       sidenav_background = grey["800"];
+    } else if (this.state.theme_string === "banana") {
+      theme_type = "light";
+      lightened_background = grey["100"];
+      default_color = "#d4c253";
+      paper_color = "#f0e370";
+      primary_color = yellow;
+      secondary_color = amber;
+      base_background = "#846c04";
+      sidenav_background = "#f0e370";
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({
@@ -63,11 +74,11 @@ class App extends Component {
         background: {
           paper: paper_color,
           default: default_color,
-          sidenav: sidenav_background
+          sidenav: sidenav_background,
+          textfield: textfield_color
         }
       }
     });
-    console.log(theme);
     return (
       <div className="App">
         <div

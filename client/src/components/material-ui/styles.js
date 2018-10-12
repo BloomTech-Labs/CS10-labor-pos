@@ -39,7 +39,7 @@ const styles = theme => ({
     marginTop: "40px"
   },
   field: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.textfield,
     margin: "10px",
     width: "90%"
   },
