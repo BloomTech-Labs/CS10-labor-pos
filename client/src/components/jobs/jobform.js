@@ -234,9 +234,6 @@ class JobForm extends Component {
                                 value={values.deadline}
                                 margin="normal"
                                 type="date"
-                                InputLabelProps={{
-                                  shrink: true
-                                }}
                               />
                             </Grid>
                             <Grid container justify="space-around">
