@@ -26,5 +26,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     re_path(r"^graphql/$", csrf_exempt(GraphQLView.as_view(graphiql=True))),
     re_path(r"^pdf/$", csrf_exempt(GeneratePDF.as_view())),
-    re_path(r'create-charge/', checkout, name="checkout"),
+    re_path(r"create-charge/", checkout, name="checkout"),
 ]

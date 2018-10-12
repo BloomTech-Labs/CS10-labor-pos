@@ -6,9 +6,11 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { FormControlLabel, Checkbox, Typography, Card, Grid } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
+import { AUTH_TOKEN } from "../../constants";
 
 
-const mutation = gql`
+
+/*const mutation = gql`
    mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
   createStripeCharge(input: $input) {
     charge {
@@ -31,6 +33,7 @@ const query = gql`
   }
 }
 `
+*/
 
 class Checkout extends Component {
   state = {
@@ -49,26 +52,41 @@ class Checkout extends Component {
     })
   }
 
-  getStripeToken = token =>  {
-    const { subscriptionType } = this.state
-    console.log(subscriptionType)
-
-    let apiURI = "http://localhost:8000/graphql/"
-    
-    const request = {
-      method: 'POST',
-      headers: {
-              "Content-Type": "application/graphql",
-      },
-      url: apiURI,
-      data: { token, jwt: localStorage.getItem('token') },
-      body: JSON.stringify({ query: '{ token: { id } }' }),
-}
-       
-    axios(request)
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
+  handleSubmit= e => {
+    e.preventDefault();
+    this.setState({ card_errors: "", resp_message: "" });
+    /*
+    Within the context of Elements, this call to createToken knows which
+    Element to tokenize, since there's only one in this group.
+    */
+    return this.props.stripe
+      .createToken({ type: "card", name: " " })
+      .then(result => {
+        if (result.error) {
+          console.log("THERE IS AN ERROR IN YOUR FORM", result.error);
+          return this.setState({ card_errors: result.error.message });
+        } else {
+          console.log(
+            "Received Stripe token ---> SENDING TO SERVER: ",
+            result.token
+          );
+          let formData = new FormData();
+          formData.append("description", "Premium");
+          formData.append("currency", "usd");
+          formData.append("amount", 9999);
+          formData.append("source", result.token.id);
+          return fetch("https://bestpos.netlify.com/createcharge/", {
+            method: "POST",
+            headers: {
+              accept: "application/graphql"
+            },
+            body: formData
+          })
+            .then(resp => resp.json())
+            .then(json => this.setState({ resp_message: json.message }));
+        }
+      });
+  };
 
   render () {
     return(
@@ -78,19 +96,21 @@ class Checkout extends Component {
                 {"contractAlchemy provides two tiers of service, free and premium."}
         </Typography>
               </Card>
-              <Card>
-                <Typography paragraph>
+              <Grid container className="subs">
+              <Grid item xs={6}>
+                <Typography align="center">
                   { "Free users have access to all features but a limit of 8 of each item at one time - 8 clients, 8 jobs, etc."}
                   </Typography>
-              </Card>
+              </Grid>
               <Card>
                 <Typography paragraph>
                 {"Premium users have access to all features with an unlimited number of jobs, clients, and so on. We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99."} 
                 </Typography>
                 </Card>
+                </Grid>
                 <Card>
                   <Typography paragraph>
-                 {"Choose your rate to subscribe and begin using yor premium access!"}
+                 {"Choose your rate to subscribe and begin using your premium access!"}
                  </Typography>
                 </Card> 
 
@@ -126,7 +146,7 @@ class Checkout extends Component {
           amount={this.state.subscriptionAmount}
           currency='USD'
           name="contractAlchemy"
-          token={this.getStripeToken}
+          stripeToken={this.getStripeToken}
           stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
           image="https://bestpos.netlify.com/goldraccoon.png"
           color="black"
