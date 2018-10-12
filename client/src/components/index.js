@@ -1,6 +1,6 @@
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
-import CheckoutForm from "./billing/checkoutform";
+import CheckoutForm from "./billing/checkout";
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
