@@ -60,6 +60,9 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column"
   },
+  group: {
+    margin: `${theme.spacing.unit}px 0`
+  },
   list_item_reg: {
     padding: "10px",
     backgroundColor: theme.palette.background.paper
@@ -146,7 +149,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default
   },
   sidenav: {
-    backgroundColor: "black !important"
+    backgroundColor: `${theme.palette.background.sidenav} !important`
   },
   sidenavFull: {
     height: "100%",

@@ -89,7 +89,7 @@ class Home extends Component {
             <SideNav
               logout={this.logout}
               themeControlMethod={this.props.themeControlMethod}
-              dark_theme={this.props.dark_theme}
+              theme_string={this.props.theme_string}
             />
           </Drawer>
         </Hidden>
@@ -100,7 +100,7 @@ class Home extends Component {
             <SideNav
               logout={this.logout}
               themeControlMethod={this.props.themeControlMethod}
-              dark_theme={this.props.dark_theme}
+              theme_string={this.props.theme_string}
             />
           </Drawer>
         </Hidden>
