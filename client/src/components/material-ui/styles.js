@@ -57,6 +57,9 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column"
   },
+  group: {
+    margin: `${theme.spacing.unit}px 0`
+  },
   list_item_reg: {
     padding: "10px",
     backgroundColor: theme.palette.background.paper
