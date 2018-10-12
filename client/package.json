@@ -32,7 +32,8 @@
     "start": "REACT_APP_ENDPOINT=http://localhost:8000/graphql/ react-scripts start",
     "build": "REACT_APP_ENDPOINT=https://labs7-posserver.herokuapp.com/graphql/ react-scripts build",
     "test": "react-scripts test --env=jsdom --watchAll --verbose",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stats": "webpack-bundle-analyzer dist/stats.json"
   },
   "devDependencies": {
     "enzyme": "^3.7.0",

@@ -32,8 +32,8 @@ class App extends Component {
     if (this.state.dark_theme) {
       theme_type = "dark";
       lightened_background = grey["700"];
-      default_color = "#584A00";
-      paper_color = "#262600";
+      default_color = "#5a4000";
+      paper_color = "#130e00";
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({

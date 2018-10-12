@@ -133,6 +133,13 @@ const styles = theme => ({
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default
+  },
+  sidenav: {
+    backgroundColor: "black !important"
+  },
+  sidenavFull: {
+    height: "100%",
+    minHeight: "100vh"
   }
 });
 export { styles };
