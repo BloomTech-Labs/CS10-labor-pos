@@ -175,12 +175,17 @@ class PartForm extends Component {
                             </Grid>
                             <Grid item xs={5}>
                               <Field
-                                component={TextField}
+                                component="select"
                                 id="field-job"
                                 select
+                                disabled={this.props.mode === "modal"}
                                 label="Job"
                                 name="job"
                                 placeholder="Job"
+                                style={{
+                                  width: "194px",
+                                  height: "50px"
+                                }}
                                 className={classNames(
                                   classes.margin,
                                   classes.textField,
