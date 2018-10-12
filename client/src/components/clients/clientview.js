@@ -10,9 +10,10 @@ import {
   IconButton,
   Divider,
   withStyles,
-  withMobileDialog
+  withMobileDialog,
+  Paper
 } from "@material-ui/core";
-import { CardList, DeleteItem, JobForm } from "../../components";
+import { CardList, DeleteItem, JobForm, NoteForm } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -50,6 +51,7 @@ class ClientView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
+          console.log("data: ", data);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let name;
@@ -114,11 +116,12 @@ class ClientView extends Component {
                   </Typography>
                 </Grid>
               </Grid>
-              <Divider />
+              <Divider className={classes.margin} />
               <Typography
                 className={classes.typography}
-                align="left"
+                align="center"
                 variant="subheading"
+                paragraph
               >{`Jobs for ${name}:`}</Typography>
               <CardList
                 rows={1}
@@ -127,11 +130,13 @@ class ClientView extends Component {
                 items={job_items}
                 createMethod={this.openModal("add_job")}
                 cancelCreateMethod={this.cancelModal("add_job")}
+                after_path={this.props.location.pathname}
               />
               <Divider />
               <Typography
                 className={classes.typography}
-                align="left"
+                paragraph
+                align="center"
                 variant="subheading"
               >{`Notes for ${name}:`}</Typography>
               <CardList
@@ -159,12 +164,28 @@ class ClientView extends Component {
                 onClose={this.cancelModal("add_job")}
                 fullScreen={fullScreen}
               >
-                <JobForm
-                  mode="create"
-                  parent={{ type: "client", id: data.client.id }}
-                  after_url={this.props.location.pathname}
-                  cancelAdd={this.cancelModal("add_job")}
-                />
+                <Paper className={classes.paper}>
+                  <JobForm
+                    mode="create"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_job")}
+                  />
+                </Paper>
+              </Dialog>
+              <Dialog
+                open={this.state.add_note}
+                onClose={this.cancelModal("add_note")}
+                fullScreen={fullScreen}
+              >
+                <Paper className={classes.paper}>
+                  <NoteForm
+                    mode="modal"
+                    parent={{ type: "client", id: data.client.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_note")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );

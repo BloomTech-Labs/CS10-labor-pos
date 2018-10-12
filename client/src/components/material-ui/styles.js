@@ -4,10 +4,11 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit * 2
   },
   textField: {
-    flexBasis: "auto"
+    flexBasis: "auto",
+    width: "90%"
   },
   layout: {
     width: "auto",
@@ -27,7 +28,8 @@ const styles = theme => ({
   modal: {
     padding: "20px",
     width: "100%",
-    maxWidth: "600px"
+    maxWidth: "600px",
+    margin: "auto"
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
@@ -40,6 +42,13 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     margin: "10px",
     width: "90%"
+  },
+  checkbox: {
+    marginTop: "32px"
+  },
+  menuitems: {
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default
   },
   field_small: {
     width: "90%"
@@ -93,10 +102,8 @@ const styles = theme => ({
     maxWidth: "900px",
     marginTop: "32px",
     marginBottom: "32px",
+    padding: "16px 32px",
     backgroundColor: theme.palette.background.default
-  },
-  pad_me: {
-    padding: "20px 30px"
   },
   paper: {
     marginTop: theme.spacing.unit * 2,
@@ -126,7 +133,6 @@ const styles = theme => ({
   form_control_label: {
     display: "flex",
     justifyContent: "flex-start"
-
   },
   state_field: {
     fontFamily: "Roboto, Helvetica, Arial, sans-serif",
@@ -135,9 +141,16 @@ const styles = theme => ({
     lineHeight: "19px",
     height: "24px",
     border: "0",
-    backgroundColor: "initial",
-    color: "rgba(255, 255, 255, 0.7)",
-    borderBottom: "1px solid"
+    borderBottom: "1px solid",
+    color: theme.palette.text.primary,
+    backgroundColor: theme.palette.background.default
+  },
+  sidenav: {
+    backgroundColor: "black !important"
+  },
+  sidenavFull: {
+    height: "100%",
+    minHeight: "100vh"
   }
 });
 export { styles };

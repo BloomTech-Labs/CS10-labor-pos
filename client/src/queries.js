@@ -211,12 +211,14 @@ const DETAILED_CLIENT_BY_ID = gql`
             id
             name
             description
+            deadline
           }
         }
       }
       noteSet {
         edges {
           node {
+            id
             title
             content
             client {
