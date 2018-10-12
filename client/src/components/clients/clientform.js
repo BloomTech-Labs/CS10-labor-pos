@@ -1,89 +1,72 @@
 import React, { Component } from "react";
+import classNames from "classnames";
 import { withRouter } from "react-router";
 import {
-  TextField,
   Button,
-  MenuItem,
   Grid,
-  Typography
+  Typography,
+  withStyles,
+  Paper,
+  FormControl
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
-
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
+import { styles } from "../material-ui/styles";
+// import Select from "react-select";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
+const Yup = require("yup");
+
+const ClientSchema = Yup.object().shape({
+  businessName: Yup.string().max(
+    100,
+    "Business Name must be fewer than 100 characters"
+  ),
+  firstName: Yup.string()
+    .max(100)
+    .required("First Name is required"),
+  lastName: Yup.string()
+    .max(100)
+    .required("Last Name is required"),
+  email: Yup.string()
+    .max(70)
+    .required("Email is required")
+    .email(),
+  streetAddress: Yup.string()
+    .max(100)
+    .required("Address is required"),
+  city: Yup.string()
+    .max(70)
+    .required("City is required"),
+  state: Yup.string().required("State is required"),
+  zipcode: Yup.string()
+    .max(10)
+    .min(5)
+    .required("Zipcode is required")
+});
 
 // This component renders as a child of clientview when editing
 // the client (path is /clients/%clientid/edit)
 // It presents the user with form fields to fill out client information.
 // Then it sends a mutation on submit.
 class ClientForm extends Component {
-  state = {
-    businessName: "",
-    firstName: "",
-    lastName: "",
-    streetNumber: "",
-    unitNumber: "",
-    streetName: "",
-    city: "",
-    state: "AL",
-    zipcode: "",
-    deadline: "",
-    email: ""
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
-  componentDidMount = () => {
+  render() {
+    console.log(styles);
+    // Get MaterialUI classes
+    const { classes } = this.props;
+    let chosen_mutation = CREATE_CLIENT;
+    let title_text = "Add Client";
+    let button_text = "Create";
+    let edit_client = {};
     if (this.props.mode === "edit") {
-      let edit_client = {};
-      for (let key in this.state) {
-        if (
-          this.props.client[key] === null ||
-          this.props.client[key] === undefined
-        )
-          edit_client[key] = "";
+      chosen_mutation = UPDATE_CLIENT;
+      button_text = "Update";
+      for (let key in this.props.client) {
+        if (this.props.client[key] === null) edit_client[key] = "";
         else edit_client[key] = this.props.client[key];
       }
-      this.setState({
-        businessName: edit_client.businessName,
-        firstName: edit_client.firstName,
-        lastName: edit_client.lastName,
-        streetNumber: edit_client.streetNumber,
-        unitNumber: edit_client.unitNumber,
-        streetName: edit_client.streetName,
-        city: edit_client.city,
-        state: edit_client.state,
-        zipcode: edit_client.zipcode,
-        deadline: edit_client.deadline,
-        email: edit_client.email
-      });
-    }
-  };
 
-  render() {
-    const {
-      businessName,
-      firstName,
-      lastName,
-      streetNumber,
-      unitNumber,
-      streetName,
-      city,
-      state,
-      zipcode,
-      deadline,
-      email
-    } = this.state;
-    let button_text = "Create";
-    let title_text = "Add Client";
-    let chosen_mutation = CREATE_CLIENT;
-    if (this.props.mode === "edit") {
-      button_text = "Update";
-      chosen_mutation = UPDATE_CLIENT;
       if (this.props.client.businessName)
         title_text = `Update ${this.props.client.businessName}`;
       else
@@ -92,215 +75,226 @@ class ClientForm extends Component {
         }`;
     }
     return (
-      <Mutation mutation={chosen_mutation} onCompleted={() => this._confirm()}>
-        {(mutateClient, { loading, error, data }) => (
-          <div>
-            <form
-              onSubmit={event => {
-                event.preventDefault();
-                let client_variables = {
-                  businessName: businessName,
-                  firstName: firstName,
-                  lastName: lastName,
-                  streetNumber: streetNumber,
-                  unitNumber: unitNumber,
-                  streetName: streetName,
-                  city: city,
-                  state: state,
-                  zipcode: zipcode,
-                  deadline: deadline,
-                  email: email
-                };
-                if (client_variables.deadline === "")
-                  client_variables.deadline = null;
-                for (let key in client_variables) {
-                  if (client_variables[key] === "") {
-                    if (this.props.mode === "edit")
-                      delete client_variables[key];
-                    else throw `${key} is a required field!`;
-                  }
-                }
-                if (this.props.mode === "edit")
-                  client_variables.id = this.props.match.params.id;
-                mutateClient({
-                  variables: client_variables
-                });
-                this.setState({
-                  businessName: "",
-                  firstName: "",
-                  lastName: "",
-                  streetNumber: "",
-                  unitNumber: "",
-                  streetName: "",
-                  city: "",
-                  state: "AL",
-                  zipcode: "",
-                  deadline: "",
-                  email: ""
-                });
-              }}
+      // Give initial values to Formik from the edit_client object
+      <Formik
+        initialValues={{
+          firstName: edit_client.firstName,
+          lastName: edit_client.lastName,
+          businessName: edit_client.businessName,
+          email: edit_client.email,
+          streetAddress: edit_client.streetAddress,
+          city: edit_client.city,
+          state: edit_client.state,
+          zipcode: edit_client.zipcode
+        }}
+        validationSchema={ClientSchema}
+        onSubmit={event => {
+          event.preventDefault();
+        }}
+      >
+        {({ values, isValid, handleSubmit }) => {
+          console.log("This.props in Formik", this.props);
+          return (
+            // This will submit either a create client or update client mutation
+            <Mutation
+              mutation={chosen_mutation}
+              onCompleted={() => this._confirm()}
             >
-              <Typography variant="title">{title_text}</Typography>
-              <Grid container>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-businessName"
-                    label="Business Name"
-                    name="businessName"
-                    className={"modal_field"}
-                    value={businessName}
-                    onChange={this.handleChange("businessName")}
-                    helperText="Business Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-firstName"
-                    label="First Name"
-                    name="firstName"
-                    className={"modal_field"}
-                    value={firstName}
-                    onChange={this.handleChange("firstName")}
-                    helperText="First Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={4}>
-                  <TextField
-                    id="field-lastName"
-                    label="Last Name"
-                    name="lastName"
-                    className={"modal_field"}
-                    value={lastName}
-                    onChange={this.handleChange("lastName")}
-                    helperText="Last Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-streetNumber"
-                    label="Street Number"
-                    name="streetNumber"
-                    className={"modal_field"}
-                    value={streetNumber}
-                    onChange={this.handleChange("streetNumber")}
-                    helperText="Street Number"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-unitNumber"
-                    label="Unit Number"
-                    name="unitNumber"
-                    className={"modal_field"}
-                    value={unitNumber}
-                    onChange={this.handleChange("unitNumber")}
-                    helperText="Unit Number"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-streetName"
-                    label="Street Name"
-                    name="streetName"
-                    className={"modal_field"}
-                    value={streetName}
-                    onChange={this.handleChange("streetName")}
-                    helperText="Street Name"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-email"
-                    label="Email"
-                    name="email"
-                    className={"modal_field"}
-                    value={email}
-                    onChange={this.handleChange("email")}
-                    helperText="Email"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-city"
-                    label="City"
-                    name="city"
-                    className={"modal_field"}
-                    value={city}
-                    onChange={this.handleChange("city")}
-                    helperText="City"
-                    margin="normal"
-                  />
-                </Grid>
-                <Grid item xs={3}>
-                  <TextField
-                    id="field-state"
-                    select
-                    label="State"
-                    name="state"
-                    className={"modal_field"}
-                    value={state}
-                    onChange={this.handleChange("state")}
-                    SelectProps={{
-                      MenuProps: {
-                        className: "Mister Menu"
+              {mutateClient => (
+                <div>
+                  {/* This Formik form replaced a base html form
+           client_variables is the variables object given to the mutation
+           it is comprised of information from Formik's value object*/}
+                  <Form
+                    onSubmit={event => {
+                      event.preventDefault();
+                      let client_variables = {
+                        firstName: values.firstName,
+                        lastName: values.lastName,
+                        businessName: values.businessName,
+                        email: values.email,
+                        streetAddress: values.streetAddress,
+                        city: values.city,
+                        state: values.state,
+                        zipcode: values.zipcode
+                      };
+                      if (this.props.mode === "edit") {
+                        client_variables.id = this.props.match.params.id;
+                        for (let key in client_variables) {
+                          if (client_variables[key] === "")
+                            delete client_variables[key];
+                        }
                       }
+
+                      return mutateClient({
+                        variables: client_variables
+                      });
                     }}
-                    helperText="State"
-                    margin="normal"
                   >
-                    {STATE_LIST.map(state => (
-                      <MenuItem key={state.label} value={state.label}>
-                        {state.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item xs={3}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="field-zipcode"
-                      label="Zipcode"
-                      name="zipcode"
-                      className={"modal_field"}
-                      value={zipcode}
-                      onChange={this.handleChange("zipcode")}
-                      helperText="Zipcode"
-                      margin="normal"
-                    />
-                  </Grid>
-                </Grid>
-                <Grid item xs={3}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id="field-deadline"
-                      label="Deadline"
-                      name="deadline"
-                      className={"modal_field"}
-                      value={deadline}
-                      onChange={this.handleChange("deadline")}
-                      margin="normal"
-                      type="date"
-                      InputLabelProps={{
-                        shrink: true
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <div className="form-bottom-button">
-                <Button type="submit">{button_text}</Button>
-              </div>
-            </form>
-          </div>
-        )}
-      </Mutation>
+                    {/* Now the form: Uses grids for positioning */}
+                    <Grid container>
+                      <Grid item xs={12}>
+                        <Typography
+                          variant="title"
+                          className={classes.typography}
+                        >
+                          {title_text}
+                        </Typography>
+                      </Grid>
+                      <Paper margin="normal" className={classes.paper}>
+                        <Field
+                          id="field-businessName"
+                          label="Business Name"
+                          name="businessName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.businessName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-firstName"
+                          label="First Name"
+                          name="firstName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.firstName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-lastName"
+                          label="Last Name"
+                          name="lastName"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.lastName}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-email"
+                          label="Email"
+                          name="email"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.email}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-streetAddress"
+                          label="Street Address"
+                          name="streetAddress"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.streetAddress}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <Field
+                          id="field-city"
+                          label="City"
+                          name="city"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField
+                          )}
+                          value={values.city}
+                          component={TextField}
+                          margin="normal"
+                        />
+                        <div className={classNames(classes.margin)}>
+                          <FormControl>
+                            <Field
+                              id="field-state"
+                              select="true"
+                              label="State"
+                              name="state"
+                              placeholder="State"
+                              component="select"
+                              margin="normal"
+                              className={classNames(
+                                classes.margin,
+                                classes.textField,
+                                classes.state_field,
+                                classes.menuitems
+                              )}
+                              style={{ width: "194px", height: "55px" }}
+                            >
+                              {STATE_LIST.map(state => (
+                                <option
+                                  key={state.label}
+                                  value={state.label}
+                                  className={classes.menuitems}
+                                >
+                                  {state.label}
+                                </option>
+                              ))}
+                            </Field>
+                            <ErrorMessage
+                              name="state"
+                              component="div"
+                              style={{
+                                color: "#f44336",
+                                fontWeight: "300"
+                              }}
+                            />
+                          </FormControl>
+                          <Field
+                            id="field-zipcode"
+                            label="Zipcode"
+                            name="zipcode"
+                            variant="outlined"
+                            className={classNames(
+                              classes.margin,
+                              classes.textField
+                            )}
+                            value={values.zipcode}
+                            component={TextField}
+                            margin="normal"
+                          />
+                        </div>
+                      </Paper>
+                      <div
+                        className="form-bottom-button"
+                        style={{ margin: "auto" }}
+                      >
+                        <Button
+                          type="submit"
+                          disabled={!isValid}
+                          variant="contained"
+                          color="primary"
+                          className={classes.padded_button}
+                          style={{ marginBottom: "50px" }}
+                        >
+                          {button_text}
+                        </Button>
+                      </div>
+                    </Grid>
+                  </Form>
+                </div>
+              )}
+            </Mutation>
+          );
+        }}
+      </Formik>
     );
   }
 
@@ -310,4 +304,4 @@ class ClientForm extends Component {
   };
 }
 
-export default withRouter(ClientForm);
+export default withRouter(withStyles(styles)(ClientForm));

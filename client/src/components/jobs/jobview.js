@@ -8,15 +8,19 @@ import {
   Grid,
   Dialog,
   IconButton,
-  Button
+  Button,
+  withStyles,
+  Card,
+  Paper,
+  withMobileDialog
 } from "@material-ui/core";
-import { ItemList, DeleteItem } from "../../components";
+import { ItemList, DeleteItem, NoteForm, PartForm } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
-import "./jobview.css";
+import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of home on the path /jobs/%jobid
 //  It will present the user with the job info from the database as well as
-//  paginated lists of associated notes, parts, and tags, and an invoice
+//  paginated lists of associated notes, parts, and an invoice
 //  generation button.
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r52D9
@@ -25,19 +29,22 @@ class JobView extends Component {
   constructor() {
     super();
     this.state = {
-      deleting: false
+      deleting: false,
+      add_note: false,
+      add_part: false
     };
   }
 
-  handleDeleteButton = () => {
-    this.setState({ deleting: true });
+  openModal = name => () => {
+    this.setState({ [name]: true });
   };
 
-  cancelDelete = () => {
-    this.setState({ deleting: false });
+  cancelModal = name => () => {
+    this.setState({ [name]: false });
   };
 
   render() {
+    const { classes, fullscreen } = this.props;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
@@ -110,7 +117,7 @@ class JobView extends Component {
                     <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton onClick={this.handleDeleteButton}>
+                    <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -125,7 +132,8 @@ class JobView extends Component {
                   alignItems="center"
                   spacing={24}
                 >
-                  <Grid item xs={9}>
+                  <Grid item xs={1} />
+                  <Grid item xs={7}>
                     <Grid
                       container
                       direction="row"
@@ -135,11 +143,14 @@ class JobView extends Component {
                     >
                       <Grid item xs={4}>
                         {/*TODO: make these links pass the associated job to the create component*/}
-                        <Link to="/createnote">
-                          <Button className="job-list-button">
-                            Add a new note
-                          </Button>
-                        </Link>
+
+                        <Button
+                          onClick={this.openModal("add_note")}
+                          className="job-list-button"
+                        >
+                          Add a new note
+                        </Button>
+
                         <ItemList
                           type="note"
                           items={data.job.noteSet.edges}
@@ -147,50 +158,76 @@ class JobView extends Component {
                         />
                       </Grid>
                       <Grid item xs={4}>
-                        <Link to="/createpart">
-                          <Button className="job-list-button">
-                            Add a new part
-                          </Button>
-                        </Link>
+                        <Button
+                          className="job-list-button"
+                          onClick={this.openModal("add_part")}
+                        >
+                          Add a new part
+                        </Button>
+
                         <ItemList
                           type="part"
                           items={data.job.partSet.edges}
                           per_page={7}
                         />
                       </Grid>
-                      <Grid item xs={4}>
-                        <Link to="/createtag">
-                          <Button className="job-list-button">
-                            Add a new tag
-                          </Button>
-                        </Link>
-                        <ItemList
-                          type="tag"
-                          items={data.job.tagSet.edges}
-                          per_page={7}
-                        />
-                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid item xs={3}>
-                    {right_content}
+                    <Card className={classes.card}>{right_content}</Card>
                     <Link to={`/jobs/${data.job.id}/invoice`}>
-                      <Button>Invoice</Button>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.padded_button}
+                      >
+                        Invoice
+                      </Button>
                     </Link>
                   </Grid>
+                  <Grid item xs={1} />
                 </Grid>
               </div>
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelDelete}
+                onClose={this.cancelModal("deleting")}
                 className="delete-modal"
+                fullScreen={fullscreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelDelete}
+                  cancelDelete={this.cancelModal("deleting")}
                   type="job"
                   item={data.job}
                   after_path="/jobs"
                 />
+              </Dialog>
+              <Dialog
+                open={this.state.add_note}
+                onClose={this.cancelModal("add_note")}
+                fullScreen={fullscreen}
+              >
+                <Paper className={classes.paper}>
+                  <NoteForm
+                    mode="modal"
+                    parent={{ type: "job", id: data.job.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_note")}
+                  />
+                </Paper>
+              </Dialog>
+              <Dialog
+                open={this.state.add_part}
+                onClose={this.cancelModal("add_part")}
+                fullScreen={fullscreen}
+              >
+                <Paper className={classes.paper}>
+                  <PartForm
+                    mode="modal"
+                    parent={{ type: "job", id: data.job.id }}
+                    after_path={this.props.location.pathname}
+                    cancelAdd={this.cancelModal("add_part")}
+                  />
+                </Paper>
               </Dialog>
             </div>
           );
@@ -200,4 +237,4 @@ class JobView extends Component {
   }
 }
 
-export default withRouter(JobView);
+export default withRouter(withMobileDialog()(withStyles(styles)(JobView)));

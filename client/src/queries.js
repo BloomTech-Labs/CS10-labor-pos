@@ -5,8 +5,15 @@ const QUERY_ALL_JOBS = gql`
     allJobs {
       edges {
         node {
-          name
           id
+          name
+          deadline
+          client {
+            id
+            firstName
+            lastName
+            businessName
+          }
         }
       }
     }
@@ -22,6 +29,15 @@ const QUERY_ALL_CLIENTS = gql`
           lastName
           businessName
           id
+          jobSet {
+            edges {
+              node {
+                id
+                name
+                deadline
+              }
+            }
+          }
         }
       }
     }
@@ -36,6 +52,16 @@ const QUERY_ALL_NOTES = gql`
           id
           title
           content
+          client {
+            id
+            businessName
+            firstName
+            lastName
+          }
+          job {
+            id
+            name
+          }
         }
       }
     }
@@ -174,9 +200,7 @@ const DETAILED_CLIENT_BY_ID = gql`
       businessName
       firstName
       lastName
-      streetNumber
-      unitNumber
-      streetName
+      streetAddress
       city
       state
       zipcode
@@ -187,14 +211,22 @@ const DETAILED_CLIENT_BY_ID = gql`
             id
             name
             description
+            deadline
           }
         }
       }
       noteSet {
         edges {
           node {
+            id
             title
             content
+            client {
+              id
+              businessName
+              firstName
+              lastName
+            }
           }
         }
       }
@@ -280,6 +312,99 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
+const STRIPE_TOKEN_BY_ID = gql`
+  query($id: ID!) {
+    token(id: $id) {
+      id
+      user {
+        id
+      }
+      type
+      created
+      used
+      card {
+        id
+        brand
+        exp_year
+      }
+    }
+  }
+  `;
+      
+
+const QUERY_ALL_CHARGES = gql`
+  query {
+    allCharges {
+      edges {
+        node {
+          amount
+          status
+          token
+          id
+        }
+      }
+    }
+  }
+`;
+
+
+const SETTINGS_QUERY = gql`
+  query {
+    allUsers {
+      edges {
+        node {
+          id
+          firstName
+          lastName
+          streetAddress
+          city
+          state
+          zipcode
+          businessName
+          premium
+          paidUntil
+          username
+        }
+      }
+    }
+    allClients {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allJobs {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allNotes {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allParts {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+    allTags {
+      edges {
+        node {
+          id
+        }
+      }
+    }
+  }
+`;
+
 export {
   QUERY_ALL_JOBS,
   QUERY_ALL_NOTES,
@@ -292,5 +417,6 @@ export {
   DETAILED_NOTE_BY_ID,
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
-  DETAILED_PART_BY_ID
+  DETAILED_PART_BY_ID,
+  SETTINGS_QUERY
 };
