@@ -433,6 +433,15 @@ class Settings extends Component {
                       </Grid>
                       <Grid item xs={1} />
                     </Grid>
+
+                    {/* <Hidden xsUp={conditions didn't press button yet}>
+                          component with static view and button to edit
+                          <button onClick={method that toggles the boolean that our hiiden tag is looking at} />
+                        </Hidden>
+                        <Hidden xsUp={inverse of the boolean used in prior hidden}>
+                          component with our existing forms plus a cancel button that toggles back to the other view
+                          cancel button should also reset field values to prevent weird behaviour.
+                        </Hidden>*/}
                   </Form>
                   {loading && <p>Saving information</p>}
                   {(data || error) && <p>Success!</p>}

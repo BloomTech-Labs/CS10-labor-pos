@@ -8,7 +8,11 @@ import {
   Switch,
   MenuItem,
   withStyles,
-  Avatar
+  Avatar,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  Radio
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
 import { withRouter } from "react-router";
@@ -142,20 +146,55 @@ class SideNav extends Component {
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
+        <ExpansionPanel
+          expanded={expanded === "themespanel"}
+          onChange={this.handleChange("themespanel")}
+          className={classes.sidenav}
+        >
+          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+            <MenuItem>Themes</MenuItem>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails className={classes.nav_menu}>
+            <FormControl component="fieldset" className={classes.formControl}>
+              <RadioGroup
+                name="theme"
+                className={classes.group}
+                value={this.props.theme_string}
+                onChange={this.props.themeControlMethod}
+              >
+                <FormControlLabel
+                  value="default"
+                  control={<Radio />}
+                  label="Default"
+                />
+                <FormControlLabel
+                  value="forest"
+                  control={<Radio />}
+                  label="Forest"
+                />
+                <FormControlLabel
+                  value="ugly"
+                  control={<Radio />}
+                  label="Ugly"
+                />
+                <FormControlLabel
+                  value="bluegrey"
+                  control={<Radio />}
+                  label="Blue Grey"
+                />
+                <FormControlLabel
+                  value="banana"
+                  control={<Radio />}
+                  label="Banana"
+                />
+              </RadioGroup>
+            </FormControl>
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
         <MenuItem onClick={this.props.logout}>Logout</MenuItem>
         <Divider className="sidenav" />
         {/*The below switch controls light and dark theming by communicating with the App component.
             The current theme is also saved on local storage so it will persist between reloads.*/}
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.props.dark_theme}
-              onChange={this.props.themeControlMethod("dark_theme")}
-              value="dark_theme"
-            />
-          }
-          label="Dark Theme"
-        />
       </div>
     );
   }

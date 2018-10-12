@@ -39,7 +39,7 @@ const styles = theme => ({
     marginTop: "40px"
   },
   field: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.textfield,
     margin: "10px",
     width: "90%"
   },
@@ -59,6 +59,9 @@ const styles = theme => ({
   nav_menu: {
     display: "flex",
     flexDirection: "column"
+  },
+  group: {
+    margin: `${theme.spacing.unit}px 0`
   },
   list_item_reg: {
     padding: "10px",
@@ -146,7 +149,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default
   },
   sidenav: {
-    backgroundColor: "black !important"
+    backgroundColor: `${theme.palette.background.sidenav} !important`
   },
   sidenavFull: {
     height: "100%",
