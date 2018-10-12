@@ -149,7 +149,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default
   },
   sidenav: {
-    backgroundColor: "black !important"
+    backgroundColor: `${theme.palette.background.sidenav} !important`
   },
   sidenavFull: {
     height: "100%",

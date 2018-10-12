@@ -31,23 +31,27 @@ class App extends Component {
     let primary_color = yellow;
     let secondary_color = amber;
     let base_background = "#846c04";
+    let sidenav_background = "#f0e370";
     if (this.state.theme_string === "dark") {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#584A00";
       paper_color = "#262600";
+      sidenav_background = "#262600";
     } else if (this.state.theme_string === "ugly") {
       theme_type = "dark";
       lightened_background = "#388E3C";
       default_color = "#FF6D00";
       paper_color = "#F50057";
       base_background = "#673AB7";
+      sidenav_background = "#F50057";
     } else if (this.state.theme_string === "bluegrey") {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = blueGrey["900"];
       paper_color = grey["800"];
       base_background = blueGrey["500"];
+      sidenav_background = grey["800"];
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({
@@ -58,7 +62,8 @@ class App extends Component {
         lightened_background: lightened_background,
         background: {
           paper: paper_color,
-          default: default_color
+          default: default_color,
+          sidenav: sidenav_background
         }
       }
     });

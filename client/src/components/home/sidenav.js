@@ -149,6 +149,7 @@ class SideNav extends Component {
         <ExpansionPanel
           expanded={expanded === "themespanel"}
           onChange={this.handleChange("themespanel")}
+          className={classes.sidenav}
         >
           <ExpansionPanelSummary expandIcon={<ExpandMore />}>
             <MenuItem>Themes</MenuItem>
