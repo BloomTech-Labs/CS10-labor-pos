@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import {
   Typography,
-  TextField,
   Grid,
-  MenuItem,
   Button,
   withStyles,
   Hidden
@@ -13,53 +11,51 @@ import { Mutation, Query } from "react-apollo";
 import { CREATE_PART, UPDATE_PART } from "../../mutations.js";
 import { QUERY_ALL_JOBS } from "../../queries.js";
 import { styles } from "../material-ui/styles.js";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "../../components";
+import classNames from "classnames";
+const Yup = require("yup");
 
 //  This component will render on the /parts/:id/edit route when the user is logged in
 //  It is a child of the home component.
 //  It will present the user with prepopulated form fields to update a part.
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r29EA
+//Schema for validation
+const PartSchema = Yup.object().shape({
+  name: Yup.string()
+    .max(150, "Name must be under 100 characters")
+    .required(),
+  description: Yup.string(),
+  cost: Yup.number().required(),
+  job: Yup.string()
+});
+
 class PartForm extends Component {
-  state = {
-    name: "",
-    description: "",
-    cost: "",
-    job: ""
-  };
-
-  componentDidMount = () => {
-    if (this.props.mode === "edit") {
-      let edit_part = {};
-      for (let key in this.props.part) {
-        if (this.props.part[key] === null) edit_part[key] = "";
-        else edit_part[key] = this.props.part[key];
-      }
-      if (!edit_part.job) edit_part.job = { id: "" };
-      this.setState({
-        name: edit_part.name,
-        job: edit_part.job.id,
-        description: edit_part.description,
-        cost: edit_part.cost
-      });
-    }
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
   render() {
     const { classes } = this.props;
-    const { name, description, cost, job } = this.state;
+    //  Here, we default some variables to their values that will be used in create mode
     let chosen_mutation = CREATE_PART;
     let title_text = "Add Part";
     let button_text = "Create";
+    let edit_part = {
+      name: "",
+      description: "",
+      cost: "",
+      job: ""
+    };
+    // if in edit mode we change values to reflect that
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_PART;
       title_text = `Update ${this.props.part.name}`;
       button_text = "Update";
+      // load in values of item we're updating
+      for (let key in this.props.part) {
+        if (this.props.part[key] === null) edit_part[key] = "";
+        else edit_part[key] = this.props.part[key];
+      }
+      //  Load in either the appropriate ids or empty strings for jobs
+      if (edit_part.job) edit_part.job = edit_part.job.id;
     }
     return (
       <Query query={QUERY_ALL_JOBS}>
@@ -75,153 +71,179 @@ class PartForm extends Component {
             });
           }
           return (
-            <Mutation
-              mutation={chosen_mutation}
-              onCompleted={() => this._confirm()}
+            <Formik
+              initialValues={{
+                job: edit_part.job,
+                name: edit_part.title,
+                cost: edit_part.cost,
+                description: edit_part.description
+              }}
+              validationSchema={PartSchema}
+              onSubmit={event => {
+                event.preventDefault();
+              }}
             >
-              {(mutateJob, { loading, error, data }) => (
-                <div>
-                  <form
-                    onSubmit={event => {
-                      event.preventDefault();
-                      let part_variables = {
-                        name: name,
-                        description: description,
-                        job: job,
-                        cost: cost
-                      };
-
-                      for (let key in part_variables) {
-                        if (part_variables[key] === "") {
-                          if (this.props.mode === "edit")
-                            delete part_variables[key];
-                        }
-                      }
-                      if (this.props.mode === "edit")
-                        part_variables.id = this.props.match.params.id;
-                      mutateJob({
-                        variables: part_variables
-                      });
-                      this.setState({
-                        name: "",
-                        description: "",
-                        job: "",
-                        cost: ""
-                      });
-                    }}
+              {({
+                errors,
+                touched,
+                values,
+                isValid,
+                handleChange,
+                handleBlur
+              }) => {
+                return (
+                  <Mutation
+                    mutation={chosen_mutation}
+                    onCompleted={() => this._confirm()}
                   >
-                    <Grid container>
-                      <Grid container justify="center">
-                        <Typography
-                          className={classes.typography_title}
-                          variant="title"
-                        >
-                          {title_text}
-                        </Typography>
-                      </Grid>
-                      <Grid container justify="center">
-                        <TextField
-                          id="field-name"
-                          label="Name"
-                          name="name"
-                          className={"modal_field"}
-                          value={name}
-                          onChange={this.handleChange("name")}
-                          helperText="Part Name"
-                          margin="normal"
-                        />
-                      </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
-                        <TextField
-                          id="field-description"
-                          label="Description"
-                          multiline
-                          rows="8"
-                          rowsMax="8"
-                          name="description"
-                          className={classes.field}
-                          value={description}
-                          onChange={this.handleChange("description")}
-                          margin="normal"
-                          variant="outlined"
-                        />
-                      </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={5}>
-                        <TextField
-                          id="field-cost"
-                          label="Cost"
-                          name="cost"
-                          className={"modal_field"}
-                          value={cost}
-                          onChange={this.handleChange("cost")}
-                          margin="normal"
-                        />
-                      </Grid>
-                      <Grid item xs={5}>
-                        <TextField
-                          id="field-job"
-                          select
-                          label="Job"
-                          name="job"
-                          className={"modal_field"}
-                          value={job}
-                          onChange={this.handleChange("job")}
-                          SelectProps={{
-                            MenuProps: {
-                              className: "Mister Menu"
+                    {(mutatePart, { loading, error, data }) => (
+                      <div>
+                        <Form
+                          onSubmit={event => {
+                            event.preventDefault();
+                            let part_variables = {
+                              name: values.name,
+                              description: values.description,
+                              job: values.job,
+                              cost: values.cost
+                            };
+
+                            for (let key in part_variables) {
+                              if (part_variables[key] === "") {
+                                if (this.props.mode === "edit")
+                                  delete part_variables[key];
+                              }
                             }
+                            //  If we are in edit mode, we need to send up the part id.
+                            if (this.props.mode === "edit")
+                              part_variables.id = this.props.match.params.id;
+                            //  Send the mutation ...
+                            mutatePart({
+                              variables: part_variables
+                            });
                           }}
-                          helperText="Select Job"
-                          margin="normal"
                         >
-                          {job_list.map(job => (
-                            <MenuItem key={job.value} value={job.value}>
-                              {job.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </Grid>
-                      <Grid item xs={1} />
-                    </Grid>
-                    <Grid
-                      container
-                      justify="space-around"
-                      className={classes.margin}
-                    >
-                      <Hidden xsUp={this.props.mode !== "modal"}>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          className={classes.padded_button}
-                          onClick={this.props.cancelAdd}
-                        >
-                          Cancel
-                        </Button>
-                      </Hidden>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.padded_button}
-                        type="submit"
-                      >
-                        {button_text}
-                      </Button>
-                    </Grid>
-                  </form>
-                </div>
-              )}
-            </Mutation>
+                          <Grid container>
+                            <Grid container justify="center">
+                              <Typography
+                                className={classes.typography_title}
+                                variant="title"
+                              >
+                                {title_text}
+                              </Typography>
+                            </Grid>
+                            <Grid container justify="center">
+                              <Field
+                                component={TextField}
+                                id="field-name"
+                                label="Name"
+                                name="name"
+                                className={"modal_field"}
+                                value={values.name}
+                                helperText="Part Name"
+                                margin="normal"
+                              />
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={10}>
+                              <Field
+                                component={TextField}
+                                id="field-description"
+                                label="Description"
+                                multiline
+                                rows="8"
+                                rowsMax="8"
+                                name="description"
+                                className={classes.field}
+                                value={values.description}
+                                margin="normal"
+                                variant="outlined"
+                              />
+                            </Grid>
+                            <Grid item xs={1} />
+                            <Grid item xs={1} />
+                            <Grid item xs={5}>
+                              <Field
+                                component={TextField}
+                                id="field-cost"
+                                label="Cost"
+                                name="cost"
+                                className={"modal_field"}
+                                value={values.cost}
+                                margin="normal"
+                              />
+                            </Grid>
+                            <Grid item xs={5}>
+                              <Field
+                                component="select"
+                                id="field-job"
+                                select
+                                disabled={this.props.mode === "modal"}
+                                label="Job"
+                                name="job"
+                                placeholder="Job"
+                                style={{
+                                  width: "194px",
+                                  height: "50px"
+                                }}
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.state_field
+                                )}
+                              >
+                                {job_list.map(job => (
+                                  <option key={job.value} value={job.value}>
+                                    {job.label}
+                                  </option>
+                                ))}
+                                >
+                              </Field>
+                            </Grid>
+                            <Grid item xs={1} />
+                          </Grid>
+                          <Grid
+                            container
+                            justify="space-around"
+                            className={classes.margin}
+                          >
+                            <Hidden xsUp={this.props.mode !== "modal"}>
+                              <Button
+                                disabled={!isValid}
+                                variant="contained"
+                                color="secondary"
+                                className={classes.padded_button}
+                                type="submit"
+                              >
+                                {button_text}
+                              </Button>
+                            </Hidden>
+                            <Button
+                              disabled={!isValid}
+                              variant="contained"
+                              color="primary"
+                              className={classes.padded_button}
+                              type="submit"
+                            >
+                              {button_text}
+                            </Button>
+                          </Grid>
+                        </Form>
+                      </div>
+                    )}
+                  </Mutation>
+                );
+              }}
+            </Formik>
           );
         }}
       </Query>
     );
   }
+
   _confirm = () => {
     window.location.reload();
-    this.props.history.push(this.props.after_url);
+    this.props.history.push("/parts");
   };
 }
 

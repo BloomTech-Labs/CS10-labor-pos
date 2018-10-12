@@ -81,6 +81,7 @@ class Home extends Component {
             anchor="left"
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
+            className="sidenav"
             ModalProps={{
               keepMounted: true
             }}
@@ -95,7 +96,7 @@ class Home extends Component {
         {/*This is the drawer that displays in the large view. (Papa Drawer)
         It is permanently open.*/}
         <Hidden smDown implementation="css">
-          <Drawer variant="permanent" open>
+          <Drawer className="sidenav" variant="permanent" open>
             <SideNav
               logout={this.logout}
               themeControlMethod={this.props.themeControlMethod}

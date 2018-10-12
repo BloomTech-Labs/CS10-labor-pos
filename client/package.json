@@ -22,7 +22,9 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
+    "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.1",
+    "react-test-renderer": "^16.5.2",
     "sendgrid": "^5.2.3",
     "subscriptions-transport-ws": "^0.9.14",
     "yup": "^0.26.6"
@@ -30,10 +32,13 @@
   "scripts": {
     "start": "REACT_APP_ENDPOINT=http://localhost:8000/graphql/ react-scripts start",
     "build": "REACT_APP_ENDPOINT=https://labs7-posserver.herokuapp.com/graphql/ react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test --env=jsdom --watchAll --verbose",
+    "eject": "react-scripts eject",
+    "stats": "webpack-bundle-analyzer dist/stats.json"
   },
   "devDependencies": {
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
     "react-app-env": "^1.2.2"
   }
 }

@@ -1,6 +1,6 @@
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
-import CheckoutForm from "./billing/checkoutform";
+import Checkout from "./billing/checkout";
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
@@ -31,8 +31,8 @@ import EditPart from "./parts/editpart.js";
 import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
 import JobForm from "./jobs/jobform.js";
-import NoteForm from "./notes/noteform.js";
 import PartForm from "./parts/partform.js";
+import NoteForm from "./notes/noteform.js";
 
 export {
   Settings,
@@ -65,8 +65,8 @@ export {
   EditPart,
   EditNote,
   TextField,
-  CheckoutForm,
+  Checkout,
   JobForm,
-  NoteForm,
-  PartForm
+  PartForm,
+  NoteForm
 };

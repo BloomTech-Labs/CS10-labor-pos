@@ -50,6 +50,9 @@ const styles = theme => ({
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default
   },
+  field_small: {
+    width: "90%"
+  },
   padded_button: {
     margin: "16px"
   },
@@ -76,6 +79,10 @@ const styles = theme => ({
     alignItems: "flex-end",
     justifyContent: "flex-start"
   },
+  sidenav: {
+    backgroundColor: theme.palette.background.default
+  },
+
   typography: {
     paddingTop: "20px",
     fontSize: "24px",
@@ -126,6 +133,10 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
   },
+  form_control_label: {
+    display: "flex",
+    justifyContent: "flex-start"
+  },
   state_field: {
     fontFamily: "Roboto, Helvetica, Arial, sans-serif",
     fontSize: "16px",
@@ -136,6 +147,13 @@ const styles = theme => ({
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.default
+  },
+  sidenav: {
+    backgroundColor: "black !important"
+  },
+  sidenavFull: {
+    height: "100%",
+    minHeight: "100vh"
   }
 });
 export { styles };

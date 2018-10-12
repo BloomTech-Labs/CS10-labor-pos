@@ -34,6 +34,7 @@ class App extends Component {
     if (this.state.theme_string === "dark") {
       theme_type = "dark";
       lightened_background = grey["700"];
+<<<<<<< HEAD
       default_color = "#584A00";
       paper_color = "#262600";
     } else if (this.state.theme_string === "ugly") {
@@ -48,6 +49,10 @@ class App extends Component {
       default_color = blueGrey["900"];
       paper_color = grey["800"];
       base_background = blueGrey["500"];
+=======
+      default_color = "#5a4000";
+      paper_color = "#130e00";
+>>>>>>> f46b426fa665df9971ddd6c36370527cff2866ec
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({

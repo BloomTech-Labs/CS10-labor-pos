@@ -3,8 +3,11 @@
 }
 
 .hero-image {
-  background-color: #846c04;
+  background-color: #130e00;
   width: auto;
   height: 100%;
   min-height: 100vh;
+}
+a {
+  text-decoration: none;
 }
