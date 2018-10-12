@@ -1,6 +1,6 @@
 import Settings from "./settings/settings";
 import Billing from "./billing/billing";
-import Checkout from "./billing/checkout"
+import Checkout from "./billing/checkout";
 import Parts from "./parts/parts";
 import AddPart from "./parts/addpart";
 import PartView from "./parts/partview";
@@ -9,7 +9,7 @@ import NoteView from "./notes/noteview";
 import AddNote from "./notes/addnote";
 import LandingPage from "./landingpage/landingpage";
 import Jobs from "./jobs/jobs";
-import AddJob from "./jobs/addjob";
+
 import JobView from "./jobs/jobview";
 import JobInvoice from "./jobs/jobinvoice";
 import DeleteItem from "./reuseable/deleteitem";
@@ -32,6 +32,7 @@ import EditNote from "./notes/editnote.js";
 import TextField from "./material-ui/textfield.js";
 import JobForm from "./jobs/jobform.js";
 import PartForm from "./parts/partform.js";
+import NoteForm from "./notes/noteform.js";
 
 export {
   Settings,
@@ -44,7 +45,6 @@ export {
   AddNote,
   LandingPage,
   Jobs,
-  AddJob,
   JobView,
   JobInvoice,
   EditJob,
@@ -68,4 +68,5 @@ export {
   Checkout,
   JobForm,
   PartForm,
+  NoteForm
 };

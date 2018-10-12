@@ -82,7 +82,7 @@ class LandingPage extends Component {
       return (
         <Home
           themeControlMethod={this.props.themeControlMethod}
-          dark_theme={this.props.dark_theme}
+          theme_string={this.props.theme_string}
           login={this.handleLogin}
         />
       );
@@ -141,6 +141,7 @@ class LandingPage extends Component {
             fullScreen={fullScreen}
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
+            PaperProps={{ className: classes.paper }}
           >
             <Login modalDone={this.handleCloseModals} />
           </Dialog>

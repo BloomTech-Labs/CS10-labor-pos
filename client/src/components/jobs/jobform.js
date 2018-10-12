@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Button, Grid, Typography, withStyles } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Typography,
+  withStyles,
+  Hidden,
+  Select,
+  MenuItem
+} from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
 import { Formik, Field, Form } from "formik";
@@ -49,6 +57,7 @@ class JobForm extends Component {
         if (this.props.job[key] === null) edit_job[key] = "";
         else edit_job[key] = this.props.job[key];
       }
+      if (this.props.job.client) edit_job.client = this.props.job.client.id;
     }
     if (this.props.mode === "create") {
       edit_job.client = this.props.parent.id;
@@ -96,7 +105,7 @@ class JobForm extends Component {
                     onCompleted={() => this._confirm()}
                   >
                     {(mutateJob, { loading, error }) => (
-                      <div>
+                      <div className={classes.modal}>
                         <Form
                           onSubmit={event => {
                             event.preventDefault();
@@ -121,7 +130,7 @@ class JobForm extends Component {
                           }}
                         >
                           <Grid container>
-                            <Grid item xs={12}>
+                            <Grid container justify="center">
                               <Typography
                                 variant="title"
                                 className={classes.typography_title}
@@ -133,11 +142,11 @@ class JobForm extends Component {
                               <Field
                                 id="field-client"
                                 disabled={this.props.mode === "create"}
-                                select="true"
                                 label="Client"
                                 name="client"
                                 component="select"
                                 placeholder="Client"
+                                value={values.client}
                                 className={classNames(
                                   classes.margin,
                                   classes.textField,
@@ -152,6 +161,7 @@ class JobForm extends Component {
                                   <option
                                     key={client.value}
                                     value={client.value}
+                                    className={classes.menu_items}
                                   >
                                     {client.label}
                                   </option>
@@ -176,7 +186,6 @@ class JobForm extends Component {
                                 id="field-description"
                                 label="Description"
                                 multiline
-                                fullWidth
                                 rows="8"
                                 rowsMax="8"
                                 name="description"
@@ -198,14 +207,22 @@ class JobForm extends Component {
                               />
                             </Grid>
                             <Grid item xs={4}>
-                              <Field
-                                checked={values.complete}
-                                name="complete"
-                                type="checkbox"
-                                value={values.complete}
-                                label="Completed?"
-                              />
-                              <Typography>Completed?</Typography>
+                              <Grid
+                                container
+                                justify="center"
+                                alignItems="center"
+                                direction="column"
+                              >
+                                <Field
+                                  checked={values.complete}
+                                  name="complete"
+                                  type="checkbox"
+                                  value={values.complete}
+                                  label="Completed"
+                                  className={classes.checkbox}
+                                />
+                                <Typography>Completed</Typography>
+                              </Grid>
                             </Grid>
                             <Grid item xs={4}>
                               <Field
@@ -217,20 +234,29 @@ class JobForm extends Component {
                                 value={values.deadline}
                                 margin="normal"
                                 type="date"
-                                InputLabelProps={{
-                                  shrink: true
-                                }}
                               />
                             </Grid>
-                            <Button
-                              disabled={!isValid}
-                              variant="contained"
-                              color="primary"
-                              className={classes.padded_button}
-                              type="submit"
-                            >
-                              {button_text}
-                            </Button>
+                            <Grid container justify="space-around">
+                              <Hidden xsUp={this.props.mode === "edit"}>
+                                <Button
+                                  variant="contained"
+                                  color="secondary"
+                                  className={classes.padded_button}
+                                  onClick={this.props.cancelAdd}
+                                >
+                                  Cancel
+                                </Button>
+                              </Hidden>
+                              <Button
+                                disabled={!isValid}
+                                variant="contained"
+                                color="primary"
+                                className={classes.padded_button}
+                                type="submit"
+                              >
+                                {button_text}
+                              </Button>
+                            </Grid>
                           </Grid>
                         </Form>
                         {loading && <p>Saving job information...</p>}
@@ -249,7 +275,7 @@ class JobForm extends Component {
 
   _confirm = () => {
     window.location.reload();
-    this.props.history.push(this.props.after_url);
+    this.props.history.push(this.props.after_path);
   };
 }
 

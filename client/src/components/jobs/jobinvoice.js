@@ -15,7 +15,7 @@ class JobInvoice extends Component {
 
   componentWillMount() {
     axios({
-      url: "http://localhost:8000/pdf/",
+      url: `${process.env.REACT_APP_ENDPOINT}pdf/`,
       method: "POST",
       mode: "same-origin",
       headers: {

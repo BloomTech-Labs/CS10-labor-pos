@@ -6,7 +6,8 @@ import {
   MenuItem,
   Button,
   withStyles,
-  Select
+  Select,
+  Hidden
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
 import { CREATE_NOTE, UPDATE_NOTE } from "../../mutations.js";
@@ -14,6 +15,7 @@ import { ALL_CLIENTS_AND_JOBS } from "../../queries.js";
 import { styles } from "../material-ui/styles.js";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "../../components";
+import classNames from "classnames";
 const Yup = require("yup");
 
 //Schema for validation
@@ -43,6 +45,7 @@ class NoteForm extends Component {
       client: "",
       job: ""
     };
+    console.log(this.props.note);
     //  If the component is in edit mode, we change those values to reflect the fact.
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_NOTE;
@@ -53,12 +56,19 @@ class NoteForm extends Component {
         if (this.props.note[key] === null) edit_note[key] = "";
         else edit_note[key] = this.props.note[key];
       }
+      console.log(edit_note);
       //  Load in either the appropriate ids or empty strings for clients and jobs
-      if (edit_note.job) edit_note.job = edit_note.job.id;
+      if (this.props.note.job) edit_note.job = this.props.note.job.id;
       else edit_note.client = { id: "" };
-      if (edit_note.client) edit_note.client = edit_note.client.id;
+      if (this.props.note.client) edit_note.client = this.props.note.client.id;
       else edit_note.job = { id: "" };
+    } else if (this.props.mode === "modal") {
+      if (this.props.parent.type === "client")
+        edit_note.client = this.props.parent.id;
+      else if (this.props.parent.type === "job")
+        edit_note.job = this.props.parent.id;
     }
+    console.log(edit_note);
     return (
       //  This query gets the names and ids of all clients and jobs to populate the pulldown menus
       <Query query={ALL_CLIENTS_AND_JOBS}>
@@ -85,6 +95,7 @@ class NoteForm extends Component {
                 }`
               });
           }
+          client_list.push({ value: "", label: "None" });
           //  Build the array for the job pulldown.  It's simpler than the client one.
           let job_list = [];
           let job_array = data.allJobs.edges;
@@ -94,6 +105,7 @@ class NoteForm extends Component {
               label: job_array[i].node.name
             });
           }
+          job_list.push({ value: "", label: "None" });
           return (
             //  Give initial values to Formik from the edit_note object
             <Formik
@@ -116,6 +128,7 @@ class NoteForm extends Component {
                 handleChange,
                 handleBlur
               }) => {
+                console.log("noteform values: ", values);
                 return (
                   //  This mutation will submit either a create user or update user mutation
                   //  using the values from our form fields depending on the component mode.
@@ -124,7 +137,7 @@ class NoteForm extends Component {
                     onCompleted={() => this._confirm()}
                   >
                     {(mutateJob, { loading, error, data }) => (
-                      <div>
+                      <div className={classes.modal}>
                         {/*This formik form replaced a base html form.
                         note_variables is the variables object given to the mutation
                         it is comprised of information from Formik's values object*/}
@@ -159,22 +172,24 @@ class NoteForm extends Component {
                             <Grid item xs={12}>
                               <Typography
                                 variant="title"
-                                className={classes.typography}
+                                className={classes.typography_title}
+                                align="center"
                               >
                                 {title_text}
                               </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                              <Field
-                                component={TextField}
-                                id="field-title"
-                                label="Title"
-                                name="title"
-                                className={"modal_field"}
-                                value={values.title}
-                                helperText="Note Title"
-                                margin="normal"
-                              />
+                              <Grid container justify="center">
+                                <Field
+                                  component={TextField}
+                                  id="field-title"
+                                  label="Title"
+                                  name="title"
+                                  className={classes.margin}
+                                  value={values.title}
+                                  margin="normal"
+                                />
+                              </Grid>
                             </Grid>
                             <Grid item xs={1} />
                             {/*This field uses the field class from our styles to
@@ -185,7 +200,6 @@ class NoteForm extends Component {
                                 id="field-content"
                                 label="Content"
                                 multiline
-                                fullWidth
                                 rows="8"
                                 rowsMax="8"
                                 name="content"
@@ -198,66 +212,87 @@ class NoteForm extends Component {
                             <Grid item xs={1} />
                             {/*The pulldown form items using the arrays we built above*/}
                             <Grid item xs={6}>
-                              <Select
+                              <Field
                                 id="field-client"
                                 label="Client"
                                 name="client"
-                                className={"modal_field"}
-                                value={values.client}
-                                error={
-                                  errors.client &&
-                                  touched.client &&
-                                  errors.client
+                                disabled={
+                                  this.props.mode === "modal" &&
+                                  this.props.parent.type === "client"
                                 }
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                component="select"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.state_field
+                                )}
+                                value={values.client}
                               >
                                 {client_list.map(client => (
-                                  <MenuItem
+                                  <option
                                     key={client.value}
                                     value={client.value}
+                                    className={classes.menuitems}
                                   >
                                     {client.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
-                              </Select>
+                              </Field>
                             </Grid>
                             <Grid item xs={6}>
-                              <Select
+                              <Field
                                 id="field-job"
                                 label="Job"
                                 name="job"
-                                className={"modal_field"}
-                                value={values.job}
-                                error={
-                                  errors.client &&
-                                  touched.client &&
-                                  errors.client
+                                disabled={
+                                  this.props.mode === "modal" &&
+                                  this.props.parent.type === "job"
                                 }
-                                onChange={e => {
-                                  console.log(values.job.id);
-                                  console.log(e);
-                                  handleChange(e);
-                                }}
-                                onBlur={handleBlur}
+                                className={classNames(
+                                  classes.margin,
+                                  classes.textField,
+                                  classes.state_field
+                                )}
+                                value={values.job}
+                                component="select"
                               >
                                 {job_list.map(job => (
-                                  <MenuItem key={job.value} value={job.value}>
+                                  <option
+                                    key={job.value}
+                                    value={job.value}
+                                    className={classes.menuitems}
+                                  >
                                     {job.label}
-                                  </MenuItem>
+                                  </option>
                                 ))}
-                              </Select>
+                              </Field>
                             </Grid>
                           </Grid>
-                          <Button
-                            disabled={!isValid}
-                            variant="contained"
-                            color="primary"
-                            className={classes.padded_button}
-                            type="submit"
+                          <Grid
+                            container
+                            justify="space-around"
+                            className={classes.margin}
                           >
-                            {button_text}
-                          </Button>
+                            <Hidden xsUp={this.props.mode !== "modal"}>
+                              <Button
+                                variant="contained"
+                                color="secondary"
+                                className={classes.padded_button}
+                                onClick={this.props.cancelAdd}
+                              >
+                                Cancel
+                              </Button>
+                            </Hidden>
+                            <Button
+                              disabled={!isValid}
+                              variant="contained"
+                              color="primary"
+                              className={classes.padded_button}
+                              type="submit"
+                            >
+                              {button_text}
+                            </Button>
+                          </Grid>
                         </Form>
                       </div>
                     )}
@@ -273,7 +308,7 @@ class NoteForm extends Component {
   _confirm = () => {
     //  After submission, reload the window to get updated information and go to the notes route.
     window.location.reload();
-    this.props.history.push("/notes");
+    this.props.history.push(this.props.after_url);
   };
 }
 
