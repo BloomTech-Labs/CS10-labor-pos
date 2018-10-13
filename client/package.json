@@ -27,6 +27,7 @@
     "react-stripe-elements": "^2.0.1",
     "react-test-renderer": "^16.5.2",
     "sendgrid": "^5.2.3",
+    "source-map-explorer": "^1.6.0",
     "subscriptions-transport-ws": "^0.9.14",
     "yup": "^0.26.6"
   },
@@ -35,7 +36,7 @@
     "build": "REACT_APP_ENDPOINT=https://labs7-posserver.herokuapp.com/graphql/ react-scripts build",
     "test": "react-scripts test --env=jsdom --watchAll --verbose",
     "eject": "react-scripts eject",
-    "stats": "webpack-bundle-analyzer dist/stats.json"
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "devDependencies": {
     "enzyme": "^3.7.0",

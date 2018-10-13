@@ -1,10 +1,23 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import { Create, Delete } from "@material-ui/icons";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import { IconButton, Typography, Dialog, Grid } from "@material-ui/core";
-import { DeleteItem } from "..";
+import Loadable from "react-loadable";
 
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 //  This component will render as a child of the card list component.
 //  It presents a small area of preview information for an individual item.
 //  Displays the item name as well as edit and delete buttons.

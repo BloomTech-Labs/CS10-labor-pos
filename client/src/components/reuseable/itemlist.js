@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Delete, NavigateNext, NavigateBefore } from "@material-ui/icons";
+import NavigateNext from "@material-ui/icons/NavigateNext.js";
+import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Paper,
   List,
@@ -12,8 +14,21 @@ import {
   withStyles
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { DeleteItem } from "../../components";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component shows a small, paginated list of items with add and delete options
 //  It renders as a child of individual view components to show related items to
