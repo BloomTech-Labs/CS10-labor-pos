@@ -42,7 +42,7 @@ const SettingsSchema = Yup.object().shape({
     "Last Name must be fewer than 100 characters"
   ),
   email: Yup.string()
-    .email()
+    .email("Must provide a valid email")
     .max(70),
   streetAddress: Yup.string().max(100),
   city: Yup.string(),
@@ -88,7 +88,7 @@ class Settings extends Component {
           paidUntil: edit_user.paidUntil,
           username: edit_user.username
         }}
-        validationSchema={ClientSchema}
+        validationSchema={SettingsSchema}
         onSubmit={event => {
           event.preventDefault();
         }}

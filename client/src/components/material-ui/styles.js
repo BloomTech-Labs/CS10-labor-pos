@@ -79,10 +79,6 @@ const styles = theme => ({
     alignItems: "flex-end",
     justifyContent: "flex-start"
   },
-  sidenav: {
-    backgroundColor: theme.palette.background.default
-  },
-
   typography: {
     paddingTop: "20px",
     fontSize: "24px",
