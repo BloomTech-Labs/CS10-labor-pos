@@ -1,26 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import {
-  Settings,
-  Billing,
-  AddPart,
-  PartView,
-  Notes,
-  NoteView,
-  AddNote,
-  Jobs,
-  JobView,
-  JobInvoice,
-  EditJob,
-  SideNav,
-  Start,
-  Clients,
-  AddClient,
-  ClientView,
-  EditClient,
-  EditPart,
-  EditNote
-} from "../../components";
 import { Route } from "react-router-dom";
 import {
   Hidden,
@@ -32,6 +11,101 @@ import {
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
 import MenuIcon from "@material-ui/icons/Menu";
+import Loadable from "react-loadable";
+import { Start, SideNav } from "../../components";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const Settings = Loadable({
+  loader: () => import("../../components/settings/settings.js"),
+  loading: Loading
+});
+
+const Billing = Loadable({
+  loader: () => import("../../components/billing/billing.js"),
+  loading: Loading
+});
+
+const AddPart = Loadable({
+  loader: () => import("../../components/parts/addpart.js"),
+  loading: Loading
+});
+
+const PartView = Loadable({
+  loader: () => import("../../components/parts/partview.js"),
+  loading: Loading
+});
+
+const Notes = Loadable({
+  loader: () => import("../../components/notes/notes.js"),
+  loading: Loading
+});
+
+const NoteView = Loadable({
+  loader: () => import("../../components/notes/noteview.js"),
+  loading: Loading
+});
+
+const AddNote = Loadable({
+  loader: () => import("../../components/notes/addnote.js"),
+  loading: Loading
+});
+
+const Jobs = Loadable({
+  loader: () => import("../../components/jobs/jobs.js"),
+  loading: Loading
+});
+
+const JobView = Loadable({
+  loader: () => import("../../components/jobs/jobview.js"),
+  loading: Loading
+});
+
+const JobInvoice = Loadable({
+  loader: () => import("../../components/jobs/jobinvoice.js"),
+  loading: Loading
+});
+
+const EditJob = Loadable({
+  loader: () => import("../../components/jobs/editjob.js"),
+  loading: Loading
+});
+
+const Clients = Loadable({
+  loader: () => import("../../components/clients/clients.js"),
+  loading: Loading
+});
+
+const AddClient = Loadable({
+  loader: () => import("../../components/clients/addclient.js"),
+  loading: Loading
+});
+
+const ClientView = Loadable({
+  loader: () => import("../../components/clients/clientview.js"),
+  loading: Loading
+});
+
+const EditClient = Loadable({
+  loader: () => import("../../components/clients/editclient.js"),
+  loading: Loading
+});
+
+const EditPart = Loadable({
+  loader: () => import("../../components/parts/editpart.js"),
+  loading: Loading
+});
+
+const EditNote = Loadable({
+  loader: () => import("../../components/notes/editnote.js"),
+  loading: Loading
+});
 
 //The home component is a container component that renders when the user is logged in and displays different
 //content depending on the current route.
