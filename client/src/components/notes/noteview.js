@@ -10,10 +10,24 @@ import {
   withStyles,
   Card
 } from "@material-ui/core";
-import { Delete, Create } from "@material-ui/icons";
-import { DeleteItem } from "../../components";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component will render as a child of home on the
 //  /notes/%noteid route when the user is logged in.

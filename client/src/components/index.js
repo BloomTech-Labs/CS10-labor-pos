@@ -3,7 +3,6 @@ import CardList from "./reuseable/cardlist.js";
 import Checkout from "./billing/checkout";
 import ClientForm from "./clients/clientform";
 import CreateUser from "./auth/signup.js";
-import DeleteItem from "./reuseable/deleteitem";
 import EditClient from "./clients/editclient.js";
 import Home from "./home/home";
 import ItemCard from "./reuseable/itemcard.js";
@@ -11,9 +10,7 @@ import ItemList from "./reuseable/itemlist.js";
 import JobForm from "./jobs/jobform.js";
 import LandingPage from "./landingpage/landingpage";
 import Login from "./auth/login";
-import NoteForm from "./notes/noteform.js";
 import Parts from "./parts/parts";
-import PartForm from "./parts/partform.js";
 import Settings from "./settings/settings";
 import SideNav from "./home/sidenav";
 import Start from "./home/start";
@@ -25,7 +22,6 @@ export {
   Checkout,
   ClientForm,
   CreateUser,
-  DeleteItem,
   EditClient,
   Home,
   ItemCard,
@@ -33,8 +29,6 @@ export {
   JobForm,
   LandingPage,
   Login,
-  NoteForm,
-  PartForm,
   Parts,
   Settings,
   SideNav,

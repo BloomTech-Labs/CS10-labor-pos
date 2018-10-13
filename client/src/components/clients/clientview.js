@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import { Create, Delete } from "@material-ui/icons";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Typography,
   Grid,
@@ -13,9 +14,33 @@ import {
   withMobileDialog,
   Paper
 } from "@material-ui/core";
-import { CardList, DeleteItem, JobForm, NoteForm } from "../../components";
+import { CardList } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const NoteForm = Loadable({
+  loader: () => import("../../components/notes/noteform.js"),
+  loading: Loading
+});
+
+const JobForm = Loadable({
+  loader: () => import("../../components/jobs/jobform.js"),
+  loading: Loading
+});
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component renders a s a child of home on the path
 //  /clients/%clientid.  It presents the user with all information
