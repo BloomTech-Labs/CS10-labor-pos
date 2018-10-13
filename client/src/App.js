@@ -10,7 +10,6 @@ class App extends Component {
   };
 
   handleChange = event => {
-    console.log(event.target.value);
     this.setState({ theme_string: event.target.value });
     localStorage.setItem("theme_string", event.target.value);
   };

@@ -5,12 +5,10 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   FormControlLabel,
-  Switch,
   MenuItem,
   withStyles,
   Avatar,
   FormControl,
-  FormLabel,
   RadioGroup,
   Radio
 } from "@material-ui/core";
@@ -26,7 +24,7 @@ class SideNav extends Component {
     expanded: null
   };
 
-  handleChange = panel => (event, expanded) => {
+  handleChange = panel => expanded => {
     this.setState({
       expanded: expanded ? panel : false
     });

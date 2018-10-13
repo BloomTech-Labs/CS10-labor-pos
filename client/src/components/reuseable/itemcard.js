@@ -2,15 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Create, Delete } from "@material-ui/icons";
-import {
-  IconButton,
-  Typography,
-  Dialog,
-  withStyles,
-  Grid
-} from "@material-ui/core";
+import { IconButton, Typography, Dialog, Grid } from "@material-ui/core";
 import { DeleteItem } from "..";
-import { styles } from "../material-ui/styles.js";
 
 //  This component will render as a child of the card list component.
 //  It presents a small area of preview information for an individual item.
@@ -38,8 +31,6 @@ class ItemCard extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-    let path = "";
     let topRow = "";
     let middleRow = "";
     let bottomRow = "";
@@ -48,7 +39,7 @@ class ItemCard extends Component {
     That logic was breaking when it came to going to /client because
     it seemed to think that /client's type was client/note/job
     Now taking this.props.match.path off of React router */
-    console.log("Item", this.props.item);
+
     switch (this.props.type) {
       case "job":
         if (this.props.item.client.businessName) {
@@ -178,4 +169,4 @@ class ItemCard extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(ItemCard));
+export default withRouter(ItemCard);
