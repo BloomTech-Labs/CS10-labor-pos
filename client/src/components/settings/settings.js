@@ -59,6 +59,12 @@ const SettingsSchema = Yup.object().shape({
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/rFA17
 class Settings extends Component {
+  state = {
+    changePassword: false,
+    changeBusinessName: false,
+    changeName: false,
+    changeContact: false
+  };
   render() {
     const { classes } = this.props;
     let edit_user = {};
@@ -82,8 +88,12 @@ class Settings extends Component {
           paidUntil: edit_user.paidUntil,
           username: edit_user.username
         }}
+        validationSchema={ClientSchema}
+        onSubmit={event => {
+          event.preventDefault();
+        }}
       >
-        {({ values, isValid, handleSubmit }) => {
+        {({ values, isValid }) => {
           return (
             <Mutation
               mutation={UPDATE_USER}
@@ -119,7 +129,7 @@ class Settings extends Component {
                           variant="title"
                           className={classes.typography}
                         >
-                          Edit Settings
+                          Settings
                         </Typography>
                       </Grid>
                       <Grid item xs={4}>
@@ -132,53 +142,55 @@ class Settings extends Component {
                           </Typography>
                         </Hidden>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={6}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
-                          Change Password
-                        </Typography>
-                        <Paper className={classes.card}>
-                          <Grid container>
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-oldPassword"
-                                label="Current Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="oldPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.oldPassword}
-                                margin="normal"
-                              />
+                      <Hidden xsUp={this.state.changePassword}>
+                        <Grid item xs={1} />
+                        <Grid item xs={6}>
+                          <Typography
+                            className={classes.typography}
+                            variant="subheading"
+                          >
+                            Change Password
+                          </Typography>
+                          <Paper className={classes.card}>
+                            <Grid container>
+                              <Grid item xs={5}>
+                                <Field
+                                  id="field-oldPassword"
+                                  label="Current Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="oldPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.oldPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
+                              <Grid item xs={1} />
+                              <Grid item xs={5}>
+                                <Field
+                                  id="field-newPassword"
+                                  label="New Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="newPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.newPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
+                              <Grid item xs={1} />
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-newPassword"
-                                label="New Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="newPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.newPassword}
-                                margin="normal"
-                              />
-                            </Grid>
-                            <Grid item xs={1} />
-                          </Grid>
-                        </Paper>
-                      </Grid>
+                          </Paper>
+                        </Grid>
+                      </Hidden>
                       <Grid item xs={1} />
                       <Grid item xs={3}>
                         <Typography

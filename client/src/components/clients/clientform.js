@@ -52,7 +52,6 @@ const ClientSchema = Yup.object().shape({
 // Then it sends a mutation on submit.
 class ClientForm extends Component {
   render() {
-    console.log(styles);
     // Get MaterialUI classes
     const { classes } = this.props;
     let chosen_mutation = CREATE_CLIENT;
@@ -92,8 +91,7 @@ class ClientForm extends Component {
           event.preventDefault();
         }}
       >
-        {({ values, isValid, handleSubmit }) => {
-          console.log("This.props in Formik", this.props);
+        {({ values, isValid }) => {
           return (
             // This will submit either a create client or update client mutation
             <Mutation

@@ -6,8 +6,7 @@ import {
   Card,
   IconButton,
   Typography,
-  withStyles,
-  Hidden
+  withStyles
 } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";

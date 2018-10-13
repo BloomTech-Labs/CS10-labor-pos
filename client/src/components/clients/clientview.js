@@ -51,7 +51,6 @@ class ClientView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
-          console.log("data: ", data);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let name;
