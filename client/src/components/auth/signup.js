@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import {
-  Grid,
   withStyles,
   Step,
   Stepper,
@@ -67,8 +66,6 @@ class Wizard extends Component {
       page: 0,
       values: props.initialValues
     };
-    console.log("Props for wizard", this.props);
-    console.log("Props without this", props);
   }
 
   next = values =>

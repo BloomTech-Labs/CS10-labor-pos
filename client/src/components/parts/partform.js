@@ -86,20 +86,13 @@ class PartForm extends Component {
                 event.preventDefault();
               }}
             >
-              {({
-                errors,
-                touched,
-                values,
-                isValid,
-                handleChange,
-                handleBlur
-              }) => {
+              {({ values, isValid }) => {
                 return (
                   <Mutation
                     mutation={chosen_mutation}
                     onCompleted={() => this._confirm()}
                   >
-                    {(mutatePart, { loading, error, data }) => (
+                    {mutatePart => (
                       <div>
                         <Form
                           onSubmit={event => {

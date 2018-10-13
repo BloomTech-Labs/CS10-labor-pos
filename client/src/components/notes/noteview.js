@@ -11,7 +11,7 @@ import {
   Card
 } from "@material-ui/core";
 import { Delete, Create } from "@material-ui/icons";
-import { CardList, DeleteItem } from "../../components";
+import { DeleteItem } from "../../components";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
 

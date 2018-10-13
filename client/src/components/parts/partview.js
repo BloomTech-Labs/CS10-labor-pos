@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { DETAILED_PART_BY_ID } from "../../queries.js";
 import { Query } from "react-apollo";
-import { CardList, DeleteItem } from "../../components";
+import { DeleteItem } from "../../components";
 import { Delete, Create } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";

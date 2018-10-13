@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import {
   Settings,
   Billing,
-  Parts,
   AddPart,
   PartView,
   Notes,
