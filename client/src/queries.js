@@ -329,8 +329,7 @@ const STRIPE_TOKEN_BY_ID = gql`
       }
     }
   }
-  `;
-      
+`;
 
 const QUERY_ALL_CHARGES = gql`
   query {
@@ -346,7 +345,6 @@ const QUERY_ALL_CHARGES = gql`
     }
   }
 `;
-
 
 const SETTINGS_QUERY = gql`
   query {
@@ -418,5 +416,7 @@ export {
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
   DETAILED_PART_BY_ID,
-  SETTINGS_QUERY
+  SETTINGS_QUERY,
+  STRIPE_TOKEN_BY_ID,
+  QUERY_ALL_CHARGES
 };
