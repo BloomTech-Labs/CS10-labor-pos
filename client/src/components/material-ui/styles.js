@@ -150,6 +150,9 @@ const styles = theme => ({
   sidenavFull: {
     height: "100%",
     minHeight: "100vh"
+  },
+  paper_color: {
+    backgroundColor: theme.palette.background.paper
   }
 });
 export { styles };

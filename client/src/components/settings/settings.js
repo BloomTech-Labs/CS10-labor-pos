@@ -318,7 +318,8 @@ class Settings extends Component {
                                   classes.margin,
                                   classes.field,
                                   classes.state_field,
-                                  classes.menuitems
+                                  classes.menuitems,
+                                  classes.paper_color
                                 )}
                                 style={{ height: "55px" }}
                                 component="select"
