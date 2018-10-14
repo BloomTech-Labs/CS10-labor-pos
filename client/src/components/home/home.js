@@ -7,10 +7,10 @@ import {
   Drawer,
   Paper,
   Grid,
-  withStyles
+  withStyles,
+  Avatar
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
-import MenuIcon from "@material-ui/icons/Menu";
 import Loadable from "react-loadable";
 import { Start, SideNav } from "../../components";
 
@@ -140,7 +140,11 @@ class Home extends Component {
               onClick={this.handleDrawerToggle}
               className="mr-auto"
             >
-              <MenuIcon />
+              <Avatar
+                alt="A golden raccoon logo"
+                src={require("../../goldracoon.png")}
+                className={classes.image}
+              />
             </IconButton>
           </Grid>
           <Grid item xs={11} />
