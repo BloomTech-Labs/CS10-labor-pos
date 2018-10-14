@@ -155,6 +155,7 @@ class JobView extends Component {
                           type="note"
                           items={data.job.noteSet.edges}
                           per_page={7}
+                          refetch={refetch}
                         />
                       </Grid>
                       <Grid item xs={4}>
@@ -169,6 +170,7 @@ class JobView extends Component {
                           type="part"
                           items={data.job.partSet.edges}
                           per_page={7}
+                          refetch={refetch}
                         />
                       </Grid>
                     </Grid>
@@ -198,7 +200,7 @@ class JobView extends Component {
                   cancelDelete={this.cancelModal("deleting")}
                   type="job"
                   item={data.job}
-                  refetch={refetch}
+                  after_path="/jobs"
                 />
               </Dialog>
               <Dialog
@@ -227,6 +229,7 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_part")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

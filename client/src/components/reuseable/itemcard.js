@@ -141,17 +141,17 @@ class ItemCard extends Component {
             </IconButton>
           </Grid>
         </Grid>
-        <Typography variant="subheading" noWrap>
-          {topRow}
-        </Typography>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
+          <Typography variant="subheading" noWrap>
+            {topRow}
+          </Typography>
           <Typography variant="subheading" noWrap>
             {middleRow}
           </Typography>
+          <Typography variant="subheading" noWrap>
+            {bottomRow}
+          </Typography>
         </Link>
-        <Typography variant="subheading" noWrap>
-          {bottomRow}
-        </Typography>
         <Dialog
           open={this.state.deleting}
           onClose={this.cancelDelete}
@@ -161,7 +161,6 @@ class ItemCard extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.props.item}
-            after_path={this.props.after_path}
             refetch={this.props.refetch}
           />
         </Dialog>

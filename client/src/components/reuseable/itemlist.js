@@ -139,7 +139,7 @@ class ItemList extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.state.delete_item}
-            after_path={this.props.match.url}
+            refetch={this.props.refetch}
           />
         </Dialog>
       </div>

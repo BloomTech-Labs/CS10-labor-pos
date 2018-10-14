@@ -158,7 +158,7 @@ class ClientView extends Component {
                   cancelDelete={this.cancelModal("deleting")}
                   type="client"
                   item={data.client}
-                  refetch={refetch}
+                  after_path="/clients"
                 />
               </Dialog>
               <Dialog
@@ -172,6 +172,7 @@ class ClientView extends Component {
                     parent={{ type: "client", id: data.client.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_job")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>
@@ -186,6 +187,7 @@ class ClientView extends Component {
                     parent={{ type: "client", id: data.client.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

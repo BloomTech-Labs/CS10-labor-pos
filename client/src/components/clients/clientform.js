@@ -297,7 +297,8 @@ class ClientForm extends Component {
   }
 
   _confirm = () => {
-    this.props.history.push("/clients");
+    if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/clients");
   };
 }
 

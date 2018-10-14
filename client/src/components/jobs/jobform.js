@@ -272,7 +272,10 @@ class JobForm extends Component {
   }
 
   _confirm = () => {
-    this.props.history.push(this.props.after_path);
+    if (this.props.mode === "create") {
+      this.props.refetch();
+      this.props.cancelAdd();
+    } else this.props.history.goBack();
   };
 }
 

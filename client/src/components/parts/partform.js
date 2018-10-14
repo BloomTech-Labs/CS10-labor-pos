@@ -236,8 +236,8 @@ class PartForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push(this.props.after_path);
+    this.props.cancelAdd();
+    this.props.refetch();
   };
 }
 
