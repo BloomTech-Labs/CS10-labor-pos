@@ -91,7 +91,7 @@ class App extends Component {
             backgroundColor: base_background,
             width: "100%",
             height: "100%",
-            minWidth: "100vw",
+            minWidth: "100%",
             minHeight: "100vh",
             backgroundImage: `url(${background_image})`,
             backgroundPosition: "center",
