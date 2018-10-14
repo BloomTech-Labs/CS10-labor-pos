@@ -1,4 +1,4 @@
-<style> 
+<style
 details > summary {
   padding: 2px 6px;
   width: 90vw;
@@ -21,8 +21,6 @@ details > summary {
 <a href="https://github.com/AmyShackles">Amy Shackles</a>
 
 </div>
-
-[![Travis (.org)](https://img.shields.io/travis/:lambda-school-labs/:cs10-labor-pos.svg?style=plastic)](https://github.com/Lambda-School-Labs/CS10-labor-pos)
 
 # Table of Contents
 
