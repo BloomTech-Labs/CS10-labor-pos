@@ -20,7 +20,6 @@ import { SETTINGS_QUERY } from "../../queries.js";
 import { UPDATE_USER } from "../../mutations.js";
 import { STATE_LIST } from "../../constants";
 import { styles } from "../material-ui/styles.js";
-import jwt_decode from "jwt-decode";
 import { Formik, Field, Form } from "formik";
 import { TextField } from "../../components";
 import classNames from "classnames";
@@ -468,9 +467,9 @@ class SettingsWrapper extends Component {
         {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
+          const user_id = localStorage.getItem("USER_ID");
           const user = data.allUsers.edges.filter(user => {
-            return user.node.username === decoded_token.username;
+            return user.node.id === user_id;
           })[0].node;
 
           const item_counts = {

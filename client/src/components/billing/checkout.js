@@ -55,6 +55,7 @@ class Checkout extends Component {
 
   getStripeToken = token => {
     const { subscriptionType } = this.state;
+    localStorage.setItem("USER_PREMIUM", true);
 
     let apiURI = "http://localhost:8000/graphql/";
 
@@ -69,7 +70,9 @@ class Checkout extends Component {
     };
 
     axios(request)
-      .then(data => console.log(data))
+      .then(data => {
+        console.log("Ugh.");
+      })
       .catch(err => console.log(err));
   };
 
