@@ -65,6 +65,9 @@ class Settings extends Component {
     changeContact: false
   };
   render() {
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     const { classes } = this.props;
     let edit_user = {};
     for (let key in this.props.user) {
@@ -132,12 +135,12 @@ class Settings extends Component {
                         </Typography>
                       </Grid>
                       <Grid item xs={4}>
-                        <IconButton disabled={!values.premium}>
+                        <IconButton disabled={!user_premium}>
                           <Grade />
                         </IconButton>
-                        <Hidden xsUp={!values.premium}>
-                          <Typography className={classes.typography}>
-                            Premium member paid until {values.paidUntil}
+                        <Hidden xsUp={!user_premium}>
+                          <Typography>
+                            Premium member paid until: {values.paidUntil}
                           </Typography>
                         </Hidden>
                       </Grid>
