@@ -5,8 +5,10 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 from django.contrib.auth.models import BaseUserManager
 from graphql_jwt.shortcuts import get_token
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
-auto_debug = False
+auto_debug = True
 
 
 class User_Type(DjangoObjectType):
@@ -128,6 +130,7 @@ class UpdateUser(graphene.Mutation):
         state = graphene.String()
         zipcode = graphene.String()
         business_name = graphene.String()
+        subscription = graphene.String()
 
     ok = graphene.Boolean()
     user = graphene.Field(User_Type)
@@ -148,6 +151,7 @@ class UpdateUser(graphene.Mutation):
         state="",
         zipcode="",
         business_name="",
+        subscription="",
     ):
         trackeduser = info.context.user
 
@@ -182,6 +186,14 @@ class UpdateUser(graphene.Mutation):
                 updated_user.zipcode = zipcode
             if business_name != "":
                 updated_user.business_name = business_name
+            if subscription != "":
+                if subscription == "month":
+                    updated_user.premium = True
+                    updated_user.paid_until = date.today() + relativedelta(months=1)
+                if subscription == "year":
+                    updated_user.premium = True
+                    updated_user.paid_until = date.today() + relativedelta(months=12)
+
             updated_user.save()
             return UpdateUser(user=updated_user, ok=True, status="ok")
 
