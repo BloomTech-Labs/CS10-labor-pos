@@ -300,8 +300,8 @@ class NoteForm extends Component {
     if (this.props.mode === "modal") {
       this.props.refetch();
       this.props.cancelAdd();
-    }
-    this.props.history.push(this.props.after_url);
+    } else if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/notes");
   };
 }
 

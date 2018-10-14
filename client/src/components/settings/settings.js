@@ -97,7 +97,7 @@ class Settings extends Component {
           return (
             <Mutation
               mutation={UPDATE_USER}
-              onCompleted={() => this._confirm()}
+              onCompleted={() => this._confirm(this.props.refetch)}
             >
               {(mutateJob, { loading, error, data }) => (
                 <div>
@@ -377,6 +377,11 @@ class Settings extends Component {
                         >
                           Save Changes
                         </Button>
+                        {loading && (
+                          <Typography>Saving information...</Typography>
+                        )}
+                        {data && <Typography>Success!</Typography>}
+                        {error && <Typography>Error!</Typography>}
                       </Grid>
                       <Grid item xs={1} />
                       <Grid item xs={1} />
@@ -455,8 +460,6 @@ class Settings extends Component {
                           cancel button should also reset field values to prevent weird behaviour.
                         </Hidden>*/}
                   </Form>
-                  {loading && <p>Saving information</p>}
-                  {(data || error) && <p>Success!</p>}
                 </div>
               )}
             </Mutation>
@@ -465,9 +468,8 @@ class Settings extends Component {
       </Formik>
     );
   }
-  _confirm = () => {
-    window.location.reload();
-    this.props.history.push("/settings");
+  _confirm = method => {
+    method();
   };
 }
 
@@ -475,7 +477,7 @@ class SettingsWrapper extends Component {
   render = () => {
     return (
       <Query query={SETTINGS_QUERY}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
@@ -490,7 +492,12 @@ class SettingsWrapper extends Component {
             parts: data.allClients.edges.length
           };
           return (
-            <Settings user={user} item_counts={item_counts} {...this.props} />
+            <Settings
+              refetch={refetch}
+              user={user}
+              item_counts={item_counts}
+              {...this.props}
+            />
           );
         }}
       </Query>
