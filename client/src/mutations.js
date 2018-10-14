@@ -55,6 +55,7 @@ const UPDATE_USER = gql`
     $city: String
     $state: String
     $zipcode: String
+    $subscription: String
   ) {
     updateUser(
       id: $id
@@ -69,6 +70,7 @@ const UPDATE_USER = gql`
       city: $city
       state: $state
       zipcode: $zipcode
+      subscription: $subscription
     ) {
       user {
         id
@@ -348,37 +350,37 @@ const DELETE_TAG = gql`
 
 const CREATE_CARD_TOKEN = gql`
   mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
-      createStripeCardToken(input: $input) {
-        token {
+    createStripeCardToken(input: $input) {
+      token {
+        id
+        created
+        livemode
+        type
+        used
+        card {
           id
-          created
-          livemode
-          type
-          used
-          card {
-            id
-            brand
-            exp_year
-          }
+          brand
+          exp_year
         }
       }
-  }
-`
-const CREATE_STRIPE_CHARGE = gql`
-  mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
-  createStripeCharge(input: $input) {
-    charge {
-      id
-      amount
-      captured
-      created
-      currency
-      description
-      status
     }
   }
-}
-`
+`;
+const CREATE_STRIPE_CHARGE = gql`
+  mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
+    createStripeCharge(input: $input) {
+      charge {
+        id
+        amount
+        captured
+        created
+        currency
+        description
+        status
+      }
+    }
+  }
+`;
 
 export {
   CREATE_USER,
@@ -401,5 +403,5 @@ export {
   UPDATE_TAG,
   DELETE_TAG,
   CREATE_CARD_TOKEN,
-  CREATE_STRIPE_CHARGE,
+  CREATE_STRIPE_CHARGE
 };
