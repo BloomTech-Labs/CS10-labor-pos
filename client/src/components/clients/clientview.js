@@ -111,36 +111,40 @@ class ClientView extends Component {
                 </Grid>
               </div>
               <Typography paragraph>{data.client.description}</Typography>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography align="left">
-                    Business Name: {data.client.businessName}
-                  </Typography>
+              <Paper className={classes.card}>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Typography align="left" variant="subheading">
+                      Business Name: {data.client.businessName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography align="left" variant="subheading">
+                      Street Address: {data.client.streetAddress}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography align="left" variant="subheading">{`Name: ${
+                      data.client.firstName
+                    } ${data.client.lastName}`}</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography align="left" variant="subheading">
+                      City: {data.client.city}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography align="left" variant="subheading">
+                      State: {data.client.state}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Typography align="left" variant="subheading">
+                      Zip: {data.client.zipcode}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <Typography align="left">
-                    Street Address: {data.client.streetAddress}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography align="left">{`Name: ${data.client.firstName} ${
-                    data.client.lastName
-                  }`}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">City: {data.client.city}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    State: {data.client.state}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Zip: {data.client.zipcode}
-                  </Typography>
-                </Grid>
-              </Grid>
+              </Paper>
               <Divider className={classes.margin} />
               <Typography
                 className={classes.typography}

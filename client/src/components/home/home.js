@@ -130,7 +130,7 @@ class Home extends Component {
   render() {
     let { classes } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
         <Grid container>
           <Grid item xs={1}>
@@ -205,7 +205,7 @@ class Home extends Component {
             <Route exact path="/parts/:id/edit" component={EditPart} />
           </Paper>
         </main>
-      </div>
+      </React.Fragment>
     );
   }
 }
