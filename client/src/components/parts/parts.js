@@ -16,7 +16,7 @@ class Parts extends Component {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_PARTS}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -29,6 +29,7 @@ class Parts extends Component {
                 type="part"
                 rows={2}
                 columns={4}
+                refetch={refetch}
               />
             </div>
           );

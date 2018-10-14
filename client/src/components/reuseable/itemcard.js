@@ -162,6 +162,7 @@ class ItemCard extends Component {
             type={this.props.type}
             item={this.props.item}
             after_path={this.props.after_path}
+            refetch={this.props.refetch}
           />
         </Dialog>
       </div>

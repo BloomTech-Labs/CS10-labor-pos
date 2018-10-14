@@ -21,7 +21,7 @@ class EditJob extends Component {
           if (error) return `Error! ${error.message}`;
           return (
             <div>
-              <JobForm mode="edit" job={data.job} />
+              <JobForm mode="edit" job={data.job} after_path="/jobs" />
             </div>
           );
         }}

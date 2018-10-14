@@ -41,7 +41,7 @@ class PartView extends Component {
         query={DETAILED_PART_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -84,7 +84,7 @@ class PartView extends Component {
                   cancelDelete={this.cancelDelete}
                   type="part"
                   item={data.part}
-                  after_path="/parts"
+                  refetch={refetch}
                 />
               </Dialog>
             </Grid>

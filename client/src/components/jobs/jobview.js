@@ -50,7 +50,7 @@ class JobView extends Component {
         query={DETAILED_JOB_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let right_content = [];
@@ -198,7 +198,7 @@ class JobView extends Component {
                   cancelDelete={this.cancelModal("deleting")}
                   type="job"
                   item={data.job}
-                  after_path="/jobs"
+                  refetch={refetch}
                 />
               </Dialog>
               <Dialog
@@ -212,6 +212,7 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

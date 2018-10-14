@@ -11,7 +11,7 @@ class AddNote extends Component {
   render() {
     return (
       <div>
-        <NoteForm mode="create" />
+        <NoteForm mode="create" after_url="/notes" />
       </div>
     );
   }
