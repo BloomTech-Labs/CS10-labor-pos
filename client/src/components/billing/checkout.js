@@ -139,8 +139,8 @@ class Checkout extends Component {
             stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
             image="https://bestpos.netlify.com/goldraccoon.png"
             color="black"
-            zipCode="true"
-            billingAddress="true"
+            zipCode={true}
+            billingAddress={true}
           />
         </React.Fragment>
       </div>
