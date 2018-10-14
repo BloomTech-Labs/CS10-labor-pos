@@ -1,15 +1,3 @@
-<style
-  type="text/css">
-  details > summary {
-  padding: 2px 6px;
-  width: 90vw;
-  background-color: #ddd;
-  border: none;
-  box-shadow: 3px 3px 4px black;
-  font-size: 1.5em;
-}
-</style>
-
 <h1 align="center">CS10-Labor POS</h1>
 <div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:  This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
 
