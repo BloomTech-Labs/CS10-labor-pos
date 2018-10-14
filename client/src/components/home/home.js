@@ -134,7 +134,7 @@ class Home extends Component {
       <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
         <Grid container>
-          <Grid item xs={5} sm={3} md={1}>
+          <Grid item xs={5} sm={3} md={2} lg={1}>
             <Paper className={classes.card}>
               <IconButton
                 color="inherit"
@@ -151,12 +151,12 @@ class Home extends Component {
               <Typography>Menu</Typography>
             </Paper>
           </Grid>
-          <Grid item xs={7} sm={9} md={11} />
+          <Grid item xs={7} sm={9} md={10} lg={11} />
         </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
         It is toggleable.*/}
-        <Hidden mdUp>
+        <Hidden lgUp>
           <Drawer
             variant="temporary"
             anchor="left"
@@ -176,7 +176,7 @@ class Home extends Component {
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
         It is permanently open.*/}
-        <Hidden smDown implementation="css">
+        <Hidden mdDown implementation="css">
           <Drawer className="sidenav" variant="permanent" open>
             <SideNav
               logout={this.logout}

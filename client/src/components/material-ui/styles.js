@@ -79,7 +79,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.lightened_background
   },
   image: {
-    margin: "16px"
+    margin: "auto"
   },
   sidenav_top: {
     display: "flex",
@@ -124,6 +124,19 @@ const styles = theme => ({
       padding: theme.spacing.unit * 3
     }
   },
+  dark_paper: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    backgroundColor: theme.palette.background.paper,
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3
+    }
+  },
   stepper: {
     padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
     backgroundColor: theme.palette.background.default
@@ -160,6 +173,9 @@ const styles = theme => ({
   },
   paper_color: {
     backgroundColor: theme.palette.background.paper
+  },
+  space_above: {
+    margin: "22px 0px"
   }
 });
 export { styles };
