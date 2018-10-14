@@ -8,7 +8,8 @@ from graphql_jwt.shortcuts import get_token
 from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
-auto_debug = True
+
+auto_debug = False
 
 
 class User_Type(DjangoObjectType):
