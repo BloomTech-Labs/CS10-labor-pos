@@ -21,7 +21,7 @@ class EditNote extends Component {
           if (error) return `Error! ${error.message}`;
           return (
             <div>
-              <NoteForm mode="edit" note={data.note} />
+              <NoteForm mode="edit" note={data.note} after_url="/notes" />
             </div>
           );
         }}

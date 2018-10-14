@@ -7,10 +7,11 @@ import {
   Drawer,
   Paper,
   Grid,
-  withStyles
+  withStyles,
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
-import MenuIcon from "@material-ui/icons/Menu";
 import Loadable from "react-loadable";
 import { Start, SideNav } from "../../components";
 
@@ -130,25 +131,32 @@ class Home extends Component {
   render() {
     let { classes } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
         <Grid container>
-          <Grid item xs={1}>
-            <IconButton
-              color="inherit"
-              aria-label="Open sidenav"
-              onClick={this.handleDrawerToggle}
-              className="mr-auto"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Grid item xs={5} sm={3} md={2} lg={1}>
+            <Paper className={classes.card}>
+              <IconButton
+                color="inherit"
+                aria-label="Open sidenav"
+                onClick={this.handleDrawerToggle}
+                className="mr-auto"
+              >
+                <Avatar
+                  alt="A golden raccoon logo"
+                  src={require("../../goldracoon.png")}
+                  className={classes.image}
+                />
+              </IconButton>
+              <Typography>Menu</Typography>
+            </Paper>
           </Grid>
-          <Grid item xs={11} />
+          <Grid item xs={7} sm={9} md={10} lg={11} />
         </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
         It is toggleable.*/}
-        <Hidden mdUp>
+        <Hidden lgUp>
           <Drawer
             variant="temporary"
             anchor="left"
@@ -168,7 +176,7 @@ class Home extends Component {
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
         It is permanently open.*/}
-        <Hidden smDown implementation="css">
+        <Hidden mdDown implementation="css">
           <Drawer className="sidenav" variant="permanent" open>
             <SideNav
               logout={this.logout}
@@ -201,7 +209,7 @@ class Home extends Component {
             <Route exact path="/parts/:id/edit" component={EditPart} />
           </Paper>
         </main>
-      </div>
+      </React.Fragment>
     );
   }
 }

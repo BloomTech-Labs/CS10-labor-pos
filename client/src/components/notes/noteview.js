@@ -56,9 +56,10 @@ class NoteView extends Component {
         query={DETAILED_NOTE_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
+          refetch();
           const created = new Date(data.note.createdAt);
           const modified = new Date(data.note.modifiedAt);
           return (

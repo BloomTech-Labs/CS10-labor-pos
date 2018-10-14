@@ -77,7 +77,7 @@ class JobView extends Component {
         query={DETAILED_JOB_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let right_content = [];
@@ -182,6 +182,7 @@ class JobView extends Component {
                           type="note"
                           items={data.job.noteSet.edges}
                           per_page={7}
+                          refetch={refetch}
                         />
                       </Grid>
                       <Grid item xs={4}>
@@ -196,6 +197,7 @@ class JobView extends Component {
                           type="part"
                           items={data.job.partSet.edges}
                           per_page={7}
+                          refetch={refetch}
                         />
                       </Grid>
                     </Grid>
@@ -239,6 +241,7 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>
@@ -253,6 +256,7 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_part")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

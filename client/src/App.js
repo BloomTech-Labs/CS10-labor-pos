@@ -3,6 +3,8 @@ import "./App.css";
 import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
+import desk_image from "./background.jpg";
+import raccoon from "./goldracoon.png";
 
 class App extends Component {
   state = {
@@ -32,6 +34,7 @@ class App extends Component {
     let base_background = "#130e00";
     let sidenav_background = "#000000";
     let textfield_color = "#130e00";
+    let background_image = false;
     if (this.state.theme_string === "forest") {
       theme_type = "dark";
       lightened_background = grey["700"];
@@ -46,6 +49,7 @@ class App extends Component {
       base_background = "#673AB7";
       sidenav_background = "#F50057";
       textfield_color = "#00FF00";
+      background_image = raccoon;
     } else if (this.state.theme_string === "bluegrey") {
       theme_type = "dark";
       lightened_background = grey["700"];
@@ -53,6 +57,7 @@ class App extends Component {
       paper_color = grey["800"];
       base_background = blueGrey["500"];
       sidenav_background = grey["800"];
+      background_image = desk_image;
     } else if (this.state.theme_string === "banana") {
       theme_type = "light";
       lightened_background = grey["100"];
@@ -78,14 +83,20 @@ class App extends Component {
         }
       }
     });
+
     return (
       <div className="App">
         <div
           style={{
             backgroundColor: base_background,
-            width: "auto",
+            width: "100%",
             height: "100%",
-            minHeight: "100vh"
+            minWidth: "100vw",
+            minHeight: "100vh",
+            backgroundImage: `url(${background_image})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "repeat"
           }}
         >
           <MuiThemeProvider theme={theme}>

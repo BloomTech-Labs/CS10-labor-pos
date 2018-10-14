@@ -15,7 +15,7 @@ class Jobs extends Component {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_JOBS}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -28,6 +28,7 @@ class Jobs extends Component {
                 type="job"
                 rows={2}
                 columns={4}
+                refetch={refetch}
               />
             </div>
           );

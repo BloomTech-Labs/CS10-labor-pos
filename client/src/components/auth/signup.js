@@ -164,9 +164,9 @@ class Wizard extends Component {
                     </Button>
                   )}
                   {!isLastPage && (
-                    <button type="submit" color="primary" variant="contained">
+                    <Button type="submit" color="primary" variant="contained">
                       Next »
-                    </button>
+                    </Button>
                   )}
                   {isLastPage && (
                     <Button
@@ -286,6 +286,7 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="City"
+              className={props.classes.space_below}
               required
             />
             <Field

@@ -296,8 +296,12 @@ class NoteForm extends Component {
   }
   _confirm = () => {
     //  After submission, reload the window to get updated information and go to the notes route.
-    window.location.reload();
-    this.props.history.push(this.props.after_url);
+
+    if (this.props.mode === "modal") {
+      this.props.refetch();
+      this.props.cancelAdd();
+    } else if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/notes");
   };
 }
 

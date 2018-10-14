@@ -297,8 +297,8 @@ class ClientForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push("/clients");
+    if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/clients");
   };
 }
 
