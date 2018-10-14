@@ -122,7 +122,7 @@ class Settings extends Component {
                       });
                     }}
                   >
-                    <Grid container>
+                    <Grid container spacing={24}>
                       <Grid item xs={4} />
                       <Grid item xs={4}>
                         <Typography
@@ -143,8 +143,7 @@ class Settings extends Component {
                         </Hidden>
                       </Grid>
                       <Hidden xsUp={this.state.changePassword}>
-                        <Grid item xs={1} />
-                        <Grid item xs={6}>
+                        <Grid item xs={12} md={6}>
                           <Typography
                             className={classes.typography}
                             variant="subheading"
@@ -152,8 +151,8 @@ class Settings extends Component {
                             Change Password
                           </Typography>
                           <Paper className={classes.card}>
-                            <Grid container>
-                              <Grid item xs={5}>
+                            <Grid container spacing={24}>
+                              <Grid item xs={12} md={6}>
                                 <Field
                                   id="field-oldPassword"
                                   label="Current Password"
@@ -169,8 +168,8 @@ class Settings extends Component {
                                   margin="normal"
                                 />
                               </Grid>
-                              <Grid item xs={1} />
-                              <Grid item xs={5}>
+
+                              <Grid item xs={12} md={6}>
                                 <Field
                                   id="field-newPassword"
                                   label="New Password"
@@ -186,13 +185,11 @@ class Settings extends Component {
                                   margin="normal"
                                 />
                               </Grid>
-                              <Grid item xs={1} />
                             </Grid>
                           </Paper>
                         </Grid>
                       </Hidden>
-                      <Grid item xs={1} />
-                      <Grid item xs={3}>
+                      <Grid item xs={12} md={6}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -200,29 +197,22 @@ class Settings extends Component {
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Grid container>
-                            <Grid item xs={10}>
-                              <Field
-                                id="field-businessName"
-                                label="Business Name"
-                                name="businessName"
-                                fullWidth
-                                component={TextField}
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.businessName}
-                                margin="normal"
-                              />
-                            </Grid>
-                            <Grid item xs={2} />
-                          </Grid>
+                          <Field
+                            id="field-businessName"
+                            label="Business Name"
+                            name="businessName"
+                            fullWidth
+                            component={TextField}
+                            className={classNames(
+                              classes.margin,
+                              classes.textField
+                            )}
+                            value={values.businessName}
+                            margin="normal"
+                          />
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
+                      <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -231,7 +221,7 @@ class Settings extends Component {
                         </Typography>
                         <Paper className={classes.card}>
                           <Grid container>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 id="field-firstName"
                                 label="First Name"
@@ -246,7 +236,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 id="field-lastName"
                                 label="Last Name"
@@ -261,13 +251,11 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={1} />
                           </Grid>
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
+
+                      <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -291,7 +279,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={12} md={8}>
                               <Field
                                 id="field-city"
                                 label="City"
@@ -306,7 +294,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={12} md={2}>
                               <Field
                                 id="state"
                                 select="true"
@@ -334,8 +322,9 @@ class Settings extends Component {
                                   </option>
                                 ))}
                               </Field>
+                              <Typography>State</Typography>
                             </Grid>
-                            <Grid item xs={1}>
+                            <Grid item xs={12} md={2}>
                               <Field
                                 id="field-zipcode"
                                 label="Zipcode"
@@ -366,9 +355,7 @@ class Settings extends Component {
                           </Grid>
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={9} />
-                      <Grid item xs={2}>
+                      <Grid item xs={12}>
                         <Button
                           className={classes.padded_button}
                           variant="contained"
@@ -384,72 +371,72 @@ class Settings extends Component {
                         {data && <Typography>Success!</Typography>}
                         {error && <Typography>Error!</Typography>}
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
-                        <Paper elevation={4} square className={classes.card}>
-                          <Table>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell />
-                                <TableCell numeric>Used</TableCell>
-                                <TableCell numeric>
-                                  Free Account Allotment
-                                </TableCell>
-                                <TableCell numeric>Remaining</TableCell>
-                                <TableCell>Premium</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell>Clients</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.clients}
-                                </TableCell>
-                                <TableCell numeric>1</TableCell>
-                                <TableCell numeric>
-                                  {1 - this.props.item_counts.clients}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Jobs</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.jobs}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.jobs}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Notes</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.notes}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.notes}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Parts</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.parts}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.parts}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </Paper>
+
+                      <Grid item xs={12}>
+                        <Hidden smDown>
+                          <Paper elevation={4} square className={classes.card}>
+                            <Table>
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell />
+                                  <TableCell numeric>Used</TableCell>
+                                  <TableCell numeric>
+                                    Free Account Allotment
+                                  </TableCell>
+                                  <TableCell numeric>Remaining</TableCell>
+                                  <TableCell>Premium</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <TableRow>
+                                  <TableCell>Clients</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell numeric>1</TableCell>
+                                  <TableCell numeric>
+                                    {1 - this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Jobs</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Notes</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Parts</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </Paper>
+                        </Hidden>
                       </Grid>
-                      <Grid item xs={1} />
                     </Grid>
 
                     {/* <Hidden xsUp={conditions didn't press button yet}>
