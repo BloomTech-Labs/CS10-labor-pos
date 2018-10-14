@@ -1,5 +1,16 @@
+<style> 
+details > summary {
+  padding: 2px 6px;
+  width: 90vw;
+  background-color: #ddd;
+  border: none;
+  box-shadow: 3px 3px 4px black;
+  font-size: 1.5em;
+}
+</style>
+
 <h1 align="center">CS10-Labor POS</h1>
-<img src="client/page_layout/smallraccoon.svg" alt="Raccoon image from Stockio.com"/><p align="center" style="font-size:12px">Image from Stockio.com</p></pre>
+<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:  This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
 
 <div align="center"><h2>Brought to you by:</h2>
 
@@ -11,6 +22,8 @@
 
 </div>
 
+[![Travis (.org)](https://img.shields.io/travis/:lambda-school-labs/:cs10-labor-pos.svg?style=plastic)](https://github.com/Lambda-School-Labs/CS10-labor-pos)
+
 # Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -21,14 +34,8 @@
 - [Authentication](#authentication)
 - [Authorization](#authorization)
 - [Security](#security)
-- [Rough Page Layout](#rough-page-layout)
-  - [Home Page](#home-page)
-  - [Client Views](#client-views)
-  - [Job Views](#job-views)
-  - [Note Views](#note-views)
-  - [Part Views](#part-views)
-  - [Settings](#settings)
-  - [Billing](#billing)
+- [Original Wireframe](#original-wireframe)
+- [Extending the Wireframe](#extending-the-wireframe)
 - [Models](#models)
   - [User Model](#user-model)
   - [Client Model](#client-model)
@@ -142,25 +149,87 @@ Authorization is handled on the model level, with each model query checking to s
 
 # Security:
 
-- Work on security is ongoing.
+## Threats:
 
-# Rough Page Layout (click to view):
+### SQL Injection
+
+### Cross-site Scripting (XSS)
+
+- Built-in Django templates escape specific characters tha
+
+### URL Interpretation
+
+### Impersonation
+
+### Buffer Overflow
+
+# Layout:
 
 <details>
-<summary>
-  
-  ## Home Page:</summary>
+<summary> <b> Original Wireframe (click to view):</b>
+</summary>
+
+<h2 align="center">
+  Landing Page:
+</h2>
+
+![LandingPageWireframe](/client/page_layout/LandingPageWireframe.png)
+
+<h2 align="center">
+  Job View:
+</h2>
+
+![JobViewWireframe](/client/page_layout/JobViewWireframe.png)
+
+<h2 align="center">
+  Add a job:
+</h2>
+
+![AddJobWireframe](/client/page_layout/AddJobWireframe.png)
+
+<h2 align="center">
+  Jobs View:
+</h2>
+
+![JobsViewWireframe](/client/page_layout/JobsViewWireframe.png)
+
+<h2 align="center">
+  Job View:
+</h2>
+
+![JobView2Wireframe](/client/page_layout/JobViewWireframe2.png)
+
+<h2 align="center">
+  Job Edit Modal:
+</h2>
+
+![JobEditModalWireframe](/client/page_layout/JobEditModalWireframe.png)
+
+<h2 align="center">
+  Billing:
+</h2>
+
+![BillingWireframe](/client/page_layout/BillingWireframe.png)
+
+<h2 align="center">
+  Settings:
+</h2>
+
+![SettingsWireframe](/client/page_layout/SettingsWireframe.png)
+
+</details>
+<br>
+<details>
+<summary> <b>Extending the Wireframe (click to view):</b>
+
+</summary>
+
+<h2 align="center">
+  Home Page:
+</h2>
 
 ![Home](/client/page_layout/HomeScreen.png)
 
-</details>
-
-<details>
-<summary>
-
-## Client Views:
-
-</h2></summary>
 <h2 align="center">
   Client Creation:
 </h2>
@@ -185,16 +254,7 @@ Authorization is handled on the model level, with each model query checking to s
 
 ![ClientView](/client/page_layout/ClientView.png)
 
-</details>
-
-<details>
-<summary>
-
-## Job Views:
-
-</summary>
-
-<h2 align="center">Creation:
+<h2 align="center">Job Creation:
 </h2>
 
 ![JobCreation](/client/page_layout/JobCreation.png)
@@ -206,25 +266,17 @@ Authorization is handled on the model level, with each model query checking to s
 ![JobEdit](/client/page_layout/JobEdit.png)
 
 <h2 align="center">
-  Jobs Page (click to view):
+  Jobs Page:
 </h2>
 
 ![JobsPage](/client/page_layout/JobsPage.png)
 
 <h2 align="center">
-  Job View (click to view):
+  Job View:
 </h2>
 
 ![JobView](/client/page_layout/JobView.png)
 
-</details>
-
-<details>
-<summary>
-
-## Note Views:
-
-</summary>
 <h2 align="center">
   Note Creation:
 </h2>
@@ -232,25 +284,16 @@ Authorization is handled on the model level, with each model query checking to s
 ![NoteCreation](/client/page_layout/NoteCreation.png)
 
 <h2 align="center">
-  Notes Page (click to view):
+  Notes Page:
 </h2>
 
 ![NotesPage](/client/page_layout/NotesPage.png)
 
 <h2 align="center">
-  Note View and Edit (click to view):
+  Note View and Edit:
 </h2>
 
 ![NoteViewAndEdit](/client/page_layout/NoteViewAndEdit.png)
-
-</details>
-
-<details>
-<summary>
-
-## Part Views:
-
-</summary>
 
 <h2 align="center">
   Part Creation:
@@ -259,33 +302,20 @@ Authorization is handled on the model level, with each model query checking to s
 ![PartCreation](/client/page_layout/PartCreation.png)
 
 <h2 align="center">
-  Parts Page (click to view):
+  Parts Page:
 </h2>
 
 ![PartsPage](/client/page_layout/PartsPage.png)
 
 <h2 align="center">
-  Part View and Edit (click to view):
+  Part View and Edit:
 </h2>
 
 ![PartViewAndEdit](/client/page_layout/PartViewAndEdit.png)
 
-</details>
-
-## Settings:
-
-</summary>
-
 <h2 align="center">Settings Page:</h2>
 
 ![SettingsPage](/client/page_layout/SettingsPage.png)
-
-</details>
-<details><summary>
-
-## Billing:
-
-</summary>
 
 <h2 align="center">Billing:</h2>
 
@@ -293,11 +323,13 @@ Authorization is handled on the model level, with each model query checking to s
 
 </details>
 
+# Database:
+
 ## Models
 
 ### User Model
 
-Using AbstractUser() to extend Django User in order to add fields to the User model without stepping on its toes. This model represents the user of the application.
+Using AbstractUser() to extend Django User in order to add fields to the User model without stepping on its toes. It is important to not accidentally duplicate fields already on the Django User model as that shifts the responsibility of password hashing and validation over to you. This model represents the user of the application.
 
 Fields being used from Django User model:
 
@@ -310,11 +342,11 @@ Fields being used from Django User model:
 Fields added to the User model:
 
 ```
-- first_name (CharField(max_length=30))
-- last_name (CharField(max_length=150))
-- street_address (CharField(max_length=100))
-- city (CharField(max_length=70))
-- state (CharField(max_length=50, choices=state_choices))
+- first_name = models.CharField(max_length=30)
+- last_name = models.CharField(max_length=150)
+- street_address = CharField(max_length=100)
+- city = models.CharField(max_length=70)
+- state models.CharField(max_length=2, choices=state_choices)
 - state choices = (
   ("AL", "Alabama"),
   ("AK", "Alaska"),
@@ -371,8 +403,8 @@ Fields added to the User model:
   ("VI", "Virgin Islands"),
   ("GU", "Guam"),
   )
-- zipcode (CharField(max_length=10))
-- business_name (CharField(max_length=100, null=True, blank=True, default=""))
+- zipcode = models.CharField(max_length=10)
+- business_name = models.CharField(max_length=100, null=True, blank=True, default="")
 - modified_at (DateTimeField(auto_now=True))
 - premium = (BooleanField(default=False, blank=True, null=True))
 - paid_until = (DateTimeField(blank=True, null=True))
