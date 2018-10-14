@@ -155,6 +155,7 @@ class UpdateUser(graphene.Mutation):
         subscription="",
     ):
         trackeduser = info.context.user
+
         if trackeduser.is_anonymous:
             return UpdateUser(ok=False, status="Must be logged in")
         else:
