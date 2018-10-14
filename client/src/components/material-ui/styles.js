@@ -176,6 +176,9 @@ const styles = theme => ({
   },
   space_above: {
     margin: "22px 0px"
+  },
+  space_below: {
+    marginBottom: "22px"
   }
 });
 export { styles };
