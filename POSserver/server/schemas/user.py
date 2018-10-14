@@ -155,12 +155,9 @@ class UpdateUser(graphene.Mutation):
         subscription="",
     ):
         trackeduser = info.context.user
-        print("howdy friend!", subscription)
         if trackeduser.is_anonymous:
-            print("wrong path, dude")
             return UpdateUser(ok=False, status="Must be logged in")
         else:
-            print("you have chosen well")
             updated_user = get_user_model().objects.get(pk=from_global_id(id)[1])
             if username != "":
                 updated_user.username = username
@@ -190,7 +187,6 @@ class UpdateUser(graphene.Mutation):
             if business_name != "":
                 updated_user.business_name = business_name
             if subscription != "":
-                print("I reach the if statement")
                 if subscription == "month":
                     updated_user.premium = True
                     updated_user.paid_until = timezone.now() + relativedelta(months=1)
