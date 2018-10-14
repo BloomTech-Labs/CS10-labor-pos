@@ -64,7 +64,6 @@ class NoteView extends Component {
           refetch();
           const created = new Date(data.note.createdAt);
           const modified = new Date(data.note.modifiedAt);
-          console.log(data.note);
           return (
             <React.Fragment>
               <Grid

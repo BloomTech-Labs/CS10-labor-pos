@@ -1,41 +1,37 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
-import { CREATE_STRIPE_CHARGE } from "../../mutations.js";
+
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import {
   FormControlLabel,
   Checkbox,
   Typography,
-  Card,
-  Grid
+  Card
 } from "@material-ui/core";
-import { styles } from "../material-ui/styles.js";
 
-const mutation = gql`
-  mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
-    createStripeCharge(input: $input) {
-      charge {
-        id
-        amount
-        captured
-        created
-        currency
-        description
-        status
-      }
-    }
-  }
-`;
+// const mutation = gql`
+//   mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
+//     createStripeCharge(input: $input) {
+//       charge {
+//         id
+//         amount
+//         captured
+//         created
+//         currency
+//         description
+//         status
+//       }
+//     }
+//   }
+// `;
 
-const query = gql`
-  {
-    currentUser {
-      id
-    }
-  }
-`;
+// const query = gql`
+//   {
+//     currentUser {
+//       id
+//     }
+//   }
+// `;
 
 class Checkout extends Component {
   state = {
@@ -54,7 +50,6 @@ class Checkout extends Component {
   };
 
   getStripeToken = token => {
-    const { subscriptionType } = this.state;
     localStorage.setItem("USER_PREMIUM", true);
 
     let apiURI = "http://localhost:8000/graphql/";
@@ -70,9 +65,7 @@ class Checkout extends Component {
     };
 
     axios(request)
-      .then(data => {
-        console.log("Ugh.");
-      })
+      .then(data => {})
       .catch(err => console.log(err));
   };
 

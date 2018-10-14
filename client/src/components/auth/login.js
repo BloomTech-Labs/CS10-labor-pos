@@ -108,7 +108,6 @@ class Login extends Component {
   //This method runs after the mutation has received an answer
   _confirm = async data => {
     const { token, user } = data.tokenAuth;
-    console.log(data);
     this._saveUserData(token, user.id, user.premium);
     // Go to the root route
     this.props.history.push("/");

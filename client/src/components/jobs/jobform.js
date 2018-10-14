@@ -4,9 +4,7 @@ import {
   Grid,
   Typography,
   withStyles,
-  Hidden,
-  FormControl,
-  FormControlLabel
+  Hidden
 } from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
