@@ -8,7 +8,8 @@ import {
   Paper,
   Grid,
   withStyles,
-  Avatar
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
@@ -133,21 +134,24 @@ class Home extends Component {
       <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
         <Grid container>
-          <Grid item xs={1}>
-            <IconButton
-              color="inherit"
-              aria-label="Open sidenav"
-              onClick={this.handleDrawerToggle}
-              className="mr-auto"
-            >
-              <Avatar
-                alt="A golden raccoon logo"
-                src={require("../../goldracoon.png")}
-                className={classes.image}
-              />
-            </IconButton>
+          <Grid item xs={2}>
+            <Paper className={classes.card}>
+              <IconButton
+                color="inherit"
+                aria-label="Open sidenav"
+                onClick={this.handleDrawerToggle}
+                className="mr-auto"
+              >
+                <Avatar
+                  alt="A golden raccoon logo"
+                  src={require("../../goldracoon.png")}
+                  className={classes.image}
+                />
+              </IconButton>
+              <Typography>Menu</Typography>
+            </Paper>
           </Grid>
-          <Grid item xs={11} />
+          <Grid item xs={10} />
         </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
