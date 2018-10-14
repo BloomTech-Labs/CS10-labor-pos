@@ -1,4 +1,5 @@
-<style 
+<style
+  type="text/css">
   details > summary {
   padding: 2px 6px;
   width: 90vw;
