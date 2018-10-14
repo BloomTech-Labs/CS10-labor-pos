@@ -1,5 +1,5 @@
-<style
-details > summary {
+<style 
+  details > summary {
   padding: 2px 6px;
   width: 90vw;
   background-color: #ddd;
