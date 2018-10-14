@@ -10,10 +10,24 @@ import {
 } from "@material-ui/core";
 import { DETAILED_PART_BY_ID } from "../../queries.js";
 import { Query } from "react-apollo";
-import { DeleteItem } from "../../components";
-import { Delete, Create } from "@material-ui/icons";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading ... </h3>;
+  }
+}
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //This component will render on the /parts/%partid route when the user is logged in
 //It is a child of the home component.

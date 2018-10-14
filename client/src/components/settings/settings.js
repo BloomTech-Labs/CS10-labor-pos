@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grade } from "@material-ui/icons";
+import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
@@ -327,7 +327,7 @@ class Settings extends Component {
                                 {STATE_LIST.map(state => (
                                   <option
                                     key={state.label}
-                                    value={state.value}
+                                    value={state.label}
                                     className={classes.menuitems}
                                   >
                                     {state.label}

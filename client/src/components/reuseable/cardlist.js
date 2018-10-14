@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { NavigateNext, NavigateBefore, AddCircle } from "@material-ui/icons";
+import NavigateNext from "@material-ui/icons/NavigateNext.js";
+import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
+import AddCircle from "@material-ui/icons/AddCircle.js";
 import {
   Grid,
   Card,

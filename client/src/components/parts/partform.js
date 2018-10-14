@@ -27,7 +27,9 @@ const PartSchema = Yup.object().shape({
     .max(150, "Name must be under 100 characters")
     .required(),
   description: Yup.string(),
-  cost: Yup.number().required(),
+  cost: Yup.number()
+    .required()
+    .max(1000000000, "Cost must be less than 1,000,000,000"),
   job: Yup.string()
 });
 
@@ -168,6 +170,14 @@ class PartForm extends Component {
                                 value={values.cost}
                                 margin="normal"
                               />
+                              <div
+                                style={{
+                                  color: "white",
+                                  textShadow: "2px 2px black"
+                                }}
+                              >
+                                Note: Maximum cost form allows is $1,000,000,000
+                              </div>
                             </Grid>
                             <Grid item xs={5}>
                               <Field

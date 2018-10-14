@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
+import DoneOutline from "@material-ui/icons/DoneOutline.js";
+import ArrowRightAlt from "@material-ui/icons/ArrowRightAlt.js";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Typography,
   Grid,
@@ -14,9 +17,33 @@ import {
   Paper,
   withMobileDialog
 } from "@material-ui/core";
-import { ItemList, DeleteItem, NoteForm, PartForm } from "../../components";
+import { ItemList } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const NoteForm = Loadable({
+  loader: () => import("../../components/notes/noteform.js"),
+  loading: Loading
+});
+
+const PartForm = Loadable({
+  loader: () => import("../../components/parts/partform.js"),
+  loading: Loading
+});
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component will render as a child of home on the path /jobs/%jobid
 //  It will present the user with the job info from the database as well as

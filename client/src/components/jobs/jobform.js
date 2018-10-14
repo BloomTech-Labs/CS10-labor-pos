@@ -227,6 +227,9 @@ class JobForm extends Component {
                                 component={TextField}
                                 id="field-deadline"
                                 label="Deadline"
+                                InputLabelProps={{
+                                  shrink: true
+                                }}
                                 name="deadline"
                                 className={classes.textField}
                                 value={values.deadline}

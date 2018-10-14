@@ -12,7 +12,7 @@ import {
   RadioGroup,
   Radio
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import ExpandMore from "@material-ui/icons/ExpandMore.js";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
