@@ -118,6 +118,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
     backgroundColor: theme.palette.background.default,
+    maxWidth: "80%",
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
@@ -162,7 +163,8 @@ const styles = theme => ({
     border: "0",
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
+    maxWidth: "75%"
   },
   sidenav: {
     backgroundColor: `${theme.palette.background.sidenav} !important`
@@ -179,6 +181,10 @@ const styles = theme => ({
   },
   space_below: {
     marginBottom: "22px"
+  },
+  limit_width: {
+    width: "75%",
+    maxWidth: "60%"
   }
 });
 export { styles };

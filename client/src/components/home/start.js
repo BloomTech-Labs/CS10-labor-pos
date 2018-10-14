@@ -17,8 +17,7 @@ class Start extends Component {
       <div>
         <Grid container>
           <Grid item xs={12}>
-            <Typography className={classes.typography} variant="title">
-            </Typography>
+            <Typography className={classes.typography} variant="title" />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={10}>
@@ -30,35 +29,35 @@ class Start extends Component {
               alignItems="center"
               spacing={24}
             >
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <Link to="/clients">
                     <Button>Click to view clients</Button>
                   </Link>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <Link to="/jobs">
                     <Button>Click to view jobs</Button>
                   </Link>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <Link to="/notes">
                     <Button>Click to view notes</Button>
                   </Link>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <Link to="/parts">
                     <Button>Click to view parts</Button>
                   </Link>
                 </Card>
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={12} sm={6} md={4} lg={3}>
                 <Card className={classes.card}>
                   <Link to="/invoices">
                     <Button>Click to view invoices</Button>

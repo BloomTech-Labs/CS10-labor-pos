@@ -127,7 +127,7 @@ class JobForm extends Component {
                             });
                           }}
                         >
-                          <Grid container>
+                          <Grid container justify="center">
                             <Grid container justify="center">
                               <Typography
                                 variant="title"
@@ -136,7 +136,8 @@ class JobForm extends Component {
                                 {title_text}
                               </Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3} md={1} />
+                            <Grid item xs={6} md={4}>
                               <Field
                                 id="field-client"
                                 disabled={this.props.mode === "create"}
@@ -166,7 +167,8 @@ class JobForm extends Component {
                                 ))}
                               </Field>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3} md={2} />
+                            <Grid item xs={11} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-name"
@@ -178,7 +180,7 @@ class JobForm extends Component {
                               />
                             </Grid>
                             <Grid item xs={1} />
-                            <Grid item xs={10}>
+                            <Grid item xs={12}>
                               <Field
                                 component={TextField}
                                 id="field-description"
@@ -193,7 +195,7 @@ class JobForm extends Component {
                                 variant="outlined"
                               />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-labor"
@@ -204,7 +206,7 @@ class JobForm extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Grid
                                 container
                                 justify="center"
@@ -222,7 +224,7 @@ class JobForm extends Component {
                                 <Typography>Completed</Typography>
                               </Grid>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-deadline"

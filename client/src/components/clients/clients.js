@@ -20,7 +20,6 @@ class Clients extends Component {
     return (
       <Query query={QUERY_ALL_CLIENTS}>
         {({ loading, error, data, refetch }) => {
-          console.log(refetch);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (

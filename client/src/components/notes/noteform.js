@@ -200,7 +200,7 @@ class NoteForm extends Component {
                             </Grid>
                             <Grid item xs={1} />
                             {/*The pulldown form items using the arrays we built above*/}
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                               <Field
                                 id="field-client"
                                 label="Client"
@@ -228,7 +228,7 @@ class NoteForm extends Component {
                                 ))}
                               </Field>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                               <Field
                                 id="field-job"
                                 label="Job"
@@ -257,11 +257,7 @@ class NoteForm extends Component {
                               </Field>
                             </Grid>
                           </Grid>
-                          <Grid
-                            container
-                            justify="space-around"
-                            className={classes.margin}
-                          >
+                          <Grid container justify="space-around">
                             <Hidden xsUp={this.props.mode !== "modal"}>
                               <Button
                                 variant="contained"

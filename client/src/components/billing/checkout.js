@@ -1,41 +1,38 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
-import { Query, Mutation } from "react-apollo";
-import { CREATE_STRIPE_CHARGE } from "../../mutations.js";
+
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import {
   FormControlLabel,
   Checkbox,
   Typography,
-  Card,
-  Grid
+  Card
 } from "@material-ui/core";
-import { styles } from "../material-ui/styles.js";
+import { AUTH_TOKEN } from "../../constants.js";
 
-const mutation = gql`
-  mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
-    createStripeCharge(input: $input) {
-      charge {
-        id
-        amount
-        captured
-        created
-        currency
-        description
-        status
-      }
-    }
-  }
-`;
+// const mutation = gql`
+//   mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
+//     createStripeCharge(input: $input) {
+//       charge {
+//         id
+//         amount
+//         captured
+//         created
+//         currency
+//         description
+//         status
+//       }
+//     }
+//   }
+// `;
 
-const query = gql`
-  {
-    currentUser {
-      id
-    }
-  }
-`;
+// const query = gql`
+//   {
+//     currentUser {
+//       id
+//     }
+//   }
+// `;
 
 class Checkout extends Component {
   state = {
@@ -54,8 +51,6 @@ class Checkout extends Component {
   };
 
   getStripeToken = token => {
-    const { subscriptionType } = this.state;
-
     let apiURI = "http://localhost:8000/graphql/";
 
     const request = {
@@ -68,8 +63,36 @@ class Checkout extends Component {
       body: JSON.stringify({ query: "{ token: { id } }" })
     };
 
-    axios(request)
-      .then(data => console.log(data))
+    axios({
+      url: process.env.REACT_APP_ENDPOINT,
+      method: "post",
+      headers: {
+        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
+        "Content-Type": "application/json"
+      },
+      data: JSON.stringify({
+        operationName: null,
+        query: `mutation updateUser($id: ID, $subscription: String) {
+            updateUser(id: $id, subscription: $subscription) {
+              user {
+                id
+                premium
+            }
+          }
+        }`,
+        variables: {
+          id: localStorage.getItem("USER_ID"),
+          subscription: this.state.subscriptionType
+        }
+      })
+    })
+      .then(res => {
+        console.log(res.data.data.updateUser.user.premium);
+        localStorage.setItem(
+          "USER_PREMIUM",
+          res.data.data.updateUser.user.premium
+        );
+      })
       .catch(err => console.log(err));
   };
 
@@ -110,7 +133,7 @@ class Checkout extends Component {
                 price={999}
                 name="subscription"
                 onClick={this.setSubscriptionType}
-                value="yearly"
+                value="year"
                 type="radio"
                 color="secondary"
               />
@@ -123,7 +146,7 @@ class Checkout extends Component {
                 price={99}
                 name="subscription"
                 onClick={this.setSubscriptionType}
-                value="monthly"
+                value="month"
                 type="radio"
                 color="secondary"
               />

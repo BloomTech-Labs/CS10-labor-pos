@@ -37,6 +37,10 @@ const SIGNIN_MUTATION = gql`
   mutation tokenAuth($username: String!, $password: String!) {
     tokenAuth(username: $username, password: $password) {
       token
+      user {
+        id
+        premium
+      }
     }
   }
 `;
