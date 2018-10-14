@@ -6,7 +6,8 @@ import {
   Typography,
   Card,
   withStyles,
-  withMobileDialog
+  withMobileDialog,
+  Paper
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
 import { Login, Home, CreateUser } from "../../components";
@@ -93,8 +94,8 @@ class LandingPage extends Component {
       return (
         <div>
           <Grid container>
-            <Grid item xs={11} />
-            <Grid item xs={1}>
+            <Grid item xs={6} sm={9} md={10} />
+            <Grid item xs={6} sm={3} md={2}>
               <Button
                 variant="contained"
                 color="primary"
@@ -141,16 +142,20 @@ class LandingPage extends Component {
             fullScreen={fullScreen}
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
-            PaperProps={{ className: classes.paper }}
+            PaperProps={{ className: classes.dark_paper }}
           >
-            <Login modalDone={this.handleCloseModals} />
+            <Paper className={classes.paper}>
+              <Login modalDone={this.handleCloseModals} />
+            </Paper>
           </Dialog>
           <Dialog
             fullScreen={fullScreen}
             open={this.state.create_modal}
             onClose={this.handleCloseModals}
           >
-            <CreateUser modalDone={this.handleLogin} />
+            <Paper className={classes.dark_paper}>
+              <CreateUser modalDone={this.handleLogin} />
+            </Paper>
           </Dialog>
         </div>
       );

@@ -164,9 +164,9 @@ class Wizard extends Component {
                     </Button>
                   )}
                   {!isLastPage && (
-                    <button type="submit" color="primary" variant="contained">
+                    <Button type="submit" color="primary" variant="contained">
                       Next »
-                    </button>
+                    </Button>
                   )}
                   {isLastPage && (
                     <Button
