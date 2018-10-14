@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import {
-  Grid,
   withStyles,
   Step,
   Stepper,
@@ -67,8 +66,6 @@ class Wizard extends Component {
       page: 0,
       values: props.initialValues
     };
-    console.log("Props for wizard", this.props);
-    console.log("Props without this", props);
   }
 
   next = values =>
@@ -167,9 +164,9 @@ class Wizard extends Component {
                     </Button>
                   )}
                   {!isLastPage && (
-                    <button type="submit" color="primary" variant="contained">
+                    <Button type="submit" color="primary" variant="contained">
                       Next »
-                    </button>
+                    </Button>
                   )}
                   {isLastPage && (
                     <Button
@@ -289,6 +286,7 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="City"
+              className={props.classes.space_below}
               required
             />
             <Field

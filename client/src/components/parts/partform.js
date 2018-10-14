@@ -27,7 +27,9 @@ const PartSchema = Yup.object().shape({
     .max(150, "Name must be under 100 characters")
     .required(),
   description: Yup.string(),
-  cost: Yup.number().required(),
+  cost: Yup.number()
+    .required()
+    .max(1000000000, "Cost must be less than 1,000,000,000"),
   job: Yup.string()
 });
 
@@ -86,20 +88,13 @@ class PartForm extends Component {
                 event.preventDefault();
               }}
             >
-              {({
-                errors,
-                touched,
-                values,
-                isValid,
-                handleChange,
-                handleBlur
-              }) => {
+              {({ values, isValid }) => {
                 return (
                   <Mutation
                     mutation={chosen_mutation}
                     onCompleted={() => this._confirm()}
                   >
-                    {(mutatePart, { loading, error, data }) => (
+                    {mutatePart => (
                       <div>
                         <Form
                           onSubmit={event => {
@@ -175,6 +170,14 @@ class PartForm extends Component {
                                 value={values.cost}
                                 margin="normal"
                               />
+                              <div
+                                style={{
+                                  color: "white",
+                                  textShadow: "2px 2px black"
+                                }}
+                              >
+                                Note: Maximum cost form allows is $1,000,000,000
+                              </div>
                             </Grid>
                             <Grid item xs={5}>
                               <Field
@@ -243,8 +246,8 @@ class PartForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push(this.props.after_path);
+    this.props.cancelAdd();
+    this.props.refetch();
   };
 }
 

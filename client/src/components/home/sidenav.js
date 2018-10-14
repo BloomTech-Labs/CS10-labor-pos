@@ -5,16 +5,15 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   FormControlLabel,
-  Switch,
   MenuItem,
   withStyles,
   Avatar,
   FormControl,
-  FormLabel,
   RadioGroup,
-  Radio
+  Radio,
+  Grid
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import ExpandMore from "@material-ui/icons/ExpandMore.js";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
@@ -26,7 +25,7 @@ class SideNav extends Component {
     expanded: null
   };
 
-  handleChange = panel => (event, expanded) => {
+  handleChange = panel => expanded => {
     this.setState({
       expanded: expanded ? panel : false
     });
@@ -41,14 +40,16 @@ class SideNav extends Component {
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est client would have a smaller create client button under it.*/}
-        <Divider className="sidenav" />
+        <Divider className="sidenav" className={classes.space_above} />
+        <Avatar
+          alt="A golden raccoon logo"
+          src={require("../../goldracoon.png")}
+          className={classes.image}
+        />
         <Link to="/" className={classes.sidenav_top}>
-          <Avatar
-            alt="A golden raccoon logo"
-            src={require("../../goldracoon.png")}
-            className={classes.image}
-          />
-          <MenuItem selected={path === "/"}>Home</MenuItem>
+          <MenuItem className={classes.image} selected={path === "/"}>
+            Home
+          </MenuItem>
         </Link>
 
         <ExpansionPanel

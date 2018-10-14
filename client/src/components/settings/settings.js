@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grade } from "@material-ui/icons";
+import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
@@ -42,7 +42,7 @@ const SettingsSchema = Yup.object().shape({
     "Last Name must be fewer than 100 characters"
   ),
   email: Yup.string()
-    .email()
+    .email("Must provide a valid email")
     .max(70),
   streetAddress: Yup.string().max(100),
   city: Yup.string(),
@@ -59,6 +59,12 @@ const SettingsSchema = Yup.object().shape({
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/rFA17
 class Settings extends Component {
+  state = {
+    changePassword: false,
+    changeBusinessName: false,
+    changeName: false,
+    changeContact: false
+  };
   render() {
     const { classes } = this.props;
     let edit_user = {};
@@ -82,12 +88,16 @@ class Settings extends Component {
           paidUntil: edit_user.paidUntil,
           username: edit_user.username
         }}
+        validationSchema={SettingsSchema}
+        onSubmit={event => {
+          event.preventDefault();
+        }}
       >
-        {({ values, isValid, handleSubmit }) => {
+        {({ values, isValid }) => {
           return (
             <Mutation
               mutation={UPDATE_USER}
-              onCompleted={() => this._confirm()}
+              onCompleted={() => this._confirm(this.props.refetch)}
             >
               {(mutateJob, { loading, error, data }) => (
                 <div>
@@ -119,7 +129,7 @@ class Settings extends Component {
                           variant="title"
                           className={classes.typography}
                         >
-                          Edit Settings
+                          Settings
                         </Typography>
                       </Grid>
                       <Grid item xs={4}>
@@ -132,53 +142,55 @@ class Settings extends Component {
                           </Typography>
                         </Hidden>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={6}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
-                          Change Password
-                        </Typography>
-                        <Paper className={classes.card}>
-                          <Grid container>
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-oldPassword"
-                                label="Current Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="oldPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.oldPassword}
-                                margin="normal"
-                              />
+                      <Hidden xsUp={this.state.changePassword}>
+                        <Grid item xs={1} />
+                        <Grid item xs={6}>
+                          <Typography
+                            className={classes.typography}
+                            variant="subheading"
+                          >
+                            Change Password
+                          </Typography>
+                          <Paper className={classes.card}>
+                            <Grid container>
+                              <Grid item xs={5}>
+                                <Field
+                                  id="field-oldPassword"
+                                  label="Current Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="oldPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.oldPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
+                              <Grid item xs={1} />
+                              <Grid item xs={5}>
+                                <Field
+                                  id="field-newPassword"
+                                  label="New Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="newPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.newPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
+                              <Grid item xs={1} />
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-newPassword"
-                                label="New Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="newPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.newPassword}
-                                margin="normal"
-                              />
-                            </Grid>
-                            <Grid item xs={1} />
-                          </Grid>
-                        </Paper>
-                      </Grid>
+                          </Paper>
+                        </Grid>
+                      </Hidden>
                       <Grid item xs={1} />
                       <Grid item xs={3}>
                         <Typography
@@ -306,7 +318,8 @@ class Settings extends Component {
                                   classes.margin,
                                   classes.field,
                                   classes.state_field,
-                                  classes.menuitems
+                                  classes.menuitems,
+                                  classes.paper_color
                                 )}
                                 style={{ height: "55px" }}
                                 component="select"
@@ -314,7 +327,7 @@ class Settings extends Component {
                                 {STATE_LIST.map(state => (
                                   <option
                                     key={state.label}
-                                    value={state.value}
+                                    value={state.label}
                                     className={classes.menuitems}
                                   >
                                     {state.label}
@@ -365,6 +378,11 @@ class Settings extends Component {
                         >
                           Save Changes
                         </Button>
+                        {loading && (
+                          <Typography>Saving information...</Typography>
+                        )}
+                        {data && <Typography>Success!</Typography>}
+                        {error && <Typography>Error!</Typography>}
                       </Grid>
                       <Grid item xs={1} />
                       <Grid item xs={1} />
@@ -443,8 +461,6 @@ class Settings extends Component {
                           cancel button should also reset field values to prevent weird behaviour.
                         </Hidden>*/}
                   </Form>
-                  {loading && <p>Saving information</p>}
-                  {(data || error) && <p>Success!</p>}
                 </div>
               )}
             </Mutation>
@@ -453,9 +469,8 @@ class Settings extends Component {
       </Formik>
     );
   }
-  _confirm = () => {
-    window.location.reload();
-    this.props.history.push("/settings");
+  _confirm = method => {
+    method();
   };
 }
 
@@ -463,7 +478,7 @@ class SettingsWrapper extends Component {
   render = () => {
     return (
       <Query query={SETTINGS_QUERY}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
@@ -478,7 +493,12 @@ class SettingsWrapper extends Component {
             parts: data.allClients.edges.length
           };
           return (
-            <Settings user={user} item_counts={item_counts} {...this.props} />
+            <Settings
+              refetch={refetch}
+              user={user}
+              item_counts={item_counts}
+              {...this.props}
+            />
           );
         }}
       </Query>

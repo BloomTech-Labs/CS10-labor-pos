@@ -1,27 +1,5 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import {
-  Settings,
-  Billing,
-  Parts,
-  AddPart,
-  PartView,
-  Notes,
-  NoteView,
-  AddNote,
-  Jobs,
-  JobView,
-  JobInvoice,
-  EditJob,
-  SideNav,
-  Start,
-  Clients,
-  AddClient,
-  ClientView,
-  EditClient,
-  EditPart,
-  EditNote
-} from "../../components";
 import { Route } from "react-router-dom";
 import {
   Hidden,
@@ -29,10 +7,106 @@ import {
   Drawer,
   Paper,
   Grid,
-  withStyles
+  withStyles,
+  Avatar,
+  Typography
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
-import MenuIcon from "@material-ui/icons/Menu";
+import Loadable from "react-loadable";
+import { Start, SideNav } from "../../components";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const Settings = Loadable({
+  loader: () => import("../../components/settings/settings.js"),
+  loading: Loading
+});
+
+const Billing = Loadable({
+  loader: () => import("../../components/billing/billing.js"),
+  loading: Loading
+});
+
+const AddPart = Loadable({
+  loader: () => import("../../components/parts/addpart.js"),
+  loading: Loading
+});
+
+const PartView = Loadable({
+  loader: () => import("../../components/parts/partview.js"),
+  loading: Loading
+});
+
+const Notes = Loadable({
+  loader: () => import("../../components/notes/notes.js"),
+  loading: Loading
+});
+
+const NoteView = Loadable({
+  loader: () => import("../../components/notes/noteview.js"),
+  loading: Loading
+});
+
+const AddNote = Loadable({
+  loader: () => import("../../components/notes/addnote.js"),
+  loading: Loading
+});
+
+const Jobs = Loadable({
+  loader: () => import("../../components/jobs/jobs.js"),
+  loading: Loading
+});
+
+const JobView = Loadable({
+  loader: () => import("../../components/jobs/jobview.js"),
+  loading: Loading
+});
+
+const JobInvoice = Loadable({
+  loader: () => import("../../components/jobs/jobinvoice.js"),
+  loading: Loading
+});
+
+const EditJob = Loadable({
+  loader: () => import("../../components/jobs/editjob.js"),
+  loading: Loading
+});
+
+const Clients = Loadable({
+  loader: () => import("../../components/clients/clients.js"),
+  loading: Loading
+});
+
+const AddClient = Loadable({
+  loader: () => import("../../components/clients/addclient.js"),
+  loading: Loading
+});
+
+const ClientView = Loadable({
+  loader: () => import("../../components/clients/clientview.js"),
+  loading: Loading
+});
+
+const EditClient = Loadable({
+  loader: () => import("../../components/clients/editclient.js"),
+  loading: Loading
+});
+
+const EditPart = Loadable({
+  loader: () => import("../../components/parts/editpart.js"),
+  loading: Loading
+});
+
+const EditNote = Loadable({
+  loader: () => import("../../components/notes/editnote.js"),
+  loading: Loading
+});
 
 //The home component is a container component that renders when the user is logged in and displays different
 //content depending on the current route.
@@ -57,25 +131,32 @@ class Home extends Component {
   render() {
     let { classes } = this.props;
     return (
-      <div>
+      <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
         <Grid container>
-          <Grid item xs={1}>
-            <IconButton
-              color="inherit"
-              aria-label="Open sidenav"
-              onClick={this.handleDrawerToggle}
-              className="mr-auto"
-            >
-              <MenuIcon />
-            </IconButton>
+          <Grid item xs={5} sm={3} md={2} lg={1}>
+            <Paper className={classes.card}>
+              <IconButton
+                color="inherit"
+                aria-label="Open sidenav"
+                onClick={this.handleDrawerToggle}
+                className="mr-auto"
+              >
+                <Avatar
+                  alt="A golden raccoon logo"
+                  src={require("../../goldracoon.png")}
+                  className={classes.image}
+                />
+              </IconButton>
+              <Typography>Menu</Typography>
+            </Paper>
           </Grid>
-          <Grid item xs={11} />
+          <Grid item xs={7} sm={9} md={10} lg={11} />
         </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
         It is toggleable.*/}
-        <Hidden mdUp>
+        <Hidden lgUp>
           <Drawer
             variant="temporary"
             anchor="left"
@@ -95,7 +176,7 @@ class Home extends Component {
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
         It is permanently open.*/}
-        <Hidden smDown implementation="css">
+        <Hidden mdDown implementation="css">
           <Drawer className="sidenav" variant="permanent" open>
             <SideNav
               logout={this.logout}
@@ -128,7 +209,7 @@ class Home extends Component {
             <Route exact path="/parts/:id/edit" component={EditPart} />
           </Paper>
         </main>
-      </div>
+      </React.Fragment>
     );
   }
 }

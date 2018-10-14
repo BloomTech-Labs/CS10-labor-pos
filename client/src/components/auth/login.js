@@ -67,7 +67,7 @@ class Login extends Component {
                 variables={{ username, password }}
                 onCompleted={data => this._confirm(data)}
               >
-                {(mutation, { loading, error, data }) => (
+                {(mutation, { loading, error }) => (
                   <Grid container>
                     <Grid item xs={1} />
                     <Grid item xs={8}>

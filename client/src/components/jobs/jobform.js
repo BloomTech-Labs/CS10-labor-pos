@@ -4,9 +4,7 @@ import {
   Grid,
   Typography,
   withStyles,
-  Hidden,
-  Select,
-  MenuItem
+  Hidden
 } from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
@@ -229,6 +227,9 @@ class JobForm extends Component {
                                 component={TextField}
                                 id="field-deadline"
                                 label="Deadline"
+                                InputLabelProps={{
+                                  shrink: true
+                                }}
                                 name="deadline"
                                 className={classes.textField}
                                 value={values.deadline}
@@ -274,8 +275,10 @@ class JobForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push(this.props.after_path);
+    if (this.props.mode === "create") {
+      this.props.refetch();
+      this.props.cancelAdd();
+    } else this.props.history.goBack();
   };
 }
 
