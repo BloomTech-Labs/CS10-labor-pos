@@ -5,7 +5,7 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 from django.contrib.auth.models import BaseUserManager
 from graphql_jwt.shortcuts import get_token
-from datetime import date
+from django.utils import timezone
 from dateutil.relativedelta import relativedelta
 
 auto_debug = True
@@ -189,10 +189,10 @@ class UpdateUser(graphene.Mutation):
             if subscription != "":
                 if subscription == "month":
                     updated_user.premium = True
-                    updated_user.paid_until = date.today() + relativedelta(months=1)
+                    updated_user.paid_until = timezone.now() + relativedelta(months=1)
                 if subscription == "year":
                     updated_user.premium = True
-                    updated_user.paid_until = date.today() + relativedelta(months=12)
+                    updated_user.paid_until = timezone.now() + relativedelta(months=12)
 
             updated_user.save()
             return UpdateUser(user=updated_user, ok=True, status="ok")
