@@ -6,7 +6,8 @@ import {
   IconButton,
   Dialog,
   withStyles,
-  Card
+  Card,
+  Paper
 } from "@material-ui/core";
 import { DETAILED_PART_BY_ID } from "../../queries.js";
 import { Query } from "react-apollo";
@@ -78,11 +79,13 @@ class PartView extends Component {
                 </IconButton>
               </Grid>
               <Grid item xs={12}>
-                <Typography paragraph className={classes.typography}>
-                  {data.part.description}
-                </Typography>
+                <Paper className={classes.paper}>
+                  <Typography paragraph className={classes.typography}>
+                    {data.part.description}
+                  </Typography>
+                </Paper>
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={12}>
                 <Card className={classes.card}>
                   <Typography className={classes.typography}>{`Cost: $${
                     data.part.cost

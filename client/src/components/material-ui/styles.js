@@ -22,8 +22,8 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.palette.background.paper,
-    margin: "10px",
-    padding: "10px"
+    margin: "16px",
+    padding: "16px"
   },
   modal: {
     padding: "20px",
@@ -33,7 +33,14 @@ const styles = theme => ({
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
-    height: "180px"
+    height: "180px",
+    maxWidth: "180px",
+    margin: "auto"
+  },
+  new_card: {
+    backgroundColor: theme.palette.background.paper,
+    maxWidth: "180px",
+    margin: "auto"
   },
   card_title: {
     marginTop: "40px"
@@ -97,7 +104,7 @@ const styles = theme => ({
   main_content: {
     textAlign: "center",
     margin: "auto",
-    width: "95%",
+    width: "80%",
     maxWidth: "900px",
     marginTop: "32px",
     marginBottom: "32px",

@@ -89,8 +89,9 @@ class App extends Component {
         <div
           style={{
             backgroundColor: base_background,
-            width: "auto",
+            width: "100%",
             height: "100%",
+            minWidth: "100vw",
             minHeight: "100vh",
             backgroundImage: `url(${background_image})`,
             backgroundPosition: "center",
