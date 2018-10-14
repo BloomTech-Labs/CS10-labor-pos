@@ -25,21 +25,24 @@ class App extends Component {
 
   render() {
     //  The app will default to a light theme unless the dark_theme variable is set.
-    let theme_type = "dark";
-    let lightened_background = grey["700"];
-    let default_color = "#5a4000";
-    let paper_color = "#130e00";
+
     let primary_color = yellow;
     let secondary_color = amber;
-    let base_background = "#130e00";
-    let sidenav_background = "#000000";
+
     let textfield_color = "#130e00";
     let background_image = false;
+    let theme_type = "dark";
+    let lightened_background = grey["700"];
+    let default_color = blueGrey["900"];
+    let paper_color = grey["800"];
+    let base_background = blueGrey["500"];
+    let sidenav_background = grey["800"];
     if (this.state.theme_string === "forest") {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#584A00";
       paper_color = "#262600";
+      base_background = "#130e00";
       sidenav_background = "#262600";
     } else if (this.state.theme_string === "ugly") {
       theme_type = "dark";
@@ -50,23 +53,24 @@ class App extends Component {
       sidenav_background = "#F50057";
       textfield_color = "#00FF00";
       background_image = raccoon;
-    } else if (this.state.theme_string === "bluegrey") {
+    } else if (this.state.theme_string === "darkgold") {
       theme_type = "dark";
       lightened_background = grey["700"];
-      default_color = blueGrey["900"];
-      paper_color = grey["800"];
-      base_background = blueGrey["500"];
-      sidenav_background = grey["800"];
-      background_image = desk_image;
+      default_color = "#5a4000";
+      paper_color = "#130e00";
+
+      base_background = "#130e00";
+      sidenav_background = "#000000";
     } else if (this.state.theme_string === "banana") {
       theme_type = "light";
       lightened_background = grey["100"];
       default_color = "#d4c253";
       paper_color = "#f0e370";
-      primary_color = yellow;
-      secondary_color = amber;
+
       base_background = "#846c04";
       sidenav_background = "#f0e370";
+    } else if (this.state.theme_string === "desk") {
+      background_image = desk_image;
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({
