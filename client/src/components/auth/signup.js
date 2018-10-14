@@ -286,6 +286,7 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="City"
+              className={props.classes.space_below}
               required
             />
             <Field
