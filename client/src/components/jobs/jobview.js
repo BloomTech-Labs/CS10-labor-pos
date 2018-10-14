@@ -113,13 +113,15 @@ class JobView extends Component {
           right_content.push(
             <Typography key={3}>
               Created On:{" "}
-              {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+              {`${created.getMonth() +
+                1}/${created.getDate()}/${created.getFullYear()}`}
             </Typography>
           );
           right_content.push(
             <Typography key={4}>
               Modified On:{" "}
-              {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+              {`${modified.getMonth() +
+                1}/${modified.getDate()}/${modified.getFullYear()}`}
             </Typography>
           );
 

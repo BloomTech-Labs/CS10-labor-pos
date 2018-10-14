@@ -95,11 +95,13 @@ class NoteView extends Component {
                   <Card className={classes.card}>
                     <Typography>
                       Created On:{" "}
-                      {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+                      {`${created.getMonth() +
+                        1}/${created.getDate()}/${created.getFullYear()}`}
                     </Typography>
                     <Typography>
                       Modified On:{" "}
-                      {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+                      {`${modified.getMonth() +
+                        1}/${modified.getDate()}/${modified.getFullYear()}`}
                     </Typography>
                   </Card>
                 </Grid>

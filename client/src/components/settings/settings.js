@@ -96,6 +96,7 @@ class Settings extends Component {
         }}
       >
         {({ values, isValid }) => {
+          const paid_until = new Date(values.paidUntil);
           return (
             <Mutation
               mutation={UPDATE_USER}
@@ -140,7 +141,9 @@ class Settings extends Component {
                         </IconButton>
                         <Hidden xsUp={!user_premium}>
                           <Typography>
-                            Premium member paid until: {values.paidUntil}
+                            Premium member paid until:{" "}
+                            {`${paid_until.getMonth() +
+                              1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
                           </Typography>
                         </Hidden>
                       </Grid>
