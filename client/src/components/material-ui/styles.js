@@ -181,6 +181,10 @@ const styles = theme => ({
   },
   space_below: {
     marginBottom: "22px"
+  },
+  limit_width: {
+    width: "75%",
+    maxWidth: "60%"
   }
 });
 export { styles };

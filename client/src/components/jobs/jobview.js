@@ -71,7 +71,7 @@ class JobView extends Component {
   };
 
   render() {
-    const { classes, fullscreen } = this.props;
+    const { classes, fullScreen } = this.props;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
@@ -210,7 +210,7 @@ class JobView extends Component {
                 open={this.state.deleting}
                 onClose={this.cancelModal("deleting")}
                 className="delete-modal"
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
                   cancelDelete={this.cancelModal("deleting")}
@@ -222,7 +222,7 @@ class JobView extends Component {
               <Dialog
                 open={this.state.add_note}
                 onClose={this.cancelModal("add_note")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <NoteForm
@@ -237,7 +237,7 @@ class JobView extends Component {
               <Dialog
                 open={this.state.add_part}
                 onClose={this.cancelModal("add_part")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <PartForm

@@ -158,54 +158,68 @@ class PartForm extends Component {
                                 variant="outlined"
                               />
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={1} />
-                            <Grid item xs={5}>
-                              <Field
-                                component={TextField}
-                                id="field-cost"
-                                label="Cost"
-                                name="cost"
-                                className={"modal_field"}
-                                value={values.cost}
-                                margin="normal"
-                              />
-                              <div
-                                style={{
-                                  color: "white",
-                                  textShadow: "2px 2px black"
-                                }}
+                            <Grid item xs={12} md={6}>
+                              <Grid
+                                container
+                                justify="center"
+                                alignContent="center"
+                                alignItems="center"
+                                direction="column"
                               >
-                                Note: Maximum cost form allows is $1,000,000,000
-                              </div>
-                            </Grid>
-                            <Grid item xs={5}>
-                              <Field
-                                component="select"
-                                id="field-job"
-                                disabled={this.props.mode === "modal"}
-                                label="Job"
-                                name="job"
-                                placeholder="Job"
-                                style={{
-                                  width: "194px",
-                                  height: "50px"
-                                }}
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField,
-                                  classes.state_field
-                                )}
-                              >
-                                {job_list.map(job => (
-                                  <option key={job.value} value={job.value}>
-                                    {job.label}
-                                  </option>
-                                ))}
+                                <Field
+                                  component={TextField}
+                                  id="field-cost"
+                                  label="Cost"
+                                  name="cost"
+                                  className={"modal_field"}
+                                  value={values.cost}
+                                  margin="normal"
+                                />
+                                <div
+                                  style={{
+                                    color: "white",
+                                    textShadow: "2px 2px black"
+                                  }}
                                 >
-                              </Field>
+                                  Note: Maximum cost form allows is
+                                  $1,000,000,000
+                                </div>
+                              </Grid>
                             </Grid>
-                            <Grid item xs={1} />
+                            <Grid item xs={12} md={6}>
+                              <Grid
+                                container
+                                justify="center"
+                                alignContent="center"
+                                alignItems="center"
+                                direction="column"
+                              >
+                                <Field
+                                  component="select"
+                                  id="field-job"
+                                  disabled={this.props.mode === "modal"}
+                                  label="Job"
+                                  name="job"
+                                  placeholder="Job"
+                                  style={{
+                                    width: "194px",
+                                    height: "50px"
+                                  }}
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField,
+                                    classes.state_field
+                                  )}
+                                >
+                                  {job_list.map(job => (
+                                    <option key={job.value} value={job.value}>
+                                      {job.label}
+                                    </option>
+                                  ))}
+                                  >
+                                </Field>
+                              </Grid>
+                            </Grid>
                           </Grid>
                           <Grid
                             container

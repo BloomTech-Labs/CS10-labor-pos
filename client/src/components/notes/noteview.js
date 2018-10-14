@@ -8,13 +8,15 @@ import {
   IconButton,
   Dialog,
   withStyles,
-  Card
+  Card,
+  Hidden
 } from "@material-ui/core";
 import Create from "@material-ui/icons/Create.js";
 import Delete from "@material-ui/icons/Delete.js";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
+import { ItemCard } from "../../components";
 
 function Loading({ error }) {
   if (error) {
@@ -62,6 +64,7 @@ class NoteView extends Component {
           refetch();
           const created = new Date(data.note.createdAt);
           const modified = new Date(data.note.modifiedAt);
+          console.log(data.note);
           return (
             <React.Fragment>
               <Grid
@@ -71,25 +74,25 @@ class NoteView extends Component {
                 alignItems="center"
                 spacing={24}
               >
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                   <Link to={`/notes/${data.note.id}/edit`}>
                     <IconButton>
                       <Create />
                     </IconButton>
                   </Link>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                   <Typography variant="title">{data.note.title}</Typography>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item xs={2}>
                   <IconButton onClick={this.handleDeleteButton}>
                     <Delete />
                   </IconButton>
                 </Grid>
               </Grid>
               <Typography paragraph>{data.note.content}</Typography>
-              <Grid container>
-                <Grid item xs={2}>
+              <Grid container spacing={24}>
+                <Grid item xs={12} md={4}>
                   <Card className={classes.card}>
                     <Typography>
                       Created On:{" "}
@@ -101,12 +104,32 @@ class NoteView extends Component {
                     </Typography>
                   </Card>
                 </Grid>
+                <Grid item xs={12} md={4}>
+                  <Hidden xsUp={!data.note.job}>
+                    <Card raised className={classes.item_card}>
+                      <ItemCard
+                        after_path={this.props.location.pathname}
+                        type="job"
+                        item={data.note.job}
+                        refetch={refetch}
+                      />
+                    </Card>
+                  </Hidden>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Hidden xsUp={!data.note.client}>
+                    <Card raised className={classes.item_card}>
+                      <ItemCard
+                        after_path={this.props.location.pathname}
+                        type="client"
+                        item={data.note.client}
+                        refetch={refetch}
+                      />
+                    </Card>
+                  </Hidden>
+                </Grid>
               </Grid>
-              <Dialog
-                open={this.state.deleting}
-                onClose={this.cancelDelete}
-                className="delete-modal"
-              >
+              <Dialog open={this.state.deleting} onClose={this.cancelDelete}>
                 <DeleteItem
                   cancelDelete={this.cancelDelete}
                   type="note"
