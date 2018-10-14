@@ -272,7 +272,6 @@ class JobForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
     this.props.history.push(this.props.after_path);
   };
 }
