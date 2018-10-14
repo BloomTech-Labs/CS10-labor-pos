@@ -19,7 +19,8 @@ class Clients extends Component {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_CLIENTS}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
+          console.log(refetch);
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -33,6 +34,7 @@ class Clients extends Component {
                 rows={2}
                 columns={4}
                 createMethod={this.handleCreate}
+                refetch={refetch}
               />
             </div>
           );

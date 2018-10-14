@@ -56,7 +56,7 @@ class NoteView extends Component {
         query={DETAILED_NOTE_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           const created = new Date(data.note.createdAt);
@@ -110,7 +110,7 @@ class NoteView extends Component {
                   cancelDelete={this.cancelDelete}
                   type="note"
                   item={data.note}
-                  after_path="/notes"
+                  refetch={refetch}
                 />
               </Dialog>
             </React.Fragment>

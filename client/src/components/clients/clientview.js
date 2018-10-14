@@ -74,8 +74,9 @@ class ClientView extends Component {
       <Query
         query={DETAILED_CLIENT_BY_ID}
         variables={{ id: this.props.match.params.id }}
+        fetchPolicy="network-only"
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let name;
@@ -155,6 +156,7 @@ class ClientView extends Component {
                 createMethod={this.openModal("add_job")}
                 cancelCreateMethod={this.cancelModal("add_job")}
                 after_path={this.props.location.pathname}
+                refetch={refetch}
               />
               <Divider />
               <Typography
@@ -170,6 +172,7 @@ class ClientView extends Component {
                 items={data.client.noteSet.edges}
                 createMethod={this.openModal("add_note")}
                 cancelCreateMethod={this.cancelModal("add_note")}
+                refetch={refetch}
               />
               <Dialog
                 open={this.state.deleting}
@@ -180,7 +183,7 @@ class ClientView extends Component {
                   cancelDelete={this.cancelModal("deleting")}
                   type="client"
                   item={data.client}
-                  after_path="/clients"
+                  refetch={refetch}
                 />
               </Dialog>
               <Dialog

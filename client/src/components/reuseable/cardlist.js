@@ -45,6 +45,10 @@ class CardList extends Component {
     });
   };
 
+  componentDidMount = () => {
+    this.props.refetch();
+  };
+
   render() {
     let { classes } = this.props;
     let per_page = this.props.rows * this.props.columns;
@@ -61,6 +65,7 @@ class CardList extends Component {
               after_path={this.props.after_path}
               type={this.props.type}
               item={this.props.items[i].node}
+              refetch={this.props.refetch}
             />
           </Card>
         </Grid>

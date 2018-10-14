@@ -297,7 +297,6 @@ class ClientForm extends Component {
   }
 
   _confirm = () => {
-    window.location.reload();
     this.props.history.push("/clients");
   };
 }
