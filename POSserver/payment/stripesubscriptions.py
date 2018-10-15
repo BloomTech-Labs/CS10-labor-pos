@@ -46,7 +46,7 @@ class CreateSubscription:
           email=self.email,
           source=self.id
         )
-
+    # updates user with Stripe customer id and subscription info
     def update_User(self):
         self.create_customer()
         self.User.CustomerId = self.customer.id

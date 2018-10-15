@@ -5,6 +5,7 @@ from django.conf import settings
 # from .job import Job
 
 
+# defines parameters for parts, designates required fields, sets default values
 class Note(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     client = models.ForeignKey(
