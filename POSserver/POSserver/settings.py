@@ -34,7 +34,6 @@ ALLOWED_HOSTS = config(
 CORS_ALLOWS_METHODS = ("DELETE", "GET", "OPTIONS", "POST")
 
 CORS_ORIGIN_ALLOW_ALL = True  # Cors Options
-# CORS_ORIGIN_ALLOW_ALL = config("CORS_ORIGIN_ALLOW_ALL", cast=bool, default=False)
 CORS_ALLOW_CREDENTIALS = config("CORS_ALLOW_CREDENTIALS", cast=bool, default=False)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -182,7 +181,6 @@ SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
 SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
 SENDGRID_EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
 
@@ -190,5 +188,6 @@ SERVER_EMAIL = "nphillips78@gmail.com"
 LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
 STRIPE_WEBHOOK_SECRET = "whsec_8KHXs8U07a2iRz4fequVxXo1tjN3PLRM"
 
-CORS_ORIGIN_WHITELIST = config('CORS_ORIGIN_WHITELIST', cast=lambda v: [s.strip() for s in v.split(',')])
-
+CORS_ORIGIN_WHITELIST = config(
+    "CORS_ORIGIN_WHITELIST", cast=lambda v: [s.strip() for s in v.split(",")]
+)
