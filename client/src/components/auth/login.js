@@ -123,8 +123,8 @@ class Login extends Component {
 
   //This method runs after the mutation has received an answer
   _confirm = async data => {
-    const { token } = data.tokenAuth;
-    this._saveUserData(token);
+    const { token, user } = data.tokenAuth;
+    this._saveUserData(token, user.id, user.premium);
     // Go to the root route
     this.props.history.push("/");
     // Now that we're done with it, close the modal containing this component.
@@ -132,8 +132,10 @@ class Login extends Component {
   };
 
   //Keep our login token on local storage for later use
-  _saveUserData = token => {
+  _saveUserData = (token, id, premium) => {
     localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem("USER_ID", id);
+    localStorage.setItem("USER_PREMIUM", premium);
   };
 }
 

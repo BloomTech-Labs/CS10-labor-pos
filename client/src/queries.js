@@ -244,9 +244,19 @@ const DETAILED_NOTE_BY_ID = gql`
       modifiedAt
       job {
         id
+        name
+        deadline
+        client {
+          businessName
+          firstName
+          lastName
+        }
       }
       client {
         id
+        businessName
+        firstName
+        lastName
       }
       tagSet {
         edges {

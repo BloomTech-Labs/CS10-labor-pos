@@ -71,7 +71,7 @@ class JobView extends Component {
   };
 
   render() {
-    const { classes, fullscreen } = this.props;
+    const { classes, fullScreen } = this.props;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
@@ -113,13 +113,15 @@ class JobView extends Component {
           right_content.push(
             <Typography key={3}>
               Created On:{" "}
-              {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+              {`${created.getMonth() +
+                1}/${created.getDate()}/${created.getFullYear()}`}
             </Typography>
           );
           right_content.push(
             <Typography key={4}>
               Modified On:{" "}
-              {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+              {`${modified.getMonth() +
+                1}/${modified.getDate()}/${modified.getFullYear()}`}
             </Typography>
           );
 
@@ -133,17 +135,17 @@ class JobView extends Component {
                   alignItems="center"
                   spacing={24}
                 >
-                  <Grid item xs={1}>
+                  <Grid item xs={2}>
                     <Link to={`/jobs/${data.job.id}/edit`}>
                       <IconButton>
                         <Create />
                       </IconButton>
                     </Link>
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={8}>
                     <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={2}>
                     <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
@@ -159,50 +161,40 @@ class JobView extends Component {
                   alignItems="center"
                   spacing={24}
                 >
-                  <Grid item xs={1} />
-                  <Grid item xs={7}>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="space-around"
-                      alignItems="flex-start"
-                      spacing={24}
+                  <Grid item xs={12} md={4}>
+                    {/*TODO: make these links pass the associated job to the create component*/}
+
+                    <Button
+                      onClick={this.openModal("add_note")}
+                      className="job-list-button"
                     >
-                      <Grid item xs={4}>
-                        {/*TODO: make these links pass the associated job to the create component*/}
+                      Add a new note
+                    </Button>
 
-                        <Button
-                          onClick={this.openModal("add_note")}
-                          className="job-list-button"
-                        >
-                          Add a new note
-                        </Button>
-
-                        <ItemList
-                          type="note"
-                          items={data.job.noteSet.edges}
-                          per_page={7}
-                          refetch={refetch}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Button
-                          className="job-list-button"
-                          onClick={this.openModal("add_part")}
-                        >
-                          Add a new part
-                        </Button>
-
-                        <ItemList
-                          type="part"
-                          items={data.job.partSet.edges}
-                          per_page={7}
-                          refetch={refetch}
-                        />
-                      </Grid>
-                    </Grid>
+                    <ItemList
+                      type="note"
+                      items={data.job.noteSet.edges}
+                      per_page={7}
+                      refetch={refetch}
+                    />
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={12} md={4}>
+                    <Button
+                      className="job-list-button"
+                      onClick={this.openModal("add_part")}
+                    >
+                      Add a new part
+                    </Button>
+
+                    <ItemList
+                      type="part"
+                      items={data.job.partSet.edges}
+                      per_page={7}
+                      refetch={refetch}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
                     <Card className={classes.card}>{right_content}</Card>
                     <Link to={`/jobs/${data.job.id}/invoice`}>
                       <Button
@@ -214,14 +206,13 @@ class JobView extends Component {
                       </Button>
                     </Link>
                   </Grid>
-                  <Grid item xs={1} />
                 </Grid>
               </div>
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelModal("deleting")}
                 className="delete-modal"
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
                   cancelDelete={this.cancelModal("deleting")}
@@ -233,7 +224,7 @@ class JobView extends Component {
               <Dialog
                 open={this.state.add_note}
                 onClose={this.cancelModal("add_note")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <NoteForm
@@ -248,7 +239,7 @@ class JobView extends Component {
               <Dialog
                 open={this.state.add_part}
                 onClose={this.cancelModal("add_part")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <PartForm
