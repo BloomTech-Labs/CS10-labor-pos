@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "stripe",
     "sendgrid",
-    "send",
     "payment",
 ]
 

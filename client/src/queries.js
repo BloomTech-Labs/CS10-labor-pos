@@ -322,39 +322,6 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
-const STRIPE_TOKEN_BY_ID = gql`
-  query($id: ID!) {
-    token(id: $id) {
-      id
-      user {
-        id
-      }
-      type
-      created
-      used
-      card {
-        id
-        brand
-        exp_year
-      }
-    }
-  }
-`;
-
-const QUERY_ALL_CHARGES = gql`
-  query {
-    allCharges {
-      edges {
-        node {
-          amount
-          status
-          token
-          id
-        }
-      }
-    }
-  }
-`;
 
 const SETTINGS_QUERY = gql`
   query {
@@ -427,6 +394,4 @@ export {
   DETAILED_TAG_BY_ID,
   DETAILED_PART_BY_ID,
   SETTINGS_QUERY,
-  STRIPE_TOKEN_BY_ID,
-  QUERY_ALL_CHARGES
 };

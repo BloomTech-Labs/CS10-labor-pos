@@ -352,39 +352,6 @@ const DELETE_TAG = gql`
   }
 `;
 
-const CREATE_CARD_TOKEN = gql`
-  mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
-    createStripeCardToken(input: $input) {
-      token {
-        id
-        created
-        livemode
-        type
-        used
-        card {
-          id
-          brand
-          exp_year
-        }
-      }
-    }
-  }
-`;
-const CREATE_STRIPE_CHARGE = gql`
-  mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
-    createStripeCharge(input: $input) {
-      charge {
-        id
-        amount
-        captured
-        created
-        currency
-        description
-        status
-      }
-    }
-  }
-`;
 
 export {
   CREATE_USER,
@@ -406,6 +373,4 @@ export {
   CREATE_TAG,
   UPDATE_TAG,
   DELETE_TAG,
-  CREATE_CARD_TOKEN,
-  CREATE_STRIPE_CHARGE
 };
