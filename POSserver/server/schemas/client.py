@@ -4,8 +4,6 @@ from server.models import Client
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 
-auto_debug = True
-
 
 class Client_Type(DjangoObjectType):
     class Meta:
@@ -17,9 +15,7 @@ class Client_Type(DjangoObjectType):
             "first_name",
             "last_name",
             "email",
-            "street_number",
-            "unit_number",
-            "street_name",
+            "street_address",
             "city",
             "state",
             "zipcode",
@@ -34,21 +30,19 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
-    if auto_debug is True:
+    def resolve_all_clients(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Client.objects.none()
+        else:
+            return Client.objects.filter(user=user)
 
-        def resolve_all_clients(self, info, **kwargs):
-            user = info.context.user
-            if user.is_anonymous:
-                return Client.objects.none()
-            else:
-                return Client.objects.filter(user=user)
-
-        def resolve_client(self, info, **kwargs):
-            user = info.context.user
-            if user.is_anonymous:
-                return Client.objects.none()
-            else:
-                return Client.objects.filter(user=user)
+    def resolve_client(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Client.objects.none()
+        else:
+            return Client.objects.filter(user=user)
 
 
 class CreateClient(graphene.Mutation):
@@ -59,9 +53,7 @@ class CreateClient(graphene.Mutation):
         a first name,
         a last name,
         an email,
-        a street number,
-        an optional unit number,
-        a street name,
+        a street address,
         a city,
         a state,
         a zipcode,
@@ -72,9 +64,7 @@ class CreateClient(graphene.Mutation):
         first_name = graphene.String()
         last_name = graphene.String()
         email = graphene.String()
-        street_number = graphene.String()
-        unit_number = graphene.String()
-        street_name = graphene.String()
+        street_address = graphene.String()
         city = graphene.String()
         state = graphene.String()
         zipcode = graphene.String()
@@ -90,15 +80,14 @@ class CreateClient(graphene.Mutation):
         first_name,
         last_name,
         email,
-        street_number,
-        street_name,
+        street_address,
         city,
         state,
         zipcode,
         deadline=None,
         business_name="",
-        unit_number="",
     ):
+
         user = info.context.user
         if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
@@ -108,9 +97,7 @@ class CreateClient(graphene.Mutation):
                 first_name=first_name,
                 last_name=last_name,
                 email=email,
-                street_number=street_number,
-                unit_number=unit_number,
-                street_name=street_name,
+                street_address=street_address,
                 city=city,
                 state=state,
                 zipcode=zipcode,
@@ -129,9 +116,7 @@ class UpdateClient(graphene.Mutation):
         first_name = graphene.String()
         last_name = graphene.String()
         email = graphene.String()
-        street_number = graphene.String()
-        unit_number = graphene.String()
-        street_name = graphene.String()
+        street_address = graphene.String()
         city = graphene.String()
         state = graphene.String()
         zipcode = graphene.String()
@@ -148,14 +133,12 @@ class UpdateClient(graphene.Mutation):
         first_name="",
         last_name="",
         email="",
-        street_number="",
-        street_name="",
+        street_address="",
         city="",
         state="",
         zipcode="",
         deadline=None,
         business_name="",
-        unit_number="",
     ):
         # Will need to pass null or nothing in for empty deadline on frontend
         user = info.context.user
@@ -169,8 +152,8 @@ class UpdateClient(graphene.Mutation):
                 updated_client.last_name = last_name
             if email != "":
                 updated_client.email = email
-            if street_number != "":
-                updated_client.street_number = street_number
+            if street_address != "":
+                updated_client.street_address = street_address
             if city != "":
                 updated_client.city = city
             if state != "":
@@ -181,8 +164,6 @@ class UpdateClient(graphene.Mutation):
                 updated_client.deadline = deadline
             if business_name != "":
                 updated_client.business_name = business_name
-            if unit_number != "":
-                updated_client.unit_number = unit_number
             updated_client.save()
             return UpdateClient(
                 client=updated_client,

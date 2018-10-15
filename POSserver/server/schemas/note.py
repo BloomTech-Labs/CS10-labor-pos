@@ -25,19 +25,19 @@ class Query(graphene.ObjectType):
     note = graphene.Node.Field(Note_Type)
     all_notes = DjangoFilterConnectionField(Note_Type)
 
-    # def resolve_all_notes(self, info, **kwargs):
-    #     user = info.context.user
-    #     if user.is_anonymous:
-    #         return Note.objects.none()
-    #     else:
-    #         return Note.objects.filter(user=user)
+    def resolve_all_notes(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Note.objects.none()
+        else:
+            return Note.objects.filter(user=user)
 
-    # def resolve_note(self, info, **kwargs):
-    #     user = info.context.user
-    #     if user.is_anonymous:
-    #         return Note.objects.none()
-    #     else:
-    #         return Note.objects.filter(user=user)
+    def resolve_note(self, info, **kwargs):
+        user = info.context.user
+        if user.is_anonymous:
+            return Note.objects.none()
+        else:
+            return Note.objects.filter(user=user)
 
 
 class CreateNote(graphene.Mutation):

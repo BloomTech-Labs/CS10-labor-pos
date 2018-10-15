@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 import {
   Divider,
-  Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary
+  ExpansionPanelSummary,
+  FormControlLabel,
+  MenuItem,
+  withStyles,
+  Avatar,
+  FormControl,
+  RadioGroup,
+  Radio,
+  Hidden
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import ExpandMore from "@material-ui/icons/ExpandMore.js";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import "./sidenav.css";
+import { styles } from "../material-ui/styles.js";
+import classNames from "classnames";
 
 //This is the side nav component that renders in the nav drawer in the home component
 class SideNav extends Component {
@@ -17,128 +25,190 @@ class SideNav extends Component {
     expanded: null
   };
 
-  handleChange = panel => (event, expanded) => {
+  handleChange = panel => expanded => {
     this.setState({
       expanded: expanded ? panel : false
     });
   };
   render() {
+    const { classes } = this.props;
     const { expanded } = this.state;
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
+    const path = this.props.location.pathname;
     return (
-      <div className="controlled-nav-accordion">
+      <div className={classNames(classes.sidenav, classes.sidenavFull)}>
         {/*TODO: These buttons can be in routes to dynamically display based on what is needed
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
-        id est tags would have a smaller create tag button under it.*/}
-        <Divider />
-        <Link to="/">
-          <Button>Home</Button>
+        id est client would have a smaller create client button under it.*/}
+        <Divider className={classes.space_above} />
+        <Avatar
+          alt="A golden raccoon logo"
+          src={require("../../goldracoon.png")}
+          className={classes.image}
+        />
+        <Link to="/" className={classes.sidenav_top}>
+          <MenuItem className={classes.image} selected={path === "/"}>
+            Home
+          </MenuItem>
         </Link>
 
         <ExpansionPanel
           expanded={expanded === "clientpanel"}
           onChange={this.handleChange("clientpanel")}
+          className={classes.sidenav}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Clients</Button>
+          <ExpansionPanelSummary
+            expandIcon={<ExpandMore className="sidenav" />}
+          >
+            <MenuItem selected={path.includes("client")}>Clients</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails
+            className={classNames("sidenav", classes.nav_menu)}
+          >
             <Link to="/clients">
-              <Button>View</Button>
+              <MenuItem selected={path.includes("clients")}>View</MenuItem>
             </Link>
             <Link to="/createclient">
-              <Button>Create</Button>
+              <MenuItem selected={path.includes("createclient")}>
+                Create
+              </MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
           expanded={expanded === "jobpanel"}
           onChange={this.handleChange("jobpanel")}
+          className={classes.sidenav}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Jobs</Button>
+          <ExpansionPanelSummary
+            className="sidenav"
+            expandIcon={<ExpandMore />}
+          >
+            <MenuItem
+              selected={path.includes("job") || path.includes("invoice")}
+            >
+              Jobs
+            </MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails
+            className={classNames("sidenav", classes.nav_menu)}
+          >
             <Link to="/jobs">
-              <Button>View</Button>
-            </Link>
-            <Link to="/createjob">
-              <Button>Create</Button>
-            </Link>
-            <Link to="/invoices">
-              <Button>Invoices</Button>
+              <MenuItem selected={path.includes("jobs")}>View</MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
           expanded={expanded === "notepanel"}
           onChange={this.handleChange("notepanel")}
+          className={classes.sidenav}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Notes</Button>
+          <ExpansionPanelSummary
+            className="sidenav"
+            expandIcon={<ExpandMore />}
+          >
+            <MenuItem selected={path.includes("note")}>Notes</MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails
+            className={classNames("sidenav", classes.nav_menu)}
+          >
             <Link to="/notes">
-              <Button>View</Button>
+              <MenuItem selected={path.includes("notes")}>View</MenuItem>
             </Link>
             <Link to="/createnote">
-              <Button>Create</Button>
+              <MenuItem selected={path.includes("createnote")}>Create</MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "tagpanel"}
-          onChange={this.handleChange("tagpanel")}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Tags</Button>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
-            <Link to="/tags">
-              <Button>View</Button>
-            </Link>
-            <Link to="/createtag">
-              <Button>Create</Button>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "partpanel"}
-          onChange={this.handleChange("partpanel")}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Parts</Button>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
-            <Link to="/parts">
-              <Button>View</Button>
-            </Link>
-            <Link to="/createpart">
-              <Button>Create</Button>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+
         <ExpansionPanel
           expanded={expanded === "settingspanel"}
           onChange={this.handleChange("settingspanel")}
+          className={classes.sidenav}
         >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <Button>Settings</Button>
+          <ExpansionPanelSummary
+            className="sidenav"
+            expandIcon={<ExpandMore />}
+          >
+            <MenuItem
+              selected={path.includes("settings") || path.includes("billing")}
+            >
+              Settings
+            </MenuItem>
           </ExpansionPanelSummary>
-          <ExpansionPanelDetails className="nav-menu-items">
+          <ExpansionPanelDetails
+            className={classNames("sidenav", classes.nav_menu)}
+          >
             <Link to="/settings">
-              <Button>Main</Button>
+              <MenuItem selected={path.includes("settings")}>Main</MenuItem>
             </Link>
             <Link to="/billing">
-              <Button>Billing</Button>
+              <MenuItem selected={path.includes("billing")}>Billing</MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <Button onClick={this.props.logout}>Logout</Button>
-        <Divider />
+        <Hidden xsUp={!user_premium}>
+          <ExpansionPanel
+            expanded={expanded === "themespanel"}
+            onChange={this.handleChange("themespanel")}
+            className={classes.sidenav}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+              <MenuItem>Themes</MenuItem>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.nav_menu}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <RadioGroup
+                  name="theme"
+                  className={classes.group}
+                  value={this.props.theme_string}
+                  onChange={this.props.themeControlMethod}
+                >
+                  <FormControlLabel
+                    value="default"
+                    control={<Radio />}
+                    label="Default"
+                  />
+                  <FormControlLabel
+                    value="desk"
+                    control={<Radio />}
+                    label="Desk"
+                  />
+                  <FormControlLabel
+                    value="forest"
+                    control={<Radio />}
+                    label="Forest"
+                  />
+                  <FormControlLabel
+                    value="ugly"
+                    control={<Radio />}
+                    label="Ugly"
+                  />
+                  <FormControlLabel
+                    value="darkgold"
+                    control={<Radio />}
+                    label="Dark Gold"
+                  />
+                  <FormControlLabel
+                    value="banana"
+                    control={<Radio />}
+                    label="Banana"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Hidden>
+        <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+        <Divider className="sidenav" />
+        {/*The below switch controls light and dark theming by communicating with the App component.
+            The current theme is also saved on local storage so it will persist between reloads.*/}
       </div>
     );
   }
 }
 
-export default withRouter(SideNav);
+export default withRouter(withStyles(styles)(SideNav));

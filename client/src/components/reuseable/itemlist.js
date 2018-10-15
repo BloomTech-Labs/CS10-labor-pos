@@ -1,18 +1,34 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Delete, NavigateNext, NavigateBefore } from "@material-ui/icons";
+import NavigateNext from "@material-ui/icons/NavigateNext.js";
+import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Paper,
-  Button,
   List,
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Dialog
+  Dialog,
+  withStyles
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { DeleteItem } from "../../components";
+import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component shows a small, paginated list of items with add and delete options
 //  It renders as a child of individual view components to show related items to
@@ -22,6 +38,8 @@ import { DeleteItem } from "../../components";
 //    type: the type of the objects to be displayed
 //    items: the array of objects to be displayed in the list
 //    per_page: the number of list items to display per page
+
+// Space-efficient list kind of like cardlist but smaller
 
 class ItemList extends Component {
   constructor() {
@@ -59,6 +77,7 @@ class ItemList extends Component {
   };
 
   render() {
+    const { classes } = this.props;
     let name_field = "";
     let path = "";
     switch (this.props.type) {
@@ -74,10 +93,6 @@ class ItemList extends Component {
         name_field = "title";
         path = "/notes";
         break;
-      case "tag":
-        name_field = "name";
-        path = "/tags";
-        break;
       default:
         name_field = "first_name last_name";
         path = "/clients";
@@ -91,8 +106,10 @@ class ItemList extends Component {
       i++
     ) {
       let current_item = this.props.items[i].node;
+      let item_class = classes.list_item_reg;
+      if (i % 2) item_class = classes.list_item_light;
       list_items.push(
-        <ListItem key={i} dense button>
+        <ListItem key={i} dense button className={item_class}>
           <Link to={`${path}/${current_item.id}`}>
             <ListItemText>{current_item[name_field]}</ListItemText>
           </Link>
@@ -137,7 +154,7 @@ class ItemList extends Component {
             cancelDelete={this.cancelDelete}
             type={this.props.type}
             item={this.state.delete_item}
-            after_path={this.props.match.url}
+            refetch={this.props.refetch}
           />
         </Dialog>
       </div>
@@ -145,4 +162,4 @@ class ItemList extends Component {
   }
 }
 
-export default withRouter(ItemList);
+export default withRouter(withStyles(styles)(ItemList));

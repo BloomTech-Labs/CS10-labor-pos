@@ -1,37 +1,112 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import "./home.css";
-import {
-  Tags,
-  AddTag,
-  TagView,
-  Settings,
-  Billing,
-  Parts,
-  AddPart,
-  PartView,
-  Notes,
-  NoteView,
-  AddNote,
-  Jobs,
-  AddJob,
-  JobView,
-  JobInvoice,
-  EditJob,
-  Invoices,
-  SideNav,
-  Start,
-  Clients,
-  AddClient,
-  ClientView,
-  EditClient,
-  EditNote,
-  EditTag,
-  EditPart
-} from "../../components";
 import { Route } from "react-router-dom";
-import { Hidden, IconButton, Drawer } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+  Hidden,
+  IconButton,
+  Drawer,
+  Paper,
+  Grid,
+  withStyles,
+  Avatar,
+  Typography
+} from "@material-ui/core";
+import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+import { Start, SideNav } from "../../components";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const Settings = Loadable({
+  loader: () => import("../../components/settings/settings.js"),
+  loading: Loading
+});
+
+const Billing = Loadable({
+  loader: () => import("../../components/billing/billing.js"),
+  loading: Loading
+});
+
+const AddPart = Loadable({
+  loader: () => import("../../components/parts/addpart.js"),
+  loading: Loading
+});
+
+const PartView = Loadable({
+  loader: () => import("../../components/parts/partview.js"),
+  loading: Loading
+});
+
+const Notes = Loadable({
+  loader: () => import("../../components/notes/notes.js"),
+  loading: Loading
+});
+
+const NoteView = Loadable({
+  loader: () => import("../../components/notes/noteview.js"),
+  loading: Loading
+});
+
+const AddNote = Loadable({
+  loader: () => import("../../components/notes/addnote.js"),
+  loading: Loading
+});
+
+const Jobs = Loadable({
+  loader: () => import("../../components/jobs/jobs.js"),
+  loading: Loading
+});
+
+const JobView = Loadable({
+  loader: () => import("../../components/jobs/jobview.js"),
+  loading: Loading
+});
+
+const JobInvoice = Loadable({
+  loader: () => import("../../components/jobs/jobinvoice.js"),
+  loading: Loading
+});
+
+const EditJob = Loadable({
+  loader: () => import("../../components/jobs/editjob.js"),
+  loading: Loading
+});
+
+const Clients = Loadable({
+  loader: () => import("../../components/clients/clients.js"),
+  loading: Loading
+});
+
+const AddClient = Loadable({
+  loader: () => import("../../components/clients/addclient.js"),
+  loading: Loading
+});
+
+const ClientView = Loadable({
+  loader: () => import("../../components/clients/clientview.js"),
+  loading: Loading
+});
+
+const EditClient = Loadable({
+  loader: () => import("../../components/clients/editclient.js"),
+  loading: Loading
+});
+
+const EditPart = Loadable({
+  loader: () => import("../../components/parts/editpart.js"),
+  loading: Loading
+});
+
+const EditNote = Loadable({
+  loader: () => import("../../components/notes/editnote.js"),
+  loading: Loading
+});
 
 //The home component is a container component that renders when the user is logged in and displays different
 //content depending on the current route.
@@ -40,6 +115,7 @@ class Home extends Component {
   logout = () => {
     localStorage.removeItem("auth-token");
     this.props.history.push("/");
+    this.props.login(); // this method is passed from LandingPage and ensures the login modal opens
   };
 
   //The mobileOpen variable on state tracks whether the navigation drawer is open in small screen mode.
@@ -53,44 +129,66 @@ class Home extends Component {
   };
 
   render() {
+    let { classes } = this.props;
     return (
-      <div className="d-flex flex-column">
+      <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
-        <IconButton
-          color="inherit"
-          aria-label="Open sidenav"
-          onClick={this.handleDrawerToggle}
-          className="mr-auto"
-        >
-          <MenuIcon />
-        </IconButton>
+        <Grid container>
+          <Grid item xs={5} sm={3} md={2} lg={1}>
+            <Paper className={classes.card}>
+              <IconButton
+                color="inherit"
+                aria-label="Open sidenav"
+                onClick={this.handleDrawerToggle}
+                className="mr-auto"
+              >
+                <Avatar
+                  alt="A golden raccoon logo"
+                  src={require("../../goldracoon.png")}
+                  className={classes.image}
+                />
+              </IconButton>
+              <Typography>Menu</Typography>
+            </Paper>
+          </Grid>
+          <Grid item xs={7} sm={9} md={10} lg={11} />
+        </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
         It is toggleable.*/}
-        <Hidden mdUp>
+        <Hidden lgUp>
           <Drawer
             variant="temporary"
             anchor="left"
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
+            className="sidenav"
             ModalProps={{
               keepMounted: true
             }}
           >
-            <SideNav logout={this.logout} />
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              theme_string={this.props.theme_string}
+            />
           </Drawer>
         </Hidden>
         {/*This is the drawer that displays in the large view. (Papa Drawer)
         It is permanently open.*/}
-        <Hidden smDown implementation="css">
-          <Drawer variant="permanent" open>
-            <SideNav logout={this.logout} />
+        <Hidden mdDown implementation="css">
+          <Drawer className="sidenav" variant="permanent" open>
+            <SideNav
+              logout={this.logout}
+              themeControlMethod={this.props.themeControlMethod}
+              theme_string={this.props.theme_string}
+            />
           </Drawer>
         </Hidden>
         {/*These are the routes that render different content components depending on the
         current path.*/}
         <main>
-          <div className="content_area">
+          <Paper className={classes.main_content}>
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />
@@ -98,29 +196,22 @@ class Home extends Component {
             <Route exact path="/clients/:id/edit" component={EditClient} />
             <Route exact path="/jobs" component={Jobs} />
             <Route exact path="/jobs/:id" component={JobView} />
-            <Route exact path="/createjob" component={AddJob} />
             <Route exact path="/jobs/:id/invoice" component={JobInvoice} />
             <Route exact path="/jobs/:id/edit" component={EditJob} />
             <Route exact path="/notes" component={Notes} />
             <Route exact path="/createnote" component={AddNote} />
             <Route exact path="/notes/:id" component={NoteView} />
-            <Route exact path="/notes/:id/edit" component={NoteView} />
-            <Route exact path="/tags" component={Tags} />
-            <Route exact path="/parts" component={Parts} />
-            <Route exact path="/invoices" component={Invoices} />
+            <Route exact path="/notes/:id/edit" component={EditNote} />
             <Route exact path="/settings" component={Settings} />
-            <Route exact path="/createtag" component={AddTag} />
-            <Route exact path="/tags/:id" component={TagView} />
-            <Route exact path="/tags/:id/edit" component={TagView} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/createpart" component={AddPart} />
             <Route exact path="/parts/:id" component={PartView} />
             <Route exact path="/parts/:id/edit" component={EditPart} />
-          </div>
+          </Paper>
         </main>
-      </div>
+      </React.Fragment>
     );
   }
 }
 
-export default withRouter(Home);
+export default withRouter(withStyles(styles)(Home));

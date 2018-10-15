@@ -2,6 +2,10 @@ const AUTH_TOKEN = "auth-token";
 
 const STATE_LIST = [
   {
+    value: "",
+    label: "State *"
+  },
+  {
     value: "Alabama",
     label: "AL"
   },

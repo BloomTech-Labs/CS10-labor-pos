@@ -1,9 +1,19 @@
 import React, { Component } from "react";
-import { Button, Dialog } from "@material-ui/core";
-import "./landingpage.css";
+import {
+  Button,
+  Dialog,
+  Grid,
+  Typography,
+  Card,
+  withStyles,
+  withMobileDialog,
+  Paper
+} from "@material-ui/core";
+import { styles } from "../material-ui/styles.js";
 import { Login, Home, CreateUser } from "../../components";
 import { AUTH_TOKEN } from "../../constants";
 import { withRouter } from "react-router";
+
 // import ContactForm from "../../components/auth/contractor";
 
 //This is the component for users who arrive at the site without being logged in.
@@ -31,6 +41,7 @@ class LandingPage extends Component {
       password: "",
       email: ""
     };
+    this.handleLogin = this.handleLogin.bind(this);
   }
 
   //This method is passed down to the user modal component
@@ -55,13 +66,6 @@ class LandingPage extends Component {
     this.setState({ create_modal: true });
   };
 
-  //This method is passed to the create user modal
-  //so it can close itself and open the contractor
-  //modal.
-  handleContractorButton = () => {
-    this.setState({ create_modal: false, contractor_modal: true });
-  };
-
   //This is a multipurpose method to close all modals.
   handleCloseModals = () => {
     this.setState({
@@ -72,73 +76,86 @@ class LandingPage extends Component {
   };
 
   render() {
+    const { classes, fullScreen } = this.props;
     const authToken = localStorage.getItem(AUTH_TOKEN);
     //If the user is authenticated, we render the home component instead.
     if (authToken) {
-      return <Home />;
+      return (
+        <Home
+          themeControlMethod={this.props.themeControlMethod}
+          theme_string={this.props.theme_string}
+          login={this.handleLogin}
+        />
+      );
     }
     //If the user is not authenticated, we go ahead and render this component.
     //TODO: make this actually present a case for using our app.
     else {
       return (
-        <div className="landing-page">
-          <div className="landing-buttons">
-            <Button color="primary" onClick={this.handleCreateButton}>
-              Create Account
-            </Button>
-            <Button color="secondary" onClick={this.handleLogin}>
-              Log In
-            </Button>
-          </div>
-          <div className="landing-blurb">
-            <p>
-              Placeholder for the blurb!!! Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Aliquam volutpat tempor augue, quis
-              venenatis ligula volutpat et. Mauris ac rhoncus ipsum. Donec et
-              sodales magna. Sed sed varius sem, non convallis tellus. Mauris
-              maximus dignissim nibh at pretium. Donec posuere semper leo, eu
-              porttitor metus consequat eget. Aliquam in molestie lectus, sit
-              amet euismod purus. Interdum et malesuada fames ac ante ipsum
-              primis in faucibus. Quisque non ligula sagittis, fermentum neque
-              id, cursus orci. Donec porta, tellus suscipit placerat luctus,
-              odio leo imperdiet lorem, a ultrices lorem augue vel ipsum. Fusce
-              vel pretium ligula. Nunc posuere, augue a fringilla euismod, erat
-              tortor sollicitudin felis, a luctus velit enim id mi. Duis sodales
-              bibendum eros non vulputate. Donec volutpat dolor eget libero
-              ultrices congue sit amet at ante. Cras a risus quis quam finibus
-              molestie nec id neque. Morbi blandit bibendum lacus, ut porttitor
-              dolor efficitur sed. Sed sit amet tortor nulla. Morbi rhoncus ex
-              vitae ligula feugiat, semper convallis turpis eleifend. In
-              venenatis nibh non quam lacinia feugiat. Integer dui felis,
-              fringilla eu tempus eget, tincidunt id eros. Nulla iaculis augue
-              ligula, dictum imperdiet nunc rutrum eu. Integer in tortor quis
-              tortor volutpat accumsan vel non tortor. Quisque sodales eleifend
-              tortor, quis consequat risus cursus sit amet. Sed ultricies
-              consectetur nibh, in sollicitudin nulla porttitor ac. Proin
-              molestie varius lacus non venenatis. Donec nec cursus mauris.
-              Proin ultricies ipsum at purus varius, in tincidunt diam pretium.
-              Nunc mattis mauris nunc, et vehicula mauris mollis euismod. Nullam
-              quam ligula, blandit volutpat sem sit amet, tincidunt bibendum
-              lacus. Curabitur et purus lorem. Ut faucibus aliquet imperdiet.
-            </p>
+        <div>
+          <Grid container>
+            <Grid item xs={6} sm={9} md={10} />
+            <Grid item xs={6} sm={3} md={2}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.handleLogin}
+                className={classes.padded_button}
+              >
+                Log In
+              </Button>
+            </Grid>
+          </Grid>
+          <div>
+            <Card className={classes.layout}>
+              <img
+                alt="A golden raccoon logo"
+                src={require("../../goldracoon.png")}
+                className={classes.image}
+              />
+              <Typography className={classes.typography} variant="title">
+                Contract Alchemy: Turning POS Into Gold
+              </Typography>
+              <Typography className={classes.typography_paragraph} paragraph>
+                {"Are you tired of balancing multiple projects?"} <br />
+                {
+                  "Do you find yourself struggling with spreadsheet after spreadsheet trying to keep track of how much you’re owed from whom?"
+                }{" "}
+                <br /> {"Struggle no more!"}
+                <br />
+                {
+                  "Here at contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."
+                }
+              </Typography>
+              <Button
+                className={classes.padded_button}
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateButton}
+              >
+                Create Account
+              </Button>
+            </Card>
           </div>
           {/*We use material ui dialog components for our modals.*/}
           <Dialog
+            fullScreen={fullScreen}
             open={this.state.login_modal}
             onClose={this.handleCloseModals}
-            className="login-modal"
+            PaperProps={{ className: classes.dark_paper }}
           >
-            <Login modalDone={this.handleCloseModals} />
+            <Paper className={classes.paper}>
+              <Login modalDone={this.handleCloseModals} />
+            </Paper>
           </Dialog>
           <Dialog
+            fullScreen={fullScreen}
             open={this.state.create_modal}
             onClose={this.handleCloseModals}
-            className="user-modal"
           >
-            <CreateUser
-              parentInfoMethod={this.setUserInformation.bind(this)}
-              modalDone={this.handleLogin}
-            />
+            <Paper className={classes.dark_paper}>
+              <CreateUser modalDone={this.handleLogin} />
+            </Paper>
           </Dialog>
         </div>
       );
@@ -146,4 +163,4 @@ class LandingPage extends Component {
   }
 }
 
-export default withRouter(LandingPage);
+export default withRouter(withMobileDialog()(withStyles(styles)(LandingPage)));

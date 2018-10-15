@@ -20,9 +20,12 @@ django-seed = "*"
 faker = "*"
 django-allauth = "*"
 stripe = "*"
+twilio = "*"
+"django-sendgrid-v5" = "*"
+django-post-office = "*"
 sendgrid = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3"
+python_version = "3.7"
