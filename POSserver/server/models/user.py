@@ -2,22 +2,25 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.conf import settings
-from django.contrib.auth import get_user_model
+
+# from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from decouple import config
 import sendgrid
-from sendgrid.helpers.mail import *
-from django.http import HttpResponse, HttpResponseRedirect
+from sendgrid.helpers.mail import Email, Content, Mail
+
+# from django.http import HttpResponse, HttpResponseRedirect
 
 
 if not settings.configured:
     settings.configure()
 
 
+# extends django user model
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
-
+    # defines parameters for users, designates required fields, sets default values
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150)
     street_address = models.CharField(max_length=100)
@@ -85,13 +88,14 @@ class User(AbstractUser):
     premium = models.BooleanField(default=False, blank=True, null=True)
     paid_until = models.DateTimeField(blank=True, null=True)
 
+    # sets display name - only on admin panel
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # sends welcome email once user is created
     def welcome_mail(sender, instance, **kwargs):
         if kwargs["created"]:
-            model = get_user_model()
             user_email = instance.email
             sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
             from_email = Email("nphillip78@gmail.com")
@@ -99,12 +103,11 @@ class User(AbstractUser):
             subject = "Welcome to contractAlchemy!"
             content = Content(
                 "text/plain",
-                "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place. Premium users gain access to all of our features with an unlimited number of records. Our free membership includes access to all features for up to 8 records at a time - 8 clients, 8 jobs,etc. You can upgrade to premium at any time.",
+                "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place.\n\
+                Premium users gain access to all of our features with an unlimited number of records.\n\
+                Premium membership also includes the ability to select different themes for the website layout.\n\
+                Our free membership includes access to all features for up to 8 records at a time.\n\
+                You can upgrade to premium at any time.",
             )
             mail = Mail(from_email, subject, to_email, content)
-            response = sg.client.mail.send.post(request_body=mail.get())
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
-
-    
+            sg.client.mail.send.post(request_body=mail.get())

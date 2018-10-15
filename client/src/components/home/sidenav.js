@@ -5,16 +5,15 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   FormControlLabel,
-  Switch,
   MenuItem,
   withStyles,
   Avatar,
   FormControl,
-  FormLabel,
   RadioGroup,
-  Radio
+  Radio,
+  Hidden
 } from "@material-ui/core";
-import { ExpandMore } from "@material-ui/icons";
+import ExpandMore from "@material-ui/icons/ExpandMore.js";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
@@ -26,7 +25,7 @@ class SideNav extends Component {
     expanded: null
   };
 
-  handleChange = panel => (event, expanded) => {
+  handleChange = panel => expanded => {
     this.setState({
       expanded: expanded ? panel : false
     });
@@ -34,6 +33,9 @@ class SideNav extends Component {
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     const path = this.props.location.pathname;
     return (
       <div className={classNames(classes.sidenav, classes.sidenavFull)}>
@@ -41,14 +43,16 @@ class SideNav extends Component {
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est client would have a smaller create client button under it.*/}
-        <Divider className="sidenav" />
+        <Divider className={classes.space_above} />
+        <Avatar
+          alt="A golden raccoon logo"
+          src={require("../../goldracoon.png")}
+          className={classes.image}
+        />
         <Link to="/" className={classes.sidenav_top}>
-          <Avatar
-            alt="A golden raccoon logo"
-            src={require("../../goldracoon.png")}
-            className={classes.image}
-          />
-          <MenuItem selected={path === "/"}>Home</MenuItem>
+          <MenuItem className={classes.image} selected={path === "/"}>
+            Home
+          </MenuItem>
         </Link>
 
         <ExpansionPanel
@@ -146,51 +150,58 @@ class SideNav extends Component {
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "themespanel"}
-          onChange={this.handleChange("themespanel")}
-          className={classes.sidenav}
-        >
-          <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-            <MenuItem>Themes</MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.nav_menu}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <RadioGroup
-                name="theme"
-                className={classes.group}
-                value={this.props.theme_string}
-                onChange={this.props.themeControlMethod}
-              >
-                <FormControlLabel
-                  value="default"
-                  control={<Radio />}
-                  label="Default"
-                />
-                <FormControlLabel
-                  value="forest"
-                  control={<Radio />}
-                  label="Forest"
-                />
-                <FormControlLabel
-                  value="ugly"
-                  control={<Radio />}
-                  label="Ugly"
-                />
-                <FormControlLabel
-                  value="bluegrey"
-                  control={<Radio />}
-                  label="Blue Grey"
-                />
-                <FormControlLabel
-                  value="banana"
-                  control={<Radio />}
-                  label="Banana"
-                />
-              </RadioGroup>
-            </FormControl>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        <Hidden xsUp={!user_premium}>
+          <ExpansionPanel
+            expanded={expanded === "themespanel"}
+            onChange={this.handleChange("themespanel")}
+            className={classes.sidenav}
+          >
+            <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+              <MenuItem>Themes</MenuItem>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className={classes.nav_menu}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <RadioGroup
+                  name="theme"
+                  className={classes.group}
+                  value={this.props.theme_string}
+                  onChange={this.props.themeControlMethod}
+                >
+                  <FormControlLabel
+                    value="default"
+                    control={<Radio />}
+                    label="Default"
+                  />
+                  <FormControlLabel
+                    value="desk"
+                    control={<Radio />}
+                    label="Desk"
+                  />
+                  <FormControlLabel
+                    value="forest"
+                    control={<Radio />}
+                    label="Forest"
+                  />
+                  <FormControlLabel
+                    value="ugly"
+                    control={<Radio />}
+                    label="Ugly"
+                  />
+                  <FormControlLabel
+                    value="darkgold"
+                    control={<Radio />}
+                    label="Dark Gold"
+                  />
+                  <FormControlLabel
+                    value="banana"
+                    control={<Radio />}
+                    label="Banana"
+                  />
+                </RadioGroup>
+              </FormControl>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Hidden>
         <MenuItem onClick={this.props.logout}>Logout</MenuItem>
         <Divider className="sidenav" />
         {/*The below switch controls light and dark theming by communicating with the App component.

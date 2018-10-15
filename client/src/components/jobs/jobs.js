@@ -14,8 +14,9 @@ class Jobs extends Component {
   render() {
     const { classes } = this.props;
     return (
+      // retrieves data for all jobs to display
       <Query query={QUERY_ALL_JOBS}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -23,11 +24,14 @@ class Jobs extends Component {
               <Typography className={classes.typography} variant="title">
                 Jobs
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allJobs.edges}
                 type="job"
                 rows={2}
                 columns={4}
+                refetch={refetch}
               />
             </div>
           );

@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import { Create, Delete, DoneOutline, ArrowRightAlt } from "@material-ui/icons";
+import DoneOutline from "@material-ui/icons/DoneOutline.js";
+import ArrowRightAlt from "@material-ui/icons/ArrowRightAlt.js";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Typography,
   Grid,
@@ -14,9 +17,33 @@ import {
   Paper,
   withMobileDialog
 } from "@material-ui/core";
-import { ItemList, DeleteItem, NoteForm, PartForm } from "../../components";
+import { ItemList } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+
+const NoteForm = Loadable({
+  loader: () => import("../../components/notes/noteform.js"),
+  loading: Loading
+});
+
+const PartForm = Loadable({
+  loader: () => import("../../components/parts/partform.js"),
+  loading: Loading
+});
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component will render as a child of home on the path /jobs/%jobid
 //  It will present the user with the job info from the database as well as
@@ -44,13 +71,14 @@ class JobView extends Component {
   };
 
   render() {
-    const { classes, fullscreen } = this.props;
+    // displays job details individually on cards
+    const { classes, fullScreen } = this.props;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let right_content = [];
@@ -86,13 +114,15 @@ class JobView extends Component {
           right_content.push(
             <Typography key={3}>
               Created On:{" "}
-              {`${created.getMonth()}/${created.getDate()}/${created.getFullYear()}`}
+              {`${created.getMonth() +
+                1}/${created.getDate()}/${created.getFullYear()}`}
             </Typography>
           );
           right_content.push(
             <Typography key={4}>
               Modified On:{" "}
-              {`${modified.getMonth()}/${modified.getDate()}/${modified.getFullYear()}`}
+              {`${modified.getMonth() +
+                1}/${modified.getDate()}/${modified.getFullYear()}`}
             </Typography>
           );
 
@@ -106,17 +136,17 @@ class JobView extends Component {
                   alignItems="center"
                   spacing={24}
                 >
-                  <Grid item xs={1}>
+                  <Grid item xs={2}>
                     <Link to={`/jobs/${data.job.id}/edit`}>
                       <IconButton>
                         <Create />
                       </IconButton>
                     </Link>
                   </Grid>
-                  <Grid item xs={10}>
+                  <Grid item xs={8}>
                     <Typography variant="title">{data.job.name}</Typography>
                   </Grid>
-                  <Grid item xs={1}>
+                  <Grid item xs={2}>
                     <IconButton onClick={this.openModal("deleting")}>
                       <Delete />
                     </IconButton>
@@ -132,48 +162,40 @@ class JobView extends Component {
                   alignItems="center"
                   spacing={24}
                 >
-                  <Grid item xs={1} />
-                  <Grid item xs={7}>
-                    <Grid
-                      container
-                      direction="row"
-                      justify="space-around"
-                      alignItems="flex-start"
-                      spacing={24}
+                  <Grid item xs={12} md={4}>
+                    {/*TODO: make these links pass the associated job to the create component*/}
+
+                    <Button
+                      onClick={this.openModal("add_note")}
+                      className="job-list-button"
                     >
-                      <Grid item xs={4}>
-                        {/*TODO: make these links pass the associated job to the create component*/}
+                      Add a new note
+                    </Button>
 
-                        <Button
-                          onClick={this.openModal("add_note")}
-                          className="job-list-button"
-                        >
-                          Add a new note
-                        </Button>
-
-                        <ItemList
-                          type="note"
-                          items={data.job.noteSet.edges}
-                          per_page={7}
-                        />
-                      </Grid>
-                      <Grid item xs={4}>
-                        <Button
-                          className="job-list-button"
-                          onClick={this.openModal("add_part")}
-                        >
-                          Add a new part
-                        </Button>
-
-                        <ItemList
-                          type="part"
-                          items={data.job.partSet.edges}
-                          per_page={7}
-                        />
-                      </Grid>
-                    </Grid>
+                    <ItemList
+                      type="note"
+                      items={data.job.noteSet.edges}
+                      per_page={7}
+                      refetch={refetch}
+                    />
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={12} md={4}>
+                    <Button
+                      className="job-list-button"
+                      onClick={this.openModal("add_part")}
+                    >
+                      Add a new part
+                    </Button>
+
+                    <ItemList
+                      type="part"
+                      items={data.job.partSet.edges}
+                      per_page={7}
+                      refetch={refetch}
+                    />
+                  </Grid>
+
+                  <Grid item xs={12} md={4}>
                     <Card className={classes.card}>{right_content}</Card>
                     <Link to={`/jobs/${data.job.id}/invoice`}>
                       <Button
@@ -185,14 +207,13 @@ class JobView extends Component {
                       </Button>
                     </Link>
                   </Grid>
-                  <Grid item xs={1} />
                 </Grid>
               </div>
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelModal("deleting")}
                 className="delete-modal"
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <DeleteItem
                   cancelDelete={this.cancelModal("deleting")}
@@ -204,7 +225,7 @@ class JobView extends Component {
               <Dialog
                 open={this.state.add_note}
                 onClose={this.cancelModal("add_note")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <NoteForm
@@ -212,13 +233,14 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>
               <Dialog
                 open={this.state.add_part}
                 onClose={this.cancelModal("add_part")}
-                fullScreen={fullscreen}
+                fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <PartForm
@@ -226,6 +248,7 @@ class JobView extends Component {
                     parent={{ type: "job", id: data.job.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_part")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

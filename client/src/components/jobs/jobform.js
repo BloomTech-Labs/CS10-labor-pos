@@ -4,9 +4,7 @@ import {
   Grid,
   Typography,
   withStyles,
-  Hidden,
-  Select,
-  MenuItem
+  Hidden
 } from "@material-ui/core";
 import classNames from "classnames";
 import { Mutation, Query } from "react-apollo";
@@ -24,6 +22,7 @@ const Yup = require("yup");
 //    job: In edit mode, a job will be passed down from the parent component.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
+// schema definition for formik
 const JobSchema = Yup.object().shape({
   name: Yup.string()
     .max(100, "Name must be under 100 characters")
@@ -38,7 +37,7 @@ const JobSchema = Yup.object().shape({
 class JobForm extends Component {
   render() {
     const { classes } = this.props;
-    let chosen_mutation = CREATE_JOB;
+    let chosen_mutation = CREATE_JOB; // form can be in create or edit mode
     let title_text = "Add Job";
     let button_text = "Create";
     let edit_job = {
@@ -63,7 +62,10 @@ class JobForm extends Component {
       edit_job.client = this.props.parent.id;
     }
     return (
+      // jobs must be created from within a client account so that job is connected to client
+      // this retrieves client data so that job can be attached to specified client
       <Query query={QUERY_ALL_CLIENTS}>
+      
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -93,11 +95,13 @@ class JobForm extends Component {
                 complete: edit_job.complete,
                 deadline: edit_job.deadline
               }}
+              // tells formik to validate against our pre-defined Job Schema
               validationSchema={JobSchema}
               onSubmit={event => {
                 event.preventDefault();
               }}
             >
+              
               {({ values, isValid }) => {
                 return (
                   <Mutation
@@ -129,7 +133,7 @@ class JobForm extends Component {
                             });
                           }}
                         >
-                          <Grid container>
+                          <Grid container justify="center">
                             <Grid container justify="center">
                               <Typography
                                 variant="title"
@@ -138,7 +142,8 @@ class JobForm extends Component {
                                 {title_text}
                               </Typography>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3} md={1} />
+                            <Grid item xs={6} md={4}>
                               <Field
                                 id="field-client"
                                 disabled={this.props.mode === "create"}
@@ -168,7 +173,8 @@ class JobForm extends Component {
                                 ))}
                               </Field>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3} md={2} />
+                            <Grid item xs={11} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-name"
@@ -180,7 +186,7 @@ class JobForm extends Component {
                               />
                             </Grid>
                             <Grid item xs={1} />
-                            <Grid item xs={10}>
+                            <Grid item xs={12}>
                               <Field
                                 component={TextField}
                                 id="field-description"
@@ -195,7 +201,7 @@ class JobForm extends Component {
                                 variant="outlined"
                               />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-labor"
@@ -206,7 +212,7 @@ class JobForm extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Grid
                                 container
                                 justify="center"
@@ -224,11 +230,14 @@ class JobForm extends Component {
                                 <Typography>Completed</Typography>
                               </Grid>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={12} md={4}>
                               <Field
                                 component={TextField}
                                 id="field-deadline"
                                 label="Deadline"
+                                InputLabelProps={{
+                                  shrink: true
+                                }}
                                 name="deadline"
                                 className={classes.textField}
                                 value={values.deadline}
@@ -272,10 +281,12 @@ class JobForm extends Component {
       </Query>
     );
   }
-
+ // if job is not created returns to form 
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push(this.props.after_path);
+    if (this.props.mode === "create") {
+      this.props.refetch();
+      this.props.cancelAdd();
+    } else this.props.history.goBack();
   };
 }
 

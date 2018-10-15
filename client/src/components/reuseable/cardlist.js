@@ -1,16 +1,18 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { NavigateNext, NavigateBefore, AddCircle } from "@material-ui/icons";
+import NavigateNext from "@material-ui/icons/NavigateNext.js";
+import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
+import AddCircle from "@material-ui/icons/AddCircle.js";
 import {
   Grid,
   Card,
   IconButton,
   Typography,
-  withStyles,
-  Hidden
+  withStyles
 } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";
+import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
@@ -44,22 +46,36 @@ class CardList extends Component {
     });
   };
 
+  componentDidMount = () => {
+    this.props.refetch();
+  };
+
   render() {
     let { classes } = this.props;
-    let per_page = this.props.rows * this.props.columns;
+
     let card_array = [];
+    let columns = 1;
+    let per_page = this.props.rows * this.props.columns;
+    if (isWidthUp("sm", this.props.width)) {
+      columns = 2;
+    }
+    if (isWidthUp("md", this.props.width)) {
+      columns = this.props.columns;
+    }
+
     for (
       let i = this.state.page * per_page;
       i < this.props.items.length && i < (this.state.page + 1) * per_page;
       i++
     ) {
       card_array.push(
-        <Grid item xs={12 / this.props.columns} key={i}>
+        <Grid item xs={12 / columns} key={i}>
           <Card raised className={classes.item_card}>
             <ItemCard
               after_path={this.props.after_path}
               type={this.props.type}
               item={this.props.items[i].node}
+              refetch={this.props.refetch}
             />
           </Card>
         </Grid>
@@ -67,13 +83,14 @@ class CardList extends Component {
     }
     if (this.props.location.pathname !== "/jobs")
       card_array.push(
-        <Grid item xs={12 / this.props.columns} key={-1}>
-          <Card raised className={classes.card}>
+        <Grid item xs={12 / columns} key={-1}>
+          <Card raised className={classes.new_card}>
+            <br />
             <IconButton onClick={this.props.createMethod}>
               <AddCircle />
             </IconButton>
             <Typography
-              className={classes.typography}
+              className={classes.typography_card}
               variant="subheading"
             >{`New ${this.props.type}`}</Typography>
           </Card>
@@ -84,8 +101,9 @@ class CardList extends Component {
         <Grid
           container
           direction="row"
-          justify="space-around"
+          justify="center"
           alignItems="center"
+          alignContent="center"
           spacing={24}
         >
           {card_array}
@@ -110,4 +128,4 @@ class CardList extends Component {
   }
 }
 
-export default withRouter(withStyles(styles)(CardList));
+export default withRouter(withWidth()(withStyles(styles)(CardList)));

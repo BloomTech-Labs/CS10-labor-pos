@@ -24,8 +24,8 @@ import { styles } from "../material-ui/styles.js";
 class DeleteItem extends Component {
   _confirm = () => {
     this.props.cancelDelete();
-    window.location.reload();
-    this.props.history.push(this.props.after_path);
+    if (this.props.after_path) this.props.history.push(this.props.after_path);
+    else this.props.refetch();
   };
   render() {
     const { classes } = this.props;
@@ -53,38 +53,40 @@ class DeleteItem extends Component {
         break;
     }
     return (
-      <Paper className={classes.modal}>
-        <Typography variant="title" paragraph>
-          Are you sure you want to delete {name}?
-        </Typography>
+      <Paper className={classes.paper}>
         <Grid container>
-          <Grid item xs={6} />
-          <Grid item xs={3}>
-            <Mutation
-              mutation={chosen_mutation}
-              variables={{ id: this.props.item.id }}
-              onCompleted={data => this._confirm(data)}
-            >
-              {mutation => (
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={mutation}
-                  type="submit"
-                >
-                  Delete
-                </Button>
-              )}
-            </Mutation>
+          <Grid item xs={10}>
+            <Typography variant="title" paragraph>
+              Are you sure you want to delete {name}?
+            </Typography>
           </Grid>
-          <Grid item xs={3}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.props.cancelDelete}
-            >
-              Cancel
-            </Button>
+
+          <Grid item xs={10}>
+            <Grid container justify="space-around">
+              <Mutation
+                mutation={chosen_mutation}
+                variables={{ id: this.props.item.id }}
+                onCompleted={data => this._confirm(data)}
+              >
+                {mutation => (
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={mutation}
+                    type="submit"
+                  >
+                    Delete
+                  </Button>
+                )}
+              </Mutation>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.props.cancelDelete}
+              >
+                Cancel
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Paper>

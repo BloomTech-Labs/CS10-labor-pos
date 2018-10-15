@@ -244,9 +244,19 @@ const DETAILED_NOTE_BY_ID = gql`
       modifiedAt
       job {
         id
+        name
+        deadline
+        client {
+          businessName
+          firstName
+          lastName
+        }
       }
       client {
         id
+        businessName
+        firstName
+        lastName
       }
       tagSet {
         edges {
@@ -312,60 +322,21 @@ const DETAILED_PART_BY_ID = gql`
   }
 `;
 
-const STRIPE_TOKEN_BY_ID = gql`
-  query($id: ID!) {
-    token(id: $id) {
-      id
-      user {
-        id
-      }
-      type
-      created
-      used
-      card {
-        id
-        brand
-        exp_year
-      }
-    }
-  }
-  `;
-      
-
-const QUERY_ALL_CHARGES = gql`
-  query {
-    allCharges {
-      edges {
-        node {
-          amount
-          status
-          token
-          id
-        }
-      }
-    }
-  }
-`;
-
 
 const SETTINGS_QUERY = gql`
-  query {
-    allUsers {
-      edges {
-        node {
-          id
-          firstName
-          lastName
-          streetAddress
-          city
-          state
-          zipcode
-          businessName
-          premium
-          paidUntil
-          username
-        }
-      }
+  query settings($id: ID!) {
+    user(id: $id) {
+      id
+      firstName
+      lastName
+      streetAddress
+      city
+      state
+      zipcode
+      businessName
+      premium
+      paidUntil
+      username
     }
     allClients {
       edges {
@@ -418,5 +389,5 @@ export {
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
   DETAILED_PART_BY_ID,
-  SETTINGS_QUERY
+  SETTINGS_QUERY,
 };

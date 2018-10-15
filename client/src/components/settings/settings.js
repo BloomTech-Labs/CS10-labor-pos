@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grade } from "@material-ui/icons";
+import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
@@ -20,7 +20,6 @@ import { SETTINGS_QUERY } from "../../queries.js";
 import { UPDATE_USER } from "../../mutations.js";
 import { STATE_LIST } from "../../constants";
 import { styles } from "../material-ui/styles.js";
-import jwt_decode from "jwt-decode";
 import { Formik, Field, Form } from "formik";
 import { TextField } from "../../components";
 import classNames from "classnames";
@@ -42,7 +41,7 @@ const SettingsSchema = Yup.object().shape({
     "Last Name must be fewer than 100 characters"
   ),
   email: Yup.string()
-    .email()
+    .email("Must provide a valid email")
     .max(70),
   streetAddress: Yup.string().max(100),
   city: Yup.string(),
@@ -59,7 +58,16 @@ const SettingsSchema = Yup.object().shape({
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/rFA17
 class Settings extends Component {
+  state = {
+    changePassword: false,
+    changeBusinessName: false,
+    changeName: false,
+    changeContact: false
+  };
   render() {
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     const { classes } = this.props;
     let edit_user = {};
     for (let key in this.props.user) {
@@ -82,12 +90,17 @@ class Settings extends Component {
           paidUntil: edit_user.paidUntil,
           username: edit_user.username
         }}
+        validationSchema={SettingsSchema}
+        onSubmit={event => {
+          event.preventDefault();
+        }}
       >
-        {({ values, isValid, handleSubmit }) => {
+        {({ values, isValid }) => {
+          const paid_until = new Date(values.paidUntil);
           return (
             <Mutation
               mutation={UPDATE_USER}
-              onCompleted={() => this._confirm()}
+              onCompleted={() => this._confirm(this.props.refetch)}
             >
               {(mutateJob, { loading, error, data }) => (
                 <div>
@@ -112,75 +125,76 @@ class Settings extends Component {
                       });
                     }}
                   >
-                    <Grid container>
+                    <Grid container spacing={24}>
                       <Grid item xs={4} />
                       <Grid item xs={4}>
                         <Typography
                           variant="title"
                           className={classes.typography}
                         >
-                          Edit Settings
+                          Settings
                         </Typography>
                       </Grid>
                       <Grid item xs={4}>
-                        <IconButton disabled={!values.premium}>
+                        <IconButton disabled={!user_premium}>
                           <Grade />
                         </IconButton>
-                        <Hidden xsUp={!values.premium}>
-                          <Typography className={classes.typography}>
-                            Premium member paid until {values.paidUntil}
+                        <Hidden xsUp={!user_premium}>
+                          <Typography>
+                            Premium member paid until:{" "}
+                            {`${paid_until.getMonth() +
+                              1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
                           </Typography>
                         </Hidden>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={6}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
-                          Change Password
-                        </Typography>
-                        <Paper className={classes.card}>
-                          <Grid container>
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-oldPassword"
-                                label="Current Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="oldPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.oldPassword}
-                                margin="normal"
-                              />
+                      <Hidden xsUp={this.state.changePassword}>
+                        <Grid item xs={12} md={6}>
+                          <Typography
+                            className={classes.typography}
+                            variant="subheading"
+                          >
+                            Change Password
+                          </Typography>
+                          <Paper className={classes.card}>
+                            <Grid container spacing={24}>
+                              <Grid item xs={12} md={6}>
+                                <Field
+                                  id="field-oldPassword"
+                                  label="Current Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="oldPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.oldPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
+
+                              <Grid item xs={12} md={6}>
+                                <Field
+                                  id="field-newPassword"
+                                  label="New Password"
+                                  type="password"
+                                  fullWidth
+                                  component={TextField}
+                                  name="newPassword"
+                                  className={classNames(
+                                    classes.margin,
+                                    classes.textField
+                                  )}
+                                  value={values.newPassword}
+                                  margin="normal"
+                                />
+                              </Grid>
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={5}>
-                              <Field
-                                id="field-newPassword"
-                                label="New Password"
-                                type="password"
-                                fullWidth
-                                component={TextField}
-                                name="newPassword"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.newPassword}
-                                margin="normal"
-                              />
-                            </Grid>
-                            <Grid item xs={1} />
-                          </Grid>
-                        </Paper>
-                      </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={3}>
+                          </Paper>
+                        </Grid>
+                      </Hidden>
+                      <Grid item xs={12} md={6}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -188,29 +202,22 @@ class Settings extends Component {
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Grid container>
-                            <Grid item xs={10}>
-                              <Field
-                                id="field-businessName"
-                                label="Business Name"
-                                name="businessName"
-                                fullWidth
-                                component={TextField}
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.businessName}
-                                margin="normal"
-                              />
-                            </Grid>
-                            <Grid item xs={2} />
-                          </Grid>
+                          <Field
+                            id="field-businessName"
+                            label="Business Name"
+                            name="businessName"
+                            fullWidth
+                            component={TextField}
+                            className={classNames(
+                              classes.margin,
+                              classes.textField
+                            )}
+                            value={values.businessName}
+                            margin="normal"
+                          />
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
+                      <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -219,7 +226,7 @@ class Settings extends Component {
                         </Typography>
                         <Paper className={classes.card}>
                           <Grid container>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 id="field-firstName"
                                 label="First Name"
@@ -234,7 +241,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                               <Field
                                 id="field-lastName"
                                 label="Last Name"
@@ -249,13 +256,11 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={1} />
                           </Grid>
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
+
+                      <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
                           variant="subheading"
@@ -279,7 +284,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={12} md={8}>
                               <Field
                                 id="field-city"
                                 label="City"
@@ -294,7 +299,7 @@ class Settings extends Component {
                                 margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={2}>
+                            <Grid item xs={12} md={2}>
                               <Field
                                 id="state"
                                 select="true"
@@ -306,7 +311,8 @@ class Settings extends Component {
                                   classes.margin,
                                   classes.field,
                                   classes.state_field,
-                                  classes.menuitems
+                                  classes.menuitems,
+                                  classes.paper_color
                                 )}
                                 style={{ height: "55px" }}
                                 component="select"
@@ -314,15 +320,16 @@ class Settings extends Component {
                                 {STATE_LIST.map(state => (
                                   <option
                                     key={state.label}
-                                    value={state.value}
+                                    value={state.label}
                                     className={classes.menuitems}
                                   >
                                     {state.label}
                                   </option>
                                 ))}
                               </Field>
+                              <Typography>State</Typography>
                             </Grid>
-                            <Grid item xs={1}>
+                            <Grid item xs={12} md={2}>
                               <Field
                                 id="field-zipcode"
                                 label="Zipcode"
@@ -353,9 +360,7 @@ class Settings extends Component {
                           </Grid>
                         </Paper>
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={9} />
-                      <Grid item xs={2}>
+                      <Grid item xs={12}>
                         <Button
                           className={classes.padded_button}
                           variant="contained"
@@ -365,73 +370,78 @@ class Settings extends Component {
                         >
                           Save Changes
                         </Button>
+                        {loading && (
+                          <Typography>Saving information...</Typography>
+                        )}
+                        {data && <Typography>Success!</Typography>}
+                        {error && <Typography>Error!</Typography>}
                       </Grid>
-                      <Grid item xs={1} />
-                      <Grid item xs={1} />
-                      <Grid item xs={10}>
-                        <Paper elevation={4} square className={classes.card}>
-                          <Table>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell />
-                                <TableCell numeric>Used</TableCell>
-                                <TableCell numeric>
-                                  Free Account Allotment
-                                </TableCell>
-                                <TableCell numeric>Remaining</TableCell>
-                                <TableCell>Premium</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              <TableRow>
-                                <TableCell>Clients</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.clients}
-                                </TableCell>
-                                <TableCell numeric>1</TableCell>
-                                <TableCell numeric>
-                                  {1 - this.props.item_counts.clients}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Jobs</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.jobs}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.jobs}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Notes</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.notes}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.notes}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                              <TableRow>
-                                <TableCell>Parts</TableCell>
-                                <TableCell numeric>
-                                  {this.props.item_counts.parts}
-                                </TableCell>
-                                <TableCell numeric>8</TableCell>
-                                <TableCell numeric>
-                                  {8 - this.props.item_counts.parts}
-                                </TableCell>
-                                <TableCell>unlimited!</TableCell>
-                              </TableRow>
-                            </TableBody>
-                          </Table>
-                        </Paper>
+
+                      <Grid item xs={12}>
+                        <Hidden smDown>
+                          <Paper elevation={4} square className={classes.card}>
+                            <Table>
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell />
+                                  <TableCell numeric>Used</TableCell>
+                                  <TableCell numeric>
+                                    Free Account Allotment
+                                  </TableCell>
+                                  <TableCell numeric>Remaining</TableCell>
+                                  <TableCell>Premium</TableCell>
+                                </TableRow>
+                              </TableHead>
+                              <TableBody>
+                                <TableRow>
+                                  <TableCell>Clients</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell numeric>1</TableCell>
+                                  <TableCell numeric>
+                                    {1 - this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Jobs</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Notes</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell>Parts</TableCell>
+                                  <TableCell numeric>
+                                    {this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell numeric>8</TableCell>
+                                  <TableCell numeric>
+                                    {8 - this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell>unlimited!</TableCell>
+                                </TableRow>
+                              </TableBody>
+                            </Table>
+                          </Paper>
+                        </Hidden>
                       </Grid>
-                      <Grid item xs={1} />
                     </Grid>
 
                     {/* <Hidden xsUp={conditions didn't press button yet}>
@@ -443,8 +453,6 @@ class Settings extends Component {
                           cancel button should also reset field values to prevent weird behaviour.
                         </Hidden>*/}
                   </Form>
-                  {loading && <p>Saving information</p>}
-                  {(data || error) && <p>Success!</p>}
                 </div>
               )}
             </Mutation>
@@ -453,23 +461,21 @@ class Settings extends Component {
       </Formik>
     );
   }
-  _confirm = () => {
-    window.location.reload();
-    this.props.history.push("/settings");
+  _confirm = method => {
+    method();
   };
 }
 
 class SettingsWrapper extends Component {
   render = () => {
     return (
-      <Query query={SETTINGS_QUERY}>
-        {({ loading, error, data }) => {
+      <Query
+        query={SETTINGS_QUERY}
+        variables={{ id: localStorage.getItem("USER_ID") }}
+      >
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          const decoded_token = jwt_decode(localStorage.getItem("auth-token"));
-          const user = data.allUsers.edges.filter(user => {
-            return user.node.username === decoded_token.username;
-          })[0].node;
 
           const item_counts = {
             clients: data.allClients.edges.length,
@@ -478,7 +484,12 @@ class SettingsWrapper extends Component {
             parts: data.allClients.edges.length
           };
           return (
-            <Settings user={user} item_counts={item_counts} {...this.props} />
+            <Settings
+              refetch={refetch}
+              user={data.user}
+              item_counts={item_counts}
+              {...this.props}
+            />
           );
         }}
       </Query>

@@ -1,9 +1,18 @@
 import graphene
 import graphql_jwt
 import server.schemas
+from server.schemas.user import User_Type
 
 
-class SuperQuery(
+class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
+    user = graphene.Field(User_Type)
+
+    @classmethod
+    def resolve(cls, root, info):
+        return cls(user=info.context.user)
+
+
+class SuperQuery( # possible queries
     server.schemas.tag.Query,
     server.schemas.note.Query,
     server.schemas.user.Query,
@@ -15,7 +24,7 @@ class SuperQuery(
     pass
 
 
-class Mutation(
+class Mutation( # possible mutations
     server.schemas.tag.TagMutation,
     server.schemas.user.UserMutation,
     server.schemas.part.PartMutation,
@@ -24,7 +33,7 @@ class Mutation(
     server.schemas.job.JobMutation,
     graphene.ObjectType,
 ):
-    token_auth = graphql_jwt.ObtainJSONWebToken.Field()
+    token_auth = ObtainJSONWebToken.Field()
     verify_token = graphql_jwt.Verify.Field()
     refresh_token = graphql_jwt.Refresh.Field()
 

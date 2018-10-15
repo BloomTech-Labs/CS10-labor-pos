@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { Query } from "react-apollo";
-import { Create, Delete } from "@material-ui/icons";
+import Create from "@material-ui/icons/Create.js";
+import Delete from "@material-ui/icons/Delete.js";
 import {
   Typography,
   Grid,
@@ -13,9 +14,33 @@ import {
   withMobileDialog,
   Paper
 } from "@material-ui/core";
-import { CardList, DeleteItem, JobForm, NoteForm } from "../../components";
+import { CardList } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
+import Loadable from "react-loadable";
+
+function Loading({ error }) {
+  if (error) {
+    return <p>{error}</p>;
+  } else {
+    return <h3>Loading...</h3>;
+  }
+}
+// brings in ability to create notes and jobs from within the client
+const NoteForm = Loadable({
+  loader: () => import("../../components/notes/noteform.js"),
+  loading: Loading
+});
+
+const JobForm = Loadable({
+  loader: () => import("../../components/jobs/jobform.js"),
+  loading: Loading
+});
+
+const DeleteItem = Loadable({
+  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loading: Loading
+});
 
 //  This component renders a s a child of home on the path
 //  /clients/%clientid.  It presents the user with all information
@@ -45,13 +70,14 @@ class ClientView extends Component {
   render() {
     const { classes, fullScreen } = this.props;
 
+      // runs query to retrieve client details and displays individually on cards
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
         variables={{ id: this.props.match.params.id }}
+        fetchPolicy="network-only"
       >
-        {({ loading, error, data }) => {
-          console.log("data: ", data);
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           let name;
@@ -85,37 +111,71 @@ class ClientView extends Component {
                   </Grid>
                 </Grid>
               </div>
+              <br />
+              <br />
               <Typography paragraph>{data.client.description}</Typography>
-              <Grid container>
-                <Grid item xs={6}>
-                  <Typography align="left">
-                    Business Name: {data.client.businessName}
-                  </Typography>
+              <Paper className={classes.card}>
+                <Grid container>
+                  <Grid item xs={12} md={6}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>Business Name:</b> &nbsp; &nbsp;{" "}
+                      {data.client.businessName}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>Street Address:</b> &nbsp; &nbsp;
+                      {data.client.streetAddress}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>Name:</b> &nbsp; &nbsp;{" "}
+                      {`${data.client.firstName} ${data.client.lastName}`}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>City:</b> &nbsp; &nbsp;
+                      {data.client.city}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>State:</b> &nbsp; &nbsp; {data.client.state}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>Zip:</b> &nbsp; &nbsp; {data.client.zipcode}
+                    </Typography>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <Typography align="left">
-                    Street Address: {data.client.streetAddress}
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography align="left">{`Name: ${data.client.firstName} ${
-                    data.client.lastName
-                  }`}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">City: {data.client.city}</Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    State: {data.client.state}
-                  </Typography>
-                </Grid>
-                <Grid item xs={2}>
-                  <Typography align="left">
-                    Zip: {data.client.zipcode}
-                  </Typography>
-                </Grid>
-              </Grid>
+              </Paper>
               <Divider className={classes.margin} />
               <Typography
                 className={classes.typography}
@@ -131,6 +191,7 @@ class ClientView extends Component {
                 createMethod={this.openModal("add_job")}
                 cancelCreateMethod={this.cancelModal("add_job")}
                 after_path={this.props.location.pathname}
+                refetch={refetch}
               />
               <Divider />
               <Typography
@@ -146,6 +207,7 @@ class ClientView extends Component {
                 items={data.client.noteSet.edges}
                 createMethod={this.openModal("add_note")}
                 cancelCreateMethod={this.cancelModal("add_note")}
+                refetch={refetch}
               />
               <Dialog
                 open={this.state.deleting}
@@ -170,6 +232,7 @@ class ClientView extends Component {
                     parent={{ type: "client", id: data.client.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_job")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>
@@ -184,6 +247,7 @@ class ClientView extends Component {
                     parent={{ type: "client", id: data.client.id }}
                     after_path={this.props.location.pathname}
                     cancelAdd={this.cancelModal("add_note")}
+                    refetch={refetch}
                   />
                 </Paper>
               </Dialog>

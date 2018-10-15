@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import {
-  Grid,
   withStyles,
   Step,
   Stepper,
@@ -22,7 +21,7 @@ import { AUTH_TOKEN } from "../../constants.js";
 const Yup = require("yup");
 
 const UserSchema = Yup.object().shape({
-  username: Yup.string("Username is a required field")
+  username: Yup.string()
     .max(150, "Username must be under 150 characters")
     .required("Username is a required field"),
   password: Yup.string().required("Password is a required field"),
@@ -67,8 +66,6 @@ class Wizard extends Component {
       page: 0,
       values: props.initialValues
     };
-    console.log("Props for wizard", this.props);
-    console.log("Props without this", props);
   }
 
   next = values =>
@@ -113,14 +110,16 @@ class Wizard extends Component {
   };
 
   _confirm = async data => {
-    const { token } = data.createUser;
-    this._saveUserData(token);
+    const { token, user } = data.createUser;
+    this._saveUserData(token, user.id, user.premium);
     this.props.children[1]._owner.memoizedProps.history.push("/");
   };
 
   // save token to localStorage
-  _saveUserData = token => {
+  _saveUserData = (token, id, premium) => {
     localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem("USER_ID", id);
+    localStorage.setItem("USER_PREMIUM", premium);
   };
 
   render() {
@@ -167,9 +166,9 @@ class Wizard extends Component {
                     </Button>
                   )}
                   {!isLastPage && (
-                    <button type="submit" color="primary" variant="contained">
+                    <Button type="submit" color="primary" variant="contained">
                       Next »
-                    </button>
+                    </Button>
                   )}
                   {isLastPage && (
                     <Button
@@ -289,6 +288,7 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="City"
+              className={props.classes.space_below}
               required
             />
             <Field

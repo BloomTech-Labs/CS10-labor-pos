@@ -5,6 +5,9 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_relay.node.node import from_global_id
 from django.contrib.auth.models import BaseUserManager
 from graphql_jwt.shortcuts import get_token
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+
 
 auto_debug = False
 
@@ -14,8 +17,8 @@ class User_Type(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        exclude_fields = ("password",)
-        filter_fields = [
+        exclude_fields = ("password",) # cannot query users by password
+        filter_fields = [ # can query by these values
             "id",
             "first_name",
             "last_name",
@@ -128,6 +131,7 @@ class UpdateUser(graphene.Mutation):
         state = graphene.String()
         zipcode = graphene.String()
         business_name = graphene.String()
+        subscription = graphene.String()
 
     ok = graphene.Boolean()
     user = graphene.Field(User_Type)
@@ -148,9 +152,10 @@ class UpdateUser(graphene.Mutation):
         state="",
         zipcode="",
         business_name="",
+        subscription="",
     ):
         trackeduser = info.context.user
-
+        # verifies user is logged in and that required data is present then updates user
         if trackeduser.is_anonymous:
             return UpdateUser(ok=False, status="Must be logged in")
         else:
@@ -182,12 +187,19 @@ class UpdateUser(graphene.Mutation):
                 updated_user.zipcode = zipcode
             if business_name != "":
                 updated_user.business_name = business_name
+            if subscription != "":
+                if subscription == "month":
+                    updated_user.premium = True
+                    updated_user.paid_until = timezone.now() + relativedelta(months=1)
+                if subscription == "year":
+                    updated_user.premium = True
+                    updated_user.paid_until = timezone.now() + relativedelta(months=12)
+
             updated_user.save()
             return UpdateUser(user=updated_user, ok=True, status="ok")
 
 
 class DeleteUser(graphene.Mutation):
-    """Delete note on client or job"""
 
     class Arguments:
         id = graphene.ID()
@@ -198,7 +210,7 @@ class DeleteUser(graphene.Mutation):
 
     def mutate(self, info, id):
         user = info.context.user
-
+        # verifies user is logged in then deletes user
         if user.is_anonymous:
             return DeleteUser(ok=False, status="Must be logged in.")
         else:

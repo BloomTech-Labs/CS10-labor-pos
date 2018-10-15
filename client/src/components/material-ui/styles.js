@@ -22,8 +22,8 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.palette.background.paper,
-    margin: "10px",
-    padding: "10px"
+    margin: "16px",
+    padding: "16px"
   },
   modal: {
     padding: "20px",
@@ -33,7 +33,14 @@ const styles = theme => ({
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
-    height: "180px"
+    height: "180px",
+    maxWidth: "180px",
+    margin: "auto"
+  },
+  new_card: {
+    backgroundColor: theme.palette.background.paper,
+    maxWidth: "180px",
+    margin: "auto"
   },
   card_title: {
     marginTop: "40px"
@@ -72,17 +79,13 @@ const styles = theme => ({
     backgroundColor: theme.palette.lightened_background
   },
   image: {
-    margin: "16px"
+    margin: "auto"
   },
   sidenav_top: {
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "flex-start"
   },
-  sidenav: {
-    backgroundColor: theme.palette.background.default
-  },
-
   typography: {
     paddingTop: "20px",
     fontSize: "24px",
@@ -101,7 +104,7 @@ const styles = theme => ({
   main_content: {
     textAlign: "center",
     margin: "auto",
-    width: "95%",
+    width: "80%",
     maxWidth: "900px",
     marginTop: "32px",
     marginBottom: "32px",
@@ -115,6 +118,20 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
     backgroundColor: theme.palette.background.default,
+    maxWidth: "80%",
+    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
+      marginTop: theme.spacing.unit * 6,
+      marginBottom: theme.spacing.unit * 6,
+      padding: theme.spacing.unit * 3
+    }
+  },
+  dark_paper: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+    backgroundColor: theme.palette.background.paper,
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
@@ -146,7 +163,8 @@ const styles = theme => ({
     border: "0",
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
+    maxWidth: "75%"
   },
   sidenav: {
     backgroundColor: `${theme.palette.background.sidenav} !important`
@@ -154,6 +172,26 @@ const styles = theme => ({
   sidenavFull: {
     height: "100%",
     minHeight: "100vh"
+  },
+  paper_color: {
+    backgroundColor: theme.palette.background.paper
+  },
+  space_above: {
+    margin: "22px 0px"
+  },
+  space_below: {
+    marginBottom: "22px"
+  },
+  limit_width: {
+    width: "75%",
+    maxWidth: "60%"
+  },
+  typography_card: {
+    paddingTop: "10px",
+    paddingBottom: "30px",
+    fontSize: "24px",
+    fontWeight: "700",
+    fontFamily: "Roboto, sans-serif"
   }
 });
 export { styles };

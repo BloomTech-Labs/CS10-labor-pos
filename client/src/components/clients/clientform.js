@@ -52,7 +52,6 @@ const ClientSchema = Yup.object().shape({
 // Then it sends a mutation on submit.
 class ClientForm extends Component {
   render() {
-    console.log(styles);
     // Get MaterialUI classes
     const { classes } = this.props;
     let chosen_mutation = CREATE_CLIENT;
@@ -60,8 +59,10 @@ class ClientForm extends Component {
     let button_text = "Create";
     let edit_client = {};
     if (this.props.mode === "edit") {
+      // tells apollo which or our pre-defined mutations to use
       chosen_mutation = UPDATE_CLIENT;
       button_text = "Update";
+      // checks to see if client exists, adds info if client does not
       for (let key in this.props.client) {
         if (this.props.client[key] === null) edit_client[key] = "";
         else edit_client[key] = this.props.client[key];
@@ -87,13 +88,13 @@ class ClientForm extends Component {
           state: edit_client.state,
           zipcode: edit_client.zipcode
         }}
+        // formik validates by checking against our pre-defined Client Schema
         validationSchema={ClientSchema}
         onSubmit={event => {
           event.preventDefault();
         }}
       >
-        {({ values, isValid, handleSubmit }) => {
-          console.log("This.props in Formik", this.props);
+        {({ values, isValid }) => {
           return (
             // This will submit either a create client or update client mutation
             <Mutation
@@ -297,10 +298,10 @@ class ClientForm extends Component {
       </Formik>
     );
   }
-
+  // sends us back to the view clients page after creating the client
   _confirm = () => {
-    window.location.reload();
-    this.props.history.push("/clients");
+    if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/clients");
   };
 }
 

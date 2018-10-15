@@ -12,22 +12,16 @@ import stripe
 
 class GeneratePDF(View):
     def post(self, request, *args, **kwargs):
+        # sends job info to be populated into invoice form
         req = json.loads(request.body)
         job = Job.objects.get(pk=from_global_id(req["job"])[1])
         user = User.objects.get(pk=job.user_id)
-        print(user)
         client = Client.objects.filter(pk=job.client_id).get()
-        print(client.first_name)
-        # parts = Part.objects.all()
         job_parts = Part.objects.filter(job_id=job).values()
-        print(job_parts)
         total = 0
         for part in job_parts:
             total = total + part["cost"]
         total = total + job.labor
-        # print(parts.__dict__)
-        print(job)
-        # client.name = "%s %s" % (client.first_name, client.last_name)
         context = {
             "invoice_number": job.id,
             "today": datetime.date.today(),
@@ -48,19 +42,21 @@ class GeneratePDF(View):
             return response
         return HttpResponse("Not found")
 
+    # defines method for sending charge to stripe
+
     stripe.api_key = config("STRIPE_SECRET_KEY")
     stripe.log = "info"
 
 
 def checkout(request):
-        if request.method == "POST":
+    if request.method == "POST":
 
-            token = request.form["stripeToken"]
+        token = request.form["stripeToken"]
 
-            checkout = stripe.Charge.create(
-                amount=request.POST["amount"],
-                currency="usd",
-                description=request.POST["description"],
-                source=token,
-            )
-            return HttpResponse(checkout)
+        checkout = stripe.Charge.create(
+            amount=request.POST["amount"],
+            currency="usd",
+            description=request.POST["description"],
+            source=token,
+        )
+        return HttpResponse(checkout)

@@ -9,6 +9,7 @@ class Job_Type(DjangoObjectType):
     class Meta:
         model = Job
         filter_fields = [
+            # fields that can be queried
             "id",
             "user",
             "client",
@@ -27,6 +28,7 @@ class Query(graphene.ObjectType):
     job = graphene.Node.Field(Job_Type)
     all_jobs = DjangoFilterConnectionField(Job_Type)
 
+    # how to filter all jobs
     def resolve_all_jobs(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -34,6 +36,7 @@ class Query(graphene.ObjectType):
         else:
             return Job.objects.filter(user=user)
 
+    # how to filter a single job
     def resolve_job(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -69,15 +72,18 @@ class CreateJob(graphene.Mutation):
         # Will need to pass null or nothing in for empty deadline on frontend
         user = info.context.user
         if user.is_anonymous:
+            # verifies that user is logged in
             return CreateJob(ok=False, status="Must be logged in.")
         else:
             new_job = Job(
+                # creates new client from input data
                 client=Client.objects.get(pk=from_global_id(client)[1]),
                 name=name,
                 description=description,
                 complete=complete,
                 user=user,
             )
+            # verifies that required data is present then creates client
             if labor != "":
                 new_job.labor = labor
             if deadline != "":
@@ -116,6 +122,7 @@ class UpdateJob(graphene.Mutation):
         client="",
     ):
         # Will need to pass null or nothing in for empty deadline on frontend
+        # verifies that user is logged in and that required data is present before mutating data
         user = info.context.user
         if user.is_anonymous:
             return UpdateJob(ok=False, status="Must be logged in.")
@@ -150,6 +157,7 @@ class DeleteJob(graphene.Mutation):
     status = graphene.String()
 
     def mutate(self, info, id):
+        # verifies user is logged in then deletes job
         user = info.context.user
 
         if user.is_anonymous:

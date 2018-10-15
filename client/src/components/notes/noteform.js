@@ -3,10 +3,8 @@ import { withRouter } from "react-router";
 import {
   Typography,
   Grid,
-  MenuItem,
   Button,
   withStyles,
-  Select,
   Hidden
 } from "@material-ui/core";
 import { Mutation, Query } from "react-apollo";
@@ -45,7 +43,6 @@ class NoteForm extends Component {
       client: "",
       job: ""
     };
-    console.log(this.props.note);
     //  If the component is in edit mode, we change those values to reflect the fact.
     if (this.props.mode === "edit") {
       chosen_mutation = UPDATE_NOTE;
@@ -56,7 +53,7 @@ class NoteForm extends Component {
         if (this.props.note[key] === null) edit_note[key] = "";
         else edit_note[key] = this.props.note[key];
       }
-      console.log(edit_note);
+
       //  Load in either the appropriate ids or empty strings for clients and jobs
       if (this.props.note.job) edit_note.job = this.props.note.job.id;
       else edit_note.client = { id: "" };
@@ -68,7 +65,7 @@ class NoteForm extends Component {
       else if (this.props.parent.type === "job")
         edit_note.job = this.props.parent.id;
     }
-    console.log(edit_note);
+
     return (
       //  This query gets the names and ids of all clients and jobs to populate the pulldown menus
       <Query query={ALL_CLIENTS_AND_JOBS}>
@@ -120,15 +117,7 @@ class NoteForm extends Component {
                 event.preventDefault();
               }}
             >
-              {({
-                errors,
-                touched,
-                values,
-                isValid,
-                handleChange,
-                handleBlur
-              }) => {
-                console.log("noteform values: ", values);
+              {({ values, isValid }) => {
                 return (
                   //  This mutation will submit either a create user or update user mutation
                   //  using the values from our form fields depending on the component mode.
@@ -136,7 +125,7 @@ class NoteForm extends Component {
                     mutation={chosen_mutation}
                     onCompleted={() => this._confirm()}
                   >
-                    {(mutateJob, { loading, error, data }) => (
+                    {mutateJob => (
                       <div className={classes.modal}>
                         {/*This formik form replaced a base html form.
                         note_variables is the variables object given to the mutation
@@ -211,7 +200,7 @@ class NoteForm extends Component {
                             </Grid>
                             <Grid item xs={1} />
                             {/*The pulldown form items using the arrays we built above*/}
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                               <Field
                                 id="field-client"
                                 label="Client"
@@ -239,7 +228,7 @@ class NoteForm extends Component {
                                 ))}
                               </Field>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} md={6}>
                               <Field
                                 id="field-job"
                                 label="Job"
@@ -268,11 +257,7 @@ class NoteForm extends Component {
                               </Field>
                             </Grid>
                           </Grid>
-                          <Grid
-                            container
-                            justify="space-around"
-                            className={classes.margin}
-                          >
+                          <Grid container justify="space-around">
                             <Hidden xsUp={this.props.mode !== "modal"}>
                               <Button
                                 variant="contained"
@@ -307,8 +292,12 @@ class NoteForm extends Component {
   }
   _confirm = () => {
     //  After submission, reload the window to get updated information and go to the notes route.
-    window.location.reload();
-    this.props.history.push(this.props.after_url);
+
+    if (this.props.mode === "modal") {
+      this.props.refetch();
+      this.props.cancelAdd();
+    } else if (this.props.mode === "edit") this.props.history.goBack();
+    else this.props.history.push("/notes");
   };
 }
 

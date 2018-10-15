@@ -21,7 +21,7 @@ class Notes extends Component {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_NOTES}>
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
           return (
@@ -29,12 +29,15 @@ class Notes extends Component {
               <Typography className={classes.typography} variant="title">
                 Notes
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allNotes.edges}
                 type="note"
                 rows={2}
                 columns={4}
                 createMethod={this.handleCreate}
+                refetch={refetch}
               />
             </div>
           );
