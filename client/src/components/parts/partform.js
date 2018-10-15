@@ -63,8 +63,9 @@ class PartForm extends Component {
     }
 
     return (
+       // retrieves job data so that part can be attached to specific job
       <Query query={QUERY_ALL_JOBS}>
-      // retrieves job data so that part can be attached to specific job
+     
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -90,7 +91,6 @@ class PartForm extends Component {
                 event.preventDefault();
               }}
             >
-            // checks that values are valid and then performs mutation
               {({ values, isValid }) => {
                 return (
                   <Mutation

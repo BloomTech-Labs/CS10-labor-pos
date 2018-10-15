@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
 import {
   FormControlLabel,
   Checkbox,
   Typography,
   Card
 } from "@material-ui/core";
-import { AUTH_TOKEN } from "../../constants.js";
+
 
 class Checkout extends Component {
   state = {
@@ -95,7 +94,7 @@ class Checkout extends Component {
           </Typography>
         </Card>
 
-// checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form 
+{/*checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form*/}
         <React.Fragment>
           <FormControlLabel control={<Checkbox price={999} name="subscription" onClick={this.setSubscriptionType} value="year" type="radio" color="secondary" />} label="Yearly Subscription - $9.99" />
           <FormControlLabel control={<Checkbox price={99} name="subscription" onClick={this.setSubscriptionType} value="month" type="radio" color="secondary" />} label="Monthly Subscription - 99¢" />

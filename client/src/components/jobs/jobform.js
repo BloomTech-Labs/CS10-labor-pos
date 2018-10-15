@@ -62,9 +62,10 @@ class JobForm extends Component {
       edit_job.client = this.props.parent.id;
     }
     return (
-      <Query query={QUERY_ALL_CLIENTS}>
       // jobs must be created from within a client account so that job is connected to client
       // this retrieves client data so that job can be attached to specified client
+      <Query query={QUERY_ALL_CLIENTS}>
+      
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -100,7 +101,7 @@ class JobForm extends Component {
                 event.preventDefault();
               }}
             >
-            // if valid, performs mutation
+              
               {({ values, isValid }) => {
                 return (
                   <Mutation
