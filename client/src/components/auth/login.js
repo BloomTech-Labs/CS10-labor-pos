@@ -68,28 +68,24 @@ class Login extends Component {
                 onCompleted={data => this._confirm(data)}
               >
                 {(mutation, { loading, error }) => (
-                  <Grid container>
-                    <Grid item xs={1} />
-                    <Grid item xs={8}>
-                      {error && (
-                        <Typography color="error">{`error: ${error}`}</Typography>
-                      )}
-                      {loading && <Typography>Loading ...</Typography>}
-                    </Grid>
-                    <Grid item xs={3}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={event => {
-                          event.preventDefault();
-                          mutation();
-                        }}
-                        type="submit"
-                        className={classes.padded_button}
-                      >
-                        Login
-                      </Button>
-                    </Grid>
+                  <Grid container justify="flex-end">
+                    {error && (
+                      <Typography color="error">{`error: ${error}`}</Typography>
+                    )}
+                    {loading && <Typography>Loading ...</Typography>}
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={event => {
+                        event.preventDefault();
+                        mutation();
+                      }}
+                      type="submit"
+                      className={classes.padded_button}
+                    >
+                      Login
+                    </Button>
                   </Grid>
                 )}
               </Mutation>
