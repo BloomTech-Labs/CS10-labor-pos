@@ -58,14 +58,14 @@ class ItemCard extends Component {
         if (this.props.item.client.businessName) {
           topRow = (
             <React.Fragment>
-              Client: <br />
+              <b>Client:</b> <br />
               {`${this.props.item.client.businessName}`}{" "}
             </React.Fragment>
           );
         } else {
           topRow = (
             <React.Fragment>
-              Client: <br />
+              <b>Client:</b> <br />
               {`${this.props.item.client.firstName} ${
                 this.props.item.client.lastName
               }`}
@@ -74,7 +74,7 @@ class ItemCard extends Component {
         }
         middleRow = (
           <React.Fragment>
-            Job: <br /> {`${this.props.item.name}`}
+            <b>Job:</b> <br /> {`${this.props.item.name}`}
           </React.Fragment>
         );
         if (this.props.item.deadline) {
@@ -94,7 +94,7 @@ class ItemCard extends Component {
       case "note":
         topRow = (
           <React.Fragment>
-            Title: <br /> {`${this.props.item.title}`}
+            <b>Title:</b> <br /> {`${this.props.item.title}`}
           </React.Fragment>
         );
         if (this.props.item.client) {

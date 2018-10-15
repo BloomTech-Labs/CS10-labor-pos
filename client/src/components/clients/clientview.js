@@ -110,6 +110,8 @@ class ClientView extends Component {
                   </Grid>
                 </Grid>
               </div>
+              <br />
+              <br />
               <Typography paragraph>{data.client.description}</Typography>
               <Paper className={classes.card}>
                 <Grid container>
@@ -119,7 +121,8 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      Business Name: {data.client.businessName}
+                      <b>Business Name:</b> &nbsp; &nbsp;{" "}
+                      {data.client.businessName}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -128,7 +131,8 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      Street Address: {data.client.streetAddress}
+                      <b>Street Address:</b> &nbsp; &nbsp;
+                      {data.client.streetAddress}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={6}>
@@ -136,17 +140,9 @@ class ClientView extends Component {
                       align="left"
                       variant="subheading"
                       className={classes.space_above}
-                    >{`Name: ${data.client.firstName} ${
-                      data.client.lastName
-                    }`}</Typography>
-                  </Grid>
-                  <Grid item xs={12} md={2}>
-                    <Typography
-                      align="left"
-                      variant="subheading"
-                      className={classes.space_above}
                     >
-                      City: {data.client.city}
+                      <b>Name:</b> &nbsp; &nbsp;{" "}
+                      {`${data.client.firstName} ${data.client.lastName}`}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={2}>
@@ -155,7 +151,8 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      State: {data.client.state}
+                      <b>City:</b> &nbsp; &nbsp;
+                      {data.client.city}
                     </Typography>
                   </Grid>
                   <Grid item xs={12} md={2}>
@@ -164,7 +161,16 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      Zip: {data.client.zipcode}
+                      <b>State:</b> &nbsp; &nbsp; {data.client.state}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} md={2}>
+                    <Typography
+                      align="left"
+                      variant="subheading"
+                      className={classes.space_above}
+                    >
+                      <b>Zip:</b> &nbsp; &nbsp; {data.client.zipcode}
                     </Typography>
                   </Grid>
                 </Grid>

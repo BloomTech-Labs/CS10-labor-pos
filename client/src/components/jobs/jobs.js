@@ -23,6 +23,8 @@ class Jobs extends Component {
               <Typography className={classes.typography} variant="title">
                 Jobs
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allJobs.edges}
                 type="job"

@@ -10,30 +10,6 @@ import {
 } from "@material-ui/core";
 import { AUTH_TOKEN } from "../../constants.js";
 
-// const mutation = gql`
-//   mutation CreateStripeCharge($input: _CreateStripeChargeInput!) {
-//     createStripeCharge(input: $input) {
-//       charge {
-//         id
-//         amount
-//         captured
-//         created
-//         currency
-//         description
-//         status
-//       }
-//     }
-//   }
-// `;
-
-// const query = gql`
-//   {
-//     currentUser {
-//       id
-//     }
-//   }
-// `;
-
 class Checkout extends Component {
   state = {
     subscriptionType: "",
@@ -51,17 +27,36 @@ class Checkout extends Component {
   };
 
   getStripeToken = token => {
-    let apiURI = "http://localhost:8000/graphql/";
-
-    const request = {
-      method: "POST",
+    axios({
+      url: process.env.REACT_APP_ENDPOINT,
+      method: "post",
       headers: {
+        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
         "Content-Type": "application/graphql"
       },
-      url: apiURI,
-      data: { token, jwt: localStorage.getItem("token") },
-      body: JSON.stringify({ query: "{ token: { id } }" })
-    };
+      data: JSON.stringify({
+        operationName: null,
+        query: `mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
+          createStripeCardToken(input: $input) {
+            token {
+              id
+              created
+              livemode
+              type
+              used
+              card {
+                id
+                brand
+                exp_year
+              }
+            }
+          }
+        }`,
+        variables: {
+          token: token
+        }
+      })
+    });
 
     axios({
       url: process.env.REACT_APP_ENDPOINT,

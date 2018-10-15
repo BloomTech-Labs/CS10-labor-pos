@@ -24,6 +24,8 @@ class Parts extends Component {
               <Typography className={classes.typography} variant="title">
                 Parts
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allParts.edges}
                 type="part"
