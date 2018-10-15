@@ -93,6 +93,8 @@
       - [Edit Tag](#edit-tag)
       - [Delete Tag](#delete-tag)
   - [Sendgrid](#sendgrid)
+  - [Stripe](#stripe)
+  - [Free vs Premium](#free-vs-premium)
   - [Design](#design)
     - [Original Wireframe](#original-wireframe)
     - [Extending the Wireframe](#extending-the-wireframe)
