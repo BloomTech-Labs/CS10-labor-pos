@@ -15,6 +15,7 @@ class Checkout extends Component {
     subscriptionAmount: null
   };
 
+  // users will choose either the monthly or yearly subscription
   setSubscriptionType = e => {
     const { value: subscriptionType } = e.target;
     const subscriptionAmount = Number(e.target.attributes['price']);
@@ -32,6 +33,8 @@ class Checkout extends Component {
     Within the context of Elements, this call to createToken knows which
     Element to tokenize, since there's only one in this group.
     */
+
+    // stripe's checkout plugin receives card information, creates a stripe customer, tokenizes the information, sends the token back to our backend so that our backend can create the charge
     return this.props.stripe
       .createToken({ type: 'card', name: ' ' })
       .then(result => {
@@ -92,6 +95,7 @@ class Checkout extends Component {
           </Typography>
         </Card>
 
+// checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form 
         <React.Fragment>
           <FormControlLabel control={<Checkbox price={999} name="subscription" onClick={this.setSubscriptionType} value="year" type="radio" color="secondary" />} label="Yearly Subscription - $9.99" />
           <FormControlLabel control={<Checkbox price={99} name="subscription" onClick={this.setSubscriptionType} value="month" type="radio" color="secondary" />} label="Monthly Subscription - 99¢" />

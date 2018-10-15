@@ -71,6 +71,7 @@ class JobView extends Component {
   };
 
   render() {
+    // displays job details individually on cards
     const { classes, fullScreen } = this.props;
     return (
       <Query

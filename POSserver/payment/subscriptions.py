@@ -3,7 +3,7 @@ from decouple import config
 from django.http import HttpResponse, JsonResponse
 from stripesubscriptions import CreateSubscription
 
-
+# defines our actual subscription plans
 def monthly_subscription(req):
     if req.method == 'POST':
         create_subscription = CreateSubscription(

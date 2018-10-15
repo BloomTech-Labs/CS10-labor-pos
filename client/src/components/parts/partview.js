@@ -53,6 +53,7 @@ class PartView extends Component {
     const { classes } = this.props;
     return (
       <Query
+      // retrieves parts data to display individually on cards
         query={DETAILED_PART_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
