@@ -21,7 +21,7 @@ import { AUTH_TOKEN } from "../../constants.js";
 const Yup = require("yup");
 
 const UserSchema = Yup.object().shape({
-  username: Yup.string("Username is a required field")
+  username: Yup.string()
     .max(150, "Username must be under 150 characters")
     .required("Username is a required field"),
   password: Yup.string().required("Password is a required field"),
