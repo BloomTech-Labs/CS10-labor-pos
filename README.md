@@ -205,7 +205,7 @@ Form validation was done on this application through the use of Formik and yup. 
 
 #### Security Misconfiguration
 
-- We feel that this applicaiton is configured as well as we could think to make it. There are a number of different security middlewares in place to ensure that different attack risks are mitigated and we are not exposing more surface area than we feel we should be.
+- We feel that this application is configured as well as we could think to make it. There are a number of different security middlewares in place to ensure that different attack risks are mitigated and we are not exposing more surface area than we feel we should be.
 - We have made efforts to remove frameworks and packages that we were no longer actively using in the project as the project has progressed.
 
 #### Cross-site Scripting
