@@ -43,10 +43,12 @@
   - [Additional Security Threats](#additional-security-threats)
     - [CSRF](#csrf)
     - [Clickjacking](#clickjacking)
+- [Testing](#testing)
 - [Improving Performance](#improving-performance)
 - [Installation Instructions](#installation-instructions)
   - [Environment Variables](#environment-variables)
   - [Using the Application](#using-the-application)
+- [Contributing](#contributing)
 - [Documentation](#documentation)
   - [Database](#database)
     - [Models](#models)
@@ -244,6 +246,14 @@ Form validation was done on this application through the use of Formik and yup. 
 
 - We are making use of X-Frame-Options middleware to prevent our site from being rendered inside of a frame.
 
+## Testing
+
+This application was tested at every step in the development process manually through the use of the GraphiQL interface, the Django admin page, terminal logging, and Chrome DevTools. Testing was done by each contributor prior to each pull request to the Development branch and after each merge to ensure that no environment differences were negatively affecting the code.
+
+We were continuously deploying to Netlify and Heroku and so had checks on every pull request to verify whether or not the code about to be merged would break the build.
+
+All pull requests were reviewed by one or more team members and merged by someone other than the individual making the pull request (except in cases where all parties were in a Zoom and had agreed upon the merge).
+
 ## Improving Performance
 
 We noticed that the amount of time the code took to compile was far greater than earlier projects we had worked on. In an attempt to improve the performance of the app and to speed up the rate at which we could test and integrate code, we did some research into code bloat.
@@ -300,6 +310,10 @@ Then take the value of that comamnd and assign it to the value of `SECRET_KEY`. 
   - If no errors have occurred, `cd ..` back out into the root directory and `cd` into `client`.
   - From there, run a `yarn` or `yarn install` command to install node_modules required for the project.
   - Type `yarn start` to start the React application.
+
+# Contributing
+
+If you would like to contribute to the project, please see our <a href=".github/CONTRIBUTING.md">Contributing Guidelines</a> which include issue templates for submitting <a href=".github/ISSUE_TEMPLATE/feature_request.md">feature requests</a>, <a href=".github/ISSUE_TEMPLATE/bug_report.md">bug fixes</a>, and a template for submitting <a href=".github/pull_request_template.md">pull requests</a>.
 
 # Documentation
 
