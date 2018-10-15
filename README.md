@@ -254,6 +254,8 @@ We were continuously deploying to Netlify and Heroku and so had checks on every 
 
 All pull requests were reviewed by one or more team members and merged by someone other than the individual making the pull request (except in cases where all parties were in a Zoom and had agreed upon the merge).
 
+Some tests were created and can be found in the `client/src/tests` folder.
+
 ## Improving Performance
 
 We noticed that the amount of time the code took to compile was far greater than earlier projects we had worked on. In an attempt to improve the performance of the app and to speed up the rate at which we could test and integrate code, we did some research into code bloat.
