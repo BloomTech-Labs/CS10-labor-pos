@@ -26,7 +26,7 @@ function Loading({ error }) {
     return <h3>Loading...</h3>;
   }
 }
-
+// brings in ability to create notes and jobs from within the client
 const NoteForm = Loadable({
   loader: () => import("../../components/notes/noteform.js"),
   loading: Loading
@@ -70,6 +70,7 @@ class ClientView extends Component {
   render() {
     const { classes, fullScreen } = this.props;
 
+      // runs query to retrieve client details and displays individually on cards
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}

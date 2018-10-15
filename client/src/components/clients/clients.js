@@ -14,7 +14,7 @@ class Clients extends Component {
   handleCreate = () => {
     this.props.history.push("/createclient");
   };
-
+// this component runs the QUERY_ALL_CLIENTS query to retrieve client data for display
   render() {
     const { classes } = this.props;
     return (
