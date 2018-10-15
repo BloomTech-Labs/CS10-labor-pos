@@ -27,6 +27,7 @@ const CREATE_USER = gql`
     ) {
       user {
         id
+        premium
       }
       token
     }

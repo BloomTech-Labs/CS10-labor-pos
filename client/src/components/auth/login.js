@@ -89,25 +89,21 @@ class Login extends Component {
                       </Grid>
                       <Grid item xs={1} />
                       <Grid item xs={12}>
-                        <Grid container>
-                          <Grid item xs={1} />
-                          <Grid item xs={8}>
-                            {error && (
-                              <Typography color="error">{`error: ${error}`}</Typography>
-                            )}
-                            {loading && <Typography>Loading ...</Typography>}
-                          </Grid>
-                          <Grid item xs={3}>
-                            <Button
-                              variant="contained"
-                              color="primary"
-                              disabled={!isValid}
-                              type="submit"
-                              className={classes.padded_button}
-                            >
-                              Login
-                            </Button>
-                          </Grid>
+                        <Grid container justify="flex-end">
+                          {error && (
+                            <Typography color="error">{`error: ${error}`}</Typography>
+                          )}
+                          {loading && <Typography>Loading ...</Typography>}
+
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={!isValid}
+                            type="submit"
+                            className={classes.padded_button}
+                          >
+                            Login
+                          </Button>
                         </Grid>
                       </Grid>
                     </Grid>

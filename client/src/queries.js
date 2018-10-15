@@ -324,23 +324,19 @@ const DETAILED_PART_BY_ID = gql`
 
 
 const SETTINGS_QUERY = gql`
-  query {
-    allUsers {
-      edges {
-        node {
-          id
-          firstName
-          lastName
-          streetAddress
-          city
-          state
-          zipcode
-          businessName
-          premium
-          paidUntil
-          username
-        }
-      }
+  query settings($id: ID!) {
+    user(id: $id) {
+      id
+      firstName
+      lastName
+      streetAddress
+      city
+      state
+      zipcode
+      businessName
+      premium
+      paidUntil
+      username
     }
     allClients {
       edges {
