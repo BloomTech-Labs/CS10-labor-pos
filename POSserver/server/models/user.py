@@ -16,10 +16,11 @@ if not settings.configured:
     settings.configure()
 
 
+# extends django user model
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
-
+    # defines parameters for users, designates required fields, sets default values
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150)
     street_address = models.CharField(max_length=100)
@@ -87,13 +88,14 @@ class User(AbstractUser):
     premium = models.BooleanField(default=False, blank=True, null=True)
     paid_until = models.DateTimeField(blank=True, null=True)
 
+    # sets display name - only on admin panel
     def __str__(self):
         return f"{self.username} {self.first_name} {self.last_name}"
 
     @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    # sends welcome email once user is created
     def welcome_mail(sender, instance, **kwargs):
         if kwargs["created"]:
-            # model = get_user_model()
             user_email = instance.email
             sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
             from_email = Email("nphillip78@gmail.com")

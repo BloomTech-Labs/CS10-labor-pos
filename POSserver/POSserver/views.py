@@ -12,6 +12,7 @@ import stripe
 
 class GeneratePDF(View):
     def post(self, request, *args, **kwargs):
+        # sends job info to be populated into invoice form
         req = json.loads(request.body)
         job = Job.objects.get(pk=from_global_id(req["job"])[1])
         user = User.objects.get(pk=job.user_id)
@@ -40,6 +41,8 @@ class GeneratePDF(View):
             response["Content-Disposition"] = content
             return response
         return HttpResponse("Not found")
+
+    # defines method for sending charge to stripe
 
     stripe.api_key = config("STRIPE_SECRET_KEY")
     stripe.log = "info"

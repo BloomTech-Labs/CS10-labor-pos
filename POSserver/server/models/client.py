@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 
 
 class Client(models.Model):
+    # defines paramaters for clients, designates required fields, sets default values
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     business_name = models.CharField(max_length=100, null=True, blank=True, default="")
     first_name = models.CharField(max_length=100, default="")
@@ -73,14 +74,17 @@ class Client(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     deadline = models.DateField(blank=True, null=True)
 
+    # validates fields
     def save(self, *args, **kwargs):
         super().full_clean()
         super().save(*args, **kwargs)
 
+    # sets paramaters for client emails
     def email_client(self, subject, message, from_email=None, **kwargs):
         """Send an email to the client"""
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
+    # sets display name - only on admin panel
     def __str__(self):
         if self.business_name is not None:
             name = self.business_name

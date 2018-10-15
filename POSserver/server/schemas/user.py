@@ -17,8 +17,8 @@ class User_Type(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        exclude_fields = ("password",)
-        filter_fields = [
+        exclude_fields = ("password",) # cannot query users by password
+        filter_fields = [ # can query by these values
             "id",
             "first_name",
             "last_name",
@@ -155,7 +155,7 @@ class UpdateUser(graphene.Mutation):
         subscription="",
     ):
         trackeduser = info.context.user
-
+        # verifies user is logged in and that required data is present then updates user
         if trackeduser.is_anonymous:
             return UpdateUser(ok=False, status="Must be logged in")
         else:
@@ -200,7 +200,6 @@ class UpdateUser(graphene.Mutation):
 
 
 class DeleteUser(graphene.Mutation):
-    """Delete note on client or job"""
 
     class Arguments:
         id = graphene.ID()
@@ -211,7 +210,7 @@ class DeleteUser(graphene.Mutation):
 
     def mutate(self, info, id):
         user = info.context.user
-
+        # verifies user is logged in then deletes user
         if user.is_anonymous:
             return DeleteUser(ok=False, status="Must be logged in.")
         else:

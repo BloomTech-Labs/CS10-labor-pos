@@ -22,6 +22,7 @@ const Yup = require("yup");
 //    job: In edit mode, a job will be passed down from the parent component.
 
 //https://balsamiq.cloud/sc1hpyg/po5pcja/rB029
+// schema definition for formik
 const JobSchema = Yup.object().shape({
   name: Yup.string()
     .max(100, "Name must be under 100 characters")
@@ -36,7 +37,7 @@ const JobSchema = Yup.object().shape({
 class JobForm extends Component {
   render() {
     const { classes } = this.props;
-    let chosen_mutation = CREATE_JOB;
+    let chosen_mutation = CREATE_JOB; // form can be in create or edit mode
     let title_text = "Add Job";
     let button_text = "Create";
     let edit_job = {
@@ -61,7 +62,10 @@ class JobForm extends Component {
       edit_job.client = this.props.parent.id;
     }
     return (
+      // jobs must be created from within a client account so that job is connected to client
+      // this retrieves client data so that job can be attached to specified client
       <Query query={QUERY_ALL_CLIENTS}>
+      
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -91,11 +95,13 @@ class JobForm extends Component {
                 complete: edit_job.complete,
                 deadline: edit_job.deadline
               }}
+              // tells formik to validate against our pre-defined Job Schema
               validationSchema={JobSchema}
               onSubmit={event => {
                 event.preventDefault();
               }}
             >
+              
               {({ values, isValid }) => {
                 return (
                   <Mutation
@@ -275,7 +281,7 @@ class JobForm extends Component {
       </Query>
     );
   }
-
+ // if job is not created returns to form 
   _confirm = () => {
     if (this.props.mode === "create") {
       this.props.refetch();
