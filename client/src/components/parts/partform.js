@@ -64,6 +64,7 @@ class PartForm extends Component {
 
     return (
       <Query query={QUERY_ALL_JOBS}>
+      // retrieves job data so that part can be attached to specific job
         {({ loading, error, data }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -83,11 +84,13 @@ class PartForm extends Component {
                 cost: edit_part.cost,
                 description: edit_part.description
               }}
+              // tells formik to validate against our pre-defined Part Schema
               validationSchema={PartSchema}
               onSubmit={event => {
                 event.preventDefault();
               }}
             >
+            // checks that values are valid and then performs mutation
               {({ values, isValid }) => {
                 return (
                   <Mutation

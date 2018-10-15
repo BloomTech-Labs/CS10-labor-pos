@@ -8,7 +8,7 @@ from graphql_relay.node.node import from_global_id
 class Part_Type(DjangoObjectType):
     class Meta:
         model = Part
-        filter_fields = ["id", "user", "job", "name", "description", "cost"]
+        filter_fields = ["id", "user", "job", "name", "description", "cost"] # fields that can be queried
         interfaces = (graphene.Node,)
 
 
@@ -16,6 +16,7 @@ class Query(graphene.ObjectType):
     part = graphene.Node.Field(Part_Type)
     all_parts = DjangoFilterConnectionField(Part_Type)
 
+    # filters all parts
     def resolve_all_parts(self, info, **kwargs):
         user = info.context.user
 
@@ -24,6 +25,7 @@ class Query(graphene.ObjectType):
         else:
             return Part.objects.filter(user=user)
 
+    #filters single part
     def resolve_part(self, info, **kwargs):
         user = info.context.user
 
@@ -45,12 +47,13 @@ class CreatePart(graphene.Mutation):
     status = graphene.String()
 
     def mutate(self, info, job, name, cost, description=""):
+        # verifies user is logged in then creates part
         user = info.context.user
         if user.is_anonymous:
             return CreatePart(ok=False, status="Must be logged in.")
         else:
             new_part = Part(
-                job=Job.objects.get(pk=from_global_id(job)[1]),
+                job=Job.objects.get(pk=from_global_id(job)[1]), # must be attached to job
                 name=name,
                 description=description,
                 cost=cost,
@@ -76,7 +79,7 @@ class UpdatePart(graphene.Mutation):
 
     def mutate(self, info, id, name="", description="", cost="", job=""):
         user = info.context.user
-
+        # verifies that user is logged in then updates part
         if user.is_anonymous:
             return UpdatePart(ok=False, status="Must be logged in")
         else:
@@ -105,7 +108,7 @@ class DeletePart(graphene.Mutation):
 
     def mutate(self, info, id):
         user = info.context.user
-
+        # verifies user is logged in then deletes part
         if user.is_anonymous:
             return DeletePart(ok=False, status="Must be logged in.")
         else:

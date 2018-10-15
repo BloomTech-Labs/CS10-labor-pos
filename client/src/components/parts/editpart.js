@@ -13,6 +13,7 @@ class EditPart extends Component {
   render() {
     return (
       <Query
+      // retrieves part details via query
         query={DETAILED_PART_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >

@@ -10,6 +10,7 @@ import { Query } from "react-apollo";
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/rE2B1
 class EditClient extends Component {
+  // pulls in client details via query, switches form to edit mode so user can make changes
   render() {
     return (
       <Query

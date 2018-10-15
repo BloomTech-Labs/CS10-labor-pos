@@ -2,7 +2,7 @@ import json
 import stripe
 from server.models.user import User
 
-
+# lays out plan parameters
 class CreateSubscription:
     def __init__(self, stripe_secret_key, body, plan, sub):
         self.stripe_secret_key = stripe_secret_key
@@ -23,6 +23,7 @@ class CreateSubscription:
 
         return self.User
 
+    # checks for existing customer
     def check_if_customer_exists(self):
         user = self.get_user()
         customerId = user.CustomerId
@@ -39,12 +40,13 @@ class CreateSubscription:
         self.id = self.body['token']['id']
         self.email = self.body['token']['email']
 
+    # creates Stripe customer, allowing us to charge automatically later
     def create_customer(self):
         self.customer = stripe.Customer.create(
           email=self.email,
           source=self.id
         )
-
+    # updates user with Stripe customer id and subscription info
     def update_User(self):
         self.create_customer()
         self.User.CustomerId = self.customer.id

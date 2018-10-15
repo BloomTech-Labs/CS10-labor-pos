@@ -16,6 +16,7 @@ class Parts extends Component {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_PARTS}>
+      // retrieve parts data for display
         {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
