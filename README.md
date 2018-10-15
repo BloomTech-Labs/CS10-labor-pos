@@ -29,17 +29,17 @@
   - [Authentication](#authentication)
   - [Authorization](#authorization)
   - [Form Validation](#form-validation)
-  - [OWASP Top 10 Application Security Risks (2017)](<#owasp-top-10-application-security-risks-(2017)>)
+  - [OWASP Top 10 Application Security Risks 2017](#owasp-top-10-application-security-risks-2017)
     - [Injection](#injection)
     - [Broken Authentication](#broken-authentication)
     - [Sensitive Data Exposure](#sensitive-data-exposure)
     - [XML External Entities](#xml-external-entities)
     - [Broken Access Control](#broken-access-control)
     - [Security Misconfiguration](#security-misconfiguration)
-    - [Cross-Site Scripting (XSS)](<#cross-site-scripting-(XSS)>)
+    - [Cross-Site Scripting](#cross-site-scripting)
     - [Insecure Deserialization](#insecure-deserialization)
     - [Using Components with Known Vulnerabilities](#using-components-with-known-vulnerabilities)
-    - [Insufficient Logging & Monitoring](#insufficient-logging-&-monitoring)
+    - [Insufficient Logging and Monitoring](#insufficient-logging-and-monitoring)
   - [Additional Security Threats](#additional-security-threats)
     - [CSRF](#csrf)
     - [Clickjacking](#clickjacking)
@@ -88,7 +88,7 @@
         - [Token Auth](#token-auth)
         - [Verify Token](#verify-token)
         - [Refresh Token](#refresh-token)
-      - [Tag Mutations (defunct)](<#tag-mutations-(defunct)>)
+      - [Tag Mutations](#tag-mutations)
         - [Create Tag](#create-tag)
         - [Edit Tag](#edit-tag)
         - [Delete Tag](#delete-tag)
@@ -177,7 +177,7 @@ Authorization is handled on the model level, with each model query checking to s
 
 Form validation was done on this application through the use of Formik and yup. With yup, we were able to write our own schemas to validate our forms against and Formik did the validation logic and provided us with really informative error handling capabilities on all of our fields.
 
-### OWASP Top 10 Application Security Risks (2017):
+### OWASP Top 10 Application Security Risks 2017:
 
 #### Injection
 
@@ -208,7 +208,7 @@ Form validation was done on this application through the use of Formik and yup. 
 - We feel that this applicaiton is configured as well as we could think to make it. There are a number of different security middlewares in place to ensure that different attack risks are mitigated and we are not exposing more surface area than we feel we should be.
 - We have made efforts to remove frameworks and packages that we were no longer actively using in the project as the project has progressed.
 
-#### Cross-site Scripting (XSS)
+#### Cross-site Scripting
 
 - Django templates implement character escaping to minimize the risk of cross-site-scripting.
   Characters escaped include: <br>
@@ -228,7 +228,7 @@ Form validation was done on this application through the use of Formik and yup. 
 
 - During the making of this application, Django 2.1.1 was found to have security vulnerabilities and we made it a point to upgrade to 2.1.2 as soon as it became available.
 
-#### Insufficient Logging & Monitoring
+#### Insufficient Logging and Monitoring
 
 - Queries from unauthorized users are not sent to the server as JSON webtokens are checked for before the sending of queries and mutations.
 - All forms are validated and unable to be submitted with invalid data.
@@ -514,7 +514,9 @@ Fields on the Note Model:
 ```
 
 #### Tag Model
-NOT CURRENTLY IMPLEMENTED 
+
+NOT CURRENTLY IMPLEMENTED
+
 - Included in documentation in the hope that a contributor in the future makes use of it
 
 - user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -945,7 +947,11 @@ refreshToken(token: String!) {
 }
 ```
 
-#### Tag Mutations (defunct)
+#### Tag Mutations
+
+NOT CURRENTLY IMPLEMENTED
+
+- If any contributor in the future would like to make use of them, we would welcome the contribution!
 
 ##### Create Tag
 
