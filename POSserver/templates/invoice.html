@@ -2,141 +2,143 @@
 {% load static %}
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{{ invoice_number }}</title>
-    <style type="text/css">
-        body {
-            font-weight: 200;
-            font-size: 14px;
-            margin: auto;
-            box-sizing: border-box;
-        }
+        <title>{{ invoice_number }}</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+                margin: auto;
+                box-sizing: border-box;
+            }
 
-        .center {
-            margin: auto;
-            text-align: center;
-        }
+            .center {
+                margin: auto;
+                text-align: center;
+            }
 
-        .right {
-            text-align: right;
-        }
+            .right {
+                text-align: right;
+            }
 
-        .left {
-            text-align: left;
-        }
+            .left {
+                text-align: left;
+            }
 
-        .num {
-            width: 10%;
-        }
+            .num {
+                width: 10%;
+            }
 
-        .header {
-            font-size: 20px;
-            font-weight: 100;
-            text-align: center;
-        }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+            }
 
-        .title {
-            font-size: 18px;
-            text-align: center;
-            font-weight: 100;
-            /* text-align: right;*/
-            padding: 10px 20px 0px 20px;
-        }
-    </style>
-</head>
+            .title {
+                font-size: 18px;
+                text-align: center;
+                font-weight: 100;
+                /* text-align: right;*/
+                padding: 10px 20px 0px 20px;
+            }
+        </style>
+    </head>
 
-<body>
-    <div class='container'>
-        <div class='card'>
-            <div class='title'>
-                Invoice {{ today }}
+    <body>
+        <div class='container'>
+            <div class='card'>
+                <div class='title'>
+                    Invoice {{ today }}
+                </div>
             </div>
-        </div>
-        <br>
-        <br>
-        <div class='card-body'>
-            <div class="table-responsive">
-                <table class="table table-dark">
-                    <thead>
+            <br>
+            <br>
+            <div class='card-body'>
+                <div class="table-responsive">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <td class="left">
+                                    <h6><strong>From:</strong></h6>
+                                </td>
+                                <td class="right">
+                                    <h6><strong>To:</strong></h6>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="left"><strong>{{ customer.first_name }} {{ customer.last_name }}</strong></td>
+                                <td class="right"><strong>{{ client_name }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="left">{{ customer.street_address }}</td>
+                                <td class="right">{{ client.street_number }} {{ client.street_name }}
+                                    {% if client.unit_number %} {{ client.unit_number }} {% endif %}</td>
+                            </tr>
+                            <tr>
+                                <td class="left">{{ customer.city }}, {{ customer.state }} {{ customer.zipcode }}</td>
+                                <td class="right">{{ client.city }}, {{ client.state }} {{ client.zipcode }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-dark">
+                        <thead>
+                            <tr>
+                                <td class="num left"><strong>#</strong></td>
+                                <td class="left"><strong>Item</strong></td>
+                                <td class="left"><strong>Description</strong></td>
+                                <td class="right"><strong>Cost</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for part in parts %}
+                            <tr>
+                                <td class="num left">{{ forloop.counter }}</td>
+                                <td class="left">{{ part.name }}</td>
+                                {% if part.description %}
+                                <td class="left"> {{ part.description }} </td>
+                                {%else%}
+                                <td class="left"> </td>
+                                {% endif %}
+                                <td class="right">{{ part.cost }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                {% endfor %}
+                                <td class="left">Labor</td>
+                                <td></td>
+                                <td class="right">{{ labor }} </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <br>
+                <table class="table table-clear">
+                    <tbody>
                         <tr>
-                            <td class="left">
-                                <h6><strong>From:</strong></h6>
-                            </td>
                             <td class="right">
-                                <h6><strong>To:</strong></h6>
+                                <strong>Total</strong>
+                            </td>
+                            <td class="right">{{ total }}
                             </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="left"><strong>{{ customer.first_name }} {{ customer.last_name }}</strong></td>
-                            <td class="right"><strong>{{ client_name }}</strong></td>
-                        </tr>
-                        <tr>
-                            <td class="left">{{ customer.street_address }}</td>
-                            <td class="right">{{ client.street_number }} {{ client.street_name }}
-                                {% if client.unit_number %} {{ client.unit_number }} {% endif %}</td>
-                        </tr>
-                        <tr>
-                            <td class="left">{{ customer.city }}, {{ customer.state }} {{ customer.zipcode }}</td>
-                            <td class="right">{{ client.city }}, {{ client.state }} {{ client.zipcode }}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-            <br>
-            <br>
-            <br>
-            <div class="table-responsive">
-                <table class="table table-dark">
-                    <thead>
-                        <tr>
-                            <td class="num left"><strong>#</strong></td>
-                            <td class="left"><strong>Item</strong></td>
-                            <td class="left"><strong>Description</strong></td>
-                            <td class="right"><strong>Cost</strong></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for part in parts %}
-                        <tr>
-                            <td class="num left">{{ forloop.counter }}</td>
-                            <td class="left">{{ part.name }}</td>
-                            {% if part.description %}
-                            <td class="left"> {{ part.description }} </td>
-                            {%endif%}
-                            <td class="right">{{ part.cost }}</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            {% endfor %}
-                            <td></td>
-                            <td class="left">Labor</td>
-                            <td class="right">{{ labor }} </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <br>
-            <table class="table table-clear">
-                <tbody>
-                    <tr>
-                        <td class="right">
-                            <strong>Total</strong>
-                        </td>
-                        <td class="right">{{ total }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-    </div>
-</body>
+    </body>
 
 </html>
