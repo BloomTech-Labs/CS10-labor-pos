@@ -55,7 +55,7 @@
       - [Job Model](#job-model)
       - [Part Model](#part-model)
       - [Note Model](#note-model)
-      - [Tag Model (defunct)](<#tag-model-(defunct)>)
+      - [Tag Model](#tag-model)
   - [GraphQL](#graphql)
     - [Queries](#queries)
       - [On User Model](#on-user-model)
@@ -65,33 +65,33 @@
       - [On Part Model](#on-part-model)
     - [Mutations](#mutations)
       - [User Mutations](#user-mutations)
-      - [Create User](#create-user)
-      - [Edit User](#edit-user)
-      - [Delete User](#delete-user)
-    - [Client Mutations](#client-mutations)
-      - [Create Client](#create-client)
-      - [Edit Client](#edit-client)
-      - [Delete Client](#delete-client)
-    - [Job Mutations](#job-mutations)
-      - [Create Job](#create-job)
-      - [Edit Job](#edit-job)
-      - [Delete Job](#delete-job)
-    - [Note Mutatons](#note-mutations)
-      - [Create Note](#create-note)
-      - [Edit Note](#edit-note)
-      - [Delete Note](#delete-note)
-    - [Part Mutations](#part-mutations)
-      - [Create Part](#create-part)
-      - [Edit Part](#edit-part)
-      - [Delete Part](#delete-part)
-    - [Auth Mutations](#auth-mutations)
-      - [Token Auth](#token-auth)
-      - [Verify Token](#verify-token)
-      - [Refresh Token](#refresh-token)
-    - [Tag Mutations (defunct)](<#tag-mutations-(defunct)>)
-      - [Create Tag](#create-tag)
-      - [Edit Tag](#edit-tag)
-      - [Delete Tag](#delete-tag)
+        - [Create User](#create-user)
+        - [Edit User](#edit-user)
+        - [Delete User](#delete-user)
+      - [Client Mutations](#client-mutations)
+        - [Create Client](#create-client)
+        - [Edit Client](#edit-client)
+        - [Delete Client](#delete-client)
+      - [Job Mutations](#job-mutations)
+        - [Create Job](#create-job)
+        - [Edit Job](#edit-job)
+        - [Delete Job](#delete-job)
+      - [Note Mutatons](#note-mutations)
+        - [Create Note](#create-note)
+        - [Edit Note](#edit-note)
+        - [Delete Note](#delete-note)
+      - [Part Mutations](#part-mutations)
+        - [Create Part](#create-part)
+        - [Edit Part](#edit-part)
+        - [Delete Part](#delete-part)
+      - [Auth Mutations](#auth-mutations)
+        - [Token Auth](#token-auth)
+        - [Verify Token](#verify-token)
+        - [Refresh Token](#refresh-token)
+      - [Tag Mutations (defunct)](<#tag-mutations-(defunct)>)
+        - [Create Tag](#create-tag)
+        - [Edit Tag](#edit-tag)
+        - [Delete Tag](#delete-tag)
   - [Sendgrid](#sendgrid)
   - [Stripe](#stripe)
   - [Free vs Premium](#free-vs-premium)
@@ -181,7 +181,7 @@ Form validation was done on this application through the use of Formik and yup. 
 
 #### Injection
 
-- Django querysets are protected from SQL insjections as the query's SQL code is defined separately from its parameters and parameters are escaped by the underlying driver.
+- Django querysets are protected from SQL injections as the query's SQL code is defined separately from its parameters and parameters are escaped by the underlying driver.
 
 #### Broken Authentication
 
@@ -513,7 +513,9 @@ Fields on the Note Model:
 - modified_at = models.DateTimeField(auto_now=True)
 ```
 
-#### Tag Model (defunct)
+#### Tag Model
+NOT CURRENTLY IMPLEMENTED 
+- Included in documentation in the hope that a contributor in the future makes use of it
 
 - user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 - job = models.ForeignKey("Job", on_delete=models.CASCADE, blank=True, null=True)
