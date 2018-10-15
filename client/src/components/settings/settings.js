@@ -469,14 +469,13 @@ class Settings extends Component {
 class SettingsWrapper extends Component {
   render = () => {
     return (
-      <Query query={SETTINGS_QUERY}>
+      <Query
+        query={SETTINGS_QUERY}
+        variables={{ id: localStorage.getItem("USER_ID") }}
+      >
         {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
-          const user_id = localStorage.getItem("USER_ID");
-          const user = data.allUsers.edges.filter(user => {
-            return user.node.id === user_id;
-          })[0].node;
 
           const item_counts = {
             clients: data.allClients.edges.length,
@@ -487,7 +486,7 @@ class SettingsWrapper extends Component {
           return (
             <Settings
               refetch={refetch}
-              user={user}
+              user={data.user}
               item_counts={item_counts}
               {...this.props}
             />
