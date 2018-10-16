@@ -126,16 +126,16 @@ class Settings extends Component {
                     }}
                   >
                     <Grid container spacing={24}>
-                      <Grid item xs={4} />
-                      <Grid item xs={4}>
+                      <Grid item xs={3} />
+                      <Grid item xs={6}>
                         <Typography
                           variant="title"
-                          className={classes.typography}
+                          className={classes.typography_title}
                         >
                           Settings
                         </Typography>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={12} md={3}>
                         <IconButton disabled={!user_premium}>
                           <Grade />
                         </IconButton>
@@ -474,8 +474,8 @@ class SettingsWrapper extends Component {
         variables={{ id: localStorage.getItem("USER_ID") }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return <Typography>Loading...</Typography>
-          if (error) return <Typography>Error! {error.message}</Typography>
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
 
           const item_counts = {
             clients: data.allClients.edges.length,
