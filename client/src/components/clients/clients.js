@@ -24,7 +24,7 @@ class Clients extends Component {
           if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div className={classes.margin}>
-              <Typography variant="title" className={classes.typography}>
+              <Typography variant="title" className={classes.typography_title}>
                 Clients
               </Typography>
               <br />
