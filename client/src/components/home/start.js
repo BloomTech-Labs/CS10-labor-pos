@@ -15,6 +15,7 @@ class Start extends Component {
     const { classes } = this.props;
     return (
       <div>
+        <br />
         <Grid container>
           <Grid item xs={12}>
             <Typography className={classes.typography} variant="title" />
@@ -29,45 +30,50 @@ class Start extends Component {
               alignItems="center"
               spacing={24}
             >
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <Link to="/clients">
-                    <Button>Click to view clients</Button>
-                  </Link>
-                </Card>
+              <br />
+              <Grid item xs={12} sm={12} md={4} lg={4}>
+                <Link to="/clients">
+                  <Button>
+                    <Card className={classes.start_card}>
+                      <Typography className={classes.typography}>
+                        Click to view clients
+                      </Typography>
+                    </Card>
+                  </Button>
+                </Link>
+                <br />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <Link to="/jobs">
-                    <Button>Click to view jobs</Button>
-                  </Link>
-                </Card>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
+                <Link to="/jobs">
+                  <Button>
+                    <Card className={classes.start_card}>
+                      <Typography className={classes.typography}>
+                        Click to view jobs
+                      </Typography>
+                    </Card>
+                  </Button>
+                </Link>
+                <br />
               </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <Link to="/notes">
-                    <Button>Click to view notes</Button>
-                  </Link>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <Link to="/parts">
-                    <Button>Click to view parts</Button>
-                  </Link>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4} lg={3}>
-                <Card className={classes.card}>
-                  <Link to="/invoices">
-                    <Button>Click to view invoices</Button>
-                  </Link>
-                </Card>
+              <Grid item xs={12} sm={12} md={4} lg={4}>
+                <Link to="/notes">
+                  {" "}
+                  <Button>
+                    <Card className={classes.start_card}>
+                      <Typography className={classes.typography}>
+                        Click to view notes
+                      </Typography>
+                    </Card>
+                  </Button>
+                </Link>
+                <br />
               </Grid>
             </Grid>
           </Grid>
           <Grid item xs={1} />
         </Grid>
+        <br />
+        <br />
       </div>
     );
   }
