@@ -113,6 +113,7 @@ class Wizard extends Component {
     const { token } = data.createUser;
     this._saveUserData(token);
     this.props.children[1]._owner.memoizedProps.history.push("/");
+    # changed to see if it fixes heroku
   };
 
   // save token to localStorage
