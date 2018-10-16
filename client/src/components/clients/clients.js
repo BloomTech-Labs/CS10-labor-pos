@@ -33,7 +33,7 @@ class Clients extends Component {
                 items={data.allClients.edges}
                 type="client"
                 rows={2}
-                columns={4}
+                columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}
               />
