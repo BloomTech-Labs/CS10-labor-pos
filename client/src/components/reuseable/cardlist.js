@@ -85,11 +85,12 @@ class CardList extends Component {
       card_array.push(
         <Grid item xs={12 / columns} key={-1}>
           <Card raised className={classes.new_card}>
+            <br />
             <IconButton onClick={this.props.createMethod}>
               <AddCircle />
             </IconButton>
             <Typography
-              className={classes.typography}
+              className={classes.typography_card}
               variant="subheading"
             >{`New ${this.props.type}`}</Typography>
           </Card>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
-import { Typography, withStyles } from "@material-ui/core";
+import { Typography, withStyles, Grid } from "@material-ui/core";
 import { QUERY_ALL_CLIENTS } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 
@@ -14,7 +14,7 @@ class Clients extends Component {
   handleCreate = () => {
     this.props.history.push("/createclient");
   };
-
+// this component runs the QUERY_ALL_CLIENTS query to retrieve client data for display
   render() {
     const { classes } = this.props;
     return (
@@ -27,6 +27,8 @@ class Clients extends Component {
               <Typography variant="title" className={classes.typography}>
                 Clients
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allClients.edges}
                 type="client"

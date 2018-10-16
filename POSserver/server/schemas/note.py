@@ -9,6 +9,7 @@ class Note_Type(DjangoObjectType):
     class Meta:
         model = Note
         filter_fields = [
+            # fields that can be queried
             "id",
             "user",
             "client",
@@ -25,6 +26,7 @@ class Query(graphene.ObjectType):
     note = graphene.Node.Field(Note_Type)
     all_notes = DjangoFilterConnectionField(Note_Type)
 
+    # filter all notes
     def resolve_all_notes(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -32,6 +34,7 @@ class Query(graphene.ObjectType):
         else:
             return Note.objects.filter(user=user)
 
+    # filter single note
     def resolve_note(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -47,6 +50,7 @@ class CreateNote(graphene.Mutation):
     note = graphene.Field(Note_Type)
 
     class Arguments:
+        # fields that can be mutated
         job = graphene.ID()
         client = graphene.ID()
         title = graphene.String()
@@ -61,6 +65,7 @@ class CreateNote(graphene.Mutation):
         assigning an empty string for optional arguments"""
         user = info.context.user
 
+        # verify that user is logged and that required data is present, then creates note
         if user.is_anonymous:
             return CreateNote(ok=False, status="Must be logged in.")
         else:
@@ -93,6 +98,7 @@ class UpdateNote(graphene.Mutation):
     note = graphene.Field(Note_Type)
     status = graphene.String()
 
+    # verifies that user is logged in and required data is present, then updates note
     def mutate(self, info, id, title="", content="", job="", client=""):
         user = info.context.user
 
@@ -124,7 +130,7 @@ class DeleteNote(graphene.Mutation):
 
     def mutate(self, info, id):
         user = info.context.user
-
+        # verifies user is logged in then deletes note
         if user.is_anonymous:
             return DeleteNote(ok=False, status="Must be logged in.")
         else:

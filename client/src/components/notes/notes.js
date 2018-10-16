@@ -29,6 +29,8 @@ class Notes extends Component {
               <Typography className={classes.typography} variant="title">
                 Notes
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allNotes.edges}
                 type="note"

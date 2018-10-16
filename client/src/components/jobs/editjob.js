@@ -9,6 +9,7 @@ import { Query } from "react-apollo";
 //  submit the job information.
 
 //  https://balsamiq.cloud/sc1hpyg/po5pcja/r20F6
+// retrieves detailed job data via query, switches form to edit mode so that user can make changes
 class EditJob extends Component {
   render() {
     return (
