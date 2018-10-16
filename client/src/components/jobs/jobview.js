@@ -79,8 +79,8 @@ class JobView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let right_content = [];
 
           if (data.job.complete) {

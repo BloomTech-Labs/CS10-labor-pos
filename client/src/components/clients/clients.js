@@ -21,7 +21,7 @@ class Clients extends Component {
       <Query query={QUERY_ALL_CLIENTS}>
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
-          if (error) return `Error! ${error.message}`;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div className={classes.margin}>
               <Typography variant="title" className={classes.typography}>
@@ -33,7 +33,7 @@ class Clients extends Component {
                 items={data.allClients.edges}
                 type="client"
                 rows={2}
-                columns={4}
+                columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}
               />

@@ -11,6 +11,7 @@ import {
   ListItemSecondaryAction,
   IconButton,
   Dialog,
+  Typography,
   withStyles
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -19,9 +20,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 
