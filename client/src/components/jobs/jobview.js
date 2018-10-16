@@ -87,40 +87,55 @@ class JobView extends Component {
             right_content.push(
               <Typography key={0}>
                 <DoneOutline />
-                Job Complete
+                <b>Job Complete</b>
               </Typography>
             );
           } else {
             right_content.push(
-              <Typography key={0}>
-                <ArrowRightAlt />
-                Job In Progress
-              </Typography>
+              <React.Fragment>
+                <Typography key={0}>
+                  <ArrowRightAlt /> &nbsp; &nbsp; <b>Job In Progress</b>
+                </Typography>
+                <br />
+              </React.Fragment>
             );
           }
           if (data.job.deadline) {
             right_content.push(
-              <Typography key={1}>Deadline: {data.job.deadline}</Typography>
+              <React.Fragment>
+                <Typography key={1}>
+                  Deadline: &nbsp; &nbsp;
+                  {data.job.deadline}
+                </Typography>
+                <br />
+              </React.Fragment>
             );
           }
           const created = new Date(data.job.createdAt);
           const modified = new Date(data.job.modifiedAt);
           right_content.push(
-            <Typography key={2}>
-              Labor/hours worked: {data.job.labor}
-            </Typography>
+            <React.Fragment>
+              <Typography key={2}>
+                Labor/hours worked: &nbsp; &nbsp;
+                {data.job.labor}
+              </Typography>
+              <br />
+            </React.Fragment>
           );
 
           right_content.push(
-            <Typography key={3}>
-              Created On:{" "}
-              {`${created.getMonth() +
-                1}/${created.getDate()}/${created.getFullYear()}`}
-            </Typography>
+            <React.Fragment>
+              <Typography key={3}>
+                Created On:&nbsp; &nbsp;
+                {`${created.getMonth() +
+                  1}/${created.getDate()}/${created.getFullYear()}`}
+              </Typography>
+              <br />
+            </React.Fragment>
           );
           right_content.push(
             <Typography key={4}>
-              Modified On:{" "}
+              Modified On:&nbsp; &nbsp;
               {`${modified.getMonth() +
                 1}/${modified.getDate()}/${modified.getFullYear()}`}
             </Typography>
@@ -144,7 +159,12 @@ class JobView extends Component {
                     </Link>
                   </Grid>
                   <Grid item xs={8}>
-                    <Typography variant="title">{data.job.name}</Typography>
+                    <Typography
+                      variant="title"
+                      className={classes.typography_title}
+                    >
+                      {data.job.name}
+                    </Typography>
                   </Grid>
                   <Grid item xs={2}>
                     <IconButton onClick={this.openModal("deleting")}>
@@ -153,6 +173,7 @@ class JobView extends Component {
                   </Grid>
                 </Grid>
               </div>
+              <br />
               <Typography paragraph>{data.job.description}</Typography>
               <div className="job-view-lists">
                 <Grid
@@ -169,7 +190,7 @@ class JobView extends Component {
                       onClick={this.openModal("add_note")}
                       className="job-list-button"
                     >
-                      Add a new note
+                      <Typography>Add a new note</Typography>
                     </Button>
 
                     <ItemList

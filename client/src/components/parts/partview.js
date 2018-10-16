@@ -70,7 +70,10 @@ class PartView extends Component {
                 </Link>
               </Grid>
               <Grid item xs={10}>
-                <Typography className={classes.typography} variant="title">
+                <Typography
+                  className={classes.typography_title}
+                  variant="title"
+                >
                   {data.part.name}
                 </Typography>
               </Grid>

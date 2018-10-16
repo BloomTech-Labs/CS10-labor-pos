@@ -66,7 +66,6 @@ class Login extends Component {
                         <Field
                           value={values.username}
                           component={TextField}
-                          placeholder="Username"
                           name="username"
                           label="Username"
                           fullWidth={true}
@@ -80,7 +79,6 @@ class Login extends Component {
                           value={values.password}
                           type="password"
                           component={TextField}
-                          placeholder="Password"
                           name="password"
                           label="password"
                           fullWidth

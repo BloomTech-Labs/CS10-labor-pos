@@ -55,13 +55,13 @@ class DeleteItem extends Component {
     return (
       <Paper className={classes.paper}>
         <Grid container>
-          <Grid item xs={10}>
+          <Grid item xs={10} className={classes.delete}>
             <Typography variant="title" paragraph>
               Are you sure you want to delete {name}?
             </Typography>
           </Grid>
 
-          <Grid item xs={10}>
+          <Grid item xs={10} className={classes.delete}>
             <Grid container justify="space-around">
               <Mutation
                 mutation={chosen_mutation}
