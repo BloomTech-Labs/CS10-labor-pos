@@ -228,7 +228,6 @@ class ClientForm extends Component {
                               select="true"
                               label="State"
                               name="state"
-                              placeholder="State"
                               component="select"
                               margin="normal"
                               className={classNames(
