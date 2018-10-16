@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
+import React, { Component } from 'react';
+import StripeCheckout from 'react-stripe-checkout';
+import axios from 'axios';
 import {
   FormControlLabel,
   Checkbox,
   Typography,
   Card
-} from "@material-ui/core";
-import { AUTH_TOKEN } from "../../constants.js";
+} from '@material-ui/core';
+import { AUTH_TOKEN } from '../../constants.js';
 
 class Checkout extends Component {
   state = {
@@ -29,10 +29,10 @@ class Checkout extends Component {
   getStripeToken = token => {
     axios({
       url: process.env.REACT_APP_ENDPOINT,
-      method: "post",
+      method: 'post',
       headers: {
-        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
-        "Content-Type": "application/graphql"
+        Authorization: 'JWT ' + localStorage.getItem(AUTH_TOKEN),
+        'Content-Type': 'application/graphql'
       },
       data: JSON.stringify({
         operationName: null,
@@ -93,25 +93,24 @@ class Checkout extends Component {
 
   render() {
     // stripe's checkout plugin receives card information, creates a stripe customer, tokenizes the information, sends the token back to our backend so that our backend can create the charge
-    return <div>
+    return (
+      <div>
+        <Card>
+          <Typography paragraph>
+            {'contractAlchemy provides two tiers of service, free and premium.'}
+          </Typography>
+        </Card>
         <Card>
           <Typography paragraph>
             {
-              'contractAlchemy provides two tiers of service, free and premium.'
+              'Free users use the default theme and have access to all other features but a limit of 8 of each item at one time - 8 clients, 8 jobs, and so on.'
             }
           </Typography>
         </Card>
         <Card>
           <Typography paragraph>
             {
-              "Free users use the default theme and have access to all other features but a limit of 8 of each item at one time - 8 clients, 8 jobs, etc."
-            }
-          </Typography>
-        </Card>
-        <Card>
-          <Typography paragraph>
-            {
-              "Premium users have access to all features with an unlimited number of jobs, clients, and so on.  Premium users also have multiple theme choices and the ability to create custom themes.We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99."
+              'Premium users have access to all features with an unlimited number of jobs, clients, and so on. Premium users also have the ability to change desktop themes. We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99.'
             }
           </Typography>
         </Card>
@@ -124,12 +123,47 @@ class Checkout extends Component {
         </Card>
         {/*checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form*/}
         <React.Fragment>
-          <FormControlLabel control={<Checkbox price={999} name="subscription" onClick={this.setSubscriptionType} value="year" type="radio" color="secondary" />} label="Yearly Subscription - $9.99" />
-          <FormControlLabel control={<Checkbox price={99} name="subscription" onClick={this.setSubscriptionType} value="month" type="radio" color="secondary" />} label="Monthly Subscription - 99¢" />
+          <FormControlLabel
+            control={
+              <Checkbox
+                price={999}
+                name="subscription"
+                onClick={this.setSubscriptionType}
+                value="year"
+                type="radio"
+                color="secondary"
+              />
+            }
+            label="Yearly Subscription - $9.99"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                price={99}
+                name="subscription"
+                onClick={this.setSubscriptionType}
+                value="month"
+                type="radio"
+                color="secondary"
+              />
+            }
+            label="Monthly Subscription - 99¢"
+          />
 
-          <StripeCheckout amount={this.state.subscriptionAmount} currency="USD" name="contractAlchemy" token={this.getStripeToken} stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61" image="https://bestpos.netlify.com/goldraccoon.png" color="black" zipCode={true} billingAddress={true} />
+          <StripeCheckout
+            amount={this.state.subscriptionAmount}
+            currency="USD"
+            name="contractAlchemy"
+            token={this.getStripeToken}
+            stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
+            image="https://bestpos.netlify.com/goldraccoon.png"
+            color="black"
+            zipCode={true}
+            billingAddress={true}
+          />
         </React.Fragment>
-      </div>;
+      </div>
+    );
   }
 }
 
