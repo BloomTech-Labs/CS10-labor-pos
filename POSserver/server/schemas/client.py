@@ -9,6 +9,7 @@ class Client_Type(DjangoObjectType):
     class Meta:
         model = Client
         filter_fields = [
+            # fields that can be queried
             "id",
             "user",
             "business_name",
@@ -30,6 +31,7 @@ class Query(graphene.ObjectType):
     client = graphene.Node.Field(Client_Type)
     all_clients = DjangoFilterConnectionField(Client_Type)
 
+    # how to filter clients
     def resolve_all_clients(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -37,6 +39,7 @@ class Query(graphene.ObjectType):
         else:
             return Client.objects.filter(user=user)
 
+    # how to filter a single client
     def resolve_client(self, info, **kwargs):
         user = info.context.user
         if user.is_anonymous:
@@ -75,6 +78,7 @@ class CreateClient(graphene.Mutation):
     status = graphene.String()
 
     def mutate(
+        # data that can be mutated
         self,
         info,
         first_name,
@@ -89,10 +93,12 @@ class CreateClient(graphene.Mutation):
     ):
 
         user = info.context.user
+        # verifies you are working with existing user
         if user.is_anonymous:
             return CreateClient(ok=False, status="Must be logged in.")
         else:
             new_client = Client(
+                # sets entered info as new client info
                 business_name=business_name,
                 first_name=first_name,
                 last_name=last_name,
@@ -145,6 +151,7 @@ class UpdateClient(graphene.Mutation):
         if user.is_anonymous:
             return UpdateClient(ok=False, status="Must be logged in.")
         else:
+            # allows client info to be mutated
             updated_client = Client.objects.get(pk=from_global_id(id)[1])
             if first_name != "":
                 updated_client.first_name = first_name
@@ -188,6 +195,7 @@ class DeleteClient(graphene.Mutation):
         if user.is_anonymous:
             return DeleteClient(ok=False, status="Must be logged in.")
         else:
+            # how to delete client
             deleted_client = Client.objects.get(pk=from_global_id(id)[1])
             name = f"{deleted_client.last_name} {deleted_client.last_name}"
             deleted_client.delete()

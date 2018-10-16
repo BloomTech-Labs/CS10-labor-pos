@@ -71,8 +71,8 @@ class NoteForm extends Component {
       <Query query={ALL_CLIENTS_AND_JOBS}>
         {({ loading, error, data }) => {
           //  Show loading and error messages...
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           //  Here, we build the array that will be used for the client pulldown.
           let client_list = [];
           let client_array = data.allClients.edges;

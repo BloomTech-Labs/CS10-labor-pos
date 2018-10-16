@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.github",
     "stripe",
     "sendgrid",
-    "send",
     "payment",
 ]
 
@@ -170,7 +169,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = "/static/"
-
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
@@ -179,7 +178,7 @@ STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
 SENDGRID_EMAIL_USERNAME = config("EMAIL_HOST_USER")
 SENDGRID_EMAIL_HOST = "smtp.sendgrid.net"
 SENDGRID_EMAIL_PASSWORD = "s3ndgr1d"
-SENDGRID_EMAIL_PORT = 587
+SENDGRID_EMAIL_PORT = config("SENDGRID_PORT")
 EMAIL_USE_TLS = True
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"

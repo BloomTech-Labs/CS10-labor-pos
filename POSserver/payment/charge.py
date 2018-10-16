@@ -9,6 +9,8 @@ import stripe
 stripe.api_key = config("STRIPE_SECRET_KEY")
 stripe.log = "info"
 
+# defines checkout method and possible stripe errors
+
 
 @require_http_methods(["POST"])
 @csrf_exempt

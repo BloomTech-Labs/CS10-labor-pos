@@ -22,18 +22,20 @@ class Notes extends Component {
     return (
       <Query query={QUERY_ALL_NOTES}>
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div className={classes.margin}>
               <Typography className={classes.typography} variant="title">
                 Notes
               </Typography>
+              <br />
+              <br />
               <CardList
                 items={data.allNotes.edges}
                 type="note"
                 rows={2}
-                columns={4}
+                columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}
               />

@@ -8,9 +8,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 
@@ -58,14 +58,14 @@ class ItemCard extends Component {
         if (this.props.item.client.businessName) {
           topRow = (
             <React.Fragment>
-              Client: <br />
+              <b>Client:</b> <br />
               {`${this.props.item.client.businessName}`}{" "}
             </React.Fragment>
           );
         } else {
           topRow = (
             <React.Fragment>
-              Client: <br />
+              <b>Client:</b> <br />
               {`${this.props.item.client.firstName} ${
                 this.props.item.client.lastName
               }`}
@@ -74,7 +74,7 @@ class ItemCard extends Component {
         }
         middleRow = (
           <React.Fragment>
-            Job: <br /> {`${this.props.item.name}`}
+            <b>Job:</b> <br /> {`${this.props.item.name}`}
           </React.Fragment>
         );
         if (this.props.item.deadline) {
@@ -94,7 +94,7 @@ class ItemCard extends Component {
       case "note":
         topRow = (
           <React.Fragment>
-            Title: <br /> {`${this.props.item.title}`}
+            <b>Title:</b> <br /> {`${this.props.item.title}`}
           </React.Fragment>
         );
         if (this.props.item.client) {
@@ -155,12 +155,15 @@ class ItemCard extends Component {
           </Grid>
         </Grid>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
+          <br />
           <Typography variant="subheading" noWrap>
             {topRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {middleRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {bottomRow}
           </Typography>

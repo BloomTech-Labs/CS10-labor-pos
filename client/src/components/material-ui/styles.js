@@ -33,8 +33,8 @@ const styles = theme => ({
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
-    height: "180px",
-    maxWidth: "180px",
+    height: "256px",
+    maxWidth: "256px",
     margin: "auto"
   },
   new_card: {
@@ -185,6 +185,13 @@ const styles = theme => ({
   limit_width: {
     width: "75%",
     maxWidth: "60%"
+  },
+  typography_card: {
+    paddingTop: "10px",
+    paddingBottom: "30px",
+    fontSize: "24px",
+    fontWeight: "700",
+    fontFamily: "Roboto, sans-serif"
   }
 });
 export { styles };

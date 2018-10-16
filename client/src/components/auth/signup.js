@@ -110,15 +110,17 @@ class Wizard extends Component {
   };
 
   _confirm = async data => {
-    const { token } = data.createUser;
-    this._saveUserData(token);
+    const { token, user } = data.createUser;
+    this._saveUserData(token, user.id, user.premium);
     this.props.children[1]._owner.memoizedProps.history.push("/");
     # changed to see if it fixes heroku
   };
 
   // save token to localStorage
-  _saveUserData = token => {
+  _saveUserData = (token, id, premium) => {
     localStorage.setItem(AUTH_TOKEN, token);
+    localStorage.setItem("USER_ID", id);
+    localStorage.setItem("USER_PREMIUM", premium);
   };
 
   render() {

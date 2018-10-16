@@ -15,14 +15,15 @@ import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
 import { Start, SideNav } from "../../components";
 
+// errors if page doesn't load correctly
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
-
+// loads all of our components
 const Settings = Loadable({
   loader: () => import("../../components/settings/settings.js"),
   loading: Loading

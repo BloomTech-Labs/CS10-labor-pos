@@ -24,9 +24,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 
@@ -71,6 +71,7 @@ class JobView extends Component {
   };
 
   render() {
+    // displays job details individually on cards
     const { classes, fullScreen } = this.props;
     return (
       <Query
@@ -78,8 +79,8 @@ class JobView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let right_content = [];
 
           if (data.job.complete) {
