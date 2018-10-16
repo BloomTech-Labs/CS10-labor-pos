@@ -12,7 +12,8 @@ import { setContext } from "apollo-link-context";
 import { AUTH_TOKEN } from "./constants";
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_ENDPOINT
+  uri: process.env.REACT_APP_ENDPOINT,
+  credentials: "same-origin"
 });
 
 const authLink = setContext((_, { headers }) => {
