@@ -474,8 +474,8 @@ class SettingsWrapper extends Component {
         variables={{ id: localStorage.getItem("USER_ID") }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>
+          if (error) return <Typography>Error! {error.message}</Typography>
 
           const item_counts = {
             clients: data.allClients.edges.length,
