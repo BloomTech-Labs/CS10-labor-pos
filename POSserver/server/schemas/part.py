@@ -8,7 +8,14 @@ from graphql_relay.node.node import from_global_id
 class Part_Type(DjangoObjectType):
     class Meta:
         model = Part
-        filter_fields = ["id", "user", "job", "name", "description", "cost"] # fields that can be queried
+        filter_fields = [
+            "id",
+            "user",
+            "job",
+            "name",
+            "description",
+            "cost",
+        ]  # fields that can be queried
         interfaces = (graphene.Node,)
 
 
@@ -25,7 +32,7 @@ class Query(graphene.ObjectType):
         else:
             return Part.objects.filter(user=user)
 
-    #filters single part
+    # filters single part
     def resolve_part(self, info, **kwargs):
         user = info.context.user
 
@@ -53,7 +60,9 @@ class CreatePart(graphene.Mutation):
             return CreatePart(ok=False, status="Must be logged in.")
         else:
             new_part = Part(
-                job=Job.objects.get(pk=from_global_id(job)[1]), # must be attached to job
+                job=Job.objects.get(
+                    pk=from_global_id(job)[1]
+                ),  # must be attached to job
                 name=name,
                 description=description,
                 cost=cost,

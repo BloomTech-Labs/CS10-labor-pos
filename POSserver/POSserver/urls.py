@@ -18,7 +18,7 @@ from django.contrib import admin
 from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import path, include, re_path
-from .views import GeneratePDF, checkout
+from .views import GeneratePDF
 
 
 urlpatterns = [

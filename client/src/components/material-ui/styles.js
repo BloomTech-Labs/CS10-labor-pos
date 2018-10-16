@@ -33,8 +33,8 @@ const styles = theme => ({
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
-    height: "180px",
-    maxWidth: "180px",
+    height: "256px",
+    maxWidth: "256px",
     margin: "auto"
   },
   new_card: {

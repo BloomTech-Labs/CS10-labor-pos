@@ -12,7 +12,7 @@ class ObtainJSONWebToken(graphql_jwt.JSONWebTokenMutation):
         return cls(user=info.context.user)
 
 
-class SuperQuery( # possible queries
+class SuperQuery(  # possible queries
     server.schemas.tag.Query,
     server.schemas.note.Query,
     server.schemas.user.Query,
@@ -24,7 +24,7 @@ class SuperQuery( # possible queries
     pass
 
 
-class Mutation( # possible mutations
+class Mutation(  # possible mutations
     server.schemas.tag.TagMutation,
     server.schemas.user.UserMutation,
     server.schemas.part.PartMutation,

@@ -108,6 +108,7 @@ class CardList extends Component {
         >
           {card_array}
         </Grid>
+        <br />
         <IconButton
           onClick={this.handlePageBack}
           disabled={this.state.page === 0}

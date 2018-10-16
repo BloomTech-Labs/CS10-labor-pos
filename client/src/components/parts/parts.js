@@ -15,9 +15,8 @@ class Parts extends Component {
   render() {
     const { classes } = this.props;
     return (
-       // retrieve parts data for display
+      // retrieve parts data for display
       <Query query={QUERY_ALL_PARTS}>
-     
         {({ loading, error, data, refetch }) => {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
@@ -32,7 +31,7 @@ class Parts extends Component {
                 items={data.allParts.edges}
                 type="part"
                 rows={2}
-                columns={4}
+                columns={3}
                 refetch={refetch}
               />
             </div>

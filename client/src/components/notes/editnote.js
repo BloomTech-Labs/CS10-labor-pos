@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import NoteForm from "./noteform";
 import { DETAILED_NOTE_BY_ID } from "../../queries";
 import { Query } from "react-apollo";
+import { Typography } from "@material-ui/core";
 
 //  This component will render on the /notes/:id/edit route when the user is logged in
 //  It is a child of the home component.
@@ -17,8 +18,8 @@ class EditNote extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div>
               <NoteForm mode="edit" note={data.note} after_url="/notes" />

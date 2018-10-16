@@ -155,12 +155,15 @@ class ItemCard extends Component {
           </Grid>
         </Grid>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
+          <br />
           <Typography variant="subheading" noWrap>
             {topRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {middleRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {bottomRow}
           </Typography>
