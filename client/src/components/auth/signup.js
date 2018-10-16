@@ -113,8 +113,7 @@ class Wizard extends Component {
     const { token, user } = data.createUser;
     this._saveUserData(token, user.id, user.premium);
     this.props.children[1]._owner.memoizedProps.history.replace("/");
-    console.log(this.props.children);
-  };
+
 
   // save token to localStorage
   _saveUserData = (token, id, premium) => {

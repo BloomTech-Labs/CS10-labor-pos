@@ -148,7 +148,6 @@ class JobForm extends Component {
                                 label="Client"
                                 name="client"
                                 component="select"
-                                placeholder="Client"
                                 value={values.client}
                                 className={classNames(
                                   classes.margin,
