@@ -6,5 +6,5 @@ Source = dict
 Order = dict
 # https://stripe.com/docs/api#service_products
 Product = dict
-#https://stripe.com/docs/api#charges
+# https://stripe.com/docs/api#charges
 Charge = dict

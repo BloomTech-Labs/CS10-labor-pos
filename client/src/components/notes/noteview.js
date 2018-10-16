@@ -20,9 +20,9 @@ import { ItemCard } from "../../components";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 
@@ -59,8 +59,8 @@ class NoteView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           refetch();
           const created = new Date(data.note.createdAt);
           const modified = new Date(data.note.modifiedAt);
