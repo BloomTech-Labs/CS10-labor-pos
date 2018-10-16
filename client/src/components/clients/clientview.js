@@ -79,7 +79,7 @@ class ClientView extends Component {
       >
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
-          if (error) return `Error! ${error.message}`;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
