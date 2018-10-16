@@ -202,7 +202,6 @@ class PartForm extends Component {
                                   disabled={this.props.mode === "modal"}
                                   label="Job"
                                   name="job"
-                                  placeholder="Job"
                                   style={{
                                     width: "194px",
                                     height: "50px"
