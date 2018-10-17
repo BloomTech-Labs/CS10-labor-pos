@@ -12,6 +12,7 @@ import {
   Button
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
+import { Redirect } from "react-router";
 import { CREATE_USER } from "../../mutations";
 import { withRouter } from "react-router";
 import { TextField } from "../../components";
@@ -64,15 +65,18 @@ class Wizard extends Component {
     super(props);
     this.state = {
       page: 0,
-      values: props.initialValues
+      values: props.initialValues,
+      isAuthenticated: false
     };
   }
 
-  next = values =>
+  next = values => {
+    console.log("Next props", this.props);
     this.setState(state => ({
       page: Math.min(state.page + 1, this.props.children.length - 1),
       values
     }));
+  };
 
   previous = () =>
     this.setState(state => ({
@@ -112,9 +116,11 @@ class Wizard extends Component {
   _confirm = async data => {
     const { token, user } = data.createUser;
     this._saveUserData(token, user.id, user.premium);
-    this.props.children[1]._owner.memoizedProps.history.push("/");
+    // changed to fix heroku
+    this.setState({
+      isAuthenticated: true
+    });
   };
-
 
   // save token to localStorage
   _saveUserData = (token, id, premium) => {
@@ -125,9 +131,12 @@ class Wizard extends Component {
 
   render() {
     const { children } = this.props;
-    const { page, values } = this.state;
+    const { page, values, isAuthenticated } = this.state;
     const activePage = React.Children.toArray(children)[page];
     const isLastPage = page === React.Children.count(children) - 1;
+    if (isAuthenticated) {
+      return <Redirect to="/" />;
+    }
     return (
       <Formik
         initialValues={values}
@@ -137,9 +146,10 @@ class Wizard extends Component {
         render={({ values, handleSubmit, isValid }) => (
           <Mutation
             mutation={CREATE_USER}
+            errorPolicy="all"
             onCompleted={data => this._confirm(data)}
           >
-            {createUser => (
+            {(createUser, { loading, error }) => (
               <Form onSubmit={handleSubmit} style={{ margin: "auto" }}>
                 <Stepper activeStep={page}>
                   {steps.map(label => (
@@ -152,6 +162,18 @@ class Wizard extends Component {
                   Sign up with email
                 </Typography>
                 {activePage}
+                {error && (
+                  <pre>
+                    {error.graphQLErrors.map(
+                      ({ message }, i) =>
+                        message.includes("duplicate") && (
+                          <Typography key={i} align="center" color="error">
+                            Username already exists
+                          </Typography>
+                        )
+                    )}
+                  </pre>
+                )}
                 <div
                   className="buttons"
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -166,6 +188,7 @@ class Wizard extends Component {
                       « Previous
                     </Button>
                   )}
+                  {loading && <Typography>Loading ...</Typography>}
                   {!isLastPage && (
                     <Button type="submit" color="primary" variant="contained">
                       Next »
