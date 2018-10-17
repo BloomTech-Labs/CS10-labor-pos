@@ -14,17 +14,17 @@ class Clients extends Component {
   handleCreate = () => {
     this.props.history.push("/createclient");
   };
-// this component runs the QUERY_ALL_CLIENTS query to retrieve client data for display
+  // this component runs the QUERY_ALL_CLIENTS query to retrieve client data for display
   render() {
     const { classes } = this.props;
     return (
       <Query query={QUERY_ALL_CLIENTS}>
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div className={classes.margin}>
-              <Typography variant="title" className={classes.typography}>
+              <Typography variant="title" className={classes.typography_title}>
                 Clients
               </Typography>
               <br />
@@ -33,7 +33,7 @@ class Clients extends Component {
                 items={data.allClients.edges}
                 type="client"
                 rows={2}
-                columns={4}
+                columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}
               />

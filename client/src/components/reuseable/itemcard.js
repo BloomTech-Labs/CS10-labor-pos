@@ -8,9 +8,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 
@@ -155,12 +155,15 @@ class ItemCard extends Component {
           </Grid>
         </Grid>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
+          <br />
           <Typography variant="subheading" noWrap>
             {topRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {middleRow}
           </Typography>
+          <br />
           <Typography variant="subheading" noWrap>
             {bottomRow}
           </Typography>

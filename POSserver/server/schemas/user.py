@@ -17,8 +17,8 @@ class User_Type(DjangoObjectType):
 
     class Meta:
         model = get_user_model()
-        exclude_fields = ("password",) # cannot query users by password
-        filter_fields = [ # can query by these values
+        exclude_fields = ("password",)  # cannot query users by password
+        filter_fields = [  # can query by these values
             "id",
             "first_name",
             "last_name",
@@ -200,7 +200,6 @@ class UpdateUser(graphene.Mutation):
 
 
 class DeleteUser(graphene.Mutation):
-
     class Arguments:
         id = graphene.ID()
 

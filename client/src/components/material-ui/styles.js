@@ -33,8 +33,8 @@ const styles = theme => ({
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
-    height: "180px",
-    maxWidth: "180px",
+    height: "256px",
+    maxWidth: "256px",
     margin: "auto"
   },
   new_card: {
@@ -99,7 +99,7 @@ const styles = theme => ({
     fontFamily: "Roboto"
   },
   typography_title: {
-    fontSize: "50px"
+    fontSize: "40px"
   },
   main_content: {
     textAlign: "center",
@@ -118,7 +118,7 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     padding: theme.spacing.unit * 2,
     backgroundColor: theme.palette.background.default,
-    maxWidth: "80%",
+    // maxWidth: "80%",
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
       marginTop: theme.spacing.unit * 6,
       marginBottom: theme.spacing.unit * 6,
@@ -192,6 +192,18 @@ const styles = theme => ({
     fontSize: "24px",
     fontWeight: "700",
     fontFamily: "Roboto, sans-serif"
+  },
+  start_card: {
+    minWidth: "40px",
+    backgroundColor: theme.palette.background.paper,
+    margin: "auto",
+    padding: "40px",
+    width: "80%",
+    maxWidth: "900px"
+  },
+  delete: {
+    textAlign: "center",
+    paddingLeft: "80px"
   }
 });
 export { styles };

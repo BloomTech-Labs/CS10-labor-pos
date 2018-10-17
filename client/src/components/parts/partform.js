@@ -63,12 +63,11 @@ class PartForm extends Component {
     }
 
     return (
-       // retrieves job data so that part can be attached to specific job
+      // retrieves job data so that part can be attached to specific job
       <Query query={QUERY_ALL_JOBS}>
-     
         {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let job_list = [];
           let job_array = data.allJobs.edges;
           for (let i = 0; i < job_array.length; i++) {
@@ -203,7 +202,6 @@ class PartForm extends Component {
                                   disabled={this.props.mode === "modal"}
                                   label="Job"
                                   name="job"
-                                  placeholder="Job"
                                   style={{
                                     width: "194px",
                                     height: "50px"

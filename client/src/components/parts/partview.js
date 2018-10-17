@@ -19,9 +19,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading ... </h3>;
+    return <Typography>Loading ... </Typography>;
   }
 }
 
@@ -53,13 +53,13 @@ class PartView extends Component {
     const { classes } = this.props;
     return (
       <Query
-      // retrieves parts data to display individually on cards
+        // retrieves parts data to display individually on cards
         query={DETAILED_PART_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <Grid container>
               <Grid item xs={1}>
@@ -70,7 +70,10 @@ class PartView extends Component {
                 </Link>
               </Grid>
               <Grid item xs={10}>
-                <Typography className={classes.typography} variant="title">
+                <Typography
+                  className={classes.typography_title}
+                  variant="title"
+                >
                   {data.part.name}
                 </Typography>
               </Grid>

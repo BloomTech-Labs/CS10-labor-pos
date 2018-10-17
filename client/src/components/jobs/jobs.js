@@ -17,11 +17,11 @@ class Jobs extends Component {
       // retrieves data for all jobs to display
       <Query query={QUERY_ALL_JOBS}>
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div className={classes.margin}>
-              <Typography className={classes.typography} variant="title">
+              <Typography className={classes.typography_title} variant="title">
                 Jobs
               </Typography>
               <br />
@@ -30,7 +30,7 @@ class Jobs extends Component {
                 items={data.allJobs.edges}
                 type="job"
                 rows={2}
-                columns={4}
+                columns={3}
                 refetch={refetch}
               />
             </div>

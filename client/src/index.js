@@ -10,9 +10,11 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { setContext } from "apollo-link-context";
 import { AUTH_TOKEN } from "./constants";
+import { createBrowserHistory } from "history";
 
 const httpLink = createHttpLink({
-  uri: process.env.REACT_APP_ENDPOINT
+  uri: process.env.REACT_APP_ENDPOINT,
+  credentials: "same-origin"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -30,8 +32,10 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const history = createBrowserHistory()
+
 ReactDOM.render(
-  <Router>
+  <Router history={history}>
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>

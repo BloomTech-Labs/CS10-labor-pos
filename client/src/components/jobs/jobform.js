@@ -65,10 +65,9 @@ class JobForm extends Component {
       // jobs must be created from within a client account so that job is connected to client
       // this retrieves client data so that job can be attached to specified client
       <Query query={QUERY_ALL_CLIENTS}>
-      
         {({ loading, error, data }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let client_list = [];
           let client_array = data.allClients.edges;
           for (let i = 0; i < client_array.length; i++) {
@@ -101,7 +100,6 @@ class JobForm extends Component {
                 event.preventDefault();
               }}
             >
-              
               {({ values, isValid }) => {
                 return (
                   <Mutation
@@ -150,7 +148,6 @@ class JobForm extends Component {
                                 label="Client"
                                 name="client"
                                 component="select"
-                                placeholder="Client"
                                 value={values.client}
                                 className={classNames(
                                   classes.margin,
@@ -268,8 +265,10 @@ class JobForm extends Component {
                             </Grid>
                           </Grid>
                         </Form>
-                        {loading && <p>Saving job information...</p>}
-                        {error && <p>{error}</p>}
+                        {loading && (
+                          <Typography>Saving job information...</Typography>
+                        )}
+                        {error && <Typography>{error}</Typography>}
                       </div>
                     )}
                   </Mutation>
@@ -281,7 +280,7 @@ class JobForm extends Component {
       </Query>
     );
   }
- // if job is not created returns to form 
+  // if job is not created returns to form
   _confirm = () => {
     if (this.props.mode === "create") {
       this.props.refetch();

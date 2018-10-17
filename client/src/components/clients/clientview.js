@@ -21,9 +21,9 @@ import Loadable from "react-loadable";
 
 function Loading({ error }) {
   if (error) {
-    return <p>{error}</p>;
+    return <Typography>{error}</Typography>;
   } else {
-    return <h3>Loading...</h3>;
+    return <Typography>Loading...</Typography>;
   }
 }
 // brings in ability to create notes and jobs from within the client
@@ -70,7 +70,7 @@ class ClientView extends Component {
   render() {
     const { classes, fullScreen } = this.props;
 
-      // runs query to retrieve client details and displays individually on cards
+    // runs query to retrieve client details and displays individually on cards
     return (
       <Query
         query={DETAILED_CLIENT_BY_ID}
@@ -78,8 +78,8 @@ class ClientView extends Component {
         fetchPolicy="network-only"
       >
         {({ loading, error, data, refetch }) => {
-          if (loading) return "Loading...";
-          if (error) return `Error! ${error.message}`;
+          if (loading) return <Typography>Loading...</Typography>;
+          if (error) return <Typography>Error! {error.message}</Typography>;
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
@@ -185,7 +185,7 @@ class ClientView extends Component {
               >{`Jobs for ${name}:`}</Typography>
               <CardList
                 rows={1}
-                columns={4}
+                columns={3}
                 type="job"
                 items={job_items}
                 createMethod={this.openModal("add_job")}
@@ -202,7 +202,7 @@ class ClientView extends Component {
               >{`Notes for ${name}:`}</Typography>
               <CardList
                 rows={1}
-                columns={4}
+                columns={3}
                 type="note"
                 items={data.client.noteSet.edges}
                 createMethod={this.openModal("add_note")}
