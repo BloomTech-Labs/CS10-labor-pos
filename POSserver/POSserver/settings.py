@@ -19,27 +19,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            "datefmt": "%d/%b/%Y %H:%M:%S",
+        },
+        "simple": {"format": "%(levelname)s %(message)s"},
+    },
     "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        },
-        "logfile": {
-            "class": "logging.handlers.WatchedFileHandler",
-            "filename": "/var/log/django/error.log",
-        },
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "debug.log",
+            "formatter": "verbose",
+        }
     },
-    "loggers": {
-        "django.request": {
-            "handlers": ["mail_admins"],
-            "level": "ERROR",
-            "propagate": True,
-        },
-        "django": {"handlers": ["logfile"], "level": "ERROR", "propagate": False},
-    },
+    "loggers": {"django": {"handlers": ["file"], "propogate": True, "level": "DEBUG"}},
 }
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -75,10 +72,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "corsheaders",  # Added corsheaders
     "django_seed",  # Application to quickly add fake data to the database
-    "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "allauth.socialaccount.providers.github",
     "stripe",
     "sendgrid",
     "payment",
@@ -206,8 +199,6 @@ EMAIL_USE_TLS = True
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
 
-
-LOGIN_REDIRECT_URL = HttpResponseRedirect("http://localhost:3000")
 STRIPE_WEBHOOK_SECRET = "whsec_8KHXs8U07a2iRz4fequVxXo1tjN3PLRM"
 
 CORS_ORIGIN_WHITELIST = config(
