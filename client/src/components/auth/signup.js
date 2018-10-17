@@ -115,6 +115,7 @@ class Wizard extends Component {
     this.props.children[1]._owner.memoizedProps.history.push("/");
   };
 
+
   // save token to localStorage
   _saveUserData = (token, id, premium) => {
     localStorage.setItem(AUTH_TOKEN, token);
