@@ -104,14 +104,14 @@ class Checkout extends Component {
         <Card>
           <Typography paragraph>
             {
-              "Free users use the default theme and have access to all other features but a limit of 8 of each item at one time - 8 clients, 8 jobs, etc."
+              "Free users use the default theme and have access to all other features but a limit of 8 of each item at one time - 8 clients, 8 jobs, and so on."
             }
           </Typography>
         </Card>
         <Card>
           <Typography paragraph>
             {
-              "Premium users have access to all features with an unlimited number of jobs, clients, and so on.  Premium users also have multiple theme choices and the ability to create custom themes.We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99."
+              "Premium users have access to all features with an unlimited number of jobs, clients, and so on. Premium users can also choose from multiple desktop themes. We offer our premium subscription at two different rates - a monthly fee of 99¢ or a yearly fee of $9.99."
             }
           </Typography>
         </Card>
