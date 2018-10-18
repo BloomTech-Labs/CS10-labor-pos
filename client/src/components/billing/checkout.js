@@ -12,8 +12,8 @@ import {
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
 import classNames from "classnames";
-import { AUTH_TOKEN } from '../../constants.js';
-import { styles } from '../material-ui/styles.js';
+
+
 
 class Checkout extends Component {
   state = {
