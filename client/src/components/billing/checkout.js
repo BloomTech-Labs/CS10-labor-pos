@@ -7,13 +7,11 @@ import {
   Typography,
   Card,
   withStyles,
-  Grid
+  Grid,
 } from "@material-ui/core";
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
 import classNames from "classnames";
-
-
 
 class Checkout extends Component {
   state = {
@@ -186,8 +184,8 @@ class Checkout extends Component {
             </Grid>
           </Grid>
         </React.Fragment>
-      </div>
-  };
+      </div>;
+  }
 }
 
 export default withStyles(styles)(Checkout);
