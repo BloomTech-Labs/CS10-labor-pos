@@ -90,13 +90,13 @@ const styles = theme => ({
     paddingTop: "20px",
     fontSize: "24px",
     fontWeight: "900",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Helvetica Neue, sans-serif"
   },
   typography_paragraph: {
     paddingTop: "20px",
     fontSize: "18px",
     fontWeight: "600",
-    fontFamily: "Roboto"
+    fontFamily: "Helvetica Neue"
   },
   typography_title: {
     fontSize: "40px"
@@ -155,7 +155,7 @@ const styles = theme => ({
     justifyContent: "flex-start"
   },
   state_field: {
-    fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+    fontFamily: "Helvetica, Arial, sans-serif",
     fontSize: "16px",
     fontWeight: "400",
     lineHeight: "19px",
@@ -191,7 +191,7 @@ const styles = theme => ({
     paddingBottom: "30px",
     fontSize: "24px",
     fontWeight: "700",
-    fontFamily: "Roboto, sans-serif"
+    fontFamily: "Helvetica, sans-serif"
   },
   start_card: {
     minWidth: "40px",

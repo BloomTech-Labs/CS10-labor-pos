@@ -46,7 +46,7 @@ class SideNav extends Component {
         <Divider className={classes.space_above} />
         <Avatar
           alt="Raccoon with a gold bowtie"
-          src={require("../../raccoonbowtie.svg")}
+          src={require("../../racoonbowtie.svg")}
           className={classes.image}
         />
         <Link to="/" className={classes.sidenav_top}>

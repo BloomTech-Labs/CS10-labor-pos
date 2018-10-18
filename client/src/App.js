@@ -4,7 +4,7 @@ import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
 import desk_image from "./background.jpg";
-import raccoon from "./raccoonbowtie.svg";
+import raccoon from "./racoonbowtie.svg";
 
 class App extends Component {
   state = {
