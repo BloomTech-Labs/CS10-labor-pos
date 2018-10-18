@@ -184,7 +184,8 @@ class Checkout extends Component {
             </Grid>
           </Grid>
         </React.Fragment>
-      </div>;
+      </div>
+      );
   }
 }
 
