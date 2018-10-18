@@ -186,8 +186,8 @@ class Checkout extends Component {
             </Grid>
           </Grid>
         </React.Fragment>
-      </div>,
-  }
+      </div>
+  };
 }
 
 export default withStyles(styles)(Checkout);
