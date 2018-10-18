@@ -143,6 +143,7 @@ class JobView extends Component {
 
           return (
             <div>
+              <br />
               <div className="job-view-top">
                 <Grid
                   container

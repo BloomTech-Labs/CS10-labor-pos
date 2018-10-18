@@ -52,37 +52,50 @@ class CardList extends Component {
 
   render() {
     let { classes } = this.props;
-
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     let card_array = [];
     let columns = 1;
-    let per_page = this.props.rows * this.props.columns;
     if (isWidthUp("sm", this.props.width)) {
       columns = 2;
     }
     if (isWidthUp("md", this.props.width)) {
       columns = this.props.columns;
     }
-
-    for (
-      let i = this.state.page * per_page;
-      i < this.props.items.length && i < (this.state.page + 1) * per_page;
-      i++
-    ) {
-      card_array.push(
-        <Grid item xs={12 / columns} key={i}>
-          <Card raised className={classes.item_card}>
-            <ItemCard
-              after_path={this.props.after_path}
-              type={this.props.type}
-              item={this.props.items[i].node}
-              refetch={this.props.refetch}
-            />
-          </Card>
-        </Grid>
-      );
+    if (user_premium) {
+      for (let i = 0; i < this.props.items.length; i++) {
+        card_array.push(
+          <Grid item xs={12} md={6} lg={4} key={i}>
+            <Card raised className={classes.item_card}>
+              <ItemCard
+                after_path={this.props.after_path}
+                type={this.props.type}
+                item={this.props.items[i].node}
+                refetch={this.props.refetch}
+              />
+            </Card>
+          </Grid>
+        );
+      }
+    } else {
+      for (let i = 0; i < 8; i++) {
+        card_array.push(
+          <Grid item xs={12} md={6} lg={4} key={i}>
+            <Card raised className={classes.item_card}>
+              <ItemCard
+                after_path={this.props.after_path}
+                type={this.props.type}
+                item={this.props.items[i].node}
+                refetch={this.props.refetch}
+              />
+            </Card>
+          </Grid>
+        );
+      }
     }
     if (this.props.location.pathname !== "/jobs")
-      card_array.push(
+      card_array.unshift(
         <Grid item xs={12 / columns} key={-1}>
           <Card raised className={classes.new_card}>
             <br />
@@ -117,23 +130,7 @@ class CardList extends Component {
           alignItems="center"
           alignContent="center"
           spacing={24}
-        >
-          <IconButton
-            onClick={this.handlePageBack}
-            disabled={this.state.page === 0}
-          >
-            <NavigateBefore />
-          </IconButton>
-          <Typography>{this.state.page + 1}</Typography>
-          <IconButton
-            onClick={this.handlePageForward}
-            disabled={
-              (this.state.page + 1) * per_page > this.props.items.length - 1
-            }
-          >
-            <NavigateNext />
-          </IconButton>
-        </Grid>
+        />
       </div>
     );
   }
