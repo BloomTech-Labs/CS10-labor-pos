@@ -90,16 +90,17 @@ const styles = theme => ({
     paddingTop: "20px",
     fontSize: "24px",
     fontWeight: "900",
-    fontFamily: "Helvetica Neue, sans-serif"
+    fontFamily: "Helvetica, sans-serif"
   },
   typography_paragraph: {
     paddingTop: "20px",
     fontSize: "18px",
-    fontWeight: "600",
-    fontFamily: "Helvetica Neue"
+    fontWeight: "300",
+    fontFamily: "Helvetica, sans-serif",
+    letterSpacing: 5,
   },
   typography_title: {
-    fontSize: "40px"
+    fontSize: "40px",
   },
   main_content: {
     textAlign: "center",
