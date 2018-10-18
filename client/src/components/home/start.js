@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import { Button, Grid, Card, withStyles, Typography } from "@material-ui/core";
+import {
+  Button,
+  Grid,
+  Card,
+  withStyles,
+  Typography,
+  Tooltip
+} from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
 
 //The start component renders at the root route when the user is logged in
@@ -32,40 +39,55 @@ class Start extends Component {
             >
               <br />
               <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Link to="/clients">
-                  <Button>
-                    <Card className={classes.start_card}>
-                      <Typography className={classes.typography}>
-                        View clients
-                      </Typography>
-                    </Card>
-                  </Button>
-                </Link>
+                <Tooltip
+                  title={`Clients are your customers.\n\nThrough the client page, you can add jobs for the client and notes about the client.`}
+                  disableHoverListener={true}
+                >
+                  <Link to="/clients">
+                    <Button>
+                      <Card className={classes.start_card}>
+                        <Typography className={classes.typography}>
+                          View clients
+                        </Typography>
+                      </Card>
+                    </Button>
+                  </Link>
+                </Tooltip>
                 <br />
               </Grid>
               <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Link to="/jobs">
-                  <Button>
-                    <Card className={classes.start_card}>
-                      <Typography className={classes.typography}>
-                        View jobs
-                      </Typography>
-                    </Card>
-                  </Button>
-                </Link>
+                <Tooltip
+                  disableHoverListener={true}
+                  title={`Jobs are specific jobs being done for a customer and are created through the client.\n\nThrough a job, you can add parts (which would be line items in your invoice) and notes about the job.`}
+                >
+                  <Link to="/jobs">
+                    <Button>
+                      <Card className={classes.start_card}>
+                        <Typography className={classes.typography}>
+                          View jobs
+                        </Typography>
+                      </Card>
+                    </Button>
+                  </Link>
+                </Tooltip>
                 <br />
               </Grid>
               <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Link to="/notes">
-                  {" "}
-                  <Button>
-                    <Card className={classes.start_card}>
-                      <Typography className={classes.typography}>
-                        View notes
-                      </Typography>
-                    </Card>
-                  </Button>
-                </Link>
+                <Tooltip
+                  disableHoverListener={true}
+                  title="Notes can be made attached to a client, a job, or be unattached to anything, giving you the flexibility to keep track of all of your projects."
+                >
+                  <Link to="/notes">
+                    {" "}
+                    <Button>
+                      <Card className={classes.start_card}>
+                        <Typography className={classes.typography}>
+                          View notes
+                        </Typography>
+                      </Card>
+                    </Button>
+                  </Link>
+                </Tooltip>
                 <br />
               </Grid>
             </Grid>
