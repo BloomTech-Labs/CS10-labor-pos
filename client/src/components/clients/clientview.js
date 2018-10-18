@@ -185,7 +185,6 @@ class ClientView extends Component {
                 paragraph
               >{`Jobs for ${name}:`}</Typography>
               <CardList
-                rows={1}
                 columns={3}
                 type="job"
                 items={job_items}

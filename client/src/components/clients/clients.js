@@ -32,7 +32,6 @@ class Clients extends Component {
               <CardList
                 items={data.allClients.edges}
                 type="client"
-                rows={2}
                 columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}

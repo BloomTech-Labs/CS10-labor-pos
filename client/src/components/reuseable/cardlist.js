@@ -8,7 +8,8 @@ import {
   Card,
   IconButton,
   Typography,
-  withStyles
+  withStyles,
+  Button
 } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";
@@ -79,7 +80,7 @@ class CardList extends Component {
         );
       }
     } else {
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < this.props.items.length && i < 8; i++) {
         card_array.push(
           <Grid item xs={12} md={6} lg={4} key={i}>
             <Card raised className={classes.item_card}>
@@ -94,21 +95,6 @@ class CardList extends Component {
         );
       }
     }
-    if (this.props.location.pathname !== "/jobs")
-      card_array.unshift(
-        <Grid item xs={12 / columns} key={-1}>
-          <Card raised className={classes.new_card}>
-            <br />
-            <IconButton onClick={this.props.createMethod}>
-              <AddCircle />
-            </IconButton>
-            <Typography
-              className={classes.typography_card}
-              variant="subheading"
-            >{`New ${this.props.type}`}</Typography>
-          </Card>
-        </Grid>
-      );
     return (
       <div>
         <Grid
@@ -119,6 +105,30 @@ class CardList extends Component {
           alignContent="center"
           spacing={24}
         >
+          {user_premium ? (
+            this.props.location.pathname !== "/jobs" ? (
+              <React.Fragment>
+                <Button onClick={this.props.createMethod}>
+                  <Typography
+                    className={classes.typography_card}
+                    variant="subheading"
+                  >
+                    {" "}
+                    {`New ${this.props.type}`}
+                  </Typography>
+                </Button>
+              </React.Fragment>
+            ) : null
+          ) : this.props.location.pathname !== "/jobs" ? (
+            this.props.items <= 8 && (
+              <Button
+                onClick={this.props.createMethod}
+                disabled={this.props.items >= 8}
+              >
+                {`New ${this.props.type}`}
+              </Button>
+            )
+          ) : null}
           {card_array}
         </Grid>
         <br />

@@ -29,7 +29,6 @@ class Jobs extends Component {
               <CardList
                 items={data.allJobs.edges}
                 type="job"
-                rows={2}
                 columns={3}
                 refetch={refetch}
               />
