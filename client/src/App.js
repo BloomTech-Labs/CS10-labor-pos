@@ -106,7 +106,7 @@ class App extends Component {
         fontFamily: font
         },
       }
-    });
+    );
 
     return (
       <div className="App">
