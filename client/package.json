@@ -25,6 +25,7 @@
     "react-stripe-checkout": "^2.6.3",
     "react-stripe-elements": "^2.0.1",
     "react-test-renderer": "^16.5.2",
+    "route-parser": "^0.0.5",
     "sendgrid": "^5.2.3",
     "source-map-explorer": "^1.6.0",
     "subscriptions-transport-ws": "^0.9.14",
