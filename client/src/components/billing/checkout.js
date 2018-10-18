@@ -156,7 +156,7 @@ class Checkout extends Component {
             name="contractAlchemy"
             token={this.getStripeToken}
             stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
-            image="https://bestpos.netlify.com/goldraccoon.png"
+            image="https://bestpos.netlify.com/raccoonbowtie.svg"
             color="black"
             zipCode={true}
             billingAddress={true}
