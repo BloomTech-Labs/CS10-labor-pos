@@ -292,7 +292,6 @@ class NoteForm extends Component {
   }
   _confirm = () => {
     //  After submission, reload the window to get updated information and go to the notes route.
-
     if (this.props.mode === "modal") {
       this.props.refetch();
       this.props.cancelAdd();

@@ -18,12 +18,12 @@ class EditPart extends Component {
         query={DETAILED_PART_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div>
-              <PartForm mode="edit" part={data.part} />
+              <PartForm mode="edit" part={data.part} refetch={refetch} />
             </div>
           );
         }}

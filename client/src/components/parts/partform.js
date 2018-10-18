@@ -94,9 +94,9 @@ class PartForm extends Component {
                 return (
                   <Mutation
                     mutation={chosen_mutation}
-                    onCompleted={() => this._confirm()}
+                    onCompleted={data => this._confirm(data)}
                   >
-                    {mutatePart => (
+                    {(mutatePart, { loading, error }) => (
                       <div>
                         <Form
                           onSubmit={event => {
@@ -248,6 +248,10 @@ class PartForm extends Component {
                             </Button>
                           </Grid>
                         </Form>
+                        {loading && (
+                          <Typography>Saving part information...</Typography>
+                        )}
+                        {error && <Typography>{error}</Typography>}
                       </div>
                     )}
                   </Mutation>
@@ -260,9 +264,14 @@ class PartForm extends Component {
     );
   }
 
-  _confirm = () => {
-    this.props.cancelAdd();
-    this.props.refetch();
+  _confirm = async data => {
+    if (this.props.mode === "modal") {
+      data && this.props.cancelAdd();
+      data && this.props.refetch();
+    } else {
+      data && this.props.refetch();
+      this.props.history.goBack();
+    }
   };
 }
 

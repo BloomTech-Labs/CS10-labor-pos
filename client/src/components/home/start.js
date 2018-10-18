@@ -36,7 +36,7 @@ class Start extends Component {
                   <Button>
                     <Card className={classes.start_card}>
                       <Typography className={classes.typography}>
-                        Click to view clients
+                        View clients
                       </Typography>
                     </Card>
                   </Button>
@@ -48,7 +48,7 @@ class Start extends Component {
                   <Button>
                     <Card className={classes.start_card}>
                       <Typography className={classes.typography}>
-                        Click to view jobs
+                        View jobs
                       </Typography>
                     </Card>
                   </Button>
@@ -61,7 +61,7 @@ class Start extends Component {
                   <Button>
                     <Card className={classes.start_card}>
                       <Typography className={classes.typography}>
-                        Click to view notes
+                        View notes
                       </Typography>
                     </Card>
                   </Button>
