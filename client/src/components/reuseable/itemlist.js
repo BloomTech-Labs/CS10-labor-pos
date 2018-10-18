@@ -136,7 +136,7 @@ class ItemList extends Component {
         >
           <NavigateBefore />
         </IconButton>
-        {this.state.page + 1}
+        <Typography>{this.state.page + 1}</Typography>
         <IconButton
           onClick={this.handlePageForward}
           disabled={

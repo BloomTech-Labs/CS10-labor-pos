@@ -109,21 +109,31 @@ class CardList extends Component {
           {card_array}
         </Grid>
         <br />
-        <IconButton
-          onClick={this.handlePageBack}
-          disabled={this.state.page === 0}
+        <br />
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          alignContent="center"
+          spacing={24}
         >
-          <NavigateBefore />
-        </IconButton>
-        {this.state.page + 1}
-        <IconButton
-          onClick={this.handlePageForward}
-          disabled={
-            (this.state.page + 1) * per_page > this.props.items.length - 1
-          }
-        >
-          <NavigateNext />
-        </IconButton>
+          <IconButton
+            onClick={this.handlePageBack}
+            disabled={this.state.page === 0}
+          >
+            <NavigateBefore />
+          </IconButton>
+          <Typography>{this.state.page + 1}</Typography>
+          <IconButton
+            onClick={this.handlePageForward}
+            disabled={
+              (this.state.page + 1) * per_page > this.props.items.length - 1
+            }
+          >
+            <NavigateNext />
+          </IconButton>
+        </Grid>
       </div>
     );
   }

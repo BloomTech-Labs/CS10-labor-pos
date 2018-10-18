@@ -71,6 +71,13 @@ class App extends Component {
       sidenav_background = "#f0e370";
     } else if (this.state.theme_string === "desk") {
       background_image = desk_image;
+    } else if (this.state.theme_string === "greyscale") {
+      theme_type = "dark";
+      default_color = "#191919";
+      paper_color = "#4c4c4c";
+      lightened_background = grey["100"];
+      sidenav_background = "#191919";
+      base_background = "#ffffff";
     }
     //  Create the theme for the app.
     const theme = createMuiTheme({

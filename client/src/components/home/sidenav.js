@@ -197,6 +197,11 @@ class SideNav extends Component {
                     control={<Radio />}
                     label="Banana"
                   />
+                  <FormControlLabel
+                    value="greyscale"
+                    control={<Radio />}
+                    label="Greyscale"
+                  />
                 </RadioGroup>
               </FormControl>
             </ExpansionPanelDetails>
