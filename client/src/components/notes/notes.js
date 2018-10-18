@@ -34,7 +34,6 @@ class Notes extends Component {
               <CardList
                 items={data.allNotes.edges}
                 type="note"
-                rows={2}
                 columns={3}
                 createMethod={this.handleCreate}
                 refetch={refetch}

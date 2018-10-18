@@ -101,6 +101,25 @@ const styles = theme => ({
   },
   typography_title: {
     fontSize: "40px",
+    fontFamily: "'Cinzel', serif"
+  },
+  typography_title_checkout: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: "32px"
+  },
+  typography_title_landing: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: "32px",
+    textShadow: "1px 3px black"
+  },
+  typography_paragraph_landing: {
+    paddingTop: "20px",
+    fontSize: "18px",
+    fontWeight: "300",
+    fontFamily: "Source Sans Pro, Arial, sans-serif"
+  },
+  image_large: {
+    maxWidth: "700px"
   },
   main_content: {
     textAlign: "center",

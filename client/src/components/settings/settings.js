@@ -128,6 +128,7 @@ class Settings extends Component {
                     <Grid container spacing={24}>
                       <Grid item xs={3} />
                       <Grid item xs={6}>
+                        <br />
                         <Typography
                           variant="title"
                           className={classes.typography_title}

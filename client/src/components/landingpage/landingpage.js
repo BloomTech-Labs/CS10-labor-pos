@@ -107,24 +107,29 @@ class LandingPage extends Component {
             </Grid>
           </Grid>
           <div>
-            <Card className={classes.layout}>
-              <img
-                alt="A golden raccoon logo"
-                src={require("../../racoonbowtie.svg")}
-                className={classes.image}
-              />
-              <Typography className={classes.typography} variant="title">
-                Contract Alchemy: Turning POS Into Gold
-              </Typography>
-              <Typography className={classes.typography_paragraph} paragraph>
-                {"Are you tired of balancing multiple projects?"} <br />
-                {
-                  "Do you find yourself struggling with spreadsheet after spreadsheet trying to keep track of how much you’re owed from whom?"
-                }{" "}
-                <br /> {"Struggle no more!"}
+            <img
+              alt="A golden raccoon logo"
+              src={require("../../racoonbowtie.svg")}
+              className={classes.image_large}
+            />
+            <div style={{ backgroundColor: "black", padding: "20px" }}>
+              <Typography
+                className={classes.typography_title_landing}
+                variant="title"
+              >
+                Contract Alchemy:
                 <br />
+                Turning POS Into Gold
+              </Typography>
+              <Typography
+                className={classes.typography_paragraph_landing}
+                paragraph
+              >
+                {"Tired of balancing multiple projects?"} <br />
+                {"Struggling to keep track of how much you’re owed from whom?"}
+                <h2>{"Struggle no more!"}</h2>
                 {
-                  "Here at contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."
+                  "At contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."
                 }
               </Typography>
               <Button
@@ -135,28 +140,28 @@ class LandingPage extends Component {
               >
                 Create Account
               </Button>
-            </Card>
+            </div>
+            {/*We use material ui dialog components for our modals.*/}
+            <Dialog
+              fullScreen={fullScreen}
+              open={this.state.login_modal}
+              onClose={this.handleCloseModals}
+              PaperProps={{ className: classes.dark_paper }}
+            >
+              <Paper className={classes.paper}>
+                <Login modalDone={this.handleCloseModals} />
+              </Paper>
+            </Dialog>
+            <Dialog
+              fullScreen={fullScreen}
+              open={this.state.create_modal}
+              onClose={this.handleCloseModals}
+            >
+              <Paper className={classes.dark_paper}>
+                <CreateUser modalDone={this.handleLogin} />
+              </Paper>
+            </Dialog>
           </div>
-          {/*We use material ui dialog components for our modals.*/}
-          <Dialog
-            fullScreen={fullScreen}
-            open={this.state.login_modal}
-            onClose={this.handleCloseModals}
-            PaperProps={{ className: classes.dark_paper }}
-          >
-            <Paper className={classes.paper}>
-              <Login modalDone={this.handleCloseModals} />
-            </Paper>
-          </Dialog>
-          <Dialog
-            fullScreen={fullScreen}
-            open={this.state.create_modal}
-            onClose={this.handleCloseModals}
-          >
-            <Paper className={classes.dark_paper}>
-              <CreateUser modalDone={this.handleLogin} />
-            </Paper>
-          </Dialog>
         </div>
       );
     }

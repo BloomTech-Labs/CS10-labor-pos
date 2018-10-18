@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
 import { LandingPage } from "./components";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  CssBaseline
+} from "@material-ui/core/styles";
 import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
 import desk_image from "./background.jpg";
 import raccoon from "./racoonbowtie.svg";
@@ -96,12 +100,13 @@ class App extends Component {
           default: default_color,
           sidenav: sidenav_background,
           textfield: textfield_color
-        },
-        typography:  {
-        fontFamily: font
+        }
       },
+      typography: {
+        fontFamily: font
+        },
       }
-    });
+    );
 
     return (
       <div className="App">

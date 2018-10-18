@@ -30,7 +30,6 @@ class Parts extends Component {
               <CardList
                 items={data.allParts.edges}
                 type="part"
-                rows={2}
                 columns={3}
                 refetch={refetch}
               />
