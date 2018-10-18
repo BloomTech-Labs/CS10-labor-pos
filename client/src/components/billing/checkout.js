@@ -12,7 +12,6 @@ import {
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
 import classNames from "classnames";
-} from '@material-ui/core';
 import { AUTH_TOKEN } from '../../constants.js';
 import { styles } from '../material-ui/styles.js';
 
