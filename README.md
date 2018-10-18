@@ -1,5 +1,5 @@
 <h1 align="center">CS10-Labor POS</h1>
-<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:  This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
+<div align="center"> <img src="client/public/raccoonbowtie.svg" alt="Raccoon with a bowtie" title="License: Raccoon image created with free images from Stockio.com and mbtskoudsalg.com"/></div>
 
 <div align="center"><h2>Brought to you by:</h2>
 
@@ -98,8 +98,8 @@
   - [Stripe](#stripe)
   - [Free vs Premium](#free-vs-premium)
   - [Design](#design)
-    - [Original Wireframe](#original-wireframe)
-    - [Extending the Wireframe](#extending-the-wireframe)
+    - Original Wireframe
+    - Extending the Wireframe
     - [Styles and Theming](#styles-and-theming)
 
 ## Tech Stack

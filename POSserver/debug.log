@@ -1,0 +1,10 @@
+[18/Oct/2018 00:36:26] DEBUG [django.db.backends:111] (0.206) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[18/Oct/2018 00:36:26] DEBUG [django.db.backends:111] (0.025) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[18/Oct/2018 00:41:54] DEBUG [django.db.backends:111] (0.097) SELECT "server_user"."id", "server_user"."password", "server_user"."last_login", "server_user"."is_superuser", "server_user"."username", "server_user"."email", "server_user"."is_staff", "server_user"."is_active", "server_user"."date_joined", "server_user"."first_name", "server_user"."last_name", "server_user"."street_address", "server_user"."city", "server_user"."state", "server_user"."zipcode", "server_user"."business_name", "server_user"."modified_at", "server_user"."premium", "server_user"."paid_until" FROM "server_user" WHERE "server_user"."username" = 'Cole'; args=('Cole',)
+[18/Oct/2018 00:41:54] INFO [django.server:124] "POST /graphql/ HTTP/1.1" 200 301
