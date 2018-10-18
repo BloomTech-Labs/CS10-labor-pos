@@ -45,8 +45,8 @@ class SideNav extends Component {
         id est client would have a smaller create client button under it.*/}
         <Divider className={classes.space_above} />
         <Avatar
-          alt="A golden raccoon logo"
-          src={require("../../goldracoon.png")}
+          alt="Raccoon with a gold bowtie"
+          src={require("../../raccoonbowtie.svg")}
           className={classes.image}
         />
         <Link to="/" className={classes.sidenav_top}>
