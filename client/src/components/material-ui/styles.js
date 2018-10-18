@@ -90,7 +90,7 @@ const styles = theme => ({
     paddingTop: "20px",
     fontSize: "24px",
     fontWeight: "900",
-    fontFamily: "Helvetica, Arial, sans-serif"
+    fontFamily: "Helvetica, sans-serif"
   },
   typography_paragraph: {
     paddingTop: "20px",
