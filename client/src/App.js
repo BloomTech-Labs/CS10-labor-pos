@@ -6,6 +6,8 @@ import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
 import desk_image from "./background.jpg";
 import raccoon from "./racoonbowtie.svg";
 
+
+
 class App extends Component {
   state = {
     theme_string: "default"
@@ -80,6 +82,9 @@ class App extends Component {
       base_background = "#ffffff";
     }
     //  Create the theme for the app.
+
+    const font = "'Soure Sans Pro', sans-serif";
+
     const theme = createMuiTheme({
       palette: {
         type: theme_type,
@@ -91,7 +96,10 @@ class App extends Component {
           default: default_color,
           sidenav: sidenav_background,
           textfield: textfield_color
-        }
+        },
+        typography:  {
+        fontFamily: font
+      },
       }
     });
 
