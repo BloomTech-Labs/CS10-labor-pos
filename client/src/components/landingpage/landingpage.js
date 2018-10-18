@@ -110,7 +110,7 @@ class LandingPage extends Component {
             <Card className={classes.layout}>
               <img
                 alt="A golden raccoon logo"
-                src={require("../../goldracoon.png")}
+                src={require("../../raccoonbowtie.svg")}
                 className={classes.image}
               />
               <Typography className={classes.typography} variant="title">
