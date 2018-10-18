@@ -135,9 +135,10 @@ class ClientForm extends Component {
                     {/* Now the form: Uses grids for positioning */}
                     <Grid container>
                       <Grid item xs={12}>
+                        <br />
                         <Typography
                           variant="title"
-                          className={classes.typography}
+                          className={classes.typography_title}
                         >
                           {title_text}
                         </Typography>

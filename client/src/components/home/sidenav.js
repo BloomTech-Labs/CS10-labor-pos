@@ -11,7 +11,8 @@ import {
   FormControl,
   RadioGroup,
   Radio,
-  Hidden
+  Hidden,
+  Typography
 } from "@material-ui/core";
 import ExpandMore from "@material-ui/icons/ExpandMore.js";
 import { withRouter } from "react-router";
@@ -51,7 +52,7 @@ class SideNav extends Component {
         />
         <Link to="/" className={classes.sidenav_top}>
           <MenuItem className={classes.image} selected={path === "/"}>
-            Home
+            <Typography className={classes.typography_menu}>Home</Typography>
           </MenuItem>
         </Link>
 
@@ -63,17 +64,27 @@ class SideNav extends Component {
           <ExpansionPanelSummary
             expandIcon={<ExpandMore className="sidenav" />}
           >
-            <MenuItem selected={path.includes("client")}>Clients</MenuItem>
+            <MenuItem selected={path.includes("client")}>
+              <Typography className={classes.typography_menu}>
+                Clients
+              </Typography>
+            </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
             className={classNames("sidenav", classes.nav_menu)}
           >
             <Link to="/clients">
-              <MenuItem selected={path.includes("clients")}>View</MenuItem>
+              <MenuItem selected={path.includes("clients")}>
+                <Typography className={classes.typography_menu}>
+                  View
+                </Typography>
+              </MenuItem>
             </Link>
             <Link to="/createclient">
               <MenuItem selected={path.includes("createclient")}>
-                Create
+                <Typography className={classes.typography_menu}>
+                  Create
+                </Typography>
               </MenuItem>
             </Link>
           </ExpansionPanelDetails>
@@ -90,14 +101,18 @@ class SideNav extends Component {
             <MenuItem
               selected={path.includes("job") || path.includes("invoice")}
             >
-              Jobs
+              <Typography className={classes.typography_menu}>Jobs</Typography>
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
             className={classNames("sidenav", classes.nav_menu)}
           >
             <Link to="/jobs">
-              <MenuItem selected={path.includes("jobs")}>View</MenuItem>
+              <MenuItem selected={path.includes("jobs")}>
+                <Typography className={classes.typography_menu}>
+                  View
+                </Typography>
+              </MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -110,16 +125,26 @@ class SideNav extends Component {
             className="sidenav"
             expandIcon={<ExpandMore />}
           >
-            <MenuItem selected={path.includes("note")}>Notes</MenuItem>
+            <MenuItem selected={path.includes("note")}>
+              <Typography className={classes.typography_menu}>Notes</Typography>
+            </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
             className={classNames("sidenav", classes.nav_menu)}
           >
             <Link to="/notes">
-              <MenuItem selected={path.includes("notes")}>View</MenuItem>
+              <MenuItem selected={path.includes("notes")}>
+                <Typography className={classes.typography_menu}>
+                  View
+                </Typography>
+              </MenuItem>
             </Link>
             <Link to="/createnote">
-              <MenuItem selected={path.includes("createnote")}>Create</MenuItem>
+              <MenuItem selected={path.includes("createnote")}>
+                <Typography className={classes.typography_menu}>
+                  Create
+                </Typography>
+              </MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -136,17 +161,27 @@ class SideNav extends Component {
             <MenuItem
               selected={path.includes("settings") || path.includes("billing")}
             >
-              Settings
+              <Typography className={classes.typography_menu}>
+                Settings
+              </Typography>
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
             className={classNames("sidenav", classes.nav_menu)}
           >
             <Link to="/settings">
-              <MenuItem selected={path.includes("settings")}>Main</MenuItem>
+              <MenuItem selected={path.includes("settings")}>
+                <Typography className={classes.typography_menu}>
+                  Main
+                </Typography>
+              </MenuItem>
             </Link>
             <Link to="/billing">
-              <MenuItem selected={path.includes("billing")}>Billing</MenuItem>
+              <MenuItem selected={path.includes("billing")}>
+                <Typography className={classes.typography_menu}>
+                  Billing
+                </Typography>
+              </MenuItem>
             </Link>
           </ExpansionPanelDetails>
         </ExpansionPanel>
@@ -157,7 +192,11 @@ class SideNav extends Component {
             className={classes.sidenav}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-              <MenuItem>Themes</MenuItem>
+              <MenuItem>
+                <Typography className={classes.typography_menu}>
+                  Themes
+                </Typography>
+              </MenuItem>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.nav_menu}>
               <FormControl component="fieldset" className={classes.formControl}>
@@ -207,7 +246,9 @@ class SideNav extends Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Hidden>
-        <MenuItem onClick={this.props.logout}>Logout</MenuItem>
+        <MenuItem onClick={this.props.logout}>
+          <Typography className={classes.typography_menu}>Logout</Typography>
+        </MenuItem>
         <Divider className="sidenav" />
         {/*The below switch controls light and dark theming by communicating with the App component.
             The current theme is also saved on local storage so it will persist between reloads.*/}

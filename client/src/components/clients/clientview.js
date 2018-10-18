@@ -84,7 +84,6 @@ class ClientView extends Component {
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
-
           let job_items = data.client.jobSet.edges;
           for (let i = 0; i < job_items.length; i++) {
             job_items[i].node.client = { businessName: name };
@@ -185,7 +184,6 @@ class ClientView extends Component {
                 paragraph
               >{`Jobs for ${name}:`}</Typography>
               <CardList
-                rows={1}
                 columns={3}
                 type="job"
                 items={job_items}

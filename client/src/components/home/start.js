@@ -25,7 +25,13 @@ class Start extends Component {
         <br />
         <Grid container>
           <Grid item xs={12}>
-            <Typography className={classes.typography} variant="title" />
+            <Typography
+              className={classes.typography_title_checkout}
+              variant="title"
+            >
+              Hover over a box to learn more
+            </Typography>
+            <br />
           </Grid>
           <Grid item xs={1} />
           <Grid item xs={10}>
