@@ -1,5 +1,5 @@
 <h1 align="center">CS10-Labor POS</h1>
-<div align="center"> <img src="client/public/raccoonbowtie.svg" alt="Raccoon with a bowtie" title="License: Raccoon image created with free images from Stockio.com and mbtskoudsalg.com"/></div>
+<div align="center"> <img src="client/public/racoonbowtie.svg" alt="Raccoon with a bowtie" title="License: Raccoon image created with free images from Stockio.com and mbtskoudsalg.com"/></div>
 
 <div align="center"><h2>Brought to you by:</h2>
 

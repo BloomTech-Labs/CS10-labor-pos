@@ -145,7 +145,7 @@ class Home extends Component {
               >
                 <Avatar
                   alt="A golden raccoon logo"
-                  src={require("../../raccoonbowtie.svg")}
+                  src={require("../../racoonbowtie.svg")}
                   className={classes.image}
                 />
               </IconButton>
