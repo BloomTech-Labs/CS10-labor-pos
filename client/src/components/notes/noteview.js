@@ -81,7 +81,14 @@ class NoteView extends Component {
                   </Link>
                 </Grid>
                 <Grid item xs={8}>
-                  <Typography variant="title">{data.note.title}</Typography>
+                  <Typography
+                    variant="title"
+                    className={classes.typography_title}
+                  >
+                    {data.note.title}
+                  </Typography>
+                  <br />
+                  <br />
                 </Grid>
                 <Grid item xs={2}>
                   <IconButton onClick={this.handleDeleteButton}>

@@ -18,12 +18,12 @@ class EditClient extends Component {
         query={DETAILED_CLIENT_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div>
-              <ClientForm mode="edit" client={data.client} />
+              <ClientForm mode="edit" client={data.client} refetch={refetch} />
             </div>
           );
         }}

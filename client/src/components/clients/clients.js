@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router";
 import { Query } from "react-apollo";
 import { CardList } from "../../components";
-import { Typography, withStyles, Grid } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import { QUERY_ALL_CLIENTS } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 

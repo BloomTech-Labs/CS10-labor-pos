@@ -81,8 +81,8 @@ class JobView extends Component {
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
+          refetch();
           let right_content = [];
-
           if (data.job.complete) {
             right_content.push(
               <Typography key={0}>
@@ -92,8 +92,8 @@ class JobView extends Component {
             );
           } else {
             right_content.push(
-              <React.Fragment>
-                <Typography key={0}>
+              <React.Fragment key={0}>
+                <Typography>
                   <ArrowRightAlt /> &nbsp; &nbsp; <b>Job In Progress</b>
                 </Typography>
                 <br />
@@ -102,8 +102,8 @@ class JobView extends Component {
           }
           if (data.job.deadline) {
             right_content.push(
-              <React.Fragment>
-                <Typography key={1}>
+              <React.Fragment key={1}>
+                <Typography>
                   Deadline: &nbsp; &nbsp;
                   {data.job.deadline}
                 </Typography>
@@ -114,8 +114,8 @@ class JobView extends Component {
           const created = new Date(data.job.createdAt);
           const modified = new Date(data.job.modifiedAt);
           right_content.push(
-            <React.Fragment>
-              <Typography key={2}>
+            <React.Fragment key={2}>
+              <Typography>
                 Labor/hours worked: &nbsp; &nbsp;
                 {data.job.labor}
               </Typography>
@@ -124,8 +124,8 @@ class JobView extends Component {
           );
 
           right_content.push(
-            <React.Fragment>
-              <Typography key={3}>
+            <React.Fragment key={3}>
+              <Typography>
                 Created On:&nbsp; &nbsp;
                 {`${created.getMonth() +
                   1}/${created.getDate()}/${created.getFullYear()}`}
