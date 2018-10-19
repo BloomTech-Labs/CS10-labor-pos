@@ -97,52 +97,30 @@ class Settings extends Component {
       >
         {({ values, isValid }) => {
           const paid_until = new Date(values.paidUntil);
-          return (
-            <Mutation
-              mutation={UPDATE_USER}
-              onCompleted={() => this._confirm(this.props.refetch)}
-            >
-              {(mutateJob, { loading, error, data }) => (
-                <div>
-                  <Form
-                    onSubmit={event => {
+          return <Mutation mutation={UPDATE_USER} onCompleted={() => this._confirm(this.props.refetch)}>
+              {(mutateJob, { loading, error, data }) => <div>
+                  <Form onSubmit={event => {
                       event.preventDefault();
-                      let user_variables = {
-                        oldPassword: values.oldPassword,
-                        newPassword: values.newPassword,
-                        businessName: values.businessName,
-                        firstName: values.firstName,
-                        lastName: values.lastName,
-                        streetAddress: values.streetAddress,
-                        city: values.city,
-                        state: values.state,
-                        zipcode: values.zipcode
-                      };
+                      let user_variables = { oldPassword: values.oldPassword, newPassword: values.newPassword, businessName: values.businessName, firstName: values.firstName, lastName: values.lastName, streetAddress: values.streetAddress, city: values.city, state: values.state, zipcode: values.zipcode };
 
                       user_variables.id = this.props.user.id;
-                      mutateJob({
-                        variables: user_variables
-                      });
-                    }}
-                  >
+                      mutateJob({ variables: user_variables });
+                    }}>
                     <Grid container spacing={24}>
                       <Grid item xs={3} />
                       <Grid item xs={6}>
                         <br />
-                        <Typography
-                          variant="title"
-                          className={classes.typography_title}
-                        >
+                        <Typography variant="title" className={classes.typography_title}>
                           Settings
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={3}>
                         <IconButton disabled={!user_premium}>
-                          <Grade />
+                          <Grade className={classes.premium_results}/>
                         </IconButton>
                         <Hidden xsUp={!user_premium}>
-                          <Typography>
-                            Premium member paid until:{" "}
+                          <Typography className={classes.premium_results}>
+                            Premium member paid until:{' '}
                             {`${paid_until.getMonth() +
                               1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
                           </Typography>
@@ -150,174 +128,60 @@ class Settings extends Component {
                       </Grid>
                       <Hidden xsUp={this.state.changePassword}>
                         <Grid item xs={12} md={6}>
-                          <Typography
-                            className={classes.typography}
-                            variant="subheading"
-                          >
+                          <Typography className={classes.typography} variant="subheading">
                             Change Password
                           </Typography>
                           <Paper className={classes.card}>
                             <Grid container spacing={24}>
                               <Grid item xs={12} md={6}>
-                                <Field
-                                  id="field-oldPassword"
-                                  label="Current Password"
-                                  type="password"
-                                  fullWidth
-                                  component={TextField}
-                                  name="oldPassword"
-                                  className={classNames(
-                                    classes.margin,
-                                    classes.textField
-                                  )}
-                                  value={values.oldPassword}
-                                  margin="normal"
-                                />
+                                <Field id="field-oldPassword" label="Current Password" type="password" fullWidth component={TextField} name="oldPassword" className={classNames(classes.margin, classes.textField)} value={values.oldPassword} margin="normal" />
                               </Grid>
 
                               <Grid item xs={12} md={6}>
-                                <Field
-                                  id="field-newPassword"
-                                  label="New Password"
-                                  type="password"
-                                  fullWidth
-                                  component={TextField}
-                                  name="newPassword"
-                                  className={classNames(
-                                    classes.margin,
-                                    classes.textField
-                                  )}
-                                  value={values.newPassword}
-                                  margin="normal"
-                                />
+                                <Field id="field-newPassword" label="New Password" type="password" fullWidth component={TextField} name="newPassword" className={classNames(classes.margin, classes.textField)} value={values.newPassword} margin="normal" />
                               </Grid>
                             </Grid>
                           </Paper>
                         </Grid>
                       </Hidden>
                       <Grid item xs={12} md={6}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
+                        <Typography className={classes.typography} variant="subheading">
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Field
-                            id="field-businessName"
-                            label="Business Name"
-                            name="businessName"
-                            fullWidth
-                            component={TextField}
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.businessName}
-                            margin="normal"
-                          />
+                          <Field id="field-businessName" label="Business Name" name="businessName" fullWidth component={TextField} className={classNames(classes.margin, classes.textField)} value={values.businessName} margin="normal" />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
+                        <Typography className={classes.typography} variant="subheading">
                           Name
                         </Typography>
                         <Paper className={classes.card}>
                           <Grid container>
                             <Grid item xs={12} sm={6}>
-                              <Field
-                                id="field-firstName"
-                                label="First Name"
-                                name="firstName"
-                                fullWidth
-                                component={TextField}
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.firstName}
-                                margin="normal"
-                              />
+                              <Field id="field-firstName" label="First Name" name="firstName" fullWidth component={TextField} className={classNames(classes.margin, classes.textField)} value={values.firstName} margin="normal" />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                              <Field
-                                id="field-lastName"
-                                label="Last Name"
-                                fullWidth
-                                name="lastName"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.lastName}
-                                margin="normal"
-                              />
+                              <Field id="field-lastName" label="Last Name" fullWidth name="lastName" className={classNames(classes.margin, classes.textField)} component={TextField} value={values.lastName} margin="normal" />
                             </Grid>
                           </Grid>
                         </Paper>
                       </Grid>
 
                       <Grid item xs={12}>
-                        <Typography
-                          className={classes.typography}
-                          variant="subheading"
-                        >
+                        <Typography className={classes.typography} variant="subheading">
                           Contact Information
                         </Typography>
                         <Paper className={classes.card}>
                           <Grid container>
                             <Grid item xs={12}>
-                              <Field
-                                id="field-streetAddress"
-                                label="Street Address"
-                                fullWidth
-                                component={TextField}
-                                name="streetAddress"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.streetAddress}
-                                margin="normal"
-                              />
+                              <Field id="field-streetAddress" label="Street Address" fullWidth component={TextField} name="streetAddress" className={classNames(classes.margin, classes.textField)} value={values.streetAddress} margin="normal" />
                             </Grid>
                             <Grid item xs={12} md={8}>
-                              <Field
-                                id="field-city"
-                                label="City"
-                                name="city"
-                                fullWidth
-                                component={TextField}
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                value={values.city}
-                                margin="normal"
-                              />
+                              <Field id="field-city" label="City" name="city" fullWidth component={TextField} className={classNames(classes.margin, classes.textField)} value={values.city} margin="normal" />
                             </Grid>
                             <Grid item xs={12} md={2}>
-                              <Field
-                                id="state"
-                                select="true"
-                                label="State"
-                                name="state"
-                                placeholder="State"
-                                margin="normal"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.field,
-                                  classes.state_field,
-                                  classes.menuitems,
-                                  classes.paper_color
-                                )}
-                                style={{ height: "55px" }}
-                                component="select"
-                              >
+                              <Field id="state" select="true" label="State" name="state" placeholder="State" margin="normal" className={classNames(classes.margin, classes.field, classes.state_field, classes.menuitems, classes.paper_color)} style={{ height: '55px' }} component="select">
                                 {STATE_LIST.map(state => (
                                   <option
                                     key={state.label}
@@ -331,49 +195,21 @@ class Settings extends Component {
                               <Typography>State</Typography>
                             </Grid>
                             <Grid item xs={12} md={2}>
-                              <Field
-                                id="field-zipcode"
-                                label="Zipcode"
-                                name="zipcode"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.zipcode}
-                                margin="normal"
-                              />
+                              <Field id="field-zipcode" label="Zipcode" name="zipcode" className={classNames(classes.margin, classes.textField)} component={TextField} value={values.zipcode} margin="normal" />
                             </Grid>
                             <Grid item xs={12}>
-                              <Field
-                                id="field-email"
-                                label="Email"
-                                name="email"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.email}
-                                margin="normal"
-                              />
+                              <Field id="field-email" label="Email" name="email" className={classNames(classes.margin, classes.textField)} component={TextField} value={values.email} margin="normal" />
                             </Grid>
                           </Grid>
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
-                        <Button
-                          className={classes.padded_button}
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          disabled={!isValid}
-                        >
+                        <Button className={classes.padded_button} variant="contained" color="primary" type="submit" disabled={!isValid}>
                           Save Changes
                         </Button>
-                        {loading && (
-                          <Typography>Saving information...</Typography>
-                        )}
+                        {loading && <Typography>
+                            Saving information...
+                          </Typography>}
                         {data && <Typography>Success!</Typography>}
                         {error && <Typography>Error!</Typography>}
                       </Grid>
@@ -385,58 +221,152 @@ class Settings extends Component {
                               <TableHead>
                                 <TableRow>
                                   <TableCell />
-                                  <TableCell numeric>Used</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Used
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     Free Account Allotment
                                   </TableCell>
-                                  <TableCell numeric>Remaining</TableCell>
-                                  <TableCell>Premium</TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Remaining
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    Premium
+                                  </TableCell>
                                 </TableRow>
                               </TableHead>
                               <TableBody>
                                 <TableRow>
-                                  <TableCell>Clients</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Clients
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {this.props.item_counts.clients}
                                   </TableCell>
-                                  <TableCell numeric>1</TableCell>
-                                  <TableCell numeric>
-                                    {1 - this.props.item_counts.clients}
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    1
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    {1 -
+                                      this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Jobs</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Jobs
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {this.props.item_counts.jobs}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    8
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {8 - this.props.item_counts.jobs}
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Notes</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Notes
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {this.props.item_counts.notes}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    8
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {8 - this.props.item_counts.notes}
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Parts</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    Parts
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {this.props.item_counts.parts}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
+                                    8
+                                  </TableCell>
+                                  <TableCell
+                                    className={classes.results}
+                                  >
                                     {8 - this.props.item_counts.parts}
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                               </TableBody>
                             </Table>
@@ -454,10 +384,8 @@ class Settings extends Component {
                           cancel button should also reset field values to prevent weird behaviour.
                         </Hidden>*/}
                   </Form>
-                </div>
-              )}
-            </Mutation>
-          );
+                </div>}
+            </Mutation>;
         }}
       </Formik>
     );

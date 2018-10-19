@@ -177,6 +177,14 @@ const styles = theme => ({
     margin: '16px',
     padding: '16px'
   },
+  premium_results: {
+    color: '#ffeb3b'
+  },
+
+  results: {
+    textAlign: 'center',
+    fontSize: '18px'
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap'
@@ -261,12 +269,7 @@ const styles = theme => ({
   },
   typography_title: {
     fontSize: '40px',
-    fontFamily: "'Cinzel', serif",
-     [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+    fontFamily: "'Cinzel', serif"
   },
   typography_title_checkout: {
     fontFamily: "'Cinzel', serif",
