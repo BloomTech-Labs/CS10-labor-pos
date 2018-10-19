@@ -213,8 +213,11 @@ const styles = theme => ({
     border: "0",
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.default,
-    maxWidth: "75%"
+    backgroundColor: theme.palette.background.textfield
+  },
+  state_settings: {
+    marginLeft: "40px",
+    width: "80% !important"
   },
   stepper: {
     padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
@@ -269,6 +272,10 @@ const styles = theme => ({
     fontSize: "36px",
     color: "black",
     textShadow: "1px 2px 4px goldenrod"
+  },
+  zipcode_settings: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
   }
 });
 export { styles };

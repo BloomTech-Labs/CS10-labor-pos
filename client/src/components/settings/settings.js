@@ -192,6 +192,7 @@ class Settings extends Component {
                                 />
                               </Grid>
                             </Grid>
+                            <br />
                           </Paper>
                         </Grid>
                       </Hidden>
@@ -203,19 +204,22 @@ class Settings extends Component {
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Field
-                            id="field-businessName"
-                            label="Business Name"
-                            name="businessName"
-                            fullWidth
-                            component={TextField}
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.businessName}
-                            margin="normal"
-                          />
+                          <Grid item xs={12}>
+                            <Field
+                              id="field-businessName"
+                              label="Business Name"
+                              name="businessName"
+                              fullWidth
+                              component={TextField}
+                              className={classNames(
+                                classes.margin,
+                                classes.textField
+                              )}
+                              value={values.businessName}
+                              margin="normal"
+                            />
+                          </Grid>{" "}
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -260,7 +264,6 @@ class Settings extends Component {
                           </Grid>
                         </Paper>
                       </Grid>
-
                       <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
@@ -274,7 +277,6 @@ class Settings extends Component {
                               <Field
                                 id="field-streetAddress"
                                 label="Street Address"
-                                fullWidth
                                 component={TextField}
                                 name="streetAddress"
                                 className={classNames(
@@ -282,68 +284,63 @@ class Settings extends Component {
                                   classes.textField
                                 )}
                                 value={values.streetAddress}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12}>
                               <Field
                                 id="field-city"
                                 label="City"
                                 name="city"
-                                fullWidth
                                 component={TextField}
                                 className={classNames(
                                   classes.margin,
                                   classes.textField
                                 )}
                                 value={values.city}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="state"
-                                select="true"
-                                label="State"
-                                name="state"
-                                fullWidth
-                                placeholder="State"
-                                margin="normal"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.field,
-                                  classes.state_field,
-                                  classes.menuitems,
-                                  classes.paper_color
-                                )}
-                                style={{ height: "55px" }}
-                                component="select"
-                              >
-                                {STATE_LIST.map(state => (
-                                  <option
-                                    key={state.label}
-                                    value={state.label}
-                                    className={classes.menuitems}
-                                  >
-                                    {state.label}
-                                  </option>
-                                ))}
-                              </Field>
-                              <Typography>State</Typography>
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="field-zipcode"
-                                label="Zipcode"
-                                name="zipcode"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.zipcode}
-                                margin="normal"
-                              />
+                            <Grid container align="left">
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="state"
+                                  label="State"
+                                  name="state"
+                                  style={{
+                                    marginLeft: "20px"
+                                  }}
+                                  className={classNames(
+                                    classes.state_field,
+                                    classes.margin,
+                                    classes.textField,
+                                    classes.state_settings,
+                                    classes.paper_color
+                                  )}
+                                  style={{ height: "48px" }}
+                                  component="select"
+                                >
+                                  {STATE_LIST.map(state => (
+                                    <option
+                                      key={state.label}
+                                      value={state.label}
+                                    >
+                                      {state.label}
+                                    </option>
+                                  ))}
+                                </Field>
+                              </Grid>
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="field-zipcode"
+                                  label="Zipcode"
+                                  name="zipcode"
+                                  className={classNames(
+                                    classes.zipcode_settings,
+                                    classes.textField
+                                  )}
+                                  component={TextField}
+                                  value={values.zipcode}
+                                />
+                              </Grid>
                             </Grid>
                             <Grid item xs={12}>
                               <Field
@@ -356,10 +353,10 @@ class Settings extends Component {
                                 )}
                                 component={TextField}
                                 value={values.email}
-                                margin="normal"
                               />
                             </Grid>
                           </Grid>
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -445,7 +442,6 @@ class Settings extends Component {
                         </Hidden>
                       </Grid>
                     </Grid>
-
                     {/* <Hidden xsUp={conditions didn't press button yet}>
                           component with static view and button to edit
                           <button onClick={method that toggles the boolean that our hiiden tag is looking at} />
