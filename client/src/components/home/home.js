@@ -14,7 +14,6 @@ import {
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
 import { Start, SideNav } from "../../components";
-import Breadcrumbs from "./breadcrumbs";
 
 // errors if page doesn't load correctly
 function Loading({ error }) {
@@ -110,27 +109,6 @@ const EditNote = Loadable({
   loading: Loading
 });
 
-const routes = {
-  "/": "Home",
-  "/clients": "Clients",
-  "/createclient": "Create Client",
-  "/creates/:id": params => params.id,
-  "/clients/:id/edit": params => params.id,
-  "/jobs": "Jobs",
-  "/jobs/:id": params => params.id,
-  "/jobs/:id/invoice": params => params.i,
-  "/jobs/:id/edit": params => params.id,
-  "/notes": "Notes",
-  "/createnote": "Create Note",
-  "/notes/:id": params => params.id,
-  "/notes/:id/edit": params => params.id,
-  "/settings": "Settings",
-  "/billing": "Billing",
-  "/createpart": "Create Part",
-  "/parts/:id": params => params.id,
-  "/parts/:id/edit": params => params.id
-};
-
 //The home component is a container component that renders when the user is logged in and displays different
 //content depending on the current route.
 class Home extends Component {
@@ -212,7 +190,6 @@ class Home extends Component {
         current path.*/}
         <main>
           <Paper className={classes.main_content}>
-            {/* <Breadcrumbs routes={routes} /> */}
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/createclient" component={AddClient} />

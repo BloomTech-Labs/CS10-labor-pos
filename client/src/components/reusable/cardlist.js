@@ -1,16 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import NavigateNext from "@material-ui/icons/NavigateNext.js";
-import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
-import AddCircle from "@material-ui/icons/AddCircle.js";
-import {
-  Grid,
-  Card,
-  IconButton,
-  Typography,
-  withStyles,
-  Button
-} from "@material-ui/core";
+import { Grid, Card, withStyles } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";
 import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
@@ -33,20 +23,6 @@ class CardList extends Component {
     };
   }
 
-  handlePageBack = event => {
-    event.preventDefault();
-    this.setState({
-      page: this.state.page - 1
-    });
-  };
-
-  handlePageForward = event => {
-    event.preventDefault();
-    this.setState({
-      page: this.state.page + 1
-    });
-  };
-
   componentDidMount = () => {
     this.props.refetch();
   };
@@ -57,7 +33,6 @@ class CardList extends Component {
     if (user_premium === "true") user_premium = true;
     else user_premium = false;
     let card_array = [];
-    let columns = 1;
     if (isWidthUp("sm", this.props.width)) {
       columns = 2;
     }
@@ -93,18 +68,9 @@ class CardList extends Component {
             </Card>
           </Grid>
         );
-      }
-    }
-    if (this.props.location.pathname != "/jobs") {
-      if (user_premium) {
+
         return (
           <div>
-            <Button
-              onClick={this.props.createMethod}
-              className={classes.add_button}
-            >
-              <Typography>{`New ${this.props.type}`}</Typography>
-            </Button>
             <br />
             <br />
             <Grid
@@ -129,68 +95,6 @@ class CardList extends Component {
             />
           </div>
         );
-      } else {
-        if (this.props.items.length < 6) {
-          return (
-            <div>
-              <Button
-                onClick={this.props.createMethod}
-                className={classes.add_button}
-              >
-                <Typography>{`New ${this.props.type}`}</Typography>
-              </Button>
-              <br />
-              <br />
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                alignContent="center"
-                spacing={24}
-              >
-                {card_array}
-              </Grid>
-              <br />
-              <br />
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                alignContent="center"
-                spacing={24}
-              />
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <br />
-              <br />
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                alignContent="center"
-                spacing={24}
-              >
-                {card_array}
-              </Grid>
-              <br />
-              <br />
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                alignContent="center"
-                spacing={24}
-              />
-            </div>
-          );
-        }
       }
     }
   }

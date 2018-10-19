@@ -1,6 +1,11 @@
 const styles = theme => ({
   add_button: {
-    top: "10px !important"
+    margin: theme.spacing.unit * 3,
+    backgroundColor: "#ffeb3b"
+  },
+  add_text: {
+    color: theme.palette.text.primary,
+    textShadow: "2px 2px 4px #000000"
   },
   button: {
     marginTop: theme.spacing.unit * 3,
