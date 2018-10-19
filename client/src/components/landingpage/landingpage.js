@@ -4,7 +4,6 @@ import {
   Dialog,
   Grid,
   Typography,
-  Card,
   withStyles,
   withMobileDialog,
   Paper

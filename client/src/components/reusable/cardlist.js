@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import { Grid, Card, withStyles } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";
-import withWidth, { isWidthUp } from "@material-ui/core/withWidth";
+import withWidth from "@material-ui/core/withWidth";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
@@ -33,13 +33,6 @@ class CardList extends Component {
     if (user_premium === "true") user_premium = true;
     else user_premium = false;
     let card_array = [];
-    let columns = 1;
-    if (isWidthUp("sm", this.props.width)) {
-      columns = 2;
-    }
-    if (isWidthUp("md", this.props.width)) {
-      columns = this.props.columns;
-    }
     if (user_premium) {
       for (let i = 0; i < this.props.items.length; i++) {
         card_array.push(

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Divider,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -43,9 +42,8 @@ class SideNav extends Component {
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est client would have a smaller create client button under it.*/}
-
-        <MenuItem selected={path === "/"} className={classes.nav_menu}>
-          <Link to="/">
+        <Link to="/">
+          <MenuItem selected={path === "/"} className={classes.nav_menu}>
             <Avatar
               alt="Raccoon with a gold bowtie"
               src={require("../../racoonbowtie.svg")}
@@ -54,59 +52,56 @@ class SideNav extends Component {
             <Typography className={classes.typography_menu}>
               contractAlchemy
             </Typography>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="/clients">
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/clients">
+          <MenuItem>
             <Typography className={classes.typography_menu}>
               Client List
             </Typography>
-          </Link>
-        </MenuItem>
+          </MenuItem>
+        </Link>
         <MenuItem selected={path.includes("createclient")}>
           <Link to="/createclient">
             <Typography className={classes.typography_menu}>
               Add Client
             </Typography>
           </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link to="/jobs">
+        </MenuItem>{" "}
+        <Link to="/jobs">
+          <MenuItem>
             <Typography className={classes.typography_menu}>
               Job List
             </Typography>
-          </Link>
-        </MenuItem>
-
-        <MenuItem>
-          <Link to="/notes">
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/notes">
+          <MenuItem>
             <Typography className={classes.typography_menu}>
               Note List
             </Typography>
-          </Link>
-        </MenuItem>
-
-        <MenuItem selected={path.includes("createnote")}>
-          <Link to="/createnote">
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/createnote">
+          <MenuItem selected={path.includes("createnote")}>
             <Typography className={classes.typography_menu}>
               Add Note
             </Typography>
-          </Link>
-        </MenuItem>
-
-        <MenuItem selected={path.includes("settings")}>
-          <Link to="/settings">
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/settings">
+          <MenuItem selected={path.includes("settings")}>
             <Typography className={classes.typography_menu}>
               Settings
             </Typography>
-          </Link>
-        </MenuItem>
-
-        <MenuItem selected={path.includes("billing")}>
-          <Link to="/billing">
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/billing">
+          {" "}
+          <MenuItem selected={path.includes("billing")}>
             <Typography className={classes.typography_menu}>Billing</Typography>
-          </Link>
-        </MenuItem>
+          </MenuItem>{" "}
+        </Link>
         <Hidden xsUp={!user_premium}>
           <ExpansionPanel
             onChange={this.handleChange}

@@ -14,7 +14,6 @@ import {
   withMobileDialog,
   Paper,
   Button,
-  Hidden,
   Tabs,
   Tab
 } from "@material-ui/core";
