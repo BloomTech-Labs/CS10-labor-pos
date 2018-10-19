@@ -106,7 +106,7 @@ class User(AbstractUser):
                 "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place.\n\
                 Premium users gain access to all of our features with an unlimited number of records.\n\
                 Premium membership also includes the ability to select different themes for the website layout.\n\
-                Our free membership includes access to all features for up to 8 records at a time.\n\
+                Our free membership includes access to all features for up to 6 records at a time - 6 clients, 6 jobs, and so on.\n\
                 You can upgrade to premium at any time.",
             )
             mail = Mail(from_email, subject, to_email, content)

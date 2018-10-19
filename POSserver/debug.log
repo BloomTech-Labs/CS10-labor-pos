@@ -49,3 +49,19 @@
 [18/Oct/2018 12:41:34] DEBUG [django.db.backends:111] (0.000) SELECT "server_client"."id", "server_client"."user_id", "server_client"."business_name", "server_client"."first_name", "server_client"."last_name", "server_client"."email", "server_client"."street_address", "server_client"."city", "server_client"."state", "server_client"."zipcode", "server_client"."created_at", "server_client"."modified_at", "server_client"."deadline" FROM "server_client" WHERE "server_client"."id" = 2; args=(2,)
 [18/Oct/2018 12:41:34] DEBUG [django.db.backends:111] (0.000) SELECT "server_client"."id", "server_client"."user_id", "server_client"."business_name", "server_client"."first_name", "server_client"."last_name", "server_client"."email", "server_client"."street_address", "server_client"."city", "server_client"."state", "server_client"."zipcode", "server_client"."created_at", "server_client"."modified_at", "server_client"."deadline" FROM "server_client" WHERE "server_client"."id" = 2; args=(2,)
 [18/Oct/2018 12:41:34] INFO [django.server:124] "POST /graphql/ HTTP/1.1" 200 1692
+[19/Oct/2018 16:56:11] DEBUG [django.db.backends:111] (0.008) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[19/Oct/2018 16:56:11] DEBUG [django.db.backends:111] (0.002) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+[19/Oct/2018 17:07:52] DEBUG [django.db.backends:111] (0.005) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+[19/Oct/2018 17:07:52] DEBUG [django.db.backends:111] (0.001) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
