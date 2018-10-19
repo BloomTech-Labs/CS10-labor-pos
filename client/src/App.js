@@ -10,6 +10,8 @@ import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
 import desk_image from "./background.jpg";
 import raccoon from "./racoonbowtie.svg";
 
+
+
 class App extends Component {
   state = {
     theme_string: "default"
@@ -102,8 +104,9 @@ class App extends Component {
       },
       typography: {
         fontFamily: font
+        },
       }
-    });
+    );
 
     return (
       <div className="App">

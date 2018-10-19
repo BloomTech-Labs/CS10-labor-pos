@@ -7,7 +7,7 @@ import {
   Typography,
   Card,
   withStyles,
-  Grid
+  Grid,
 } from "@material-ui/core";
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
@@ -98,6 +98,7 @@ class Checkout extends Component {
   render() {
     const { classes } = this.props;
     // stripe's checkout plugin receives card information, creates a stripe customer, tokenizes the information, sends the token back to our backend so that our backend can create the charge
+
     return (
       <div>
         {" "}
@@ -184,7 +185,7 @@ class Checkout extends Component {
           </Grid>
         </React.Fragment>
       </div>
-    );
+      );
   }
 }
 
