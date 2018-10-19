@@ -4,7 +4,6 @@ import {
   Dialog,
   Grid,
   Typography,
-  Card,
   withStyles,
   withMobileDialog,
   Paper
@@ -94,8 +93,25 @@ class LandingPage extends Component {
       return (
         <div>
           <Grid container>
-            <Grid item xs={6} sm={9} md={10} />
-            <Grid item xs={6} sm={3} md={2}>
+            <Grid item md={2}>
+              <img
+                alt="A golden raccoon logo"
+                src={require("../../racoonbowtie.svg")}
+                className={classes.image_large}
+              />
+            </Grid>
+            <Grid item md={5} />
+            <Grid item xs={6} md={3}>
+              <Button
+                className={classes.padded_button}
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateButton}
+              >
+                Create Account
+              </Button>
+            </Grid>
+            <Grid item xs={6} md={2}>
               <Button
                 variant="contained"
                 color="primary"
@@ -107,40 +123,29 @@ class LandingPage extends Component {
             </Grid>
           </Grid>
           <div>
-            <img
-              alt="A golden raccoon logo"
-              src={require("../../racoonbowtie.svg")}
-              className={classes.image_large}
-            />
-            <div style={{ backgroundColor: "black", padding: "20px" }}>
-              <Typography
-                className={classes.typography_title_landing}
-                variant="title"
-              >
-                Contract Alchemy:
-                <br />
-                Turning POS Into Gold
-              </Typography>
-              <Typography
-                className={classes.typography_paragraph_landing}
-                paragraph
-              >
-                {"Tired of balancing multiple projects?"} <br />
-                {"Struggling to keep track of how much you’re owed from whom?"}
-                <h2>{"Struggle no more!"}</h2>
-                {
-                  "At contractAlchemy, we're here to help you organize your contracts so you have more time to do the things you want to do."
-                }
-              </Typography>
-              <Button
-                className={classes.padded_button}
-                variant="contained"
-                color="primary"
-                onClick={this.handleCreateButton}
-              >
-                Create Account
-              </Button>
-            </div>
+            <Typography
+              className={classes.typography_title_landing}
+              variant="title"
+            >
+              Contract Alchemy:
+              <br />
+              Turning POS Into Gold
+            </Typography>
+            <Typography className={classes.typography_paragraph_landing}>
+              {"Tired of balancing multiple projects?"} <br />
+              {"Struggling to keep track of how much you’re owed from whom?"}
+            </Typography>
+            <Typography variant="title" className={classes.emphasis}>
+              Struggle no more!
+            </Typography>
+            <Button
+              className={classes.padded_button}
+              variant="contained"
+              color="primary"
+              onClick={this.handleCreateButton}
+            >
+              Create Account
+            </Button>
             {/*We use material ui dialog components for our modals.*/}
             <Dialog
               fullScreen={fullScreen}

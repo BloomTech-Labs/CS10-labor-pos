@@ -7,11 +7,10 @@ import {
   Typography,
   Card,
   withStyles,
-  Grid,
+  Grid
 } from "@material-ui/core";
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
-import classNames from "classnames";
 
 class Checkout extends Component {
   state = {
@@ -114,17 +113,33 @@ class Checkout extends Component {
           <Grid item xs={12} md={6} zeroMinWidth>
             <Card className={classes.card}>
               <Typography className={classes.typography_paragraph}>
-                <pre
-                >{`Free users:\n\nLimits:\n\n8 clients\n\n8 jobs\n\n8 parts\n\n8 notes\n\n* Default theme`}</pre>
+                Free users:
+                <br />
+                Limits:
+                <br />6 clients
+                <br />6 jobs
+                <br />6 parts
+                <br />6 notes
+                <br />* Default theme
               </Typography>
             </Card>
           </Grid>
           <Grid item xs={12} md={6} zeroMinWidth>
             <Card className={classes.card}>
               <Typography className={classes.typography_paragraph}>
-                <pre>
-                  {`Premium users:\n\n* Unlimited record creation!\n\n* Access to multiple themes:\n\nDesk\n\nForest\n\nDark Gold\n\n...and more!`}
-                </pre>
+                Premium users:
+                <br />
+                Unlimited record creation!
+                <br />
+                Access to multiple themes:
+                <br />
+                Desk
+                <br />
+                Forest
+                <br />
+                Dark Gold
+                <br />
+                ...and more!
               </Typography>
             </Card>
           </Grid>
@@ -142,7 +157,7 @@ class Checkout extends Component {
         {/*checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form*/}
         <React.Fragment>
           <Grid container>
-            <Grid xs={12}>
+            <Grid item xs={12}>
               <FormControlLabel
                 control={
                   <Checkbox
@@ -185,7 +200,7 @@ class Checkout extends Component {
           </Grid>
         </React.Fragment>
       </div>
-      );
+    );
   }
 }
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Divider,
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
@@ -23,17 +22,16 @@ import classNames from "classnames";
 //This is the side nav component that renders in the nav drawer in the home component
 class SideNav extends Component {
   state = {
-    expanded: null
+    expanded: false
   };
 
-  handleChange = panel => expanded => {
+  handleChange = () => {
     this.setState({
-      expanded: expanded ? panel : false
+      expanded: !this.state.expanded
     });
   };
   render() {
     const { classes } = this.props;
-    const { expanded } = this.state;
     let user_premium = localStorage.getItem("USER_PREMIUM");
     if (user_premium === "true") user_premium = true;
     else user_premium = false;
@@ -44,161 +42,89 @@ class SideNav extends Component {
         for the current parth
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est client would have a smaller create client button under it.*/}
-        <Divider className={classes.space_above} />
-        <Avatar
-          alt="Raccoon with a gold bowtie"
-          src={require("../../racoonbowtie.svg")}
-          className={classes.image}
-        />
-        <Link to="/" className={classes.sidenav_top}>
-          <MenuItem className={classes.image} selected={path === "/"}>
-            <Typography className={classes.typography_menu}>Home</Typography>
+        <Link to="/">
+          <MenuItem selected={path === "/"} className={classes.nav_menu}>
+            <Avatar
+              alt="Raccoon with a gold bowtie"
+              src={require("../../racoonbowtie.svg")}
+              className={classes.image}
+            />
+            <Typography className={classes.typography_menu}>
+              contractAlchemy
+            </Typography>
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/clients">
+          <MenuItem>
+            <Typography className={classes.typography_menu}>
+              Client List
+            </Typography>
           </MenuItem>
         </Link>
-
-        <ExpansionPanel
-          expanded={expanded === "clientpanel"}
-          onChange={this.handleChange("clientpanel")}
-          className={classes.sidenav}
-        >
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMore className="sidenav" />}
-          >
-            <MenuItem selected={path.includes("client")}>
-              <Typography className={classes.typography_menu}>
-                Clients
-              </Typography>
-            </MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
-          >
-            <Link to="/clients">
-              <MenuItem selected={path.includes("clients")}>
-                <Typography className={classes.typography_menu}>
-                  View
-                </Typography>
-              </MenuItem>
-            </Link>
-            <Link to="/createclient">
-              <MenuItem selected={path.includes("createclient")}>
-                <Typography className={classes.typography_menu}>
-                  Create
-                </Typography>
-              </MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "jobpanel"}
-          onChange={this.handleChange("jobpanel")}
-          className={classes.sidenav}
-        >
-          <ExpansionPanelSummary
-            className="sidenav"
-            expandIcon={<ExpandMore />}
-          >
-            <MenuItem
-              selected={path.includes("job") || path.includes("invoice")}
-            >
-              <Typography className={classes.typography_menu}>Jobs</Typography>
-            </MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
-          >
-            <Link to="/jobs">
-              <MenuItem selected={path.includes("jobs")}>
-                <Typography className={classes.typography_menu}>
-                  View
-                </Typography>
-              </MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel
-          expanded={expanded === "notepanel"}
-          onChange={this.handleChange("notepanel")}
-          className={classes.sidenav}
-        >
-          <ExpansionPanelSummary
-            className="sidenav"
-            expandIcon={<ExpandMore />}
-          >
-            <MenuItem selected={path.includes("note")}>
-              <Typography className={classes.typography_menu}>Notes</Typography>
-            </MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
-          >
-            <Link to="/notes">
-              <MenuItem selected={path.includes("notes")}>
-                <Typography className={classes.typography_menu}>
-                  View
-                </Typography>
-              </MenuItem>
-            </Link>
-            <Link to="/createnote">
-              <MenuItem selected={path.includes("createnote")}>
-                <Typography className={classes.typography_menu}>
-                  Create
-                </Typography>
-              </MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-
-        <ExpansionPanel
-          expanded={expanded === "settingspanel"}
-          onChange={this.handleChange("settingspanel")}
-          className={classes.sidenav}
-        >
-          <ExpansionPanelSummary
-            className="sidenav"
-            expandIcon={<ExpandMore />}
-          >
-            <MenuItem
-              selected={path.includes("settings") || path.includes("billing")}
-            >
-              <Typography className={classes.typography_menu}>
-                Settings
-              </Typography>
-            </MenuItem>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
-          >
-            <Link to="/settings">
-              <MenuItem selected={path.includes("settings")}>
-                <Typography className={classes.typography_menu}>
-                  Main
-                </Typography>
-              </MenuItem>
-            </Link>
-            <Link to="/billing">
-              <MenuItem selected={path.includes("billing")}>
-                <Typography className={classes.typography_menu}>
-                  Billing
-                </Typography>
-              </MenuItem>
-            </Link>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        <MenuItem selected={path.includes("createclient")}>
+          <Link to="/createclient">
+            <Typography className={classes.typography_menu}>
+              Add Client
+            </Typography>
+          </Link>
+        </MenuItem>{" "}
+        <Link to="/jobs">
+          <MenuItem>
+            <Typography className={classes.typography_menu}>
+              Job List
+            </Typography>
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/notes">
+          <MenuItem>
+            <Typography className={classes.typography_menu}>
+              Note List
+            </Typography>
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/createnote">
+          <MenuItem selected={path.includes("createnote")}>
+            <Typography className={classes.typography_menu}>
+              Add Note
+            </Typography>
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/settings">
+          <MenuItem selected={path.includes("settings")}>
+            <Typography className={classes.typography_menu}>
+              Settings
+            </Typography>
+          </MenuItem>{" "}
+        </Link>
+        <Link to="/billing">
+          {" "}
+          <MenuItem selected={path.includes("billing")}>
+            <Typography className={classes.typography_menu}>Billing</Typography>
+          </MenuItem>{" "}
+        </Link>
         <Hidden xsUp={!user_premium}>
           <ExpansionPanel
-            expanded={expanded === "themespanel"}
-            onChange={this.handleChange("themespanel")}
+            onChange={this.handleChange}
             className={classes.sidenav}
+            style={{
+              position: "unset",
+              boxShadow: "none"
+            }}
           >
-            <ExpansionPanelSummary expandIcon={<ExpandMore />}>
-              <MenuItem>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMore />}
+              style={{
+                padding: "0",
+                margin: "0"
+              }}
+            >
+              <MenuItem style={{ width: "100%" }}>
                 <Typography className={classes.typography_menu}>
                   Themes
-                </Typography>
+                </Typography>{" "}
               </MenuItem>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.nav_menu}>
+            <ExpansionPanelDetails>
               <FormControl component="fieldset" className={classes.formControl}>
                 <RadioGroup
                   name="theme"
@@ -246,10 +172,9 @@ class SideNav extends Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         </Hidden>
-        <MenuItem onClick={this.props.logout}>
+        <MenuItem onClick={this.props.logout} styling={{ position: "inherit" }}>
           <Typography className={classes.typography_menu}>Logout</Typography>
         </MenuItem>
-        <Divider className="sidenav" />
         {/*The below switch controls light and dark theming by communicating with the App component.
             The current theme is also saved on local storage so it will persist between reloads.*/}
       </div>

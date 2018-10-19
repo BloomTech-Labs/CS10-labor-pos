@@ -10,6 +10,7 @@ import {
   Tooltip
 } from "@material-ui/core";
 import { styles } from "../material-ui/styles.js";
+import Help from "@material-ui/icons/Help.js";
 
 //The start component renders at the root route when the user is logged in
 //It is intended to offer a selection of the most likely tasks the user
@@ -23,85 +24,84 @@ class Start extends Component {
     return (
       <div>
         <br />
-        <Grid container>
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+          spacing={24}
+        >
           <Grid item xs={12}>
-            <Typography
-              className={classes.typography_title_checkout}
-              variant="title"
-            >
-              Hover over a box to learn more
+            <Typography className={classes.typography_title} variant="title">
+              Home
             </Typography>
             <br />
           </Grid>
-          <Grid item xs={1} />
-          <Grid item xs={10}>
-            {/*This is using a material ui grid; it works the same as bootstrap columns with the numbers out of 12*/}
-            <Grid
-              container
-              direction="row"
-              justify="space-around"
-              alignItems="center"
-              spacing={24}
-            >
-              <br />
-              <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Tooltip
-                  title={`Clients are your customers.\n\nThrough the client page, you can add jobs for the client and notes about the client.`}
-                  disableHoverListener={true}
-                >
-                  <Link to="/clients">
-                    <Button>
-                      <Card className={classes.start_card}>
-                        <Typography className={classes.typography}>
-                          View clients
-                        </Typography>
-                      </Card>
-                    </Button>
-                  </Link>
-                </Tooltip>
-                <br />
-              </Grid>
-              <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Tooltip
-                  disableHoverListener={true}
-                  title={`Jobs are specific jobs being done for a customer and are created through the client.\n\nThrough a job, you can add parts (which would be line items in your invoice) and notes about the job.`}
-                >
-                  <Link to="/jobs">
-                    <Button>
-                      <Card className={classes.start_card}>
-                        <Typography className={classes.typography}>
-                          View jobs
-                        </Typography>
-                      </Card>
-                    </Button>
-                  </Link>
-                </Tooltip>
-                <br />
-              </Grid>
-              <Grid item xs={12} sm={12} md={4} lg={4}>
-                <Tooltip
-                  disableHoverListener={true}
-                  title="Notes can be made attached to a client, a job, or be unattached to anything, giving you the flexibility to keep track of all of your projects."
-                >
-                  <Link to="/notes">
-                    {" "}
-                    <Button>
-                      <Card className={classes.start_card}>
-                        <Typography className={classes.typography}>
-                          View notes
-                        </Typography>
-                      </Card>
-                    </Button>
-                  </Link>
-                </Tooltip>
-                <br />
-              </Grid>
+          <Link to="/clients">
+            <Grid container>
+              <Button>
+                <Card className={classes.start_card}>
+                  <Grid item xs={9} />
+                  <Grid item xs={3}>
+                    <Tooltip
+                      title={`Clients are your customers.\n\nThrough the client page, you can add jobs for the client and notes about the client.`}
+                    >
+                      <Help />
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.typography} variant="title">
+                      View <br /> Clients
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} />
+                </Card>
+              </Button>
             </Grid>
-          </Grid>
-          <Grid item xs={1} />
+          </Link>
+          <Link to="/jobs">
+            <Grid container>
+              <Button>
+                <Card className={classes.start_card}>
+                  <Grid item xs={9} />
+                  <Grid item xs={3}>
+                    <Tooltip
+                      title={`Jobs are specific jobs being done for a customer and are created through the client.\n\nThrough a job, you can add parts (which would be line items in your invoice) and notes about the job.`}
+                    >
+                      <Help />
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.typography} variant="title">
+                      View <br /> Jobs
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} />
+                </Card>
+              </Button>
+            </Grid>
+          </Link>
+          <Link to="/notes">
+            <Grid container>
+              <Button>
+                <Card className={classes.start_card}>
+                  <Grid item xs={9} />
+                  <Grid item xs={3}>
+                    <Tooltip title="Notes can be made attached to a client, a job, or be unattached to anything, giving you the flexibility to keep track of all of your projects.">
+                      <Help />
+                    </Tooltip>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography className={classes.typography} variant="title">
+                      View <br /> Notes
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12} />
+                </Card>
+              </Button>
+            </Grid>
+          </Link>
         </Grid>
-        <br />
-        <br />
       </div>
     );
   }
