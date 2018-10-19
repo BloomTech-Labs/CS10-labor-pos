@@ -45,12 +45,13 @@ class SideNav extends Component {
         ALSO: I would like to have sub-buttons under each category that lead to the sub-paths
         id est client would have a smaller create client button under it.*/}
         <Divider className={classes.space_above} />
-        <Avatar
-          alt="Raccoon with a gold bowtie"
-          src={require("../../racoonbowtie.svg")}
-          className={classes.image}
-        />
         <Link to="/" className={classes.sidenav_top}>
+          {" "}
+          <Avatar
+            alt="Raccoon with a gold bowtie"
+            src={require("../../racoonbowtie.svg")}
+            className={classes.image}
+          />
           <MenuItem className={classes.image} selected={path === "/"}>
             <Typography className={classes.typography_menu}>Home</Typography>
           </MenuItem>

@@ -45,7 +45,7 @@ const JobForm = Loadable({
 });
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import("../../components/reusable/deleteitem.js"),
   loading: Loading
 });
 
@@ -292,7 +292,6 @@ class ClientView extends Component {
                     columns={3}
                     type="note"
                     items={data.client.noteSet.edges}
-                    createMethod={this.openModal("add_note")}
                     cancelCreateMethod={this.cancelModal("add_note")}
                     refetch={refetch}
                   />

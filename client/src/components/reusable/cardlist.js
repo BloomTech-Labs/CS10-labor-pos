@@ -33,6 +33,7 @@ class CardList extends Component {
     if (user_premium === "true") user_premium = true;
     else user_premium = false;
     let card_array = [];
+    let columns = 1;
     if (isWidthUp("sm", this.props.width)) {
       columns = 2;
     }
@@ -70,30 +71,16 @@ class CardList extends Component {
         );
 
         return (
-          <div>
-            <br />
-            <br />
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              alignContent="center"
-              spacing={24}
-            >
-              {card_array}
-            </Grid>
-            <br />
-            <br />
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-              alignContent="center"
-              spacing={24}
-            />
-          </div>
+          <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            alignContent="center"
+            spacing={24}
+          >
+            {card_array}
+          </Grid>
         );
       }
     }
