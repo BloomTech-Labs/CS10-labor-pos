@@ -111,7 +111,7 @@ class CardList extends Component {
                 }`}</Typography>
               </Button>
             </Grid>
-            <Grid xs={11} md={10} />
+            <Grid item xs={11} md={10} />
             <Grid
               container
               direction="row"
