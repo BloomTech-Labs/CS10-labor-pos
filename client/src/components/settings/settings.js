@@ -412,10 +412,10 @@ class Settings extends Component {
                                     {this.props.item_counts.clients}
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    1
+                                    6
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    {1 - this.props.item_counts.clients}
+                                    {6 - this.props.item_counts.clients}
                                   </TableCell>
                                   <TableCell
                                     className={classNames(
@@ -434,10 +434,10 @@ class Settings extends Component {
                                     {this.props.item_counts.jobs}
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    8
+                                    6
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    {8 - this.props.item_counts.jobs}
+                                    {6 - this.props.item_counts.jobs}
                                   </TableCell>
                                   <TableCell
                                     className={classNames(
@@ -456,10 +456,10 @@ class Settings extends Component {
                                     {this.props.item_counts.notes}
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    8
+                                    6
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    {8 - this.props.item_counts.notes}
+                                    {6 - this.props.item_counts.notes}
                                   </TableCell>
                                   <TableCell
                                     className={classNames(
@@ -478,10 +478,10 @@ class Settings extends Component {
                                     {this.props.item_counts.parts}
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    8
+                                    6
                                   </TableCell>
                                   <TableCell className={classes.results}>
-                                    {8 - this.props.item_counts.parts}
+                                    {6 - this.props.item_counts.parts}
                                   </TableCell>
                                   <TableCell
                                     className={classNames(
