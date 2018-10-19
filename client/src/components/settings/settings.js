@@ -302,9 +302,6 @@ class Settings extends Component {
                                   id="state"
                                   label="State"
                                   name="state"
-                                  style={{
-                                    marginLeft: "20px"
-                                  }}
                                   className={classNames(
                                     classes.state_field,
                                     classes.margin,

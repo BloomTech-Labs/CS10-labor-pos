@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import StripeCheckout from 'react-stripe-checkout';
-import axios from 'axios';
+import React, { Component } from "react";
+import StripeCheckout from "react-stripe-checkout";
+import axios from "axios";
 import {
   FormControlLabel,
   Checkbox,
@@ -9,23 +9,21 @@ import {
   withStyles,
   Grid,
   Hidden
-} from '@material-ui/core';
-import { AUTH_TOKEN } from '../../constants.js';
-import { styles } from '../material-ui/styles.js';
-import classNames from 'classnames';
-import { SETTINGS_QUERY } from '../../queries.js';
-
+} from "@material-ui/core";
+import { AUTH_TOKEN } from "../../constants.js";
+import { styles } from "../material-ui/styles.js";
+import classNames from "classnames";
 
 class Checkout extends Component {
   state = {
-    subscriptionType: '',
+    subscriptionType: "",
     subscriptionAmount: null
   };
 
   // users will choose either the monthly or yearly subscription
   setSubscriptionType = e => {
     const { value: subscriptionType } = e.target;
-    const subscriptionAmount = Number(e.target.attributes['price']);
+    const subscriptionAmount = Number(e.target.attributes["price"]);
 
     this.setState({
       subscriptionType,
@@ -36,10 +34,10 @@ class Checkout extends Component {
   getStripeToken = token => {
     axios({
       url: process.env.REACT_APP_ENDPOINT,
-      method: 'post',
+      method: "post",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem(AUTH_TOKEN),
-        'Content-Type': 'application/graphql'
+        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
+        "Content-Type": "application/graphql"
       },
       data: JSON.stringify({
         operationName: null,
@@ -67,10 +65,10 @@ class Checkout extends Component {
 
     axios({
       url: process.env.REACT_APP_ENDPOINT,
-      method: 'post',
+      method: "post",
       headers: {
-        Authorization: 'JWT ' + localStorage.getItem(AUTH_TOKEN),
-        'Content-Type': 'application/json'
+        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
+        "Content-Type": "application/json"
       },
       data: JSON.stringify({
         operationName: null,
@@ -83,7 +81,7 @@ class Checkout extends Component {
           }
         }`,
         variables: {
-          id: localStorage.getItem('USER_ID'),
+          id: localStorage.getItem("USER_ID"),
           subscription: this.state.subscriptionType
         }
       })
@@ -91,7 +89,7 @@ class Checkout extends Component {
       .then(res => {
         console.log(res.data.data.updateUser.user.premium);
         localStorage.setItem(
-          'USER_PREMIUM',
+          "USER_PREMIUM",
           res.data.data.updateUser.user.premium
         );
       })
@@ -99,14 +97,15 @@ class Checkout extends Component {
   };
 
   render() {
-     let user_premium = localStorage.getItem('USER_PREMIUM');
-     if (user_premium === 'true') user_premium = true;
-     else user_premium = false;
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     const { classes } = this.props;
     // stripe's checkout plugin receives card information, creates a stripe customer, tokenizes the information, sends the token back to our backend so that our backend can create the charge
 
-    return <div>
-        {' '}
+    return (
+      <div>
+        {" "}
         <br />
         <Typography className={classes.typography_title}>
           <span className={classes.highlight}>Billing</span>
@@ -122,26 +121,60 @@ class Checkout extends Component {
           <Grid item xs={12}>
             <Typography className={classes.billing}>
               Choose subscription and begin using your premium access
-            </Typography>{' '}
+            </Typography>{" "}
           </Grid>
           <Grid item xs={12}>
-            <StripeCheckout amount={this.state.subscriptionAmount} currency="USD" name="contractAlchemy" token={this.getStripeToken} stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61" image="https://bestpos.netlify.com/racoonbowtie.svg" color="black" zipCode={true} billingAddress={true} />
+            <StripeCheckout
+              amount={this.state.subscriptionAmount}
+              currency="USD"
+              name="contractAlchemy"
+              token={this.getStripeToken}
+              stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
+              image="https://bestpos.netlify.com/racoonbowtie.svg"
+              color="black"
+              zipCode={true}
+              billingAddress={true}
+            />
           </Grid>
           {/*checkboxes allow user to select which premium plan they want to pay for, then sets the amount in the stripe form*/}
           <React.Fragment>
             <Grid container>
               <Grid item xs={12}>
-                <FormControlLabel control={<Checkbox price={999} name="subscription" onClick={this.setSubscriptionType} value="year" type="radio" color="secondary" />} label="Yearly Subscription - $9.99" />
-                <FormControlLabel control={<Checkbox price={99} name="subscription" onClick={this.setSubscriptionType} value="month" type="radio" color="secondary" />} label="Monthly Subscription - 99¢" />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      price={999}
+                      name="subscription"
+                      onClick={this.setSubscriptionType}
+                      value="year"
+                      type="radio"
+                      color="secondary"
+                    />
+                  }
+                  label="Yearly Subscription - $9.99"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      price={99}
+                      name="subscription"
+                      onClick={this.setSubscriptionType}
+                      value="month"
+                      type="radio"
+                      color="secondary"
+                    />
+                  }
+                  label="Monthly Subscription - 99¢"
+                />
               </Grid>
             </Grid>
             <Grid container spacing={24}>
-               <Grid item xs={12}>
+              <Grid item xs={12}>
                 <Hidden xsUp={user_premium}>
                   <Typography className={classes.premium_results}>
-                   You are currently a free user - upgrade today!
+                    You are currently a free user - upgrade today!
                   </Typography>
-               </Hidden>
+                </Hidden>
               </Grid>
             </Grid>
           </React.Fragment>
@@ -168,7 +201,12 @@ class Checkout extends Component {
           </Grid>
           <Grid item xs={12} md={6} zeroMinWidth>
             <Card className={classes.premium_card}>
-              <Typography className={classNames(classes.typography_paragraph, classes.blackfont)}>
+              <Typography
+                className={classNames(
+                  classes.typography_paragraph,
+                  classes.blackfont
+                )}
+              >
                 Premium users:
                 <br />
                 <br />
@@ -191,7 +229,8 @@ class Checkout extends Component {
             </Card>
           </Grid>
         </Grid>
-      </div>;
+      </div>
+    );
   }
 }
 
