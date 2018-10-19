@@ -71,11 +71,7 @@ const styles = theme => ({
     width: 'auto',
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto'
-    }
+    
   },
   limit_width: {
     width: '75%',
@@ -219,7 +215,12 @@ const styles = theme => ({
   },
   typography_title: {
     fontSize: '40px',
-    fontFamily: "'Cinzel', serif"
+    fontFamily: "'Cinzel', serif",
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2 * 2)]: {
+      width: 600,
+      marginLeft: 'auto',
+      marginRight: 'auto'
+    }
   },
   typography_title_checkout: {
     fontFamily: "'Cinzel', serif",
