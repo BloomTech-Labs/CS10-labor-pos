@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
-import Grade from "@material-ui/icons/Grade.js";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import Grade from '@material-ui/icons/Grade.js';
 import {
   Grid,
   Typography,
@@ -14,34 +14,34 @@ import {
   TableRow,
   Hidden,
   withStyles
-} from "@material-ui/core";
-import { Query, Mutation } from "react-apollo";
-import { SETTINGS_QUERY } from "../../queries.js";
-import { UPDATE_USER } from "../../mutations.js";
-import { STATE_LIST } from "../../constants";
-import { styles } from "../material-ui/styles.js";
-import { Formik, Field, Form } from "formik";
-import { TextField } from "../../components";
-import classNames from "classnames";
-var Yup = require("yup");
+} from '@material-ui/core';
+import { Query, Mutation } from 'react-apollo';
+import { SETTINGS_QUERY } from '../../queries.js';
+import { UPDATE_USER } from '../../mutations.js';
+import { STATE_LIST } from '../../constants';
+import { styles } from '../material-ui/styles.js';
+import { Formik, Field, Form } from 'formik';
+import { TextField } from '../../components';
+import classNames from 'classnames';
+var Yup = require('yup');
 
 const SettingsSchema = Yup.object().shape({
   oldPassword: Yup.string(),
   newPassword: Yup.string(),
   businessName: Yup.string().max(
     100,
-    "Business name must be fewer than 100 characters"
+    'Business name must be fewer than 100 characters'
   ),
   firstName: Yup.string().max(
     100,
-    "First name must be fewer than 100 characters"
+    'First name must be fewer than 100 characters'
   ),
   lastName: Yup.string().max(
     100,
-    "Last Name must be fewer than 100 characters"
+    'Last Name must be fewer than 100 characters'
   ),
   email: Yup.string()
-    .email("Must provide a valid email")
+    .email('Must provide a valid email')
     .max(70),
   streetAddress: Yup.string().max(100),
   city: Yup.string(),
@@ -65,13 +65,13 @@ class Settings extends Component {
     changeContact: false
   };
   render() {
-    let user_premium = localStorage.getItem("USER_PREMIUM");
-    if (user_premium === "true") user_premium = true;
+    let user_premium = localStorage.getItem('USER_PREMIUM');
+    if (user_premium === 'true') user_premium = true;
     else user_premium = false;
     const { classes } = this.props;
     let edit_user = {};
     for (let key in this.props.user) {
-      if (this.props.user[key] === null) edit_user[key] = "";
+      if (this.props.user[key] === null) edit_user[key] = '';
       else edit_user[key] = this.props.user[key];
     }
     return (
@@ -120,9 +120,7 @@ class Settings extends Component {
                       };
 
                       user_variables.id = this.props.user.id;
-                      mutateJob({
-                        variables: user_variables
-                      });
+                      mutateJob({ variables: user_variables });
                     }}
                   >
                     <Grid container spacing={24}>
@@ -137,12 +135,12 @@ class Settings extends Component {
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <IconButton disabled={!user_premium}>
-                          <Grade />
-                        </IconButton>
                         <Hidden xsUp={!user_premium}>
-                          <Typography>
-                            Premium member paid until:{" "}
+                          <Grade className={classes.premium_results} />
+                        </Hidden>
+                        <Hidden xsUp={!user_premium}>
+                          <Typography className={classes.premium_results}>
+                            Premium member paid until:{' '}
                             {`${paid_until.getMonth() +
                               1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
                           </Typography>
@@ -316,7 +314,7 @@ class Settings extends Component {
                                   classes.menuitems,
                                   classes.paper_color
                                 )}
-                                style={{ height: "55px" }}
+                                style={{ height: '55px' }}
                                 component="select"
                               >
                                 {STATE_LIST.map(state => (
@@ -386,58 +384,113 @@ class Settings extends Component {
                               <TableHead>
                                 <TableRow>
                                   <TableCell />
-                                  <TableCell numeric>Used</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Used
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     Free Account Allotment
                                   </TableCell>
-                                  <TableCell numeric>Remaining</TableCell>
-                                  <TableCell>Premium</TableCell>
+                                  <TableCell className={classes.results}>
+                                    Remaining
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    Premium
+                                  </TableCell>
                                 </TableRow>
                               </TableHead>
                               <TableBody>
                                 <TableRow>
-                                  <TableCell>Clients</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Clients
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.clients}
                                   </TableCell>
-                                  <TableCell numeric>1</TableCell>
-                                  <TableCell numeric>
-                                    {1 - this.props.item_counts.clients}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Jobs</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Jobs
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.jobs}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.jobs}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Notes</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Notes
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.notes}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.notes}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Parts</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Parts
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.parts}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.parts}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                               </TableBody>
                             </Table>
@@ -473,7 +526,7 @@ class SettingsWrapper extends Component {
     return (
       <Query
         query={SETTINGS_QUERY}
-        variables={{ id: localStorage.getItem("USER_ID") }}
+        variables={{ id: localStorage.getItem('USER_ID') }}
       >
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
