@@ -211,7 +211,7 @@ const styles = theme => ({
     paddingBottom: "30px",
     fontSize: "24px",
     fontWeight: "700",
-    fontFamily: "Source Sans Pro"
+    fontFamily: "Source Sans Pro, Arial, sans-serif"
   },
   start_card: {
     minWidth: "40px",
