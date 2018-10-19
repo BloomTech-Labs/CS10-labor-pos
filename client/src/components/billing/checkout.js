@@ -8,10 +8,12 @@ import {
   Card,
   withStyles,
   Grid
+
 } from '@material-ui/core';
 import { AUTH_TOKEN } from '../../constants.js';
 import { styles } from '../material-ui/styles.js';
 import classNames from 'classnames';
+
 
 class Checkout extends Component {
   state = {
@@ -102,6 +104,11 @@ class Checkout extends Component {
     return (
       <div>
         {' '}
+        <br />
+        <Typography className={classes.typography_title}>
+          <span className={classes.highlight}>Billing</span>
+        </Typography>
+        <br />
         <br />
         <Typography className={classes.typography_title}>
           <span className={classes.highlight}>Billing</span>

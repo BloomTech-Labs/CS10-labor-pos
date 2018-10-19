@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
-import { Grid, Card, withStyles } from "@material-ui/core";
+import { Grid, Card, withStyles, Button, Typography } from "@material-ui/core";
 import { ItemCard } from "../../components";
 import { styles } from "../material-ui/styles.js";
 import withWidth from "@material-ui/core/withWidth";
+import AddCircle from "@material-ui/icons/AddCircle.js";
 
 //  This component shows a list of cards representing one of our item types.
 //  It renders as a child of many components.
@@ -61,6 +62,67 @@ class CardList extends Component {
               />
             </Card>
           </Grid>
+        );
+      }
+    }
+    if (
+      this.props.location.pathname === "/clients" ||
+      this.props.location.pathname === "/notes"
+    ) {
+      if (!user_premium && this.props.items.length < 6) {
+        return (
+          <React.Fragment>
+            <Grid item xs={12}>
+              <Button
+                onClick={this.props.createMethod}
+                className={classes.add_button}
+                variant="contained"
+              >
+                <AddCircle />
+                <Typography>{`New ${this.props.type}`}</Typography>
+              </Button>
+            </Grid>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              spacing={24}
+            >
+              {card_array}
+            </Grid>
+          </React.Fragment>
+        );
+      } else if (user_premium) {
+        return (
+          <React.Fragment>
+            <Grid item xs={1} md={2}>
+              <Button
+                onClick={this.props.createMethod}
+                className={classes.add_button}
+                variant="contained"
+                style={{ marginTop: "-20px", padding: "8px 30px" }}
+              >
+                <AddCircle />
+                &nbsp;&nbsp;
+                <Typography className={classes.add_text}>{`New ${
+                  this.props.type
+                }`}</Typography>
+              </Button>
+            </Grid>
+            <Grid xs={11} md={10} />
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              spacing={24}
+            >
+              {card_array}
+            </Grid>
+          </React.Fragment>
         );
       }
     }
