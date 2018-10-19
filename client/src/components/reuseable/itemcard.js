@@ -1,10 +1,17 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import Create from "@material-ui/icons/Create.js";
-import Delete from "@material-ui/icons/Delete.js";
-import { IconButton, Typography, Dialog, Grid } from "@material-ui/core";
-import Loadable from "react-loadable";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import Create from '@material-ui/icons/Create.js';
+import Delete from '@material-ui/icons/Delete.js';
+import {
+  IconButton,
+  Typography,
+  Dialog,
+  Grid,
+  withStyles
+} from '@material-ui/core';
+import Loadable from 'react-loadable';
+import { styles } from '../material-ui/styles.js';
 
 function Loading({ error }) {
   if (error) {
@@ -15,7 +22,7 @@ function Loading({ error }) {
 }
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import('../../components/reuseable/deleteitem.js'),
   loading: Loading
 });
 //  This component will render as a child of the card list component.
@@ -44,9 +51,10 @@ class ItemCard extends Component {
   };
 
   render() {
-    let topRow = "";
-    let middleRow = "";
-    let bottomRow = "";
+    const { classes } = this.props;
+    let topRow = '';
+    let middleRow = '';
+    let bottomRow = '';
 
     /*  No longer using this.props.type being passed down from Cardlist
     That logic was breaking when it came to going to /client because
@@ -54,12 +62,12 @@ class ItemCard extends Component {
     Now taking this.props.match.path off of React router */
 
     switch (this.props.type) {
-      case "job":
+      case 'job':
         if (this.props.item.client.businessName) {
           topRow = (
             <React.Fragment>
               <b>Client:</b> <br />
-              {`${this.props.item.client.businessName}`}{" "}
+              {`${this.props.item.client.businessName}`}{' '}
             </React.Fragment>
           );
         } else {
@@ -78,12 +86,19 @@ class ItemCard extends Component {
           </React.Fragment>
         );
         if (this.props.item.deadline) {
-          bottomRow = `Due: ${this.props.item.deadline}`;
+          bottomRow = (
+            <React.Fragment>
+              Due:{' '}
+              <span className={classes.highlight}>
+                {this.props.item.deadline}
+              </span>
+            </React.Fragment>
+          );
         } else {
-          bottomRow = "No deadline";
+          bottomRow = 'No deadline';
         }
         break;
-      case "client":
+      case 'client':
         if (this.props.item.businessName)
           middleRow = this.props.item.businessName;
         else
@@ -91,7 +106,7 @@ class ItemCard extends Component {
             this.props.item.lastName
           }`;
         break;
-      case "note":
+      case 'note':
         topRow = (
           <React.Fragment>
             <b>Title:</b> <br /> {`${this.props.item.title}`}
@@ -107,7 +122,7 @@ class ItemCard extends Component {
           } else {
             middleRow = (
               <React.Fragment>
-                Client: <br />{" "}
+                Client: <br />{' '}
                 {`${this.props.item.client.firstName} ${
                   this.props.item.client.lastName
                 }`}
@@ -131,7 +146,7 @@ class ItemCard extends Component {
           }
         }
         break;
-      case "part":
+      case 'part':
         middleRow = this.props.item.name;
         break;
       default:
@@ -185,4 +200,4 @@ class ItemCard extends Component {
   }
 }
 
-export default withRouter(ItemCard);
+export default withRouter(withStyles(styles)(ItemCard));
