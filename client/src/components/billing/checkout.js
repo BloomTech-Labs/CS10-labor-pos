@@ -112,11 +112,6 @@ class Checkout extends Component {
         </Typography>
         <br />
         <br />
-        <Typography className={classes.typography_title}>
-          <span className={classes.highlight}>Billing</span>
-        </Typography>
-        <br />
-        <br />
         <Grid container spacing={24}>
           <Grid item xs={12}>
             <Typography className={classes.billing}>
