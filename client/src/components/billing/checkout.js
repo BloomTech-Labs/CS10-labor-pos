@@ -15,6 +15,7 @@ import { styles } from '../material-ui/styles.js';
 import classNames from 'classnames';
 import { SETTINGS_QUERY } from '../../queries.js';
 
+
 class Checkout extends Component {
   state = {
     subscriptionType: '',
@@ -106,6 +107,11 @@ class Checkout extends Component {
 
     return <div>
         {' '}
+        <br />
+        <Typography className={classes.typography_title}>
+          <span className={classes.highlight}>Billing</span>
+        </Typography>
+        <br />
         <br />
         <Typography className={classes.typography_title}>
           <span className={classes.highlight}>Billing</span>

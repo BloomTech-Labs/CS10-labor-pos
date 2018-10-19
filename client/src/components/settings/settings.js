@@ -181,7 +181,25 @@ class Settings extends Component {
                               <Field id="field-city" label="City" name="city" fullWidth component={TextField} className={classNames(classes.margin, classes.textField)} value={values.city} margin="normal" />
                             </Grid>
                             <Grid item xs={12} md={2}>
-                              <Field id="state" select="true" label="State" name="state" placeholder="State" margin="normal" className={classNames(classes.margin, classes.field, classes.state_field, classes.menuitems, classes.paper_color)} style={{ height: '55px' }} component="select">
+                              <Field
+                                id="state"
+                                select="true"
+                                label="State"
+                                name="state"
+                                fullWidth
+                                placeholder="State"
+                                margin="normal"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.field,
+                                  classes.state_field,
+                                  classes.menuitems,
+                                  classes.paper_color
+                                )}
+                                style={{ height: "55px" }}
+                                component="select"
+                              >
+
                                 {STATE_LIST.map(state => (
                                   <option
                                     key={state.label}
