@@ -1,5 +1,6 @@
-import React from "react";
-import Checkout from "./checkout.js";
+import React from 'react';
+import Checkout from './checkout.js';
+
 
 const Billing = () => {
   return (

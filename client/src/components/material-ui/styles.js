@@ -174,6 +174,14 @@ const styles = theme => ({
     margin: "16px",
     padding: "16px"
   },
+  premium_results: {
+    color: "#ffeb3b"
+  },
+
+  results: {
+    textAlign: "center",
+    fontSize: "18px"
+  },
   root: {
     display: "flex",
     flexWrap: "wrap"

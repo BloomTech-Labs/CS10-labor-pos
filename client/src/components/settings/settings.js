@@ -4,7 +4,6 @@ import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
-  IconButton,
   Paper,
   Button,
   Table,
@@ -120,9 +119,7 @@ class Settings extends Component {
                       };
 
                       user_variables.id = this.props.user.id;
-                      mutateJob({
-                        variables: user_variables
-                      });
+                      mutateJob({ variables: user_variables });
                     }}
                   >
                     <Grid container spacing={24}>
@@ -137,11 +134,11 @@ class Settings extends Component {
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <IconButton disabled={!user_premium}>
-                          <Grade />
-                        </IconButton>
                         <Hidden xsUp={!user_premium}>
-                          <Typography>
+                          <Grade className={classes.premium_results} />
+                        </Hidden>
+                        <Hidden xsUp={!user_premium}>
+                          <Typography className={classes.premium_results}>
                             Premium member paid until:{" "}
                             {`${paid_until.getMonth() +
                               1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
@@ -383,58 +380,113 @@ class Settings extends Component {
                               <TableHead>
                                 <TableRow>
                                   <TableCell />
-                                  <TableCell numeric>Used</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Used
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     Free Account Allotment
                                   </TableCell>
-                                  <TableCell numeric>Remaining</TableCell>
-                                  <TableCell>Premium</TableCell>
+                                  <TableCell className={classes.results}>
+                                    Remaining
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    Premium
+                                  </TableCell>
                                 </TableRow>
                               </TableHead>
                               <TableBody>
                                 <TableRow>
-                                  <TableCell>Clients</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Clients
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.clients}
                                   </TableCell>
-                                  <TableCell numeric>1</TableCell>
-                                  <TableCell numeric>
-                                    {1 - this.props.item_counts.clients}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Jobs</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Jobs
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.jobs}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.jobs}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Notes</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Notes
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.notes}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.notes}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Parts</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Parts
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.parts}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.parts}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                               </TableBody>
                             </Table>
