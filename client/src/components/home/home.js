@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import { Route } from "react-router-dom";
 import {
   Hidden,
-  IconButton,
+  MenuItem,
   Drawer,
   Paper,
   Grid,
@@ -134,25 +134,22 @@ class Home extends Component {
     return (
       <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
-        <Grid container>
-          <Grid item xs={5} sm={3} md={2} lg={1}>
-            <Paper className={classes.card}>
-              <IconButton
-                color="inherit"
-                aria-label="Open sidenav"
-                onClick={this.handleDrawerToggle}
-                className="mr-auto"
-              >
-                <Avatar
-                  alt="A golden raccoon logo"
-                  src={require("../../racoonbowtie.svg")}
-                  className={classes.image}
-                />
-              </IconButton>
-              <Typography>Menu</Typography>
-            </Paper>
-          </Grid>
-          <Grid item xs={7} sm={9} md={10} lg={11} />
+        <Grid container className={classes.sidenav_top}>
+          <MenuItem
+            color="inherit"
+            aria-label="Open sidenav"
+            onClick={this.handleDrawerToggle}
+            className={classes.nav_menu}
+          >
+            <Avatar
+              alt="A golden raccoon logo"
+              src={require("../../racoonbowtie.svg")}
+              className={classes.image}
+            />
+            <Typography className={classes.typography_menu}>
+              ContractAlchemy
+            </Typography>{" "}
+          </MenuItem>
         </Grid>
         {/*There are two Drawer components because one is hidden at any given time for responsiveness
         This is the drawer that displays in the small view (Baby Drawer)
