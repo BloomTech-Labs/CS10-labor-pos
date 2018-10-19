@@ -5,7 +5,16 @@ const styles = theme => ({
   },
   add_text: {
     color: theme.palette.text.primary,
-    textShadow: "2px 2px 4px #000000"
+    textShadow: "2px 2px 2px #000000",
+    letterSpacing: "1.2px"
+  },
+  billing: {
+    fontFamily: "Source Sans Pro, Arial, serif",
+    fontSize: "20px",
+    lineHeight: "12dp"
+  },
+  blackfont: {
+    color: "#000000"
   },
   button: {
     marginTop: theme.spacing.unit * 3,
@@ -159,6 +168,11 @@ const styles = theme => ({
   },
   paper_color: {
     backgroundColor: theme.palette.background.paper
+  },
+  premium_card: {
+    backgroundColor: "#ffeb3b",
+    margin: "16px",
+    padding: "16px"
   },
   root: {
     display: "flex",

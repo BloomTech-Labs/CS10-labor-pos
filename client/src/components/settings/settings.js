@@ -306,6 +306,7 @@ class Settings extends Component {
                                 select="true"
                                 label="State"
                                 name="state"
+                                fullWidth
                                 placeholder="State"
                                 margin="normal"
                                 className={classNames(
