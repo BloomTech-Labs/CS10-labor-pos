@@ -137,7 +137,7 @@ class ClientView extends Component {
               <br />
               <Typography paragraph>{data.client.description}</Typography>
               <Paper className={classes.card}>
-                <Grid container>
+                <Grid container justify="right">
                   <Grid item xs={12} md={6}>
                     <Typography
                       align="left"

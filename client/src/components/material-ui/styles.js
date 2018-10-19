@@ -43,6 +43,12 @@ const styles = theme => ({
     textAlign: "center",
     paddingLeft: "80px"
   },
+  emphasis: {
+    fontSize: "30x",
+    fontWeight: "900",
+    color: "black",
+    textShadow: "2px -1px 1px goldenrod"
+  },
   field: {
     backgroundColor: theme.palette.background.textfield,
     margin: "10px",
@@ -62,10 +68,12 @@ const styles = theme => ({
     color: "#ffeb3b"
   },
   image: {
+    height: "60px",
     margin: "auto"
   },
   image_large: {
-    maxWidth: "700px"
+    maxWidth: "100%",
+    height: "auto"
   },
   item_card: {
     backgroundColor: theme.palette.background.paper,
@@ -121,8 +129,8 @@ const styles = theme => ({
     margin: "auto"
   },
   nav_menu: {
-    display: "flex",
-    flexDirection: "column"
+    padding: "20px",
+    height: "60px"
   },
   new_card: {
     backgroundColor: theme.palette.background.paper,
@@ -130,7 +138,10 @@ const styles = theme => ({
     margin: "auto"
   },
   padded_button: {
-    margin: "16px"
+    margin: "16px",
+    padding: "5px",
+    minWidth: "148px",
+    fontSize: "14px"
   },
   paper: {
     marginTop: theme.spacing.unit * 2,
@@ -212,6 +223,10 @@ const styles = theme => ({
     fontWeight: "700",
     fontFamily: "Source Sans Pro"
   },
+  typography_menu: {
+    fontFamily: "'Cinzel', serif",
+    fontSize: "16px"
+  },
   typography_paragraph: {
     paddingTop: "20px",
     fontSize: "18px",
@@ -221,8 +236,10 @@ const styles = theme => ({
   },
   typography_paragraph_landing: {
     paddingTop: "20px",
-    fontSize: "18px",
-    fontWeight: "300",
+    fontSize: "20px",
+    fontWeight: "500",
+    color: "#000000",
+    textShadow: "0.5px 0.5px 1px goldenrod",
     fontFamily: "Source Sans Pro, Arial, sans-serif"
   },
   typography_title: {
@@ -235,8 +252,9 @@ const styles = theme => ({
   },
   typography_title_landing: {
     fontFamily: "'Cinzel', serif",
-    fontSize: "32px",
-    textShadow: "1px 3px black"
+    fontSize: "36px",
+    color: "black",
+    textShadow: "1px 2px 4px goldenrod"
   }
 });
 export { styles };

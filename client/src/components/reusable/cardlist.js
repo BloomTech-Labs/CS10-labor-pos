@@ -69,21 +69,20 @@ class CardList extends Component {
             </Card>
           </Grid>
         );
-
-        return (
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            alignContent="center"
-            spacing={24}
-          >
-            {card_array}
-          </Grid>
-        );
       }
     }
+    return (
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        alignContent="center"
+        spacing={24}
+      >
+        {card_array}
+      </Grid>
+    );
   }
 }
 
