@@ -80,7 +80,7 @@ class CardList extends Component {
         );
       }
     } else {
-      for (let i = 0; i < this.props.items.length && i < 8; i++) {
+      for (let i = 0; i < this.props.items.length && i < 6; i++) {
         card_array.push(
           <Grid item xs={12} md={6} lg={4} key={i}>
             <Card raised className={classes.item_card}>
@@ -95,47 +95,104 @@ class CardList extends Component {
         );
       }
     }
-    return (
-      <div>
-        {this.props.location.pathname !== "/jobs" && user_premium ? (
-          <Button
-            onClick={this.props.createMethod}
-            className={classes.add_button}
-          >
-            <Typography>{`New ${this.props.type}`}</Typography>
-          </Button>
-        ) : this.props.items >= 8 && this.props.location.pathname != "/jobs" ? (
-          <Button
-            onClick={this.props.createMethod}
-            className={classes.add_button}
-          >
-            <Typography>{`New ${this.props.type}`}</Typography>
-          </Button>
-        ) : null}
-        <br />
-        <br />
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          alignContent="center"
-          spacing={24}
-        >
-          {card_array}
-        </Grid>
-        <br />
-        <br />
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          alignContent="center"
-          spacing={24}
-        />
-      </div>
-    );
+    if (this.props.location.pathname != "/jobs") {
+      if (user_premium) {
+        return (
+          <div>
+            <Button
+              onClick={this.props.createMethod}
+              className={classes.add_button}
+            >
+              <Typography>{`New ${this.props.type}`}</Typography>
+            </Button>
+            <br />
+            <br />
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              spacing={24}
+            >
+              {card_array}
+            </Grid>
+            <br />
+            <br />
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="center"
+              alignContent="center"
+              spacing={24}
+            />
+          </div>
+        );
+      } else {
+        if (this.props.items.length < 6) {
+          return (
+            <div>
+              <Button
+                onClick={this.props.createMethod}
+                className={classes.add_button}
+              >
+                <Typography>{`New ${this.props.type}`}</Typography>
+              </Button>
+              <br />
+              <br />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                spacing={24}
+              >
+                {card_array}
+              </Grid>
+              <br />
+              <br />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                spacing={24}
+              />
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <br />
+              <br />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                spacing={24}
+              >
+                {card_array}
+              </Grid>
+              <br />
+              <br />
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                alignContent="center"
+                spacing={24}
+              />
+            </div>
+          );
+        }
+      }
+    }
   }
 }
 
