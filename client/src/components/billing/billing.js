@@ -5,7 +5,7 @@ const Billing = () => {
   return (
     
     <Checkout
-      color="primary"
+      color="#ffeb3b"
       display="flex"
       justify-content="flex-start"
     />

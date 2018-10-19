@@ -130,10 +130,9 @@ class Settings extends Component {
                       <Grid item xs={6}>
                         <br />
                         <Typography
-                          variant="title"
                           className={classes.typography_title}
                         >
-                          Settings
+                        Settings
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={3}>

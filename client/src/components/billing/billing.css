@@ -1,4 +1,4 @@
-.StripeElement--webkit-autofill {
+{/*.StripeElement--webkit-autofill {
   background-color: #fefde5 !important;	  background-color: #fefde5 !important;
 } 	
  label {
@@ -22,7 +22,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
-  background-color: #6772e5;
+  background-color: #ffeb3b;
   text-decoration: none;
   -webkit-transition: all 150ms ease;
   transition: all 150ms ease;
@@ -60,4 +60,4 @@
  .StripeElement.loading {
   height: 41.6px;
   opacity: 0.6;
-}
+} */}

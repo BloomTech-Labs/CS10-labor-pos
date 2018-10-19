@@ -162,7 +162,7 @@ class SideNav extends Component {
               selected={path.includes('settings') || path.includes('billing')}
             >
               <Typography className={classes.typography_menu}>
-                Settings
+                Profile
               </Typography>
             </MenuItem>
           </ExpansionPanelSummary>
@@ -172,7 +172,7 @@ class SideNav extends Component {
             <Link to="/settings">
               <MenuItem selected={path.includes('settings')}>
                 <Typography className={classes.typography_menu}>
-                  Profile
+                  Details
                 </Typography>
               </MenuItem>
             </Link>

@@ -1,4 +1,12 @@
 const styles = theme => ({
+  billing: {
+    fontFamily: 'Source Sans Pro, Arial, serif',
+    fontSize: '20px',
+    lineHeight: '12dp'
+  },
+  blackfont: {
+    color: '#000000'
+  },
   button: {
     marginTop: theme.spacing.unit * 3,
     marginLeft: theme.spacing.unit
@@ -70,8 +78,7 @@ const styles = theme => ({
   layout: {
     width: 'auto',
     marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    
+    marginRight: theme.spacing.unit * 2
   },
   limit_width: {
     width: '75%',
@@ -79,7 +86,7 @@ const styles = theme => ({
   },
   list_item_light: {
     padding: '10px',
-    backgroundColor: theme.palette.lightened_background,
+    backgroundColor: theme.palette.lightened_background
   },
   list_item_reg: {
     padding: '10px',
@@ -137,6 +144,11 @@ const styles = theme => ({
   paper_color: {
     backgroundColor: theme.palette.background.paper
   },
+  premium_card: {
+    backgroundColor: '#ffeb3b',
+    margin: '16px',
+    padding: '16px',
+  },
   root: {
     display: 'flex',
     flexWrap: 'wrap'
@@ -191,7 +203,7 @@ const styles = theme => ({
     paddingTop: '20px',
     fontSize: '24px',
     fontWeight: '900',
-    fontFamily: 'Source Sans Pro, sans-serif'
+    fontFamily: 'Source Sans Pro, Arial, sans-serif'
   },
   typography_card: {
     paddingTop: '10px',
@@ -204,7 +216,7 @@ const styles = theme => ({
     paddingTop: '20px',
     fontSize: '18px',
     fontWeight: '300',
-    fontFamily: 'Source Sans Pro, sans-serif',
+    fontFamily: 'Source Sans Pro, Arial, sans-serif',
     letterSpacing: 1
   },
   typography_paragraph_landing: {
