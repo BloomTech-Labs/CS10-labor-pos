@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Divider,
   ExpansionPanel,
@@ -13,12 +13,12 @@ import {
   Radio,
   Hidden,
   Typography
-} from "@material-ui/core";
-import ExpandMore from "@material-ui/icons/ExpandMore.js";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import { styles } from "../material-ui/styles.js";
-import classNames from "classnames";
+} from '@material-ui/core';
+import ExpandMore from '@material-ui/icons/ExpandMore.js';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { styles } from '../material-ui/styles.js';
+import classNames from 'classnames';
 
 //This is the side nav component that renders in the nav drawer in the home component
 class SideNav extends Component {
@@ -34,8 +34,8 @@ class SideNav extends Component {
   render() {
     const { classes } = this.props;
     const { expanded } = this.state;
-    let user_premium = localStorage.getItem("USER_PREMIUM");
-    if (user_premium === "true") user_premium = true;
+    let user_premium = localStorage.getItem('USER_PREMIUM');
+    if (user_premium === 'true') user_premium = true;
     else user_premium = false;
     const path = this.props.location.pathname;
     return (
@@ -47,41 +47,41 @@ class SideNav extends Component {
         <Divider className={classes.space_above} />
         <Avatar
           alt="Raccoon with a gold bowtie"
-          src={require("../../racoonbowtie.svg")}
+          src={require('../../racoonbowtie.svg')}
           className={classes.image}
         />
         <Link to="/" className={classes.sidenav_top}>
-          <MenuItem className={classes.image} selected={path === "/"}>
+          <MenuItem className={classes.image} selected={path === '/'}>
             <Typography className={classes.typography_menu}>Home</Typography>
           </MenuItem>
         </Link>
 
         <ExpansionPanel
-          expanded={expanded === "clientpanel"}
-          onChange={this.handleChange("clientpanel")}
+          expanded={expanded === 'clientpanel'}
+          onChange={this.handleChange('clientpanel')}
           className={classes.sidenav}
         >
           <ExpansionPanelSummary
             expandIcon={<ExpandMore className="sidenav" />}
           >
-            <MenuItem selected={path.includes("client")}>
+            <MenuItem selected={path.includes('client')}>
               <Typography className={classes.typography_menu}>
                 Clients
               </Typography>
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
+            className={classNames('sidenav', classes.nav_menu)}
           >
             <Link to="/clients">
-              <MenuItem selected={path.includes("clients")}>
+              <MenuItem selected={path.includes('clients')}>
                 <Typography className={classes.typography_menu}>
                   View
                 </Typography>
               </MenuItem>
             </Link>
             <Link to="/createclient">
-              <MenuItem selected={path.includes("createclient")}>
+              <MenuItem selected={path.includes('createclient')}>
                 <Typography className={classes.typography_menu}>
                   Create
                 </Typography>
@@ -90,8 +90,8 @@ class SideNav extends Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
-          expanded={expanded === "jobpanel"}
-          onChange={this.handleChange("jobpanel")}
+          expanded={expanded === 'jobpanel'}
+          onChange={this.handleChange('jobpanel')}
           className={classes.sidenav}
         >
           <ExpansionPanelSummary
@@ -99,16 +99,16 @@ class SideNav extends Component {
             expandIcon={<ExpandMore />}
           >
             <MenuItem
-              selected={path.includes("job") || path.includes("invoice")}
+              selected={path.includes('job') || path.includes('invoice')}
             >
               <Typography className={classes.typography_menu}>Jobs</Typography>
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
+            className={classNames('sidenav', classes.nav_menu)}
           >
             <Link to="/jobs">
-              <MenuItem selected={path.includes("jobs")}>
+              <MenuItem selected={path.includes('jobs')}>
                 <Typography className={classes.typography_menu}>
                   View
                 </Typography>
@@ -117,30 +117,30 @@ class SideNav extends Component {
           </ExpansionPanelDetails>
         </ExpansionPanel>
         <ExpansionPanel
-          expanded={expanded === "notepanel"}
-          onChange={this.handleChange("notepanel")}
+          expanded={expanded === 'notepanel'}
+          onChange={this.handleChange('notepanel')}
           className={classes.sidenav}
         >
           <ExpansionPanelSummary
             className="sidenav"
             expandIcon={<ExpandMore />}
           >
-            <MenuItem selected={path.includes("note")}>
+            <MenuItem selected={path.includes('note')}>
               <Typography className={classes.typography_menu}>Notes</Typography>
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
+            className={classNames('sidenav', classes.nav_menu)}
           >
             <Link to="/notes">
-              <MenuItem selected={path.includes("notes")}>
+              <MenuItem selected={path.includes('notes')}>
                 <Typography className={classes.typography_menu}>
                   View
                 </Typography>
               </MenuItem>
             </Link>
             <Link to="/createnote">
-              <MenuItem selected={path.includes("createnote")}>
+              <MenuItem selected={path.includes('createnote')}>
                 <Typography className={classes.typography_menu}>
                   Create
                 </Typography>
@@ -150,8 +150,8 @@ class SideNav extends Component {
         </ExpansionPanel>
 
         <ExpansionPanel
-          expanded={expanded === "settingspanel"}
-          onChange={this.handleChange("settingspanel")}
+          expanded={expanded === 'settingspanel'}
+          onChange={this.handleChange('settingspanel')}
           className={classes.sidenav}
         >
           <ExpansionPanelSummary
@@ -159,7 +159,7 @@ class SideNav extends Component {
             expandIcon={<ExpandMore />}
           >
             <MenuItem
-              selected={path.includes("settings") || path.includes("billing")}
+              selected={path.includes('settings') || path.includes('billing')}
             >
               <Typography className={classes.typography_menu}>
                 Settings
@@ -167,17 +167,17 @@ class SideNav extends Component {
             </MenuItem>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails
-            className={classNames("sidenav", classes.nav_menu)}
+            className={classNames('sidenav', classes.nav_menu)}
           >
             <Link to="/settings">
-              <MenuItem selected={path.includes("settings")}>
+              <MenuItem selected={path.includes('settings')}>
                 <Typography className={classes.typography_menu}>
-                  Main
+                  Profile
                 </Typography>
               </MenuItem>
             </Link>
             <Link to="/billing">
-              <MenuItem selected={path.includes("billing")}>
+              <MenuItem selected={path.includes('billing')}>
                 <Typography className={classes.typography_menu}>
                   Billing
                 </Typography>
@@ -187,8 +187,8 @@ class SideNav extends Component {
         </ExpansionPanel>
         <Hidden xsUp={!user_premium}>
           <ExpansionPanel
-            expanded={expanded === "themespanel"}
-            onChange={this.handleChange("themespanel")}
+            expanded={expanded === 'themespanel'}
+            onChange={this.handleChange('themespanel')}
             className={classes.sidenav}
           >
             <ExpansionPanelSummary expandIcon={<ExpandMore />}>

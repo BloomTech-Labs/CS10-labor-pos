@@ -83,7 +83,7 @@ const styles = theme => ({
   },
   list_item_light: {
     padding: '10px',
-    backgroundColor: theme.palette.lightened_background
+    backgroundColor: theme.palette.lightened_background,
   },
   list_item_reg: {
     padding: '10px',
@@ -229,7 +229,6 @@ const styles = theme => ({
     fontFamily: "'Cinzel', serif",
     fontSize: '32px',
     textShadow: '1px 3px black'
-  },
-  
+  }
 });
 export { styles };

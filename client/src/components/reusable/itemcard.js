@@ -22,7 +22,7 @@ function Loading({ error }) {
 }
 
 const DeleteItem = Loadable({
-  loader: () => import('../../components/reuseable/deleteitem.js'),
+  loader: () => import('../../components/reusable/deleteitem.js'),
   loading: Loading
 });
 //  This component will render as a child of the card list component.

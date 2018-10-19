@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
-import NavigateNext from "@material-ui/icons/NavigateNext.js";
-import NavigateBefore from "@material-ui/icons/NavigateBefore.js";
-import Delete from "@material-ui/icons/Delete.js";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import NavigateNext from '@material-ui/icons/NavigateNext.js';
+import NavigateBefore from '@material-ui/icons/NavigateBefore.js';
+import Delete from '@material-ui/icons/Delete.js';
 import {
   Paper,
   List,
@@ -13,10 +13,10 @@ import {
   Dialog,
   Typography,
   withStyles
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
-import { styles } from "../material-ui/styles.js";
-import Loadable from "react-loadable";
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { styles } from '../material-ui/styles.js';
+import Loadable from 'react-loadable';
 
 function Loading({ error }) {
   if (error) {
@@ -27,7 +27,7 @@ function Loading({ error }) {
 }
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import('../../components/reusable/deleteitem.js'),
   loading: Loading
 });
 
@@ -79,24 +79,24 @@ class ItemList extends Component {
 
   render() {
     const { classes } = this.props;
-    let name_field = "";
-    let path = "";
+    let name_field = '';
+    let path = '';
     switch (this.props.type) {
-      case "job":
-        name_field = "name";
-        path = "/jobs";
+      case 'job':
+        name_field = 'name';
+        path = '/jobs';
         break;
-      case "part":
-        name_field = "name";
-        path = "/parts";
+      case 'part':
+        name_field = 'name';
+        path = '/parts';
         break;
-      case "note":
-        name_field = "title";
-        path = "/notes";
+      case 'note':
+        name_field = 'title';
+        path = '/notes';
         break;
       default:
-        name_field = "first_name last_name";
-        path = "/clients";
+        name_field = 'first_name last_name';
+        path = '/clients';
         break;
     }
     let list_items = [];
