@@ -100,8 +100,8 @@ class LandingPage extends Component {
                 className={classes.image_large}
               />
             </Grid>
-            <Grid item md={5} />
-            <Grid item xs={6} md={3}>
+            <Grid item md={6} />
+            <Grid item xs={6} md={2}>
               <Button
                 className={classes.padded_button}
                 variant="contained"
