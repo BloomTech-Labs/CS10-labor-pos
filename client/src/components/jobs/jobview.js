@@ -149,7 +149,7 @@ class JobView extends Component {
                   container
                   direction="row"
                   justify="space-around"
-                  alignItems="center"
+                  alignItems="left"
                   spacing={24}
                 >
                   <Grid item xs={2}>
@@ -181,7 +181,7 @@ class JobView extends Component {
                   container
                   direction="row"
                   justify="space-around"
-                  alignItems="center"
+                  alignItems="left"
                   spacing={24}
                 >
                   <Grid item xs={12} md={4}>

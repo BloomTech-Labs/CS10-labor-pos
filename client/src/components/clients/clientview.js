@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router";
-import { Link } from "react-router-dom";
-import { Query } from "react-apollo";
-import Create from "@material-ui/icons/Create.js";
-import Delete from "@material-ui/icons/Delete.js";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Query } from 'react-apollo';
+import Create from '@material-ui/icons/Create.js';
+import Delete from '@material-ui/icons/Delete.js';
 import {
   Typography,
   Grid,
@@ -13,11 +13,11 @@ import {
   withStyles,
   withMobileDialog,
   Paper
-} from "@material-ui/core";
-import { CardList } from "../../components";
-import { DETAILED_CLIENT_BY_ID } from "../../queries";
-import { styles } from "../material-ui/styles.js";
-import Loadable from "react-loadable";
+} from '@material-ui/core';
+import { CardList } from '../../components';
+import { DETAILED_CLIENT_BY_ID } from '../../queries';
+import { styles } from '../material-ui/styles.js';
+import Loadable from 'react-loadable';
 
 function Loading({ error }) {
   if (error) {
@@ -28,17 +28,17 @@ function Loading({ error }) {
 }
 // brings in ability to create notes and jobs from within the client
 const NoteForm = Loadable({
-  loader: () => import("../../components/notes/noteform.js"),
+  loader: () => import('../../components/notes/noteform.js'),
   loading: Loading
 });
 
 const JobForm = Loadable({
-  loader: () => import("../../components/jobs/jobform.js"),
+  loader: () => import('../../components/jobs/jobform.js'),
   loading: Loading
 });
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import('../../components/reuseable/deleteitem.js'),
   loading: Loading
 });
 
@@ -101,11 +101,11 @@ class ClientView extends Component {
                   </Grid>
                   <Grid item xs={10}>
                     <Typography className={classes.typography} variant="title">
-                      {name}
+                      <span className={classes.highlight}>{name}</span>
                     </Typography>
                   </Grid>
                   <Grid item xs={1}>
-                    <IconButton onClick={this.openModal("deleting")}>
+                    <IconButton onClick={this.openModal('deleting')}>
                       <Delete />
                     </IconButton>
                   </Grid>
@@ -122,7 +122,7 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      <b>Business Name:</b> &nbsp; &nbsp;{" "}
+                      <b>Business Name:</b> &nbsp; &nbsp;{' '}
                       {data.client.businessName}
                     </Typography>
                   </Grid>
@@ -142,7 +142,7 @@ class ClientView extends Component {
                       variant="subheading"
                       className={classes.space_above}
                     >
-                      <b>Name:</b> &nbsp; &nbsp;{" "}
+                      <b>Name:</b> &nbsp; &nbsp;{' '}
                       {`${data.client.firstName} ${data.client.lastName}`}
                     </Typography>
                   </Grid>
@@ -179,16 +179,18 @@ class ClientView extends Component {
               <Divider className={classes.margin} />
               <Typography
                 className={classes.typography}
-                align="center"
+                align="left"
                 variant="subheading"
                 paragraph
-              >{`Jobs for ${name}:`}</Typography>
+              >
+                Jobs for <span className={classes.highlight}>{name}</span>
+              </Typography>
               <CardList
                 columns={3}
                 type="job"
                 items={job_items}
-                createMethod={this.openModal("add_job")}
-                cancelCreateMethod={this.cancelModal("add_job")}
+                createMethod={this.openModal('add_job')}
+                cancelCreateMethod={this.cancelModal('add_job')}
                 after_path={this.props.location.pathname}
                 refetch={refetch}
               />
@@ -196,25 +198,27 @@ class ClientView extends Component {
               <Typography
                 className={classes.typography}
                 paragraph
-                align="center"
+                align="left"
                 variant="subheading"
-              >{`Notes for ${name}:`}</Typography>
+              >
+                Notes for <span className={classes.highlight}>{name}</span>
+              </Typography>
               <CardList
                 rows={1}
                 columns={3}
                 type="note"
                 items={data.client.noteSet.edges}
-                createMethod={this.openModal("add_note")}
-                cancelCreateMethod={this.cancelModal("add_note")}
+                createMethod={this.openModal('add_note')}
+                cancelCreateMethod={this.cancelModal('add_note')}
                 refetch={refetch}
               />
               <Dialog
                 open={this.state.deleting}
-                onClose={this.cancelModal("deleting")}
+                onClose={this.cancelModal('deleting')}
                 fullScreen={fullScreen}
               >
                 <DeleteItem
-                  cancelDelete={this.cancelModal("deleting")}
+                  cancelDelete={this.cancelModal('deleting')}
                   type="client"
                   item={data.client}
                   after_path="/clients"
@@ -222,30 +226,30 @@ class ClientView extends Component {
               </Dialog>
               <Dialog
                 open={this.state.add_job}
-                onClose={this.cancelModal("add_job")}
+                onClose={this.cancelModal('add_job')}
                 fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <JobForm
                     mode="create"
-                    parent={{ type: "client", id: data.client.id }}
+                    parent={{ type: 'client', id: data.client.id }}
                     after_path={this.props.location.pathname}
-                    cancelAdd={this.cancelModal("add_job")}
+                    cancelAdd={this.cancelModal('add_job')}
                     refetch={refetch}
                   />
                 </Paper>
               </Dialog>
               <Dialog
                 open={this.state.add_note}
-                onClose={this.cancelModal("add_note")}
+                onClose={this.cancelModal('add_note')}
                 fullScreen={fullScreen}
               >
                 <Paper className={classes.paper}>
                   <NoteForm
                     mode="modal"
-                    parent={{ type: "client", id: data.client.id }}
+                    parent={{ type: 'client', id: data.client.id }}
                     after_path={this.props.location.pathname}
-                    cancelAdd={this.cancelModal("add_note")}
+                    cancelAdd={this.cancelModal('add_note')}
                     refetch={refetch}
                   />
                 </Paper>
