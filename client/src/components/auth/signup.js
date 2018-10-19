@@ -296,7 +296,6 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="Business Name"
-              required
             />
             <Field
               name="streetAddress"

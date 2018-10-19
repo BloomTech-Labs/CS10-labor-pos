@@ -226,6 +226,9 @@ const styles = theme => ({
   delete: {
     textAlign: "center",
     paddingLeft: "80px"
+  },
+  add_button: {
+    top: "10px !important"
   }
 });
 export { styles };

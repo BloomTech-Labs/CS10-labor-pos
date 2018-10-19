@@ -97,6 +97,23 @@ class CardList extends Component {
     }
     return (
       <div>
+        {this.props.location.pathname !== "/jobs" && user_premium ? (
+          <Button
+            onClick={this.props.createMethod}
+            className={classes.add_button}
+          >
+            <Typography>{`New ${this.props.type}`}</Typography>
+          </Button>
+        ) : this.props.items >= 8 && this.props.location.pathname != "/jobs" ? (
+          <Button
+            onClick={this.props.createMethod}
+            className={classes.add_button}
+          >
+            <Typography>{`New ${this.props.type}`}</Typography>
+          </Button>
+        ) : null}
+        <br />
+        <br />
         <Grid
           container
           direction="row"
@@ -105,30 +122,6 @@ class CardList extends Component {
           alignContent="center"
           spacing={24}
         >
-          {user_premium ? (
-            this.props.location.pathname !== "/jobs" ? (
-              <React.Fragment>
-                <Button onClick={this.props.createMethod}>
-                  <Typography
-                    className={classes.typography_card}
-                    variant="subheading"
-                  >
-                    {" "}
-                    {`New ${this.props.type}`}
-                  </Typography>
-                </Button>
-              </React.Fragment>
-            ) : null
-          ) : this.props.location.pathname !== "/jobs" ? (
-            this.props.items <= 8 && (
-              <Button
-                onClick={this.props.createMethod}
-                disabled={this.props.items >= 8}
-              >
-                {`New ${this.props.type}`}
-              </Button>
-            )
-          ) : null}
           {card_array}
         </Grid>
         <br />

@@ -80,11 +80,9 @@ class ClientView extends Component {
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
-          refetch();
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
-          console.log("Client props", this.props);
           let job_items = data.client.jobSet.edges;
           for (let i = 0; i < job_items.length; i++) {
             job_items[i].node.client = { businessName: name };
