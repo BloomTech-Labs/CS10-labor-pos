@@ -197,6 +197,13 @@ const styles = theme => ({
     fontWeight: '900',
     fontFamily: 'Source Sans Pro, sans-serif'
   },
+  typography_card: {
+    paddingTop: '10px',
+    paddingBottom: '30px',
+    fontSize: '24px',
+    fontWeight: '700',
+    fontFamily: 'Source Sans Pro'
+  },
   typography_paragraph: {
     paddingTop: '20px',
     fontSize: '18px',
@@ -223,12 +230,6 @@ const styles = theme => ({
     fontSize: '32px',
     textShadow: '1px 3px black'
   },
-  typography_card: {
-    paddingTop: '10px',
-    paddingBottom: '30px',
-    fontSize: '24px',
-    fontWeight: '700',
-    fontFamily: 'Source Sans Pro'
-  }
+  
 });
 export { styles };
