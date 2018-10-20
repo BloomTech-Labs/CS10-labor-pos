@@ -64,7 +64,7 @@ class App extends Component {
       sidenav_background = '#000000';
     } else if (this.state.theme_string === 'banana') {
       theme_type = 'light';
-      lightened_background = grey['100'];
+      lightened_background = grey['700'];
       default_color = '#d4c253';
       paper_color = '#f0e370';
       background_image = false;
