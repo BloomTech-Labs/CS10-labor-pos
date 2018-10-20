@@ -193,7 +193,6 @@ class JobView extends Component {
                   spacing={24}
                 >
                   <Grid item xs={12} md={4}>
-                    {/*TODO: make these links pass the associated job to the create component*/}
                     {!user_premium &&
                       data.job.noteSet.edges.length < 6 && (
                         <Button
