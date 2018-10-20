@@ -31,6 +31,7 @@ class Notes extends Component {
               </Typography>
               <br />
               <br />
+
               <CardList
                 items={data.allNotes.edges}
                 type="note"

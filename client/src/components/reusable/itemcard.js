@@ -64,31 +64,41 @@ class ItemCard extends Component {
     switch (this.props.type) {
       case "job":
         if (this.props.item.client.businessName) {
-          topRow = (
+          middleRow = (
             <React.Fragment>
-              <b>Client:</b> <br />
-              {`${this.props.item.client.businessName}`}{" "}
+              <span className={classes.highlight} style={{ fontSize: "18px" }}>
+                Client:
+              </span>
+              &nbsp;&nbsp;
+              <span className={classes.highlight}>
+                {`${this.props.item.client.businessName}`}{" "}
+              </span>
             </React.Fragment>
           );
         } else {
-          topRow = (
+          middleRow = (
             <React.Fragment>
-              <b>Client:</b> <br />
-              {`${this.props.item.client.firstName} ${
-                this.props.item.client.lastName
-              }`}
+              <span className={classes.highlight} style={{ fontSize: "18px" }}>
+                Client:
+              </span>
+              &nbsp;&nbsp;
+              <span className={classes.highlight}>{`${
+                this.props.item.client.firstName
+              } ${this.props.item.client.lastName}`}</span>
             </React.Fragment>
           );
         }
-        middleRow = (
+        topRow = (
           <React.Fragment>
-            <b>Job:</b> <br /> {`${this.props.item.name}`}
+            <span style={{ fontSize: "18px" }}>Job:</span> &nbsp;&nbsp;
+            <span>{`${this.props.item.name}`}</span>
           </React.Fragment>
         );
         if (this.props.item.deadline) {
           bottomRow = (
             <React.Fragment>
-              Due:{" "}
+              <span style={{ fontSize: "18px" }}>Due:</span>
+              &nbsp;&nbsp;
               <span className={classes.highlight}>
                 {this.props.item.deadline}
               </span>
@@ -100,39 +110,84 @@ class ItemCard extends Component {
         break;
       case "client":
         if (this.props.item.businessName)
-          middleRow = this.props.item.businessName;
+          topRow = (
+            <span className={classes.highlight} style={{ fontSize: "18px" }}>
+              {this.props.item.businessName}
+            </span>
+          );
         else
-          middleRow = `${this.props.item.firstName} ${
-            this.props.item.lastName
-          }`;
+          topRow = (
+            <span className={classes.highlight} style={{ fontSize: "18px" }}>
+              {this.props.item.firstName} {this.props.item.lastName}
+            </span>
+          );
+        if (this.props.item.jobSet)
+          middleRow = (
+            <React.Fragment>
+              <span style={{ fontSize: "18px" }}>Jobs:</span>
+              &nbsp;&nbsp;
+              {`${this.props.item.jobSet.edges.length}`}
+            </React.Fragment>
+          );
+        if (this.props.item.noteSet)
+          bottomRow = (
+            <React.Fragment>
+              <span style={{ fontSize: "18px" }}>Notes:</span>
+              &nbsp;&nbsp;
+              {`${this.props.item.noteSet.edges.length}`}
+            </React.Fragment>
+          );
         break;
       case "note":
         topRow = (
           <React.Fragment>
-            <b>Title:</b> <br /> {`${this.props.item.title}`}
+            <span style={{ fontSize: "18px" }}>Title:</span>
+            &nbsp;&nbsp;
+            {`${this.props.item.title}`}
           </React.Fragment>
         );
         if (this.props.item.client) {
           if (this.props.item.client.businessName) {
             middleRow = (
               <React.Fragment>
-                Client: <br /> {`${this.props.item.client.businessName}`}
+                <span
+                  style={{ fontSize: "18px" }}
+                  className={classes.highlight}
+                >
+                  Client:
+                </span>
+                &nbsp;&nbsp;
+                <span className={classes.highlight}>
+                  {this.props.item.client.businessName}
+                </span>
               </React.Fragment>
             );
           } else {
             middleRow = (
               <React.Fragment>
-                Client: <br />{" "}
-                {`${this.props.item.client.firstName} ${
-                  this.props.item.client.lastName
-                }`}
+                <span
+                  style={{ fontSize: "18px" }}
+                  className={classes.highlight}
+                >
+                  Client:&nbsp;&nbsp;
+                </span>{" "}
+                <span className={classes.highlight}>
+                  {this.props.item.client.firstName}{" "}
+                  {this.props.item.client.lastName}
+                </span>
               </React.Fragment>
             );
           }
         } else if (this.props.item.job) {
           middleRow = (
             <React.Fragment>
-              Job: <br /> {`${this.props.item.job.name}`}
+              <span style={{ fontSize: "18px" }} className={classes.highlight}>
+                Job:
+              </span>{" "}
+              &nbsp;&nbsp;
+              <span className={classes.highlight}>
+                {this.props.item.job.name}
+              </span>
             </React.Fragment>
           );
         }
@@ -140,7 +195,16 @@ class ItemCard extends Component {
           if (this.props.item.job) {
             bottomRow = (
               <React.Fragment>
-                Job: <br /> {`${this.props.item.job.name}`}
+                <span
+                  style={{ fontSize: "18px" }}
+                  className={classes.highlight}
+                >
+                  Job:
+                </span>{" "}
+                &nbsp;&nbsp;
+                <span className={classes.highlight}>
+                  {this.props.item.job.name}
+                </span>
               </React.Fragment>
             );
           }
@@ -170,16 +234,13 @@ class ItemCard extends Component {
           </Grid>
         </Grid>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
-          <br />
-          <Typography variant="subheading" noWrap>
+          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
             {topRow}
           </Typography>
-          <br />
-          <Typography variant="subheading" noWrap>
+          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
             {middleRow}
           </Typography>
-          <br />
-          <Typography variant="subheading" noWrap>
+          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
             {bottomRow}
           </Typography>
         </Link>

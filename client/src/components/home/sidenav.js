@@ -135,7 +135,7 @@ class SideNav extends Component {
                   <FormControlLabel
                     value="default"
                     control={<Radio />}
-                    label="Default"
+                    label="default"
                   />
                   <FormControlLabel
                     value="desk"

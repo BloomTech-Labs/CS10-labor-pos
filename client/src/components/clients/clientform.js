@@ -14,7 +14,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
 import { styles } from "../material-ui/styles";
-// import Select from "react-select";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
 const Yup = require("yup");
 
@@ -151,7 +150,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.businessName}
                           component={TextField}
@@ -164,7 +164,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.firstName}
                           component={TextField}
@@ -177,7 +178,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.lastName}
                           component={TextField}
@@ -190,7 +192,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.email}
                           component={TextField}
@@ -203,7 +206,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.streetAddress}
                           component={TextField}
@@ -216,35 +220,39 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.city}
                           component={TextField}
                           margin="normal"
                         />
-                        <div className={classNames(classes.margin)}>
-                          <FormControl>
+                        <div>
+                          <FormControl
+                            style={{
+                              width: "100%",
+                              padding: "0",
+                              display: "block",
+                              margin: "auto"
+                            }}
+                          >
                             <Field
                               id="field-state"
-                              select="true"
-                              label="State"
                               name="state"
-                              component="select"
                               margin="normal"
                               className={classNames(
+                                classes.state_field,
                                 classes.margin,
                                 classes.textField,
-                                classes.state_field,
-                                classes.menuitems
+                                classes.paper_color
                               )}
-                              style={{ width: "194px", height: "55px" }}
+                              component="select"
+                              style={{
+                                height: "55px"
+                              }}
                             >
                               {STATE_LIST.map(state => (
-                                <option
-                                  key={state.label}
-                                  value={state.label}
-                                  className={classes.menuitems}
-                                >
+                                <option key={state.label} value={state.label}>
                                   {state.label}
                                 </option>
                               ))}
@@ -265,7 +273,8 @@ class ClientForm extends Component {
                             variant="outlined"
                             className={classNames(
                               classes.margin,
-                              classes.textField
+                              classes.textField,
+                              classes.paper_color
                             )}
                             value={values.zipcode}
                             component={TextField}

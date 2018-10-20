@@ -25,6 +25,10 @@ class Parts extends Component {
               <Typography className={classes.typography} variant="title">
                 Parts
               </Typography>
+              <Typography className={classes.typography_count}>
+                Part count:&nbsp;&nbsp;
+                {data.allParts.edges.length - 1}
+              </Typography>
               <br />
               <br />
               <CardList

@@ -174,7 +174,7 @@ class NoteForm extends Component {
                                   id="field-title"
                                   label="Title"
                                   name="title"
-                                  className={classes.margin}
+                                  className={classNames(classes.margin)}
                                   value={values.title}
                                   margin="normal"
                                 />
@@ -211,9 +211,10 @@ class NoteForm extends Component {
                                 }
                                 component="select"
                                 className={classNames(
+                                  classes.state_field,
                                   classes.margin,
                                   classes.textField,
-                                  classes.state_field
+                                  classes.paper_color
                                 )}
                                 value={values.client}
                               >
@@ -238,19 +239,16 @@ class NoteForm extends Component {
                                   this.props.parent.type === "job"
                                 }
                                 className={classNames(
+                                  classes.state_field,
                                   classes.margin,
                                   classes.textField,
-                                  classes.state_field
+                                  classes.paper_color
                                 )}
                                 value={values.job}
                                 component="select"
                               >
                                 {job_list.map(job => (
-                                  <option
-                                    key={job.value}
-                                    value={job.value}
-                                    className={classes.menuitems}
-                                  >
+                                  <option key={job.value} value={job.value}>
                                     {job.label}
                                   </option>
                                 ))}

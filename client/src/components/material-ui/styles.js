@@ -92,6 +92,15 @@ const styles = theme => ({
     textAlign: "left",
     padding: "20px"
   },
+  item_card_small: {
+    backgroundColor: theme.palette.background.paper,
+    height: "200px",
+    maxWidth: "200px",
+    margin: "auto",
+    textAlign: "left",
+    padding: "20px",
+    lineHeight: "4"
+  },
   layout: {
     width: "auto",
     marginLeft: theme.spacing.unit * 2,
@@ -119,9 +128,9 @@ const styles = theme => ({
     margin: "auto",
     width: "80%",
     maxWidth: "900px",
-    marginTop: "32px",
-    marginBottom: "32px",
-    padding: "16px 32px",
+    marginTop: "20px",
+    marginBottom: "20px",
+    padding: "32px 32px",
     backgroundColor: theme.palette.background.default
   },
   margin: {
@@ -145,6 +154,12 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     maxWidth: "180px",
     margin: "auto"
+  },
+  note: {
+    paddingTop: "20px",
+    fontSize: "26px",
+    fontWeight: "300",
+    fontFamily: "Source Sans Pro, sans-serif"
   },
   padded_button: {
     margin: "16px",
@@ -205,7 +220,7 @@ const styles = theme => ({
     marginBottom: "22px"
   },
   start_card: {
-    minWidth: "40px",
+    minWidth: "165px",
     backgroundColor: theme.palette.background.paper,
     margin: "auto",
     padding: "40px",
@@ -221,7 +236,7 @@ const styles = theme => ({
     border: "0",
     borderBottom: "1px solid",
     color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.textfield
+    backgroundColor: theme.palette.background.paper
   },
   state_settings: {
     marginLeft: "40px",
@@ -250,7 +265,8 @@ const styles = theme => ({
   },
   typography_menu: {
     fontFamily: "'Cinzel', serif",
-    fontSize: "16px"
+    fontSize: "16px",
+    textShadow: "1px 1px 3px goldenrod, 1px 1px 2px black"
   },
   typography_paragraph: {
     paddingTop: "20px",
@@ -266,6 +282,10 @@ const styles = theme => ({
     color: "#000000",
     textShadow: "0.5px 0.5px 1px goldenrod",
     fontFamily: "Source Sans Pro, Arial, sans-serif"
+  },
+  typography_start: {
+    marginTop: "15px",
+    padding: "0px 40px 40px 40px"
   },
   typography_title: {
     fontSize: "40px",
