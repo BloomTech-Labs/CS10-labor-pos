@@ -92,7 +92,7 @@ class NoteForm extends Component {
                 }`
               });
           }
-          client_list.push({ value: "", label: "None" });
+          client_list.push({ value: "", label: "Client" });
           //  Build the array for the job pulldown.  It's simpler than the client one.
           let job_list = [];
           let job_array = data.allJobs.edges;
@@ -102,7 +102,7 @@ class NoteForm extends Component {
               label: job_array[i].node.name
             });
           }
-          job_list.push({ value: "", label: "None" });
+          job_list.push({ value: "", label: "Job" });
           return (
             //  Give initial values to Formik from the edit_note object
             <Formik
