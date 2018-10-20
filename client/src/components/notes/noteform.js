@@ -205,6 +205,7 @@ class NoteForm extends Component {
                                 id="field-client"
                                 label="Client"
                                 name="client"
+                                value={values.client}
                                 disabled={
                                   this.props.mode === "modal" &&
                                   this.props.parent.type === "client"
@@ -234,6 +235,7 @@ class NoteForm extends Component {
                                 id="field-job"
                                 label="Job"
                                 name="job"
+                                value={values.client}
                                 disabled={
                                   this.props.mode === "modal" &&
                                   this.props.parent.type === "job"
