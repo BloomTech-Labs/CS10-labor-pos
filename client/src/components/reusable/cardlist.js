@@ -79,7 +79,9 @@ class CardList extends Component {
                 variant="contained"
               >
                 <AddCircle />
-                <Typography>{`New ${this.props.type}`}</Typography>
+                <Typography className={classes.add_text}>{`New ${
+                  this.props.type
+                }`}</Typography>
               </Button>
             </Grid>
             <Grid
@@ -111,7 +113,7 @@ class CardList extends Component {
                 }`}</Typography>
               </Button>
             </Grid>
-            <Grid xs={11} md={10} />
+            <Grid item xs={11} md={10} />
             <Grid
               container
               direction="row"

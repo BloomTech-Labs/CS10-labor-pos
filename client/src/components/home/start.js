@@ -37,70 +37,81 @@ class Start extends Component {
             </Typography>
             <br />
           </Grid>
-          <Link to="/clients">
-            <Grid container>
-              <Button>
-                <Card className={classes.start_card}>
-                  <Grid item xs={9} />
-                  <Grid item xs={3}>
-                    <Tooltip
-                      title={`Clients are your customers.\n\nThrough the client page, you can add jobs for the client and notes about the client.`}
-                    >
-                      <Help />
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.typography} variant="title">
-                      View <br /> Clients
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} />
-                </Card>
-              </Button>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs>
+              <Link to="/clients">
+                <Button>
+                  <Card className={classes.start_card}>
+                    <Grid item xs={9} />
+                    <Grid item xs={3}>
+                      <Tooltip
+                        title={`Clients are your customers.\n\nThrough the client page, you can add jobs for the client and notes about the client.`}
+                      >
+                        <Help />
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.typography_start}
+                        variant="title"
+                      >
+                        View <br /> Clients
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} />
+                  </Card>
+                </Button>
+              </Link>{" "}
             </Grid>
-          </Link>
-          <Link to="/jobs">
-            <Grid container>
-              <Button>
-                <Card className={classes.start_card}>
-                  <Grid item xs={9} />
-                  <Grid item xs={3}>
-                    <Tooltip
-                      title={`Jobs are specific jobs being done for a customer and are created through the client.\n\nThrough a job, you can add parts (which would be line items in your invoice) and notes about the job.`}
-                    >
-                      <Help />
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.typography} variant="title">
-                      View <br /> Jobs
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} />
-                </Card>
-              </Button>
+            <Grid item xs>
+              <Link to="/jobs">
+                <Button>
+                  <Card className={classes.start_card}>
+                    <Grid item xs={9} />
+                    <Grid item xs={3}>
+                      <Tooltip
+                        title={`Jobs are specific jobs being done for a customer and are created through the client.\n\nThrough a job, you can add parts (which would be line items in your invoice) and notes about the job.`}
+                      >
+                        <Help />
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.typography_start}
+                        variant="title"
+                      >
+                        View <br /> Jobs
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} />
+                  </Card>
+                </Button>
+              </Link>{" "}
             </Grid>
-          </Link>
-          <Link to="/notes">
-            <Grid container>
-              <Button>
-                <Card className={classes.start_card}>
-                  <Grid item xs={9} />
-                  <Grid item xs={3}>
-                    <Tooltip title="Notes can be made attached to a client, a job, or be unattached to anything, giving you the flexibility to keep track of all of your projects.">
-                      <Help />
-                    </Tooltip>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography className={classes.typography} variant="title">
-                      View <br /> Notes
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12} />
-                </Card>
-              </Button>
+            <Grid item xs>
+              <Link to="/notes">
+                <Button>
+                  <Card className={classes.start_card}>
+                    <Grid item xs={9} />
+                    <Grid item xs={3}>
+                      <Tooltip title="Notes can be made attached to a client, a job, or be unattached to anything, giving you the flexibility to keep track of all of your projects.">
+                        <Help />
+                      </Tooltip>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Typography
+                        className={classes.typography_start}
+                        variant="title"
+                      >
+                        View <br /> Notes
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} />
+                  </Card>
+                </Button>
+              </Link>{" "}
             </Grid>
-          </Link>
+          </Grid>
         </Grid>
       </div>
     );

@@ -38,6 +38,15 @@ const QUERY_ALL_CLIENTS = gql`
               }
             }
           }
+          noteSet {
+            edges {
+              node {
+                id
+                title
+                content
+              }
+            }
+          }
         }
       }
     }
@@ -165,14 +174,6 @@ const DETAILED_JOB_BY_ID = gql`
       createdAt
       modifiedAt
       deadline
-      tagSet {
-        edges {
-          node {
-            name
-            id
-          }
-        }
-      }
       noteSet {
         edges {
           node {
@@ -250,6 +251,7 @@ const DETAILED_NOTE_BY_ID = gql`
           businessName
           firstName
           lastName
+          id
         }
       }
       client {
@@ -257,15 +259,6 @@ const DETAILED_NOTE_BY_ID = gql`
         businessName
         firstName
         lastName
-      }
-      tagSet {
-        edges {
-          node {
-            id
-            name
-            description
-          }
-        }
       }
     }
   }
@@ -302,26 +295,16 @@ const DETAILED_PART_BY_ID = gql`
   query($id: ID!) {
     part(id: $id) {
       id
+      name
+      description
+      cost
       job {
         name
         id
       }
-      name
-      description
-      cost
-      tagSet {
-        edges {
-          node {
-            id
-            name
-            description
-          }
-        }
-      }
     }
   }
 `;
-
 
 const SETTINGS_QUERY = gql`
   query settings($id: ID!) {
@@ -389,5 +372,5 @@ export {
   ALL_NOTES_PARTS_JOBS,
   DETAILED_TAG_BY_ID,
   DETAILED_PART_BY_ID,
-  SETTINGS_QUERY,
+  SETTINGS_QUERY
 };

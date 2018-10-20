@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router';
-import Grade from '@material-ui/icons/Grade.js';
+import React, { Component } from "react";
+import { withRouter } from "react-router";
+import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
-  IconButton,
   Paper,
   Button,
   Table,
@@ -14,34 +13,34 @@ import {
   TableRow,
   Hidden,
   withStyles
-} from '@material-ui/core';
-import { Query, Mutation } from 'react-apollo';
-import { SETTINGS_QUERY } from '../../queries.js';
-import { UPDATE_USER } from '../../mutations.js';
-import { STATE_LIST } from '../../constants';
-import { styles } from '../material-ui/styles.js';
-import { Formik, Field, Form } from 'formik';
-import { TextField } from '../../components';
-import classNames from 'classnames';
-var Yup = require('yup');
+} from "@material-ui/core";
+import { Query, Mutation } from "react-apollo";
+import { SETTINGS_QUERY } from "../../queries.js";
+import { UPDATE_USER } from "../../mutations.js";
+import { STATE_LIST } from "../../constants";
+import { styles } from "../material-ui/styles.js";
+import { Formik, Field, Form } from "formik";
+import { TextField } from "../../components";
+import classNames from "classnames";
+var Yup = require("yup");
 
 const SettingsSchema = Yup.object().shape({
   oldPassword: Yup.string(),
   newPassword: Yup.string(),
   businessName: Yup.string().max(
     100,
-    'Business name must be fewer than 100 characters'
+    "Business name must be fewer than 100 characters"
   ),
   firstName: Yup.string().max(
     100,
-    'First name must be fewer than 100 characters'
+    "First name must be fewer than 100 characters"
   ),
   lastName: Yup.string().max(
     100,
-    'Last Name must be fewer than 100 characters'
+    "Last Name must be fewer than 100 characters"
   ),
   email: Yup.string()
-    .email('Must provide a valid email')
+    .email("Must provide a valid email")
     .max(70),
   streetAddress: Yup.string().max(100),
   city: Yup.string(),
@@ -65,13 +64,13 @@ class Settings extends Component {
     changeContact: false
   };
   render() {
-    let user_premium = localStorage.getItem('USER_PREMIUM');
-    if (user_premium === 'true') user_premium = true;
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
     else user_premium = false;
     const { classes } = this.props;
     let edit_user = {};
     for (let key in this.props.user) {
-      if (this.props.user[key] === null) edit_user[key] = '';
+      if (this.props.user[key] === null) edit_user[key] = "";
       else edit_user[key] = this.props.user[key];
     }
     return (
@@ -140,7 +139,7 @@ class Settings extends Component {
                         </Hidden>
                         <Hidden xsUp={!user_premium}>
                           <Typography className={classes.premium_results}>
-                            Premium member paid until:{' '}
+                            Premium member paid until:{" "}
                             {`${paid_until.getMonth() +
                               1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
                           </Typography>
@@ -190,6 +189,7 @@ class Settings extends Component {
                                 />
                               </Grid>
                             </Grid>
+                            <br />
                           </Paper>
                         </Grid>
                       </Hidden>
@@ -201,19 +201,22 @@ class Settings extends Component {
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Field
-                            id="field-businessName"
-                            label="Business Name"
-                            name="businessName"
-                            fullWidth
-                            component={TextField}
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.businessName}
-                            margin="normal"
-                          />
+                          <Grid item xs={12}>
+                            <Field
+                              id="field-businessName"
+                              label="Business Name"
+                              name="businessName"
+                              fullWidth
+                              component={TextField}
+                              className={classNames(
+                                classes.margin,
+                                classes.textField
+                              )}
+                              value={values.businessName}
+                              margin="normal"
+                            />
+                          </Grid>{" "}
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -258,7 +261,6 @@ class Settings extends Component {
                           </Grid>
                         </Paper>
                       </Grid>
-
                       <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
@@ -272,7 +274,6 @@ class Settings extends Component {
                               <Field
                                 id="field-streetAddress"
                                 label="Street Address"
-                                fullWidth
                                 component={TextField}
                                 name="streetAddress"
                                 className={classNames(
@@ -280,68 +281,60 @@ class Settings extends Component {
                                   classes.textField
                                 )}
                                 value={values.streetAddress}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12}>
                               <Field
                                 id="field-city"
                                 label="City"
                                 name="city"
-                                fullWidth
                                 component={TextField}
                                 className={classNames(
                                   classes.margin,
                                   classes.textField
                                 )}
                                 value={values.city}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="state"
-                                select="true"
-                                label="State"
-                                name="state"
-                                fullWidth
-                                placeholder="State"
-                                margin="normal"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.field,
-                                  classes.state_field,
-                                  classes.menuitems,
-                                  classes.paper_color
-                                )}
-                                style={{ height: '55px' }}
-                                component="select"
-                              >
-                                {STATE_LIST.map(state => (
-                                  <option
-                                    key={state.label}
-                                    value={state.label}
-                                    className={classes.menuitems}
-                                  >
-                                    {state.label}
-                                  </option>
-                                ))}
-                              </Field>
-                              <Typography>State</Typography>
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="field-zipcode"
-                                label="Zipcode"
-                                name="zipcode"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.zipcode}
-                                margin="normal"
-                              />
+                            <Grid container align="left">
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="state"
+                                  label="State"
+                                  name="state"
+                                  className={classNames(
+                                    classes.state_field,
+                                    classes.margin,
+                                    classes.textField,
+                                    classes.state_settings,
+                                    classes.paper_color
+                                  )}
+                                  style={{ height: "48px" }}
+                                  component="select"
+                                >
+                                  {STATE_LIST.map(state => (
+                                    <option
+                                      key={state.label}
+                                      value={state.label}
+                                    >
+                                      {state.label}
+                                    </option>
+                                  ))}
+                                </Field>
+                              </Grid>
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="field-zipcode"
+                                  label="Zipcode"
+                                  name="zipcode"
+                                  className={classNames(
+                                    classes.zipcode_settings,
+                                    classes.textField
+                                  )}
+                                  component={TextField}
+                                  value={values.zipcode}
+                                />
+                              </Grid>
                             </Grid>
                             <Grid item xs={12}>
                               <Field
@@ -354,10 +347,10 @@ class Settings extends Component {
                                 )}
                                 component={TextField}
                                 value={values.email}
-                                margin="normal"
                               />
                             </Grid>
                           </Grid>
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -498,7 +491,6 @@ class Settings extends Component {
                         </Hidden>
                       </Grid>
                     </Grid>
-
                     {/* <Hidden xsUp={conditions didn't press button yet}>
                           component with static view and button to edit
                           <button onClick={method that toggles the boolean that our hiiden tag is looking at} />
@@ -526,7 +518,7 @@ class SettingsWrapper extends Component {
     return (
       <Query
         query={SETTINGS_QUERY}
-        variables={{ id: localStorage.getItem('USER_ID') }}
+        variables={{ id: localStorage.getItem("USER_ID") }}
       >
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
