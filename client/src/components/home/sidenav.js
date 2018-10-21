@@ -133,14 +133,10 @@ class SideNav extends Component {
                   onChange={this.props.themeControlMethod}
                 >
                   <FormControlLabel
-                    value="default"
-                    control={<Radio />}
-                    label="default"
-                  />
-                  <FormControlLabel
                     value="desk"
                     control={<Radio />}
                     label="Desk"
+                    selected="true"
                   />
                   <FormControlLabel
                     value="forest"
