@@ -42,6 +42,7 @@ class Login extends Component {
           return (
             <Mutation
               mutation={SIGNIN_MUTATION}
+              errorPolicy="ignore"
               onCompleted={data => this._confirm(data)}
             >
               {(tokenAuth, { loading, error }) => (
@@ -93,7 +94,20 @@ class Login extends Component {
                       <Grid item xs={12}>
                         <Grid container justify="flex-end">
                           {error && (
-                            <Typography color="error">{`error: ${error}`}</Typography>
+                            <pre>
+                              {error.graphQLErrors.map(
+                                ({ message }, i) =>
+                                  message.includes("valid") && (
+                                    <Typography
+                                      key={i}
+                                      align="center"
+                                      color="error"
+                                    >
+                                      Please enter valid credentials
+                                    </Typography>
+                                  )
+                              )}
+                            </pre>
                           )}
                           {loading && <Typography>Loading ...</Typography>}
 
