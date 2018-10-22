@@ -7,6 +7,8 @@ import { Button, Grid, Typography, Paper, withStyles } from "@material-ui/core";
 import TextField from "../material-ui/textfield";
 import { styles } from "../material-ui/styles";
 import { Formik, Field, Form } from "formik";
+import classNames from "classnames";
+
 const Yup = require("yup");
 
 const LoginSchema = Yup.object().shape({
@@ -40,6 +42,7 @@ class Login extends Component {
           return (
             <Mutation
               mutation={SIGNIN_MUTATION}
+              errorPolicy="ignore"
               onCompleted={data => this._confirm(data)}
             >
               {(tokenAuth, { loading, error }) => (
@@ -69,6 +72,7 @@ class Login extends Component {
                           name="username"
                           label="Username"
                           fullWidth={true}
+                          className={classes.margin}
                           required
                         />
                       </Grid>
@@ -80,7 +84,8 @@ class Login extends Component {
                           type="password"
                           component={TextField}
                           name="password"
-                          label="password"
+                          label="Password"
+                          className={classes.margin}
                           fullWidth
                           required
                         />
@@ -89,7 +94,20 @@ class Login extends Component {
                       <Grid item xs={12}>
                         <Grid container justify="flex-end">
                           {error && (
-                            <Typography color="error">{`error: ${error}`}</Typography>
+                            <pre>
+                              {error.graphQLErrors.map(
+                                ({ message }, i) =>
+                                  message.includes("valid") && (
+                                    <Typography
+                                      key={i}
+                                      align="center"
+                                      color="error"
+                                    >
+                                      Please enter valid credentials
+                                    </Typography>
+                                  )
+                              )}
+                            </pre>
                           )}
                           {loading && <Typography>Loading ...</Typography>}
 
@@ -98,7 +116,10 @@ class Login extends Component {
                             color="primary"
                             disabled={!isValid}
                             type="submit"
-                            className={classes.padded_button}
+                            className={classNames(
+                              classes.margin,
+                              classes.padded_button
+                            )}
                           >
                             Login
                           </Button>

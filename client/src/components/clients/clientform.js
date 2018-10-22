@@ -170,6 +170,7 @@ class ClientForm extends Component {
                           value={values.firstName}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-lastName"
@@ -184,6 +185,7 @@ class ClientForm extends Component {
                           value={values.lastName}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-email"
@@ -198,6 +200,7 @@ class ClientForm extends Component {
                           value={values.email}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-streetAddress"
@@ -212,6 +215,7 @@ class ClientForm extends Component {
                           value={values.streetAddress}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-city"
@@ -226,61 +230,66 @@ class ClientForm extends Component {
                           value={values.city}
                           component={TextField}
                           margin="normal"
+                          required
                         />
-                        <div>
-                          <FormControl
+                        <FormControl
+                          style={{
+                            padding: "0",
+                            display: "block",
+                            margin: "auto"
+                          }}
+                        >
+                          <ErrorMessage
+                            name="state"
+                            component="div"
                             style={{
-                              width: "100%",
-                              padding: "0",
-                              display: "block",
-                              margin: "auto"
+                              color: "#f44336",
+                              textShadow: "0.5px 0.5px 1px black",
+                              fontWeight: "300",
+                              margin: "auto",
+                              width: "90%",
+                              fontSize: "16px",
+                              textAlign: "left"
                             }}
-                          >
-                            <Field
-                              id="field-state"
-                              name="state"
-                              margin="normal"
-                              className={classNames(
-                                classes.state_field,
-                                classes.margin,
-                                classes.textField,
-                                classes.paper_color
-                              )}
-                              component="select"
-                              style={{
-                                height: "55px"
-                              }}
-                            >
-                              {STATE_LIST.map(state => (
-                                <option key={state.label} value={state.label}>
-                                  {state.label}
-                                </option>
-                              ))}
-                            </Field>
-                            <ErrorMessage
-                              name="state"
-                              component="div"
-                              style={{
-                                color: "#f44336",
-                                fontWeight: "300"
-                              }}
-                            />
-                          </FormControl>
+                          />
                           <Field
-                            id="field-zipcode"
-                            label="Zipcode"
-                            name="zipcode"
-                            variant="outlined"
+                            id="field-state"
+                            name="state"
+                            margin="normal"
                             className={classNames(
+                              classes.state_field,
                               classes.margin,
                               classes.textField,
                               classes.paper_color
                             )}
-                            value={values.zipcode}
-                            component={TextField}
-                            margin="normal"
-                          />
-                        </div>
+                            component="select"
+                            style={{
+                              height: "55px",
+                              width: "90%"
+                            }}
+                          >
+                            {STATE_LIST.map(state => (
+                              <option key={state.label} value={state.label}>
+                                {state.label}
+                              </option>
+                            ))}
+                          </Field>
+                        </FormControl>
+                        <Field
+                          id="field-zipcode"
+                          label="Zipcode"
+                          name="zipcode"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField,
+                            classes.paper_color
+                          )}
+                          value={values.zipcode}
+                          component={TextField}
+                          margin="normal"
+                          required
+                        />
                       </Paper>
                       <div
                         className="form-bottom-button"

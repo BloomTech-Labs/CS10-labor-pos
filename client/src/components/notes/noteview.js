@@ -59,7 +59,6 @@ class NoteView extends Component {
         variables={{ id: this.props.match.params.id }}
       >
         {({ loading, error, data, refetch }) => {
-          console.log(this.props.match);
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
           refetch();
