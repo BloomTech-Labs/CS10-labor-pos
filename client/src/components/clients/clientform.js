@@ -14,7 +14,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { TextField } from "../../components";
 import { STATE_LIST } from "../../constants";
 import { styles } from "../material-ui/styles";
-// import Select from "react-select";
 import { CREATE_CLIENT, UPDATE_CLIENT } from "../../mutations.js";
 const Yup = require("yup");
 
@@ -135,9 +134,10 @@ class ClientForm extends Component {
                     {/* Now the form: Uses grids for positioning */}
                     <Grid container>
                       <Grid item xs={12}>
+                        <br />
                         <Typography
                           variant="title"
-                          className={classes.typography}
+                          className={classes.typography_title}
                         >
                           {title_text}
                         </Typography>
@@ -150,7 +150,8 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.businessName}
                           component={TextField}
@@ -163,11 +164,13 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.firstName}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-lastName"
@@ -176,11 +179,13 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.lastName}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-email"
@@ -189,11 +194,13 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.email}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-streetAddress"
@@ -202,11 +209,13 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.streetAddress}
                           component={TextField}
                           margin="normal"
+                          required
                         />
                         <Field
                           id="field-city"
@@ -215,62 +224,72 @@ class ClientForm extends Component {
                           variant="outlined"
                           className={classNames(
                             classes.margin,
-                            classes.textField
+                            classes.textField,
+                            classes.paper_color
                           )}
                           value={values.city}
                           component={TextField}
                           margin="normal"
+                          required
                         />
-                        <div className={classNames(classes.margin)}>
-                          <FormControl>
-                            <Field
-                              id="field-state"
-                              select="true"
-                              label="State"
-                              name="state"
-                              component="select"
-                              margin="normal"
-                              className={classNames(
-                                classes.margin,
-                                classes.textField,
-                                classes.state_field,
-                                classes.menuitems
-                              )}
-                              style={{ width: "194px", height: "55px" }}
-                            >
-                              {STATE_LIST.map(state => (
-                                <option
-                                  key={state.label}
-                                  value={state.label}
-                                  className={classes.menuitems}
-                                >
-                                  {state.label}
-                                </option>
-                              ))}
-                            </Field>
-                            <ErrorMessage
-                              name="state"
-                              component="div"
-                              style={{
-                                color: "#f44336",
-                                fontWeight: "300"
-                              }}
-                            />
-                          </FormControl>
-                          <Field
-                            id="field-zipcode"
-                            label="Zipcode"
-                            name="zipcode"
-                            variant="outlined"
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.zipcode}
-                            component={TextField}
-                            margin="normal"
+                        <FormControl
+                          style={{
+                            padding: "0",
+                            display: "block",
+                            margin: "auto"
+                          }}
+                        >
+                          <ErrorMessage
+                            name="state"
+                            component="div"
+                            style={{
+                              color: "#f44336",
+                              textShadow: "0.5px 0.5px 1px black",
+                              fontWeight: "300",
+                              margin: "auto",
+                              width: "90%",
+                              fontSize: "16px",
+                              textAlign: "left"
+                            }}
                           />
-                        </div>
+                          <Field
+                            id="field-state"
+                            name="state"
+                            margin="normal"
+                            className={classNames(
+                              classes.state_field,
+                              classes.margin,
+                              classes.textField,
+                              classes.paper_color
+                            )}
+                            component="select"
+                            style={{
+                              height: "55px",
+                              width: "90%"
+                            }}
+                          >
+                            {STATE_LIST.map(state => (
+                              <option key={state.label} value={state.label}>
+                                {state.label}
+                              </option>
+                            ))}
+                          </Field>
+                        </FormControl>
+                        <Field
+                          id="field-zipcode"
+                          label="Zipcode"
+                          name="zipcode"
+                          variant="outlined"
+                          className={classNames(
+                            classes.margin,
+                            classes.textField,
+                            classes.paper_color
+                          )}
+                          value={values.zipcode}
+                          component={TextField}
+                          margin="normal"
+                          required
+                        />
                       </Paper>
                       <div
                         className="form-bottom-button"

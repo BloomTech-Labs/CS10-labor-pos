@@ -17,12 +17,17 @@ class EditNote extends Component {
         query={DETAILED_NOTE_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div>
-              <NoteForm mode="edit" note={data.note} after_url="/notes" />
+              <NoteForm
+                mode="edit"
+                note={data.note}
+                after_url="/notes"
+                refetch={refetch}
+              />
             </div>
           );
         }}

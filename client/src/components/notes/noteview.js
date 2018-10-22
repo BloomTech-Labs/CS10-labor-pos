@@ -27,7 +27,7 @@ function Loading({ error }) {
 }
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import("../../components/reusable/deleteitem.js"),
   loading: Loading
 });
 
@@ -81,7 +81,14 @@ class NoteView extends Component {
                   </Link>
                 </Grid>
                 <Grid item xs={8}>
-                  <Typography variant="title">{data.note.title}</Typography>
+                  <Typography
+                    variant="title"
+                    className={classes.typography_title}
+                  >
+                    {data.note.title}
+                  </Typography>
+                  <br />
+                  <br />
                 </Grid>
                 <Grid item xs={2}>
                   <IconButton onClick={this.handleDeleteButton}>
@@ -89,25 +96,39 @@ class NoteView extends Component {
                   </IconButton>
                 </Grid>
               </Grid>
-              <Typography paragraph>{data.note.content}</Typography>
+              <Card style={{ width: "90%", height: "40vh", margin: "auto" }}>
+                <Typography paragraph className={classes.note}>
+                  {data.note.content}
+                </Typography>
+              </Card>
+              <br />
+              <br />
               <Grid container spacing={24}>
                 <Grid item xs={12} md={4}>
-                  <Card className={classes.card}>
-                    <Typography>
-                      Created On:{" "}
-                      {`${created.getMonth() +
-                        1}/${created.getDate()}/${created.getFullYear()}`}
-                    </Typography>
-                    <Typography>
-                      Modified On:{" "}
-                      {`${modified.getMonth() +
-                        1}/${modified.getDate()}/${modified.getFullYear()}`}
-                    </Typography>
-                  </Card>
+                  <Typography style={{ fontSize: "18px" }}>
+                    Created On:{" "}
+                    {`${created.getMonth() +
+                      1}/${created.getDate()}/${created.getFullYear()}`}
+                  </Typography>
+                  <Typography style={{ fontSize: "18px" }}>
+                    Modified On:{" "}
+                    {`${modified.getMonth() +
+                      1}/${modified.getDate()}/${modified.getFullYear()}`}
+                  </Typography>
                 </Grid>
+                <Grid item xs={4} />
                 <Grid item xs={12} md={4}>
                   <Hidden xsUp={!data.note.job}>
-                    <Card raised className={classes.item_card}>
+                    <Typography
+                      style={{
+                        fontSize: "18px",
+                        fontFamily: "'Cinzel', serif"
+                      }}
+                      className={classes.highlight}
+                    >
+                      Attached Job
+                    </Typography>
+                    <Card raised className={classes.item_card_small}>
                       <ItemCard
                         after_path={this.props.location.pathname}
                         type="job"
@@ -117,9 +138,15 @@ class NoteView extends Component {
                     </Card>
                   </Hidden>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={2} md={4}>
                   <Hidden xsUp={!data.note.client}>
-                    <Card raised className={classes.item_card}>
+                    <Typography
+                      style={{ fontSize: "18px" }}
+                      className={classes.highlight}
+                    >
+                      Attached Client
+                    </Typography>
+                    <Card raised className={classes.item_card_small}>
                       <ItemCard
                         after_path={this.props.location.pathname}
                         type="client"

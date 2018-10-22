@@ -1,5 +1,5 @@
 <h1 align="center">CS10-Labor POS</h1>
-<div align="center"> <img src="client/public/goldraccoon.png" alt="License:This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International" title="License:  This icon is provided by Tae S. Yang as Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International"/></div>
+<div align="center"> <img src="client/public/racoonbowtie.svg" alt="Raccoon with a bowtie" title="License: Raccoon image created with free images from Stockio.com and mbtskoudsalg.com"/></div>
 
 <div align="center"><h2>Brought to you by:</h2>
 
@@ -98,8 +98,8 @@
   - [Stripe](#stripe)
   - [Free vs Premium](#free-vs-premium)
   - [Design](#design)
-    - [Original Wireframe](#original-wireframe)
-    - [Extending the Wireframe](#extending-the-wireframe)
+    - Original Wireframe
+    - Extending the Wireframe
     - [Styles and Theming](#styles-and-theming)
 
 ## Tech Stack
@@ -316,6 +316,8 @@ Then take the value of that comamnd and assign it to the value of `SECRET_KEY`. 
 # Contributing
 
 If you would like to contribute to the project, please see our <a href=".github/CONTRIBUTING.md">Contributing Guidelines</a> which include issue templates for submitting <a href=".github/ISSUE_TEMPLATE/feature_request.md">feature requests</a>, <a href=".github/ISSUE_TEMPLATE/bug_report.md">bug fixes</a>, and a template for submitting <a href=".github/pull_request_template.md">pull requests</a>.
+
+Please read our <a href="CODE_OF_CONDUCT.md">Code of Conduct</a> before contributing!
 
 # Documentation
 

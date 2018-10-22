@@ -24,12 +24,14 @@ class Jobs extends Component {
               <Typography className={classes.typography_title} variant="title">
                 Jobs
               </Typography>
+              <Typography className={classes.typography_subtitle} align="left">
+                * Jobs can only be created through a Client
+              </Typography>
               <br />
               <br />
               <CardList
                 items={data.allJobs.edges}
                 type="job"
-                rows={2}
                 columns={3}
                 refetch={refetch}
               />

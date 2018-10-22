@@ -12,12 +12,18 @@ import {
   Divider,
   withStyles,
   withMobileDialog,
-  Paper
+  Paper,
+  Button,
+  Tabs,
+  Tab
 } from "@material-ui/core";
 import { CardList } from "../../components";
 import { DETAILED_CLIENT_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
+import AddCircle from "@material-ui/icons/AddCircle.js";
+import Work from "@material-ui/icons/Work.js";
+import NoteAdd from "@material-ui/icons/NoteAdd.js";
 
 function Loading({ error }) {
   if (error) {
@@ -38,10 +44,17 @@ const JobForm = Loadable({
 });
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import("../../components/reusable/deleteitem.js"),
   loading: Loading
 });
 
+function TabContainer(props) {
+  return (
+    <Typography component="div" style={{ padding: 8 * 3 }}>
+      {props.children}
+    </Typography>
+  );
+}
 //  This component renders a s a child of home on the path
 //  /clients/%clientid.  It presents the user with all information
 //  about a given client, as well as paginated card for associated
@@ -55,9 +68,15 @@ class ClientView extends Component {
     this.state = {
       deleting: false,
       add_job: false,
-      add_note: false
+      add_note: false,
+      job: true,
+      value: 0
     };
   }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
 
   openModal = name => () => {
     this.setState({ [name]: true });
@@ -69,7 +88,7 @@ class ClientView extends Component {
 
   render() {
     const { classes, fullScreen } = this.props;
-
+    const { value } = this.state;
     // runs query to retrieve client details and displays individually on cards
     return (
       <Query
@@ -83,11 +102,13 @@ class ClientView extends Component {
           let name;
           if (data.client.businessName) name = data.client.businessName;
           else name = `${data.client.firstName} ${data.client.lastName}`;
-
           let job_items = data.client.jobSet.edges;
           for (let i = 0; i < job_items.length; i++) {
             job_items[i].node.client = { businessName: name };
           }
+          let user_premium = localStorage.getItem("USER_PREMIUM");
+          if (user_premium === "true") user_premium = true;
+          else user_premium = false;
           return (
             <div>
               <div>
@@ -101,7 +122,7 @@ class ClientView extends Component {
                   </Grid>
                   <Grid item xs={10}>
                     <Typography className={classes.typography} variant="title">
-                      {name}
+                      <span className={classes.highlight}>{name}</span>
                     </Typography>
                   </Grid>
                   <Grid item xs={1}>
@@ -177,38 +198,104 @@ class ClientView extends Component {
                 </Grid>
               </Paper>
               <Divider className={classes.margin} />
-              <Typography
-                className={classes.typography}
-                align="center"
-                variant="subheading"
-                paragraph
-              >{`Jobs for ${name}:`}</Typography>
-              <CardList
-                rows={1}
-                columns={3}
-                type="job"
-                items={job_items}
-                createMethod={this.openModal("add_job")}
-                cancelCreateMethod={this.cancelModal("add_job")}
-                after_path={this.props.location.pathname}
-                refetch={refetch}
-              />
-              <Divider />
-              <Typography
-                className={classes.typography}
-                paragraph
-                align="center"
-                variant="subheading"
-              >{`Notes for ${name}:`}</Typography>
-              <CardList
-                rows={1}
-                columns={3}
-                type="note"
-                items={data.client.noteSet.edges}
-                createMethod={this.openModal("add_note")}
-                cancelCreateMethod={this.cancelModal("add_note")}
-                refetch={refetch}
-              />
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                fullWidth
+                indicatorColor="secondary"
+                textColor="secondary"
+              >
+                <Tab icon={<Work />} value={0} label={`Jobs for ${name}`} />
+                <Tab icon={<NoteAdd />} value={1} label={`Notes for ${name}`} />
+              </Tabs>
+              {value === 0 && (
+                <TabContainer>
+                  <Typography
+                    className={classes.typography}
+                    align="left"
+                    variant="subheading"
+                    paragraph
+                  >
+                    {user_premium && (
+                      <Button
+                        onClick={this.openModal("add_job")}
+                        className={classes.add_button}
+                        variant="contained"
+                      >
+                        <AddCircle /> &nbsp;&nbsp;
+                        <Typography className={classes.add_text}>
+                          New Job
+                        </Typography>
+                      </Button>
+                    )}
+                    {!user_premium &&
+                      job_items.length < 6 && (
+                        <Button
+                          onClick={this.openModal("add_job")}
+                          className={classes.add_button}
+                          variant="contained"
+                        >
+                          <AddCircle />
+                          &nbsp;&nbsp;
+                          <Typography>New Job</Typography>
+                        </Button>
+                      )}
+                    Jobs for <span className={classes.highlight}>{name}</span>
+                  </Typography>
+                  <CardList
+                    columns={3}
+                    type="job"
+                    items={job_items}
+                    createMethod={this.openModal("add_job")}
+                    cancelCreateMethod={this.cancelModal("add_job")}
+                    after_path={this.props.location.pathname}
+                    refetch={refetch}
+                  />{" "}
+                </TabContainer>
+              )}
+              {value === 1 && (
+                <TabContainer>
+                  <Typography
+                    className={classes.typography}
+                    paragraph
+                    align="left"
+                    variant="subheading"
+                  >
+                    {user_premium && (
+                      <Button
+                        onClick={this.openModal("add_note")}
+                        className={classes.add_button}
+                        variant="contained"
+                      >
+                        <AddCircle /> &nbsp;&nbsp;
+                        <Typography className={classes.add_text}>
+                          New Note
+                        </Typography>
+                      </Button>
+                    )}
+                    {!user_premium &&
+                      data.client.noteSet.edges.length < 6 && (
+                        <Button
+                          onClick={this.openModal("add_note")}
+                          className={classes.add_button}
+                          variant="contained"
+                        >
+                          <AddCircle />
+                          <Typography>New Note</Typography>
+                        </Button>
+                      )}
+                    Notes for <span className={classes.highlight}>{name}</span>
+                  </Typography>
+                  <CardList
+                    rows={1}
+                    columns={3}
+                    type="note"
+                    items={data.client.noteSet.edges}
+                    cancelCreateMethod={this.cancelModal("add_note")}
+                    refetch={refetch}
+                  />
+                </TabContainer>
+              )}
               <Dialog
                 open={this.state.deleting}
                 onClose={this.cancelModal("deleting")}

@@ -26,7 +26,7 @@ function Loading({ error }) {
 }
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import("../../components/reusable/deleteitem.js"),
   loading: Loading
 });
 
@@ -60,6 +60,7 @@ class PartView extends Component {
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
+          refetch();
           return (
             <Grid container>
               <Grid item xs={1}>

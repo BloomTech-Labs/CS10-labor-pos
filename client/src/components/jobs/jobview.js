@@ -21,6 +21,7 @@ import { ItemList } from "../../components";
 import { DETAILED_JOB_BY_ID } from "../../queries";
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
+import AddCircle from "@material-ui/icons/AddCircle.js";
 
 function Loading({ error }) {
   if (error) {
@@ -41,7 +42,7 @@ const PartForm = Loadable({
 });
 
 const DeleteItem = Loadable({
-  loader: () => import("../../components/reuseable/deleteitem.js"),
+  loader: () => import("../../components/reusable/deleteitem.js"),
   loading: Loading
 });
 
@@ -73,6 +74,9 @@ class JobView extends Component {
   render() {
     // displays job details individually on cards
     const { classes, fullScreen } = this.props;
+    let user_premium = localStorage.getItem("USER_PREMIUM");
+    if (user_premium === "true") user_premium = true;
+    else user_premium = false;
     return (
       <Query
         query={DETAILED_JOB_BY_ID}
@@ -81,8 +85,8 @@ class JobView extends Component {
         {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
+          refetch();
           let right_content = [];
-
           if (data.job.complete) {
             right_content.push(
               <Typography key={0}>
@@ -92,8 +96,8 @@ class JobView extends Component {
             );
           } else {
             right_content.push(
-              <React.Fragment>
-                <Typography key={0}>
+              <React.Fragment key={0}>
+                <Typography>
                   <ArrowRightAlt /> &nbsp; &nbsp; <b>Job In Progress</b>
                 </Typography>
                 <br />
@@ -102,8 +106,8 @@ class JobView extends Component {
           }
           if (data.job.deadline) {
             right_content.push(
-              <React.Fragment>
-                <Typography key={1}>
+              <React.Fragment key={1}>
+                <Typography>
                   Deadline: &nbsp; &nbsp;
                   {data.job.deadline}
                 </Typography>
@@ -114,8 +118,8 @@ class JobView extends Component {
           const created = new Date(data.job.createdAt);
           const modified = new Date(data.job.modifiedAt);
           right_content.push(
-            <React.Fragment>
-              <Typography key={2}>
+            <React.Fragment key={2}>
+              <Typography>
                 Labor/hours worked: &nbsp; &nbsp;
                 {data.job.labor}
               </Typography>
@@ -124,8 +128,8 @@ class JobView extends Component {
           );
 
           right_content.push(
-            <React.Fragment>
-              <Typography key={3}>
+            <React.Fragment key={3}>
+              <Typography>
                 Created On:&nbsp; &nbsp;
                 {`${created.getMonth() +
                   1}/${created.getDate()}/${created.getFullYear()}`}
@@ -143,12 +147,12 @@ class JobView extends Component {
 
           return (
             <div>
+              <br />
               <div className="job-view-top">
                 <Grid
                   container
                   direction="row"
                   justify="space-around"
-                  alignItems="center"
                   spacing={24}
                 >
                   <Grid item xs={2}>
@@ -174,44 +178,78 @@ class JobView extends Component {
                 </Grid>
               </div>
               <br />
-              <Typography paragraph>{data.job.description}</Typography>
+              <Card style={{ width: "90%", height: "40vh", margin: "auto" }}>
+                <Typography paragraph className={classes.note}>
+                  {data.job.description}
+                </Typography>
+              </Card>
+              <br />
+              <br />
               <div className="job-view-lists">
                 <Grid
                   container
                   direction="row"
                   justify="space-around"
-                  alignItems="center"
                   spacing={24}
                 >
                   <Grid item xs={12} md={4}>
-                    {/*TODO: make these links pass the associated job to the create component*/}
-
-                    <Button
-                      onClick={this.openModal("add_note")}
-                      className="job-list-button"
-                    >
-                      <Typography>Add a new note</Typography>
-                    </Button>
-
+                    {!user_premium &&
+                      data.job.noteSet.edges.length < 6 && (
+                        <Button
+                          onClick={this.openModal("add_note")}
+                          className={classes.add_button}
+                        >
+                          <AddCircle /> &nbsp;&nbsp;
+                          <Typography className={classes.add_text}>
+                            New note
+                          </Typography>
+                        </Button>
+                      )}
+                    {user_premium && (
+                      <Button
+                        onClick={this.openModal("add_note")}
+                        className={classes.add_button}
+                      >
+                        <AddCircle /> &nbsp;&nbsp;
+                        <Typography className={classes.add_text}>
+                          New note
+                        </Typography>
+                      </Button>
+                    )}
                     <ItemList
                       type="note"
                       items={data.job.noteSet.edges}
-                      per_page={7}
                       refetch={refetch}
                     />
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <Button
-                      className="job-list-button"
-                      onClick={this.openModal("add_part")}
-                    >
-                      Add a new part
-                    </Button>
+                    {!user_premium &&
+                      data.job.partSet.edges.length < 6 && (
+                        <Button
+                          className={classes.add_button}
+                          onClick={this.openModal("add_part")}
+                        >
+                          <AddCircle /> &nbsp;&nbsp;
+                          <Typography className={classes.add_text}>
+                            New part
+                          </Typography>
+                        </Button>
+                      )}
+                    {user_premium && (
+                      <Button
+                        className={classes.add_button}
+                        onClick={this.openModal("add_part")}
+                      >
+                        <AddCircle /> &nbsp;&nbsp;
+                        <Typography className={classes.add_text}>
+                          New part
+                        </Typography>
+                      </Button>
+                    )}
 
                     <ItemList
                       type="part"
                       items={data.job.partSet.edges}
-                      per_page={7}
                       refetch={refetch}
                     />
                   </Grid>

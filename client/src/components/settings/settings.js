@@ -4,7 +4,6 @@ import Grade from "@material-ui/icons/Grade.js";
 import {
   Grid,
   Typography,
-  IconButton,
   Paper,
   Button,
   Table,
@@ -120,14 +119,13 @@ class Settings extends Component {
                       };
 
                       user_variables.id = this.props.user.id;
-                      mutateJob({
-                        variables: user_variables
-                      });
+                      mutateJob({ variables: user_variables });
                     }}
                   >
                     <Grid container spacing={24}>
                       <Grid item xs={3} />
                       <Grid item xs={6}>
+                        <br />
                         <Typography
                           variant="title"
                           className={classes.typography_title}
@@ -136,11 +134,11 @@ class Settings extends Component {
                         </Typography>
                       </Grid>
                       <Grid item xs={12} md={3}>
-                        <IconButton disabled={!user_premium}>
-                          <Grade />
-                        </IconButton>
                         <Hidden xsUp={!user_premium}>
-                          <Typography>
+                          <Grade className={classes.premium_results} />
+                        </Hidden>
+                        <Hidden xsUp={!user_premium}>
+                          <Typography className={classes.premium_results}>
                             Premium member paid until:{" "}
                             {`${paid_until.getMonth() +
                               1}/${paid_until.getDate()}/${paid_until.getFullYear()}`}
@@ -191,6 +189,7 @@ class Settings extends Component {
                                 />
                               </Grid>
                             </Grid>
+                            <br />
                           </Paper>
                         </Grid>
                       </Hidden>
@@ -202,19 +201,22 @@ class Settings extends Component {
                           Business Name
                         </Typography>
                         <Paper className={classes.card}>
-                          <Field
-                            id="field-businessName"
-                            label="Business Name"
-                            name="businessName"
-                            fullWidth
-                            component={TextField}
-                            className={classNames(
-                              classes.margin,
-                              classes.textField
-                            )}
-                            value={values.businessName}
-                            margin="normal"
-                          />
+                          <Grid item xs={12}>
+                            <Field
+                              id="field-businessName"
+                              label="Business Name"
+                              name="businessName"
+                              fullWidth
+                              component={TextField}
+                              className={classNames(
+                                classes.margin,
+                                classes.textField
+                              )}
+                              value={values.businessName}
+                              margin="normal"
+                            />
+                          </Grid>{" "}
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -259,7 +261,6 @@ class Settings extends Component {
                           </Grid>
                         </Paper>
                       </Grid>
-
                       <Grid item xs={12}>
                         <Typography
                           className={classes.typography}
@@ -273,7 +274,6 @@ class Settings extends Component {
                               <Field
                                 id="field-streetAddress"
                                 label="Street Address"
-                                fullWidth
                                 component={TextField}
                                 name="streetAddress"
                                 className={classNames(
@@ -281,67 +281,60 @@ class Settings extends Component {
                                   classes.textField
                                 )}
                                 value={values.streetAddress}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={8}>
+                            <Grid item xs={12}>
                               <Field
                                 id="field-city"
                                 label="City"
                                 name="city"
-                                fullWidth
                                 component={TextField}
                                 className={classNames(
                                   classes.margin,
                                   classes.textField
                                 )}
                                 value={values.city}
-                                margin="normal"
                               />
                             </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="state"
-                                select="true"
-                                label="State"
-                                name="state"
-                                placeholder="State"
-                                margin="normal"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.field,
-                                  classes.state_field,
-                                  classes.menuitems,
-                                  classes.paper_color
-                                )}
-                                style={{ height: "55px" }}
-                                component="select"
-                              >
-                                {STATE_LIST.map(state => (
-                                  <option
-                                    key={state.label}
-                                    value={state.label}
-                                    className={classes.menuitems}
-                                  >
-                                    {state.label}
-                                  </option>
-                                ))}
-                              </Field>
-                              <Typography>State</Typography>
-                            </Grid>
-                            <Grid item xs={12} md={2}>
-                              <Field
-                                id="field-zipcode"
-                                label="Zipcode"
-                                name="zipcode"
-                                className={classNames(
-                                  classes.margin,
-                                  classes.textField
-                                )}
-                                component={TextField}
-                                value={values.zipcode}
-                                margin="normal"
-                              />
+                            <Grid container align="left">
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="state"
+                                  label="State"
+                                  name="state"
+                                  className={classNames(
+                                    classes.state_field,
+                                    classes.margin,
+                                    classes.textField,
+                                    classes.state_settings,
+                                    classes.paper_color
+                                  )}
+                                  style={{ height: "48px" }}
+                                  component="select"
+                                >
+                                  {STATE_LIST.map(state => (
+                                    <option
+                                      key={state.label}
+                                      value={state.label}
+                                    >
+                                      {state.label}
+                                    </option>
+                                  ))}
+                                </Field>
+                              </Grid>
+                              <Grid item xs={12} sm={6}>
+                                <Field
+                                  id="field-zipcode"
+                                  label="Zipcode"
+                                  name="zipcode"
+                                  className={classNames(
+                                    classes.zipcode_settings,
+                                    classes.textField
+                                  )}
+                                  component={TextField}
+                                  value={values.zipcode}
+                                />
+                              </Grid>
                             </Grid>
                             <Grid item xs={12}>
                               <Field
@@ -354,10 +347,10 @@ class Settings extends Component {
                                 )}
                                 component={TextField}
                                 value={values.email}
-                                margin="normal"
                               />
                             </Grid>
                           </Grid>
+                          <br />
                         </Paper>
                       </Grid>
                       <Grid item xs={12}>
@@ -384,58 +377,113 @@ class Settings extends Component {
                               <TableHead>
                                 <TableRow>
                                   <TableCell />
-                                  <TableCell numeric>Used</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Used
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     Free Account Allotment
                                   </TableCell>
-                                  <TableCell numeric>Remaining</TableCell>
-                                  <TableCell>Premium</TableCell>
+                                  <TableCell className={classes.results}>
+                                    Remaining
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    Premium
+                                  </TableCell>
                                 </TableRow>
                               </TableHead>
                               <TableBody>
                                 <TableRow>
-                                  <TableCell>Clients</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Clients
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.clients}
                                   </TableCell>
-                                  <TableCell numeric>1</TableCell>
-                                  <TableCell numeric>
-                                    {1 - this.props.item_counts.clients}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.clients}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Jobs</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Jobs
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.jobs}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.jobs}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.jobs}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Notes</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Notes
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.notes}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.notes}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.notes}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                  <TableCell>Parts</TableCell>
-                                  <TableCell numeric>
+                                  <TableCell className={classes.results}>
+                                    Parts
+                                  </TableCell>
+                                  <TableCell className={classes.results}>
                                     {this.props.item_counts.parts}
                                   </TableCell>
-                                  <TableCell numeric>8</TableCell>
-                                  <TableCell numeric>
-                                    {8 - this.props.item_counts.parts}
+                                  <TableCell className={classes.results}>
+                                    6
                                   </TableCell>
-                                  <TableCell>unlimited!</TableCell>
+                                  <TableCell className={classes.results}>
+                                    {6 - this.props.item_counts.parts}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classNames(
+                                      classes.results,
+                                      classes.premium_results
+                                    )}
+                                  >
+                                    unlimited!
+                                  </TableCell>
                                 </TableRow>
                               </TableBody>
                             </Table>
@@ -443,7 +491,6 @@ class Settings extends Component {
                         </Hidden>
                       </Grid>
                     </Grid>
-
                     {/* <Hidden xsUp={conditions didn't press button yet}>
                           component with static view and button to edit
                           <button onClick={method that toggles the boolean that our hiiden tag is looking at} />

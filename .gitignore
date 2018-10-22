@@ -9,4 +9,4 @@ __pycache__
 /.vscode
 sendgrid.env
 .vscode
-
+debug.log

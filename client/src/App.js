@@ -4,11 +4,11 @@ import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
 import desk_image from "./background.jpg";
-import raccoon from "./goldracoon.png";
+import raccoon from "./racoonbowtie.svg";
 
 class App extends Component {
   state = {
-    theme_string: "default"
+    theme_string: "desk"
   };
 
   handleChange = event => {
@@ -30,7 +30,7 @@ class App extends Component {
     let secondary_color = amber;
 
     let textfield_color = "#130e00";
-    let background_image = false;
+    let background_image = desk_image;
     let theme_type = "dark";
     let lightened_background = grey["700"];
     let default_color = blueGrey["900"];
@@ -38,6 +38,7 @@ class App extends Component {
     let base_background = blueGrey["500"];
     let sidenav_background = grey["800"];
     if (this.state.theme_string === "forest") {
+      background_image = false;
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#584A00";
@@ -58,21 +59,32 @@ class App extends Component {
       lightened_background = grey["700"];
       default_color = "#5a4000";
       paper_color = "#130e00";
-
+      background_image = false;
       base_background = "#130e00";
       sidenav_background = "#000000";
     } else if (this.state.theme_string === "banana") {
       theme_type = "light";
-      lightened_background = grey["100"];
+      lightened_background = grey["700"];
       default_color = "#d4c253";
       paper_color = "#f0e370";
-
+      background_image = false;
       base_background = "#846c04";
       sidenav_background = "#f0e370";
     } else if (this.state.theme_string === "desk") {
       background_image = desk_image;
+    } else if (this.state.theme_string === "greyscale") {
+      theme_type = "dark";
+      default_color = "#191919";
+      paper_color = "#4c4c4c";
+      background_image = desk_image;
+      lightened_background = grey["700"];
+      sidenav_background = "#191919";
+      base_background = "#ffffff";
     }
     //  Create the theme for the app.
+
+    const font = "'Soure Sans Pro', sans-serif";
+
     const theme = createMuiTheme({
       palette: {
         type: theme_type,
@@ -85,6 +97,9 @@ class App extends Component {
           sidenav: sidenav_background,
           textfield: textfield_color
         }
+      },
+      typography: {
+        fontFamily: font
       }
     });
 

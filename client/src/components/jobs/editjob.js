@@ -18,12 +18,17 @@ class EditJob extends Component {
         query={DETAILED_JOB_BY_ID}
         variables={{ id: this.props.match.params.id }}
       >
-        {({ loading, error, data }) => {
+        {({ loading, error, data, refetch }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error) return <Typography>Error! {error.message}</Typography>;
           return (
             <div>
-              <JobForm mode="edit" job={data.job} after_path="/jobs" />
+              <JobForm
+                mode="edit"
+                job={data.job}
+                after_path="/jobs"
+                refetch={refetch}
+              />
             </div>
           );
         }}
