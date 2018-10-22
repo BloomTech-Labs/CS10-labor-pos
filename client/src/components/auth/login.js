@@ -7,6 +7,8 @@ import { Button, Grid, Typography, Paper, withStyles } from "@material-ui/core";
 import TextField from "../material-ui/textfield";
 import { styles } from "../material-ui/styles";
 import { Formik, Field, Form } from "formik";
+import classNames from "classnames";
+
 const Yup = require("yup");
 
 const LoginSchema = Yup.object().shape({
@@ -69,6 +71,7 @@ class Login extends Component {
                           name="username"
                           label="Username"
                           fullWidth={true}
+                          className={classes.margin}
                           required
                         />
                       </Grid>
@@ -80,7 +83,8 @@ class Login extends Component {
                           type="password"
                           component={TextField}
                           name="password"
-                          label="password"
+                          label="Password"
+                          className={classes.margin}
                           fullWidth
                           required
                         />
@@ -98,7 +102,10 @@ class Login extends Component {
                             color="primary"
                             disabled={!isValid}
                             type="submit"
-                            className={classes.padded_button}
+                            className={classNames(
+                              classes.margin,
+                              classes.padded_button
+                            )}
                           >
                             Login
                           </Button>

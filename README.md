@@ -317,6 +317,8 @@ Then take the value of that comamnd and assign it to the value of `SECRET_KEY`. 
 
 If you would like to contribute to the project, please see our <a href=".github/CONTRIBUTING.md">Contributing Guidelines</a> which include issue templates for submitting <a href=".github/ISSUE_TEMPLATE/feature_request.md">feature requests</a>, <a href=".github/ISSUE_TEMPLATE/bug_report.md">bug fixes</a>, and a template for submitting <a href=".github/pull_request_template.md">pull requests</a>.
 
+Please read our <a href="CODE_OF_CONDUCT.md">Code of Conduct</a> before contributing!
+
 # Documentation
 
 ### Models

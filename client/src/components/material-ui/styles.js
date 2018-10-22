@@ -37,16 +37,12 @@ const styles = theme => ({
     marginTop: "32px"
   },
   dark_paper: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
     marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
     backgroundColor: theme.palette.background.paper,
-    [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
-      padding: theme.spacing.unit * 3
+    [theme.breakpoints.up(600 + theme.spacing.unit * 2)]: {
+      padding: theme.spacing.unit
     }
   },
   delete: {
@@ -180,8 +176,8 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     // maxWidth: "80%",
     [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-      marginTop: theme.spacing.unit * 6,
-      marginBottom: theme.spacing.unit * 6,
+      marginTop: theme.spacing.unit * 3,
+      marginBottom: theme.spacing.unit * 3,
       padding: theme.spacing.unit * 3
     }
   },

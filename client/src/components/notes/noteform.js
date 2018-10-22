@@ -103,8 +103,8 @@ class NoteForm extends Component {
             });
           }
           job_list.push({ value: "", label: "Job" });
+          //  Give initial values to Formik from the edit_note object
           return (
-            //  Give initial values to Formik from the edit_note object
             <Formik
               initialValues={{
                 client: edit_note.client,
@@ -118,9 +118,9 @@ class NoteForm extends Component {
               }}
             >
               {({ values, isValid }) => {
+                //  This mutation will submit either a create user or update user mutation
+                //  using the values from our form fields depending on the component mode.
                 return (
-                  //  This mutation will submit either a create user or update user mutation
-                  //  using the values from our form fields depending on the component mode.
                   <Mutation
                     mutation={chosen_mutation}
                     onCompleted={() => this._confirm()}

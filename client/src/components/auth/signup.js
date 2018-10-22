@@ -8,7 +8,7 @@ import {
   Paper,
   CssBaseline,
   Typography,
-  FormControl,
+  Grid,
   Button
 } from "@material-ui/core";
 import { Mutation } from "react-apollo";
@@ -19,6 +19,7 @@ import { TextField } from "../../components";
 import { styles } from "../material-ui/styles";
 import { STATE_LIST } from "../../constants";
 import { AUTH_TOKEN } from "../../constants.js";
+import classNames from "classnames";
 const Yup = require("yup");
 
 const UserSchema = Yup.object().shape({
@@ -158,8 +159,16 @@ class Wizard extends Component {
                     </Step>
                   ))}
                 </Stepper>
-                <Typography variant="display1" align="center">
-                  Sign up with email
+                <Typography
+                  style={{
+                    marginTop: "10px",
+                    fontSize: "20px",
+                    textShadow: "1px 1px goldenrod",
+                    marginBottom: "-20px"
+                  }}
+                  align="center"
+                >
+                  Create Account
                 </Typography>
                 {activePage}
                 {error && (
@@ -169,6 +178,8 @@ class Wizard extends Component {
                         message.includes("duplicate") && (
                           <Typography key={i} align="center" color="error">
                             Username already exists
+                            <br />
+                            Please choose another username on Page 1.
                           </Typography>
                         )
                     )}
@@ -241,13 +252,15 @@ const CreateUser = props => (
     >
       <Wizard.Page>
         <Paper className={props.classes.paper}>
-          <FormControl margin="normal" fullWidth>
+          <Grid container justify="center">
             <Field
               name="username"
               placeholder="Username"
               component={TextField}
               fullWidth={true}
+              className={props.classes.field}
               label="Username"
+              variant="outlined"
               required
             />
             <Field
@@ -256,6 +269,8 @@ const CreateUser = props => (
               placeholder="Please select a secure password"
               component={TextField}
               fullWidth={true}
+              variant="outlined"
+              className={props.classes.field}
               label="Password"
               required
             />
@@ -265,20 +280,24 @@ const CreateUser = props => (
               placeholder="Email"
               component={TextField}
               fullWidth={true}
+              className={props.classes.field}
               label="Email"
+              variant="outlined"
               required
             />
-          </FormControl>
+          </Grid>
         </Paper>
       </Wizard.Page>
       <Wizard.Page>
         <Paper className={props.classes.paper}>
-          <FormControl margin="normal" fullWidth>
+          <Grid container justify="center">
             <Field
               name="firstName"
               placeholder="First Name"
               component={TextField}
               fullWidth={true}
+              variant="outlined"
+              className={props.classes.field}
               label="First Name"
               required
             />
@@ -287,6 +306,8 @@ const CreateUser = props => (
               placeholder="Last Name"
               component={TextField}
               fullWidth={true}
+              variant="outlined"
+              className={props.classes.field}
               label="Last Name"
               required
             />
@@ -295,6 +316,8 @@ const CreateUser = props => (
               placeholder="Business Name"
               component={TextField}
               fullWidth={true}
+              variant="outlined"
+              className={props.classes.field}
               label="Business Name"
             />
             <Field
@@ -302,7 +325,9 @@ const CreateUser = props => (
               placeholder="Street Address"
               component={TextField}
               fullWidth={true}
+              variant="outlined"
               label="Street Address"
+              className={props.classes.field}
               required
             />
             <Field
@@ -311,7 +336,11 @@ const CreateUser = props => (
               component={TextField}
               fullWidth={true}
               label="City"
-              className={props.classes.space_below}
+              variant="outlined"
+              className={classNames(
+                props.classes.field,
+                props.classes.space_below
+              )}
               required
             />
             <Field
@@ -321,8 +350,10 @@ const CreateUser = props => (
               name="state"
               placeholder="State"
               component="select"
+              variant="outlined"
               margin="normal"
-              className={props.classes.state_field}
+              style={{ width: "90%", height: "56px" }}
+              className={props.classes.field}
             >
               {STATE_LIST.map(state => (
                 <option key={state.label} value={state.label}>
@@ -343,10 +374,12 @@ const CreateUser = props => (
               placeholder="Zipcode"
               component={TextField}
               fullWidth={true}
+              className={props.classes.field}
+              variant="outlined"
               label="Zipcode"
               required
             />
-          </FormControl>
+          </Grid>
         </Paper>
       </Wizard.Page>
     </Wizard>
