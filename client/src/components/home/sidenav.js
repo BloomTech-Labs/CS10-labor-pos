@@ -61,13 +61,13 @@ class SideNav extends Component {
             </Typography>
           </MenuItem>
         </Link>
-        <MenuItem selected={path.includes("createclient")}>
-          <Link to="/createclient">
+        <Link to="/createclient">
+          <MenuItem selected={path.includes("createclient")}>
             <Typography className={classes.typography_menu}>
               Add Client
             </Typography>
-          </Link>
-        </MenuItem>{" "}
+          </MenuItem>{" "}
+        </Link>
         <Link to="/jobs">
           <MenuItem>
             <Typography className={classes.typography_menu}>
@@ -136,7 +136,7 @@ class SideNav extends Component {
                     value="desk"
                     control={<Radio />}
                     label="Desk"
-                    selected="true"
+                    selected={true}
                   />
                   <FormControlLabel
                     value="forest"

@@ -8,6 +8,7 @@ const styles = theme => ({
     textShadow: "2px 2px 2px #000000",
     letterSpacing: "1.2px"
   },
+  background_color: theme.palette.background.paper,
   billing: {
     fontFamily: "Source Sans Pro, Arial, serif",
     fontSize: "20px",
@@ -59,9 +60,13 @@ const styles = theme => ({
     textShadow: "2px -1px 1px goldenrod"
   },
   field: {
+    color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.textfield,
     margin: "10px",
-    width: "90%"
+    width: "90%",
+    fontSize: "16px",
+    fontFamily: "Helvetica, Arial",
+    letterSpacing: "1.2px"
   },
   field_small: {
     width: "90%"
@@ -137,11 +142,10 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2
   },
   menuitems: {
-    color: theme.palette.text.primary,
-    backgroundColor: theme.palette.background.default
+    color: `${theme.palette.text.primary} !important`,
+    backgroundColor: `${theme.palette.background.paper} !important`
   },
   modal: {
-    padding: "20px",
     width: "100%",
     maxWidth: "600px",
     margin: "auto"
@@ -246,6 +250,9 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 5}px`,
     backgroundColor: theme.palette.background.default
   },
+  text_color: {
+    color: theme.palette.text.primary
+  },
   textField: {
     flexBasis: "auto",
     width: "90%"
@@ -282,6 +289,10 @@ const styles = theme => ({
     color: "#000000",
     textShadow: "0.5px 0.5px 1px goldenrod",
     fontFamily: "Source Sans Pro, Arial, sans-serif"
+  },
+  typography_subtitle: {
+    fontSize: "18px",
+    textShadow: "0.5 px 0.5px 1px goldenrod"
   },
   typography_start: {
     marginTop: "15px",

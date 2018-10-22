@@ -20,8 +20,8 @@ const Yup = require("yup");
 const NoteSchema = Yup.object().shape({
   title: Yup.string()
     .max(150, "Title must be under 150 characters")
-    .required(),
-  content: Yup.string().required(),
+    .required("Title is a required field"),
+  content: Yup.string().required("Content is a required field"),
   client: Yup.string(),
   job: Yup.string()
 });
@@ -158,32 +158,35 @@ class NoteForm extends Component {
                         >
                           {/*Now for the actual form.  Uses grids for positioning.*/}
                           <Grid container>
-                            <Grid item xs={12}>
+                            <Grid container justify="center">
                               <Typography
                                 variant="title"
                                 className={classes.typography_title}
+                                style={{ marginBottom: "20px" }}
                                 align="center"
                               >
                                 {title_text}
                               </Typography>
                             </Grid>
-                            <Grid item xs={12}>
-                              <Grid container justify="center">
-                                <Field
-                                  component={TextField}
-                                  id="field-title"
-                                  label="Title"
-                                  name="title"
-                                  className={classNames(classes.margin)}
-                                  value={values.title}
-                                  margin="normal"
-                                />
-                              </Grid>
+                            <Grid container justify="center">
+                              <Field
+                                component={TextField}
+                                id="field-title"
+                                label="Title"
+                                name="title"
+                                variant="outlined"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.field
+                                )}
+                                value={values.title}
+                                margin="normal"
+                                required
+                              />
                             </Grid>
-                            <Grid item xs={1} />
                             {/*This field uses the field class from our styles to
                       get a distinctive background color.*/}
-                            <Grid item xs={10}>
+                            <Grid container justify="center">
                               <Field
                                 component={TextField}
                                 id="field-content"
@@ -192,13 +195,16 @@ class NoteForm extends Component {
                                 rows="8"
                                 rowsMax="8"
                                 name="content"
-                                className={classes.field}
+                                className={classNames(
+                                  classes.margin,
+                                  classes.field
+                                )}
                                 value={values.content}
                                 margin="normal"
                                 variant="outlined"
+                                required
                               />
                             </Grid>
-                            <Grid item xs={1} />
                             {/*The pulldown form items using the arrays we built above*/}
                             <Grid item xs={12} md={6}>
                               <Field
@@ -211,23 +217,37 @@ class NoteForm extends Component {
                                 }
                                 component="select"
                                 className={classNames(
-                                  classes.state_field,
                                   classes.margin,
-                                  classes.textField,
-                                  classes.paper_color
+                                  classes.field
                                 )}
                                 value={values.client}
+                                style={{
+                                  height: "56px",
+                                  textShadow: "0.5px 0.5px 1px black"
+                                }}
                               >
                                 {client_list.map(client => (
                                   <option
                                     key={client.value}
                                     value={client.value}
-                                    className={classes.menuitems}
                                   >
                                     {client.label}
                                   </option>
                                 ))}
                               </Field>
+                              {this.props.mode === "modal" &&
+                              this.props.parent.type === "client" ? (
+                                <div
+                                  className={classes.text_color}
+                                  style={{
+                                    width: "90%",
+                                    textShadow: "0.5px 0.5px 1px black",
+                                    margin: "auto"
+                                  }}
+                                >
+                                  Client
+                                </div>
+                              ) : null}
                             </Grid>
                             <Grid item xs={12} md={6}>
                               <Field
@@ -239,13 +259,15 @@ class NoteForm extends Component {
                                   this.props.parent.type === "job"
                                 }
                                 className={classNames(
-                                  classes.state_field,
                                   classes.margin,
-                                  classes.textField,
-                                  classes.paper_color
+                                  classes.field
                                 )}
                                 value={values.job}
                                 component="select"
+                                style={{
+                                  height: "56px",
+                                  textShadow: "0.5px 0.5px 1px black"
+                                }}
                               >
                                 {job_list.map(job => (
                                   <option key={job.value} value={job.value}>
@@ -253,6 +275,19 @@ class NoteForm extends Component {
                                   </option>
                                 ))}
                               </Field>
+                              {this.props.mode === "modal" &&
+                              this.props.parent.type === "job" ? (
+                                <div
+                                  className={classes.text_color}
+                                  style={{
+                                    width: "90%",
+                                    textShadow: "0.5px 0.5px 1px black",
+                                    margin: "auto"
+                                  }}
+                                >
+                                  Job
+                                </div>
+                              ) : null}
                             </Grid>
                           </Grid>
                           <Grid container justify="space-around">

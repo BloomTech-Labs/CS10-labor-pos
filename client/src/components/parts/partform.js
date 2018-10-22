@@ -25,10 +25,10 @@ const Yup = require("yup");
 const PartSchema = Yup.object().shape({
   name: Yup.string()
     .max(150, "Name must be under 100 characters")
-    .required(),
+    .required("Name is a required field"),
   description: Yup.string(),
   cost: Yup.number()
-    .required()
+    .required("Cost is a required field")
     .max(1000000000, "Cost must be less than 1,000,000,000"),
   job: Yup.string()
 });
@@ -128,6 +128,7 @@ class PartForm extends Component {
                               <Typography
                                 className={classes.typography_title}
                                 variant="title"
+                                style={{ marginBottom: "20px" }}
                               >
                                 {title_text}
                               </Typography>
@@ -138,14 +139,13 @@ class PartForm extends Component {
                                 id="field-name"
                                 label="Name"
                                 name="name"
-                                className={"modal_field"}
+                                className={classNames(classes.field)}
                                 value={values.name}
-                                helperText="Part Name"
                                 margin="normal"
+                                variant="outlined"
                               />
                             </Grid>
-                            <Grid item xs={1} />
-                            <Grid item xs={10}>
+                            <Grid container justify="center">
                               <Field
                                 component={TextField}
                                 id="field-description"
@@ -160,66 +160,67 @@ class PartForm extends Component {
                                 variant="outlined"
                               />
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                              <Grid
-                                container
-                                justify="center"
-                                alignContent="center"
-                                alignItems="center"
-                                direction="column"
+                            <Grid container justify="center">
+                              <Field
+                                component={TextField}
+                                id="field-cost"
+                                label="Cost"
+                                name="cost"
+                                className={classNames(
+                                  classes.margin,
+                                  classes.field
+                                )}
+                                value={values.cost}
+                                margin="normal"
+                                variant="outlined"
+                              />
+                              <div
+                                style={{
+                                  color: "white",
+                                  textShadow: "2px 2px black",
+                                  width: "90%"
+                                }}
                               >
-                                <Field
-                                  component={TextField}
-                                  id="field-cost"
-                                  label="Cost"
-                                  name="cost"
-                                  className={"modal_field"}
-                                  value={values.cost}
-                                  margin="normal"
-                                />
-                                <div
-                                  style={{
-                                    color: "white",
-                                    textShadow: "2px 2px black"
-                                  }}
-                                >
-                                  Note: Maximum cost form allows is
-                                  $1,000,000,000
-                                </div>
-                              </Grid>
+                                Note:
+                                <br />
+                                Maximum cost form allows is $1,000,000,000
+                              </div>
                             </Grid>
-                            <Grid item xs={12} md={6}>
-                              <Grid
-                                container
-                                justify="center"
-                                alignContent="center"
-                                alignItems="center"
-                                direction="column"
+                            <Grid
+                              container
+                              justify="center"
+                              alignContent="center"
+                              alignItems="center"
+                              direction="column"
+                            >
+                              <Field
+                                component="select"
+                                id="field-job"
+                                disabled={this.props.mode === "modal"}
+                                label="Job"
+                                name="job"
+                                style={{
+                                  height: "56px"
+                                }}
+                                className={classNames(
+                                  classes.margin,
+                                  classes.state_field,
+                                  classes.field
+                                )}
                               >
-                                <Field
-                                  component="select"
-                                  id="field-job"
-                                  disabled={this.props.mode === "modal"}
-                                  label="Job"
-                                  name="job"
-                                  style={{
-                                    width: "194px",
-                                    height: "50px"
-                                  }}
-                                  className={classNames(
-                                    classes.margin,
-                                    classes.textField,
-                                    classes.state_field
-                                  )}
+                                {job_list.map(job => (
+                                  <option key={job.value} value={job.value}>
+                                    {job.label}
+                                  </option>
+                                ))}
                                 >
-                                  {job_list.map(job => (
-                                    <option key={job.value} value={job.value}>
-                                      {job.label}
-                                    </option>
-                                  ))}
-                                  >
-                                </Field>
-                              </Grid>
+                              </Field>
+                              <div
+                                style={{ width: "90%" }}
+                                className={classes.text_color}
+                              >
+                                Job
+                              </div>
                             </Grid>
                           </Grid>
                           <Grid
