@@ -1109,7 +1109,7 @@ Premium plans cost .99c for monthly and $9.99 for an entire year. The perks of s
   Job View:
 </h2>
 
-![JobView2Wireframe](/client/page_layout/JobViewWireframe2.png)
+![JobViewWireFrame2](/client/page_layout/JobViewWireFrame2.png)
 
 <h2 align="center">
   Job Edit Modal:
