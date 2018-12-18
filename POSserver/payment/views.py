@@ -5,7 +5,7 @@ from decouple import config
 import json
 import stripe
 
-stripe.api_key = config("STRIPE_SECRET_KEY")
+stripe.api_key = config("STRIPE_KEY")
 stripe.log = "info"
 
 
@@ -13,15 +13,17 @@ stripe.log = "info"
 @csrf_exempt
 def checkout(request):
     try:
-        charge = stripe.Charge.create(
-            amount=request.POST.get("amount", ""),
-            currency=request.POST.get("currency", ""),
+        customer = stripe.Customer.create(
+            email=request.POST.get("email", ""),
             source=request.POST.get("source", ""),
             description=request.POST.get("description", ""),
         )
 
-        print("____STATUS____", charge["status"])
-        if charge["status"] == "succeeded":
+        subscription = stripe.Subscription.create(
+            customer=customer, items=[{"plan": request.POST.get("description", "")}]
+        )
+        print("____STATUS____", subscription["status"])
+        if subscription["status"] == "active":
             return HttpResponse(
                 json.dumps({"message": "Your transaction was successful."})
             )
@@ -60,9 +62,3 @@ def checkout(request):
         # Display a very generic error to the user, and maybe
         # send yourself an email
         return HttpResponse(json.dumps({"message": "Internal Error, contact support."}))
-
-    # Something else happened, completely unrelated to Stripe
-    except Exception:
-        return HttpResponse(
-            json.dumps({"message": "Unable to process payment, try again."})
-        )

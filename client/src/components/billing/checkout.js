@@ -20,8 +20,8 @@ class Checkout extends Component {
 
   // users will choose either the monthly or yearly subscription
   setSubscriptionType = e => {
-    const subscriptionType = e.target.value;
-    const subscriptionAmount = Number(e.target.name);
+    const subscriptionType = e.target.name;
+    const subscriptionAmount = Number(e.target.value);
 
     console.log(subscriptionAmount);
 
@@ -31,8 +31,7 @@ class Checkout extends Component {
   getStripeToken = token => {
     const formData = new FormData();
     formData.append("description", this.state.subscriptionType);
-    formData.append("currency", "usd");
-    formData.append("amount", this.state.subscriptionAmount);
+    formData.append("email", token.email);
     formData.append("source", token.id);
     axios({
       url: `${process.env.REACT_APP_ENDPOINT}create-charge/`,
@@ -104,7 +103,7 @@ class Checkout extends Component {
               currency="USD"
               name="contractAlchemy"
               token={this.getStripeToken}
-              stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
+              stripeKey="pk_test_VFg2TxWkoz0c2FsJlupSqTsl"
               image="https://bestpos.netlify.com/racoonbowtie.svg"
               color="black"
               zipCode={true}
@@ -118,10 +117,10 @@ class Checkout extends Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      price="99"
-                      name="999"
+                      price="999"
+                      name="plan_EBBeWWObXoETbP"
                       onClick={this.setSubscriptionType}
-                      value="year"
+                      value="999"
                       type="radio"
                       color="secondary"
                     />
@@ -132,9 +131,9 @@ class Checkout extends Component {
                   control={
                     <Checkbox
                       price="99"
-                      name="99"
+                      name="plan_EBBdxMZ1Q6Yftu"
                       onClick={this.setSubscriptionType}
-                      value="month"
+                      value="99"
                       type="radio"
                       color="secondary"
                     />
