@@ -6,7 +6,7 @@ from decouple import config
 import json
 import stripe
 
-stripe.api_key = config("STRIPE_SECRET_KEY")
+stripe.api_key = config("STRIPE_KEY")
 stripe.log = "info"
 
 # defines checkout method and possible stripe errors

@@ -1,66 +1,44 @@
+import {
+  Card,
+  Checkbox,
+  FormControlLabel,
+  Grid,
+  Hidden,
+  Typography,
+  withStyles
+} from "@material-ui/core";
+import axios from "axios";
+import classNames from "classnames";
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
-import axios from "axios";
-import {
-  FormControlLabel,
-  Checkbox,
-  Typography,
-  Card,
-  withStyles,
-  Grid,
-  Hidden
-} from "@material-ui/core";
+
 import { AUTH_TOKEN } from "../../constants.js";
 import { styles } from "../material-ui/styles.js";
-import classNames from "classnames";
 
 class Checkout extends Component {
-  state = {
-    subscriptionType: "",
-    subscriptionAmount: null
-  };
+  state = { subscriptionType: "", subscriptionAmount: null };
 
   // users will choose either the monthly or yearly subscription
   setSubscriptionType = e => {
-    const { value: subscriptionType } = e.target;
-    const subscriptionAmount = Number(e.target.attributes["price"]);
+    const subscriptionType = e.target.value;
+    const subscriptionAmount = Number(e.target.name);
 
-    this.setState({
-      subscriptionType,
-      subscriptionAmount
-    });
+    console.log(subscriptionAmount);
+
+    this.setState({ subscriptionType, subscriptionAmount });
   };
 
   getStripeToken = token => {
+    const formData = new FormData();
+    formData.append("description", this.state.subscriptionType);
+    formData.append("currency", "usd");
+    formData.append("amount", this.state.subscriptionAmount);
+    formData.append("source", token.id);
     axios({
-      url: process.env.REACT_APP_ENDPOINT,
-      method: "post",
-      headers: {
-        Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN),
-        "Content-Type": "application/graphql"
-      },
-      data: JSON.stringify({
-        operationName: null,
-        query: `mutation CreateCardToken($input: _CreateStripeCardTokenInput!) {
-          createStripeCardToken(input: $input) {
-            token {
-              id
-              created
-              livemode
-              type
-              used
-              card {
-                id
-                brand
-                exp_year
-              }
-            }
-          }
-        }`,
-        variables: {
-          token: token
-        }
-      })
+      url: `${process.env.REACT_APP_ENDPOINT}create-charge/`,
+      method: "POST",
+      headers: { Authorization: "JWT " + localStorage.getItem(AUTH_TOKEN) },
+      data: formData
     });
 
     axios({
@@ -101,7 +79,9 @@ class Checkout extends Component {
     if (user_premium === "true") user_premium = true;
     else user_premium = false;
     const { classes } = this.props;
-    // stripe's checkout plugin receives card information, creates a stripe customer, tokenizes the information, sends the token back to our backend so that our backend can create the charge
+    // stripe's checkout plugin receives card information, creates a stripe
+    // customer, tokenizes the information, sends the token back to our backend
+    // so that our backend can create the charge
 
     return (
       <div>
@@ -124,7 +104,7 @@ class Checkout extends Component {
               currency="USD"
               name="contractAlchemy"
               token={this.getStripeToken}
-              stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
+              stripeKey="pk_test_VFg2TxWkoz0c2FsJlupSqTsl"
               image="https://bestpos.netlify.com/racoonbowtie.svg"
               color="black"
               zipCode={true}
@@ -138,8 +118,8 @@ class Checkout extends Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      price={999}
-                      name="subscription"
+                      price="99"
+                      name="999"
                       onClick={this.setSubscriptionType}
                       value="year"
                       type="radio"
@@ -151,8 +131,8 @@ class Checkout extends Component {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      price={99}
-                      name="subscription"
+                      price="99"
+                      name="99"
                       onClick={this.setSubscriptionType}
                       value="month"
                       type="radio"
