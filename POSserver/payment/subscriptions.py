@@ -8,7 +8,7 @@ from stripesubscriptions import CreateSubscription
 def monthly_subscription(req):
     if req.method == "POST":
         create_subscription = CreateSubscription(
-            config("STRIPE_KEY"), req.body, "plan_DjwHm1dTnZ3JSU", "Monthly"
+            config("STRIPE_SECRET_KEY"), req.body, "plan_DjwHm1dTnZ3JSU", "Monthly"
         )
 
         create_subscription.parse_body()
@@ -29,7 +29,7 @@ def monthly_subscription(req):
 def yearly_subscription(req):
     if req.method == "POST":
         create_subscription = CreateSubscription(
-            config("STRIPE_KEY"), req.body, "plan_DjwH2GvGtF24O4", "Yearly"
+            config("STRIPE_SECRET_KEY"), req.body, "plan_DjwH2GvGtF24O4", "Yearly"
         )
 
         create_subscription.parse_body()

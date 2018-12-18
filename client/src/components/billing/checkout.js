@@ -104,7 +104,7 @@ class Checkout extends Component {
               currency="USD"
               name="contractAlchemy"
               token={this.getStripeToken}
-              stripeKey="pk_test_VFg2TxWkoz0c2FsJlupSqTsl"
+              stripeKey="pk_test_4kN2XG1xLysXr0GWDB07nt61"
               image="https://bestpos.netlify.com/racoonbowtie.svg"
               color="black"
               zipCode={true}
