@@ -1,11 +1,11 @@
-import React, {Component} from 'react';
-import {Elements, StripeProvider} from 'react-stripe-elements';
-import CheckoutForm from './CheckoutForm';
+import React, { Component } from "react";
+import { Elements, StripeProvider } from "react-stripe-elements";
+import CheckoutForm from "./CheckoutForm";
 
 class StripeProvider extends Component {
   render() {
     return (
-      <StripeProvider apiKey="pk_test_4kN2XG1xLysXr0GWDB07nt61">
+      <StripeProvider apiKey="pk_test_VFg2TxWkoz0c2FsJlupSqTsl">
         <div className="stripe">
           <h1>Payment</h1>
           <Elements>
