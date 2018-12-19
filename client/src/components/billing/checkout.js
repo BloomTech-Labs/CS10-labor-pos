@@ -7,7 +7,6 @@ import {
   withStyles
 } from "@material-ui/core";
 import axios from "axios";
-import classNames from "classnames";
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 
@@ -92,8 +91,6 @@ class Checkout extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     // stripe's checkout plugin receives card information, creates a stripe
     // customer, tokenizes the information, sends the token back to our backend
     // so that our backend can create the charge
