@@ -7,7 +7,8 @@ from decouple import config
 from server.models import Job, Part, Client, User
 from graphql_relay.node.node import from_global_id
 import json
-import stripe
+
+# import stripe
 
 
 class GeneratePDF(View):
@@ -42,21 +43,22 @@ class GeneratePDF(View):
             return response
         return HttpResponse("Not found")
 
-    # defines method for sending charge to stripe
 
-    stripe.api_key = config("STRIPE_SECRET_KEY")
-    stripe.log = "info"
+#     # defines method for sending charge to stripe
+
+#     stripe.api_key = config("STRIPE_SECRET_KEY")
+#     stripe.log = "info"
 
 
-def checkout(request):
-    if request.method == "POST":
+# def checkout(request):
+#     if request.method == "POST":
 
-        token = request.form["stripeToken"]
+#         token = request.form["stripeToken"]
 
-        checkout = stripe.Charge.create(
-            amount=request.POST["amount"],
-            currency="usd",
-            description=request.POST["description"],
-            source=token,
-        )
-        return HttpResponse(checkout)
+#         checkout = stripe.Charge.create(
+#             amount=request.POST["amount"],
+#             currency="usd",
+#             description=request.POST["description"],
+#             source=token,
+#         )
+#         return HttpResponse(checkout)
