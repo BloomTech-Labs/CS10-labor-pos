@@ -18,12 +18,14 @@ class Checkout extends Component {
   state = {
     subscriptionType: "",
     subscriptionAmount: null,
-    user_premium: localStorage.getItem("USER_PREMIUM") || false
+    user_premium: localStorage.getItem("USER_PREMIUM")
   };
 
   shouldComponentUpdate(nextProps, nextState) {
     if (this.state.user_premium !== nextState.user_premium) {
       return true;
+    } else {
+      return false;
     }
   }
 
@@ -98,7 +100,7 @@ class Checkout extends Component {
     // stripe's checkout plugin receives card information, creates a stripe
     // customer, tokenizes the information, sends the token back to our backend
     // so that our backend can create the charge
-    if (user_premium != true) {
+    if (localStorage.getItem("USER_PREMIUM") === "false") {
       return (
         <div>
           <br />
