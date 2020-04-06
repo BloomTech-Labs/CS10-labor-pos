@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import psycopg2
 from decouple import config
 import dj_database_url
 
@@ -115,6 +116,9 @@ USER = config("USER")
 PASSWORD = config("PASSWORD")
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+DATABASE_URL = os.environ["DATABASE_URL"]
+
+conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 DATABASES = {}
 
 DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
