@@ -1085,49 +1085,49 @@ Premium plans cost .99c for monthly and $9.99 for an entire year. The perks of s
   Landing Page:
 </h2>
 
-![LandingPageWireframe](/client/page_layout/LandingPageWireframe.png)
+![LandingPageWireframe](/page_layout/LandingPageWireframe.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobViewWireframe](/client/page_layout/JobViewWireframe.png)
+![JobViewWireframe](/page_layout/JobViewWireframe.png)
 
 <h2 align="center">
   Add a job:
 </h2>
 
-![AddJobWireframe](/client/page_layout/AddJobWireframe.png)
+![AddJobWireframe](/page_layout/AddJobWireframe.png)
 
 <h2 align="center">
   Jobs View:
 </h2>
 
-![JobsViewWireframe](/client/page_layout/JobsViewWireframe.png)
+![JobsViewWireframe](/page_layout/JobsViewWireframe.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobViewWireFrame2](/client/page_layout/JobViewWireFrame2.png)
+![JobViewWireFrame2](/page_layout/JobViewWireFrame2.png)
 
 <h2 align="center">
   Job Edit Modal:
 </h2>
 
-![JobEditModalWireframe](/client/page_layout/JobEditModalWireframe.png)
+![JobEditModalWireframe](/page_layout/JobEditModalWireframe.png)
 
 <h2 align="center">
   Billing:
 </h2>
 
-![BillingWireframe](/client/page_layout/BillingWireframe.png)
+![BillingWireframe](/page_layout/BillingWireframe.png)
 
 <h2 align="center">
   Settings:
 </h2>
 
-![SettingsWireframe](/client/page_layout/SettingsWireframe.png)
+![SettingsWireframe](/page_layout/SettingsWireframe.png)
 
 </details>
 <br>
@@ -1140,98 +1140,98 @@ Premium plans cost .99c for monthly and $9.99 for an entire year. The perks of s
   Home Page:
 </h2>
 
-![Home](/client/page_layout/HomeScreen.png)
+![Home](/page_layout/HomeScreen.png)
 
 <h2 align="center">
   Client Creation:
 </h2>
 
-![ClientCreation](/client/page_layout/ClientCreation.png)
+![ClientCreation](/page_layout/ClientCreation.png)
 
 <h2 align="center">
   Client Edit:
 </h2>
 
-![ClientEdit](/client/page_layout/ClientEdit.png)
+![ClientEdit](/page_layout/ClientEdit.png)
 
 <h2 align="center">
   Clients Page:
 </h2>
 
-![ClientsPage](/client/page_layout/ClientPage.png)
+![ClientsPage](/page_layout/ClientPage.png)
 
 <h2 align="center">
   Client View:
 </h2>
 
-![ClientView](/client/page_layout/ClientView.png)
+![ClientView](/page_layout/ClientView.png)
 
 <h2 align="center">Job Creation:
 </h2>
 
-![JobCreation](/client/page_layout/JobCreation.png)
+![JobCreation](/page_layout/JobCreation.png)
 
 <h2 align="center">
   Job Edit:
 </h2>
 
-![JobEdit](/client/page_layout/JobEdit.png)
+![JobEdit](/page_layout/JobEdit.png)
 
 <h2 align="center">
   Jobs Page:
 </h2>
 
-![JobsPage](/client/page_layout/JobsPage.png)
+![JobsPage](/page_layout/JobsPage.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobView](/client/page_layout/JobView.png)
+![JobView](/page_layout/JobView.png)
 
 <h2 align="center">
   Note Creation:
 </h2>
 
-![NoteCreation](/client/page_layout/NoteCreation.png)
+![NoteCreation](/page_layout/NoteCreation.png)
 
 <h2 align="center">
   Notes Page:
 </h2>
 
-![NotesPage](/client/page_layout/NotesPage.png)
+![NotesPage](/page_layout/NotesPage.png)
 
 <h2 align="center">
   Note View and Edit:
 </h2>
 
-![NoteViewAndEdit](/client/page_layout/NoteViewAndEdit.png)
+![NoteViewAndEdit](/page_layout/NoteViewAndEdit.png)
 
 <h2 align="center">
   Part Creation:
 </h2>
 
-![PartCreation](/client/page_layout/PartCreation.png)
+![PartCreation](/page_layout/PartCreation.png)
 
 <h2 align="center">
   Parts Page:
 </h2>
 
-![PartsPage](/client/page_layout/PartsPage.png)
+![PartsPage](/page_layout/PartsPage.png)
 
 <h2 align="center">
   Part View and Edit:
 </h2>
 
-![PartViewAndEdit](/client/page_layout/PartViewAndEdit.png)
+![PartViewAndEdit](/page_layout/PartViewAndEdit.png)
 
 <h2 align="center">Settings Page:</h2>
 
-![SettingsPage](/client/page_layout/SettingsPage.png)
+![SettingsPage](/page_layout/SettingsPage.png)
 
 <h2 align="center">Billing:</h2>
 
-![Billing](/client/page_layout/Billing.png)
+![Billing](/page_layout/Billing.png)
 
 </details>
 

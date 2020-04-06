@@ -1,9 +1,0 @@
-[37mDEBU[0m[13 Sep 18 19:16 -0400] PreRun                                        [37marguments[0m=[] [37mcommand[0m=init
-[37mDEBU[0m[13 Sep 18 19:16 -0400] configure debug middleware                   
-[37mDEBU[0m[13 Sep 18 19:16 -0400] configure logging middleware                 
-[37mDEBU[0m[13 Sep 18 19:16 -0400] setup logger middleware: panic               
-[37mDEBU[0m[13 Sep 18 19:16 -0400] configure auth middleware                    
-[37mDEBU[0m[13 Sep 18 19:16 -0400] setup credentials                             [37mcredentials[0m=0x146b000
-[37mDEBU[0m[13 Sep 18 19:16 -0400] configure client middleware                  
-[37mDEBU[0m[13 Sep 18 19:16 -0400] setup API endpoint                            [37mendpoint[0m="https://api.netlify.com"
-[31mERRO[0m[13 Sep 18 19:16 -0400] command failed                                [31merror[0m="repository not exists"
