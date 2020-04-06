@@ -19,10 +19,12 @@ from graphene_django.views import GraphQLView
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import path, re_path
 from .views import GeneratePDF
+from payment.views import checkout
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     re_path(r"^graphql/$", csrf_exempt(GraphQLView.as_view(graphiql=True))),
     re_path(r"^graphql/pdf/$", csrf_exempt(GeneratePDF.as_view())),
+    re_path(r"^graphql/create-charge/$", csrf_exempt(checkout)),
 ]

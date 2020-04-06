@@ -173,7 +173,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
+STRIPE_PUBLIC_KEY = "pk_test_VFg2TxWkoz0c2FsJlupSqTsl"
 
 
 SENDGRID_EMAIL_USERNAME = config("EMAIL_HOST_USER")
@@ -183,9 +183,6 @@ SENDGRID_EMAIL_PORT = config("SENDGRID_PORT")
 EMAIL_USE_TLS = True
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
-
-STRIPE_WEBHOOK_SECRET = "whsec_8KHXs8U07a2iRz4fequVxXo1tjN3PLRM"
-
 CORS_ORIGIN_WHITELIST = config(
     "CORS_ORIGIN_WHITELIST", cast=lambda v: [s.strip() for s in v.split(",")]
 )
