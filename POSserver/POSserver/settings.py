@@ -115,25 +115,9 @@ USER = config("USER")
 PASSWORD = config("PASSWORD")
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+DATABASES = {}
 
-DATABASES = {
-    "default": dj_database_url.config(
-        "DATABASE_URL",
-        default=(
-            "postgres://"
-            + config("USER")
-            + ":"
-            + config("PASSWORD")
-            + "@"
-            + config("PORT")  # 127.0.0.1:5432
-            + "/"
-            + config("DBNAME")  # posserver
-        ),
-    )
-    # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
-}
+DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 AUTH_USER_MODEL = "server.User"
 
