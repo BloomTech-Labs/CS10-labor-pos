@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.views.generic import View
 import datetime
 from .utils import render_to_pdf
-from decouple import config
 from server.models import Job, Part, Client, User
 from graphql_relay.node.node import from_global_id
 import json
