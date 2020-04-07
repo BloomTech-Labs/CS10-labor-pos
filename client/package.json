@@ -33,7 +33,7 @@
   },
   "scripts": {
     "start": "REACT_APP_ENDPOINT=http://localhost:8000/graphql/ react-scripts start",
-    "build": "REACT_APP_ENDPOINT=https://labs7-posserver.herokuapp.com/graphql/ react-scripts build",
+    "build": "REACT_APP_ENDPOINT=https://contract-alchemy.herokuapp.com/graphql/ react-scripts build",
     "test": "react-scripts test --env=jsdom --watchAll --verbose",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer build/static/js/main.*"
