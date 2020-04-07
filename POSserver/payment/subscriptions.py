@@ -7,7 +7,10 @@ from stripesubscriptions import CreateSubscription
 def monthly_subscription(req):
     if req.method == "POST":
         create_subscription = CreateSubscription(
-            config("STRIPE_KEY"), req.body, "plan_DjwHm1dTnZ3JSU", "Monthly"
+            stripe_secret_key=config("STRIPE_KEY"),
+            body=req.body,
+            plan="plan_DjwHm1dTnZ3JSU",
+            sub="Monthly",
         )
 
         create_subscription.parse_body()
@@ -28,7 +31,10 @@ def monthly_subscription(req):
 def yearly_subscription(req):
     if req.method == "POST":
         create_subscription = CreateSubscription(
-            config("STRIPE_KEY"), req.body, "plan_DjwH2GvGtF24O4", "Yearly"
+            stripe_secret_key=config("STRIPE_KEY"),
+            body=req.body,
+            plan="plan_DjwH2GvGtF24O4",
+            sub="Yearly",
         )
 
         create_subscription.parse_body()

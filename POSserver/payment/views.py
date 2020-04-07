@@ -1,8 +1,7 @@
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from decouple import config
-import json
 import stripe
 
 stripe.api_key = config("STRIPE_KEY")
@@ -24,9 +23,7 @@ def checkout(request):
         )
         print("____STATUS____", subscription["status"])
         if subscription["status"] == "active":
-            return HttpResponse(
-                json.dumps({"message": "Your transaction was successful."})
-            )
+            return JsonResponse({"message": "Your transaction was successful."})
         else:
             raise stripe.error.CardError
     except stripe.error.CardError as e:
@@ -36,18 +33,14 @@ def checkout(request):
         print("Type is: %s" % err.get("type"))
         print("Code is: %s" % err.get("code"))
         print("Message is %s" % err.get("message"))
-        return HttpResponse(
-            json.dumps({"message": err.get("message")}), status=e.http_status
-        )
+        return JsonResponse({"message": err.get("message")}, status=e.http_status)
     except stripe.error.RateLimitError:
         # Too many requests made to the API too quickly
-        return HttpResponse(
-            json.dumps({"message": "The API was not able to respond, try again."})
-        )
+        return JsonResponse({"message": "The API was not able to respond, try again."})
     except stripe.error.InvalidRequestError:
         # invalid parameters were supplied to Stripe's API
-        return HttpResponse(
-            json.dumps({"message": "Invalid parameters, unable to process payment."})
+        return JsonResponse(
+            {"message": "Invalid parameters, unable to process payment."}
         )
     except stripe.error.AuthenticationError:
         # Authentication with Stripe's API failed
@@ -55,10 +48,8 @@ def checkout(request):
         pass
     except stripe.error.APIConnectionError:
         # Network communication with Stripe failed
-        return HttpResponse(
-            json.dumps({"message": "Network communication failed, try again."})
-        )
+        return JsonResponse({"message": "Network communication failed, try again."})
     except stripe.error.StripeError:
         # Display a very generic error to the user, and maybe
         # send yourself an email
-        return HttpResponse(json.dumps({"message": "Internal Error, contact support."}))
+        return JsonResponse({"message": "Internal Error, contact support."})

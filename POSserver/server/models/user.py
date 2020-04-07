@@ -98,7 +98,7 @@ class User(AbstractUser):
     def welcome_mail(sender, instance, **kwargs):
         if kwargs["created"]:
             user_email = instance.email
-            sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
+            sg = sendgrid.SendGridAPIClient(api_key=config("SENDGRID_API_KEY"))
             from_email = Email("welcome@contractAlchemypos.com")
             to_email = Email(user_email)
             subject = "Welcome to contractAlchemy!"
@@ -119,5 +119,5 @@ class User(AbstractUser):
                 "We hope this makes your life at least a little bit easier.\n\n"
                 "Thank you for joining",
             )
-            mail = Mail(from_email, subject, to_email, content)
+            mail = Mail(from_email, to_email, subject, content)
             sg.client.mail.send.post(request_body=mail.get())

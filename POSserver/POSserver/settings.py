@@ -8,10 +8,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import psycopg2
 from decouple import config
 import dj_database_url
+import psycopg2
 
+DATABASE_URL = os.environ["DATABASE_URL"]
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config("DEBUG", cast=bool)
+
+if DEBUG is False:
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,8 +49,6 @@ LOGGING = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
@@ -116,26 +120,30 @@ USER = config("USER")
 PASSWORD = config("PASSWORD")
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-DATABASE_URL = os.environ["DATABASE_URL"]
 
-DATABASES = {
-    "default": dj_database_url.config(
-        "DATABASE_URL",
-        default=(
-            "postgres://"
-            + config("USER")
-            + ":"
-            + config("PASSWORD")
-            + "@"
-            + config("PORT")  # 127.0.0.1:5432
-            + "/"
-            + config("DBNAME")  # posserver
-        ),
-    )
-    # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
-}
+DATABASES = {}
+if DEBUG == True:
+    DATABASES = {
+        "default": dj_database_url.config(
+            "DATABASE_URL",
+            default=(
+                "postgres://"
+                + config("USER")
+                + ":"
+                + config("PASSWORD")
+                + "@"
+                + config("PORT")  # 127.0.0.1:5432
+                + "/"
+                + config("DBNAME")  # posserver
+            ),
+        )
+        # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
+        # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
+        # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
+    }
+else:
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
 AUTH_USER_MODEL = "server.User"
 
 
