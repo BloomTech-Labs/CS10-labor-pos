@@ -12,10 +12,12 @@ from decouple import config
 import dj_database_url
 import psycopg2
 
+
 DATABASE_URL = os.environ["DATABASE_URL"]
+print(DATABASE_URL)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
-
+print(DEBUG)
 if DEBUG is False:
     conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
@@ -81,10 +83,13 @@ INSTALLED_APPS = [
 ]
 
 
-GRAPHENE = {"SCHEMA": "POSserver.schema.schema"}  # Where your Graphene schema lives
+GRAPHENE = {
+    "SCHEMA": "POSserver.schema.schema",
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
+}  # Where your Graphene schema lives
 
 MIDDLEWARE = [
-    "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
+    # "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Added for helping with serving static files
     "corsheaders.middleware.CorsMiddleware",  # Added for cross origin resource
@@ -122,7 +127,7 @@ PASSWORD = config("PASSWORD")
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {}
-if DEBUG == True:
+if DEBUG is True:
     DATABASES = {
         "default": dj_database_url.config(
             "DATABASE_URL",
