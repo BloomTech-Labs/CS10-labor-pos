@@ -7,7 +7,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from decouple import config
 import sendgrid
-from sendgrid.helpers.mail import Email, Content, Mail
+from sendgrid.helpers.mail import Email, Content, Mail, To
 
 # from django.http import HttpResponse, HttpResponseRedirect
 
@@ -100,7 +100,7 @@ class User(AbstractUser):
             user_email = instance.email
             sg = sendgrid.SendGridAPIClient(api_key=config("SENDGRID_API_KEY"))
             from_email = Email("welcome@contractAlchemypos.com")
-            to_email = Email(user_email)
+            to_email = To(user_email)
             subject = "Welcome to contractAlchemy!"
             content = Content(
                 "text/plain",
