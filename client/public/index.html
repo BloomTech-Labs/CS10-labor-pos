@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
   <head>
 
@@ -48,6 +48,16 @@
     -->
 
     <script id="stripe-js" src="%PUBLIC_URL%/stripe.js" async></script>
+    <script src="%PUBLIC_URL%/modernizr-custom.js"></script>
+    <script>
+      Modernizr.on('webp', function(res) {
+        if (res) {
+        } else {}
+      })
+    </script>
+    <script>
+      document.documentElement.classList.remove('no-js');
+    </script>
   </body>
 
 </html>

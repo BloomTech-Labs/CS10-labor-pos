@@ -3,8 +3,6 @@ import "./App.css";
 import { LandingPage } from "./components";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { amber, yellow, grey, blueGrey } from "@material-ui/core/colors";
-import desk_image from "./background.jpg";
-import raccoon from "./racoonbowtie.svg";
 
 class App extends Component {
   state = {
@@ -19,7 +17,7 @@ class App extends Component {
   componentDidMount = () => {
     //  We get dark_theme off local storage and cast it to a boolean before putting
     //  it in state so that theme settings persist between reloads.
-    const theme_string = localStorage.getItem("theme_string");
+    const theme_string = localStorage.getItem("theme_string") || "desk";
     this.setState({ theme_string: theme_string });
   };
 
@@ -30,7 +28,6 @@ class App extends Component {
     let secondary_color = amber;
 
     let textfield_color = "#130e00";
-    let background_image = desk_image;
     let theme_type = "dark";
     let lightened_background = grey["700"];
     let default_color = blueGrey["900"];
@@ -38,7 +35,6 @@ class App extends Component {
     let base_background = blueGrey["500"];
     let sidenav_background = grey["800"];
     if (this.state.theme_string === "forest") {
-      background_image = false;
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#584A00";
@@ -53,13 +49,11 @@ class App extends Component {
       base_background = "#673AB7";
       sidenav_background = "#F50057";
       textfield_color = "#00FF00";
-      background_image = raccoon;
     } else if (this.state.theme_string === "darkgold") {
       theme_type = "dark";
       lightened_background = grey["700"];
       default_color = "#5a4000";
       paper_color = "#130e00";
-      background_image = false;
       base_background = "#130e00";
       sidenav_background = "#000000";
     } else if (this.state.theme_string === "banana") {
@@ -67,16 +61,12 @@ class App extends Component {
       lightened_background = grey["700"];
       default_color = "#d4c253";
       paper_color = "#f0e370";
-      background_image = false;
       base_background = "#846c04";
       sidenav_background = "#f0e370";
-    } else if (this.state.theme_string === "desk") {
-      background_image = desk_image;
     } else if (this.state.theme_string === "greyscale") {
       theme_type = "dark";
       default_color = "#191919";
       paper_color = "#4c4c4c";
-      background_image = desk_image;
       lightened_background = grey["700"];
       sidenav_background = "#191919";
       base_background = "#ffffff";
@@ -112,11 +102,11 @@ class App extends Component {
             height: "100%",
             minWidth: "100%",
             minHeight: "100vh",
-            backgroundImage: `url(${background_image})`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "repeat"
           }}
+          className={this.state.theme_string}
         >
           <MuiThemeProvider theme={theme}>
             {/*  We pass the themeControlMethod and dark_theme down all the way to SideNav

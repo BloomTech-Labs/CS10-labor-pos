@@ -23,3 +23,12 @@ legend {
 select {
   text-shadow: 0.5px 0.5px 1px black;
 }
+.no-js .desk, .no-js .greyscale, .no-webp .desk, .no-webp .greyscale, .no-webp {
+  background-image: url('./background.jpg');
+}
+.webp .desk, .webp .greyscale, .webp {
+  background-image: url('./background.webp');
+}
+.ugly {
+  background-image: url('./racoonbowtie.svg');
+}
