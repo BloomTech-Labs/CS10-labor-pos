@@ -14,10 +14,10 @@ import psycopg2
 
 
 DATABASE_URL = os.environ["DATABASE_URL"]
-print(DATABASE_URL)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool)
-print(DEBUG)
+
 if DEBUG is False:
     conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
