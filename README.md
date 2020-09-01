@@ -272,6 +272,25 @@ Changing the named imports to file-specific dynamic imports took our largest bui
 
 # Installation Instructions
 
+## Local Database
+
+In order to work on this application, you'll need a locally running instance of postgres.  There are multiple ways of installing postgres, but if you're using a Mac, I recommmend using Homebrew:
+
+```bash
+brew install postgresql
+brew services start postgresql
+createdb posserver # creates a database named posserver
+psql posserver # Enter shell into newly created database
+# Format
+create user <username> with password '<password>'; # Do not include brackets, but do include quotes around password
+grant all privileges on database posserver to <username>;
+# Example:
+create user username with password 'password';
+grant all privileges on database posserver to username;
+\q # \q exits the psql shell
+```
+
+
 ### Environment Variables
 
 In order to come up with a `SECRET_KEY`, enter a python shell and run this script:
@@ -291,6 +310,16 @@ Then take the value of that comamnd and assign it to the value of `SECRET_KEY`. 
 `SENDGRID_API_KEY` is going to be the key you get after signing up for Sendgrid<br><br>
 `EMAIL_HOST_USER` will be the email address you intend to be sending emails from (string)<br><br>
 `CORS_ORIGIN_WHITELIST` will be a comma separated list similar to ALLOWED_HOSTS<br>
+
+In order to run the application locally, you will need to export the DATABASE_URL.  You can do this while in the virtual environment through the command line:
+
+```bash
+export DATABASE_URL="postgres://<USER>:<PASSWORD>@<PORT>/<DBNAME>"
+
+## Example
+export DATABASE_URL="postgres://username:password@127.0.0.1:5432/posserver"
+```
+
 
 ### Using the application
 
