@@ -8,6 +8,19 @@ const styles = theme => ({
     textShadow: "2px 2px 2px #000000",
     letterSpacing: "1.2px"
   },
+  app: {
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+    },
+    width: "100%",
+    height: "100%",
+    minWidth: "100%",
+    minHeight: "100vh",
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    backgroundRepeat: "repeat",
+    display: "flex"
+  },
   background_color: theme.palette.background.paper,
   billing: {
     fontFamily: "Source Sans Pro, Arial, serif",
@@ -52,8 +65,7 @@ const styles = theme => ({
   emphasis: {
     fontSize: "30x",
     fontWeight: "900",
-    color: "black",
-    textShadow: "2px -1px 1px goldenrod"
+    color: "white",
   },
   field: {
     color: theme.palette.text.primary,
@@ -124,15 +136,28 @@ const styles = theme => ({
     padding: "10px",
     backgroundColor: theme.palette.background.paper
   },
+  login_button: {
+    display: "flex",
+    height: "50px",
+    justifyContent: "flex-end"
+  },
+  main: {
+    width: '100vw',
+    display: 'flex',
+    alignItems: 'flex-start',
+  },
   main_content: {
     textAlign: "center",
     margin: "auto",
     width: "80%",
-    maxWidth: "900px",
-    marginTop: "20px",
+    maxWidth: "calc(100vw - 240px)",
+    marginTop: "100px",
     marginBottom: "20px",
     padding: "32px 32px",
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.default,
+    [theme.breakpoints.down('md')]: {
+      marginTop: "0",
+    },
   },
   margin: {
     margin: theme.spacing.unit * 2
@@ -165,7 +190,8 @@ const styles = theme => ({
     margin: "16px",
     padding: "5px",
     minWidth: "148px",
-    fontSize: "14px"
+    fontSize: "14px",
+    fontWeight: "bold"
   },
   paper: {
     marginTop: theme.spacing.unit * 2,
@@ -210,8 +236,13 @@ const styles = theme => ({
   },
   sidenav_top: {
     display: "flex",
-    alignItems: "flex-end",
-    justifyContent: "flex-start"
+    alignItems: "flex-start",
+    height: "100vh",
+    width: "250px",
+    justifyContent: "flex-start",
+    [theme.breakpoints.down('md')]: {
+      height: "100px",
+    },
   },
   space_above: {
     margin: "22px 0px"
@@ -282,7 +313,7 @@ const styles = theme => ({
     paddingTop: "20px",
     fontSize: "20px",
     fontWeight: "500",
-    color: "#000000",
+    color: "#EAE5BE",
     textShadow: "0.5px 0.5px 1px goldenrod",
     fontFamily: "Source Sans Pro, Arial, sans-serif"
   },
@@ -305,8 +336,8 @@ const styles = theme => ({
   typography_title_landing: {
     fontFamily: "'Cinzel', serif",
     fontSize: "36px",
-    color: "black",
-    textShadow: "1px 2px 4px goldenrod"
+    color: "goldenrod",
+    textShadow: "1px 2px 0px gold"
   },
   zipcode_settings: {
     marginTop: theme.spacing.unit * 2,

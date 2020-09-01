@@ -9,3 +9,4 @@ __pycache__
 sendgrid.env
 .vscode
 debug.log
+pipenv.sh

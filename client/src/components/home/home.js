@@ -185,7 +185,7 @@ class Home extends Component {
         </Hidden>
         {/*These are the routes that render different content components depending on the
         current path.*/}
-        <main>
+        <main className={classes.main}>
           <Paper className={classes.main_content}>
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />
