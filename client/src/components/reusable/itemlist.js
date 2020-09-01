@@ -108,7 +108,6 @@ class ItemList extends Component {
         );
       }
     } else {
-      console.log(this.props.items);
       for (let i = 0; i < this.props.items.length && i < 6; i++) {
         let current_item = this.props.items[i].node;
         let item_class = classes.list_item_reg;

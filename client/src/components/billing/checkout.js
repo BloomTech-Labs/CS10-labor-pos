@@ -32,9 +32,6 @@ class Checkout extends Component {
   setSubscriptionType = e => {
     const subscriptionType = e.target.name;
     const subscriptionAmount = Number(e.target.value);
-
-    console.log(subscriptionAmount);
-
     this.setState({ subscriptionType, subscriptionAmount });
   };
 
