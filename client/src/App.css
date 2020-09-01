@@ -24,11 +24,20 @@ select {
   text-shadow: 0.5px 0.5px 1px black;
 }
 .no-js .desk, .no-js .greyscale, .no-webp .desk, .no-webp .greyscale, .no-webp {
-  background-image: url('./background.jpg');
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ),url('./background.jpg');
 }
 .webp .desk, .webp .greyscale, .webp {
-  background-image: url('./background.webp');
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ),url('./background.webp');
 }
 .ugly {
-  background-image: url('./racoonbowtie.svg');
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  ),url('./racoonbowtie.svg');
 }
