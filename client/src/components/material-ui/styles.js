@@ -103,7 +103,6 @@ const styles = theme => ({
     maxWidth: "256px",
     margin: "auto",
     textAlign: "left",
-    padding: "20px"
   },
   item_card_small: {
     backgroundColor: theme.palette.background.paper,
@@ -111,7 +110,6 @@ const styles = theme => ({
     maxWidth: "200px",
     margin: "auto",
     textAlign: "left",
-    padding: "20px",
     lineHeight: "4"
   },
   layout: {
