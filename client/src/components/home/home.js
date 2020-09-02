@@ -131,6 +131,7 @@ class Home extends Component {
 
   render() {
     let { classes } = this.props;
+
     return (
       <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}

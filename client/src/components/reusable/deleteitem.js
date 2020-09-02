@@ -24,8 +24,13 @@ import { styles } from "../material-ui/styles.js";
 class DeleteItem extends Component {
   _confirm = () => {
     this.props.cancelDelete();
-    if (this.props.after_path) this.props.history.push(this.props.after_path);
-    else this.props.refetch();
+    const after_path = this.props.after_path ? this.props.after_path : (this.props.location.state ? this.props.location.state.after_path : null);
+    if (after_path) {
+      this.props.history.push(after_path);
+    }
+    else {
+      this.props.refetch();
+    }
   };
   render() {
     const { classes } = this.props;
