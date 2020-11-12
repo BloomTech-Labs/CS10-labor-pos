@@ -23,6 +23,7 @@ twilio = "*"
 "django-sendgrid-v5" = "*"
 django-post-office = "*"
 sendgrid = "*"
+djangorestframework = "*"
 
 [dev-packages]
 
