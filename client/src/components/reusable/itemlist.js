@@ -16,6 +16,13 @@ import { Link } from "react-router-dom";
 import { styles } from "../material-ui/styles.js";
 import Loadable from "react-loadable";
 
+export class NavLinkMui extends Component {
+  render() {
+    const { forwardRef, ...props} = this.props;
+    return <Link {...props} ref={forwardRef}/>
+  }
+}
+
 function Loading({ error }) {
   if (error) {
     return <Typography>{error}</Typography>;
@@ -92,10 +99,8 @@ class ItemList extends Component {
         let item_class = classes.list_item_reg;
         if (i % 2) item_class = classes.list_item_light;
         list_items.push(
-          <ListItem key={i} dense button className={item_class}>
-            <Link to={`${path}/${current_item.id}`}>
+          <ListItem key={i + path} dense button className={item_class} component={NavLinkMui} to={{pathname:`${path}/${current_item.id}`, state: { after_path: this.props.after_path}}}>
               <ListItemText>{current_item[name_field]}</ListItemText>
-            </Link>
             <ListItemSecondaryAction>
               <IconButton
                 onClick={this.handleDeleteButton(current_item)}
@@ -108,16 +113,15 @@ class ItemList extends Component {
         );
       }
     } else {
-      console.log(this.props.items);
+      // Passing along the after_path on the link is important for items that don't link directly from their parent
+      // This includes /parts which stem from /job/:id and then go to /parts/:partId
       for (let i = 0; i < this.props.items.length && i < 6; i++) {
         let current_item = this.props.items[i].node;
         let item_class = classes.list_item_reg;
         if (i % 2) item_class = classes.list_item_light;
         list_items.push(
-          <ListItem key={i} dense button className={item_class}>
-            <Link to={`${path}/${current_item.id}`}>
+          <ListItem key={i + path} dense button className={item_class} component={NavLinkMui} to={{pathname:`${path}/${current_item.id}`, state: { after_path: this.props.after_path}}}>
               <ListItemText>{current_item[name_field]}</ListItemText>
-            </Link>
             <ListItemSecondaryAction>
               <IconButton
                 onClick={this.handleDeleteButton(current_item)}

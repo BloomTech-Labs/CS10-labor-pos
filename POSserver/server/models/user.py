@@ -7,7 +7,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from decouple import config
 import sendgrid
-from sendgrid.helpers.mail import Email, Content, Mail
+from sendgrid.helpers.mail import Email, Content, Mail, To
 
 # from django.http import HttpResponse, HttpResponseRedirect
 
@@ -20,6 +20,7 @@ if not settings.configured:
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
+
     # defines parameters for users, designates required fields, sets default values
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=150)
@@ -97,17 +98,26 @@ class User(AbstractUser):
     def welcome_mail(sender, instance, **kwargs):
         if kwargs["created"]:
             user_email = instance.email
-            sg = sendgrid.SendGridAPIClient(apikey=config("SENDGRID_API_KEY"))
-            from_email = Email("nphillip78@gmail.com")
-            to_email = Email(user_email)
+            sg = sendgrid.SendGridAPIClient(api_key=config("SENDGRID_API_KEY"))
+            from_email = Email("welcome@contractAlchemypos.com")
+            to_email = To(user_email)
             subject = "Welcome to contractAlchemy!"
             content = Content(
                 "text/plain",
-                "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices all in one place.\n\
-                Premium users gain access to all of our features with an unlimited number of records.\n\
-                Premium membership also includes the ability to select different themes for the website layout.\n\
-                Our free membership includes access to all features for up to 6 records at a time - 6 clients, 6 jobs, and so on.\n\
-                You can upgrade to premium at any time.",
+                "contractAlchemy is a tool that organizes your clients, jobs, parts, and invoices "
+                "all in one convenient place.  The first step in using our application is to "
+                "create a client.  Once you've done that, you can start to build out the jobs "
+                "that fall under that client, adding any parts that contribute to that job."
+                "Those parts are what's used in building out invoices for your customers.\n\n"
+                "Premium users gain access to all of our features with an unlimited number of "
+                "records.  Premium membership also includes the ability to select different "
+                "themes for the website.\n\n"
+                "Free membership includes access to all of our features (outside theme switching) "
+                "for up to 6 records of a type at a given type (6 clients, 6 jobs, etc.).  You "
+                "can upgrade to premium membership at any time in the billing section - monthly "
+                "subscriptions are $0.99 per month and yearly subscriptions are $9.99.\n\n"
+                "We hope this makes your life at least a little bit easier.\n\n"
+                "Thank you for joining",
             )
-            mail = Mail(from_email, subject, to_email, content)
+            mail = Mail(from_email, to_email, subject, content)
             sg.client.mail.send.post(request_body=mail.get())

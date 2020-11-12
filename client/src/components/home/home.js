@@ -131,6 +131,7 @@ class Home extends Component {
 
   render() {
     let { classes } = this.props;
+
     return (
       <React.Fragment>
         {/*This little fellow here is the button to toggle the nav drawer in small screen mode.*/}
@@ -185,7 +186,7 @@ class Home extends Component {
         </Hidden>
         {/*These are the routes that render different content components depending on the
         current path.*/}
-        <main>
+        <main className={classes.main}>
           <Paper className={classes.main_content}>
             <Route exact path="/" component={Start} />
             <Route exact path="/clients" component={Clients} />

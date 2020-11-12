@@ -188,10 +188,10 @@ class UpdateUser(graphene.Mutation):
             if business_name != "":
                 updated_user.business_name = business_name
             if subscription != "":
-                if subscription == "month":
+                if subscription == "plan_EBBdxMZ1Q6Yftu":
                     updated_user.premium = True
                     updated_user.paid_until = timezone.now() + relativedelta(months=1)
-                if subscription == "year":
+                if subscription == "plan_EBBeWWObXoETbP":
                     updated_user.premium = True
                     updated_user.paid_until = timezone.now() + relativedelta(months=12)
 

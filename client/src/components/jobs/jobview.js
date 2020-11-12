@@ -250,7 +250,9 @@ class JobView extends Component {
                     <ItemList
                       type="part"
                       items={data.job.partSet.edges}
+                      referTo={data.job.id}
                       refetch={refetch}
+                      after_path={this.props.location.pathname}
                     />
                   </Grid>
 
@@ -278,7 +280,7 @@ class JobView extends Component {
                   cancelDelete={this.cancelModal("deleting")}
                   type="job"
                   item={data.job}
-                  after_path="/jobs"
+                  after_path={"/jobs"}
                 />
               </Dialog>
               <Dialog

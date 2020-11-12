@@ -4,8 +4,6 @@ from server.models.user import User
 
 
 # lays out plan parameters
-
-
 class CreateSubscription:
     def __init__(self, stripe_secret_key, body, plan, sub):
         self.stripe_secret_key = stripe_secret_key

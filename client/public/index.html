@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
   <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Rakkas" rel="stylesheet">
+    <meta name="Description" content="A point of sale application for contractors to keep their records organized and generate invoices">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:700|Rakkas&display=swap" rel="stylesheet">
 
     <!--
       manifest.json provides metadata used when your web app is added to the
@@ -16,7 +17,9 @@
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/racoonbowtie.svg">
     <link rel="racoonbowtie" href="%PUBLIC_URL%/racoonbowtie.svg">
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -47,7 +50,17 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 
-    <script id="stripe-js" src="https://js.stripe.com/v3/" async></script>
+    <script id="stripe-js" src="%PUBLIC_URL%/stripe.js" async></script>
+    <script src="%PUBLIC_URL%/modernizr-custom.js"></script>
+    <script>
+      Modernizr.on('webp', function(res) {
+        if (res) {
+        } else {}
+      })
+    </script>
+    <script>
+      document.documentElement.classList.remove('no-js');
+    </script>
   </body>
 
 </html>

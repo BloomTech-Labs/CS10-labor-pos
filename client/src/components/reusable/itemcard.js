@@ -217,7 +217,7 @@ class ItemCard extends Component {
         break;
     }
     return (
-      <div>
+      <React.Fragment>
         <Grid container>
           <Grid item xs={6} />
           <Grid item xs={3}>
@@ -234,15 +234,23 @@ class ItemCard extends Component {
           </Grid>
         </Grid>
         <Link to={`/${this.props.type}s/${this.props.item.id}`}>
-          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
-            {topRow}
-          </Typography>
-          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
-            {middleRow}
-          </Typography>
-          <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
-            {bottomRow}
-          </Typography>
+          <Grid container style={{textAlign: "center", height: "206px"}}>
+            <Grid item xs={12}>
+              <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
+              {topRow}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}>
+            <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
+              {middleRow}
+            </Typography>
+            </Grid>
+            <Grid item xs={12}>
+            <Typography variant="subheading" noWrap style={{ lineHeight: "2.5" }}>
+              {bottomRow}
+            </Typography>
+            </Grid>
+          </Grid>
         </Link>
         <Dialog
           open={this.state.deleting}
@@ -256,7 +264,7 @@ class ItemCard extends Component {
             refetch={this.props.refetch}
           />
         </Dialog>
-      </div>
+      </React.Fragment>
     );
   }
 }

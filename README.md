@@ -272,6 +272,25 @@ Changing the named imports to file-specific dynamic imports took our largest bui
 
 # Installation Instructions
 
+## Local Database
+
+In order to work on this application, you'll need a locally running instance of postgres.  There are multiple ways of installing postgres, but if you're using a Mac, I recommmend using Homebrew:
+
+```bash
+brew install postgresql
+brew services start postgresql
+createdb posserver # creates a database named posserver
+psql posserver # Enter shell into newly created database
+# Format
+create user <username> with password '<password>'; # Do not include brackets, but do include quotes around password
+grant all privileges on database posserver to <username>;
+# Example:
+create user username with password 'password';
+grant all privileges on database posserver to username;
+\q # \q exits the psql shell
+```
+
+
 ### Environment Variables
 
 In order to come up with a `SECRET_KEY`, enter a python shell and run this script:
@@ -291,6 +310,16 @@ Then take the value of that comamnd and assign it to the value of `SECRET_KEY`. 
 `SENDGRID_API_KEY` is going to be the key you get after signing up for Sendgrid<br><br>
 `EMAIL_HOST_USER` will be the email address you intend to be sending emails from (string)<br><br>
 `CORS_ORIGIN_WHITELIST` will be a comma separated list similar to ALLOWED_HOSTS<br>
+
+In order to run the application locally, you will need to export the DATABASE_URL.  You can do this while in the virtual environment through the command line:
+
+```bash
+export DATABASE_URL="postgres://<USER>:<PASSWORD>@<PORT>/<DBNAME>"
+
+## Example
+export DATABASE_URL="postgres://username:password@127.0.0.1:5432/posserver"
+```
+
 
 ### Using the application
 
@@ -1085,49 +1114,49 @@ Premium plans cost .99c for monthly and $9.99 for an entire year. The perks of s
   Landing Page:
 </h2>
 
-![LandingPageWireframe](/client/page_layout/LandingPageWireframe.png)
+![LandingPageWireframe](/page_layout/LandingPageWireframe.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobViewWireframe](/client/page_layout/JobViewWireframe.png)
+![JobViewWireframe](/page_layout/JobViewWireframe.png)
 
 <h2 align="center">
   Add a job:
 </h2>
 
-![AddJobWireframe](/client/page_layout/AddJobWireframe.png)
+![AddJobWireframe](/page_layout/AddJobWireframe.png)
 
 <h2 align="center">
   Jobs View:
 </h2>
 
-![JobsViewWireframe](/client/page_layout/JobsViewWireframe.png)
+![JobsViewWireframe](/page_layout/JobsViewWireframe.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobViewWireFrame2](/client/page_layout/JobViewWireFrame2.png)
+![JobViewWireFrame2](/page_layout/JobViewWireFrame2.png)
 
 <h2 align="center">
   Job Edit Modal:
 </h2>
 
-![JobEditModalWireframe](/client/page_layout/JobEditModalWireframe.png)
+![JobEditModalWireframe](/page_layout/JobEditModalWireframe.png)
 
 <h2 align="center">
   Billing:
 </h2>
 
-![BillingWireframe](/client/page_layout/BillingWireframe.png)
+![BillingWireframe](/page_layout/BillingWireframe.png)
 
 <h2 align="center">
   Settings:
 </h2>
 
-![SettingsWireframe](/client/page_layout/SettingsWireframe.png)
+![SettingsWireframe](/page_layout/SettingsWireframe.png)
 
 </details>
 <br>
@@ -1140,98 +1169,98 @@ Premium plans cost .99c for monthly and $9.99 for an entire year. The perks of s
   Home Page:
 </h2>
 
-![Home](/client/page_layout/HomeScreen.png)
+![Home](/page_layout/HomeScreen.png)
 
 <h2 align="center">
   Client Creation:
 </h2>
 
-![ClientCreation](/client/page_layout/ClientCreation.png)
+![ClientCreation](/page_layout/ClientCreation.png)
 
 <h2 align="center">
   Client Edit:
 </h2>
 
-![ClientEdit](/client/page_layout/ClientEdit.png)
+![ClientEdit](/page_layout/ClientEdit.png)
 
 <h2 align="center">
   Clients Page:
 </h2>
 
-![ClientsPage](/client/page_layout/ClientPage.png)
+![ClientsPage](/page_layout/ClientPage.png)
 
 <h2 align="center">
   Client View:
 </h2>
 
-![ClientView](/client/page_layout/ClientView.png)
+![ClientView](/page_layout/ClientView.png)
 
 <h2 align="center">Job Creation:
 </h2>
 
-![JobCreation](/client/page_layout/JobCreation.png)
+![JobCreation](/page_layout/JobCreation.png)
 
 <h2 align="center">
   Job Edit:
 </h2>
 
-![JobEdit](/client/page_layout/JobEdit.png)
+![JobEdit](/page_layout/JobEdit.png)
 
 <h2 align="center">
   Jobs Page:
 </h2>
 
-![JobsPage](/client/page_layout/JobsPage.png)
+![JobsPage](/page_layout/JobsPage.png)
 
 <h2 align="center">
   Job View:
 </h2>
 
-![JobView](/client/page_layout/JobView.png)
+![JobView](/page_layout/JobView.png)
 
 <h2 align="center">
   Note Creation:
 </h2>
 
-![NoteCreation](/client/page_layout/NoteCreation.png)
+![NoteCreation](/page_layout/NoteCreation.png)
 
 <h2 align="center">
   Notes Page:
 </h2>
 
-![NotesPage](/client/page_layout/NotesPage.png)
+![NotesPage](/page_layout/NotesPage.png)
 
 <h2 align="center">
   Note View and Edit:
 </h2>
 
-![NoteViewAndEdit](/client/page_layout/NoteViewAndEdit.png)
+![NoteViewAndEdit](/page_layout/NoteViewAndEdit.png)
 
 <h2 align="center">
   Part Creation:
 </h2>
 
-![PartCreation](/client/page_layout/PartCreation.png)
+![PartCreation](/page_layout/PartCreation.png)
 
 <h2 align="center">
   Parts Page:
 </h2>
 
-![PartsPage](/client/page_layout/PartsPage.png)
+![PartsPage](/page_layout/PartsPage.png)
 
 <h2 align="center">
   Part View and Edit:
 </h2>
 
-![PartViewAndEdit](/client/page_layout/PartViewAndEdit.png)
+![PartViewAndEdit](/page_layout/PartViewAndEdit.png)
 
 <h2 align="center">Settings Page:</h2>
 
-![SettingsPage](/client/page_layout/SettingsPage.png)
+![SettingsPage](/page_layout/SettingsPage.png)
 
 <h2 align="center">Billing:</h2>
 
-![Billing](/client/page_layout/Billing.png)
+![Billing](/page_layout/Billing.png)
 
 </details>
 

@@ -10,7 +10,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 from decouple import config
 import dj_database_url
+import psycopg2
 
+
+DATABASE_URL = os.environ["DATABASE_URL"]
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = config("DEBUG", cast=bool)
+
+if DEBUG is False:
+    conn = psycopg2.connect(DATABASE_URL, sslmode="require")
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,8 +51,6 @@ LOGGING = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG", cast=bool)
 
 ALLOWED_HOSTS = config(
     "ALLOWED_HOSTS", cast=lambda v: [s.strip() for s in v.split(",")]
@@ -73,13 +80,24 @@ INSTALLED_APPS = [
     "stripe",
     "sendgrid",
     "payment",
+    "rest_framework"
 ]
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
-GRAPHENE = {"SCHEMA": "POSserver.schema.schema"}  # Where your Graphene schema lives
+GRAPHENE = {
+    "SCHEMA": "POSserver.schema.schema",
+    "MIDDLEWARE": ["graphql_jwt.middleware.JSONWebTokenMiddleware"],
+}  # Where your Graphene schema lives
 
 MIDDLEWARE = [
-    "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
+    # "graphql_jwt.middleware.JSONWebTokenMiddleware",  # Added for JWT with graphql
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",  # Added for helping with serving static files
     "corsheaders.middleware.CorsMiddleware",  # Added for cross origin resource
@@ -116,24 +134,28 @@ PASSWORD = config("PASSWORD")
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.config(
-        "DATABASE_URL",
-        default=(
-            "postgres://"
-            + config("USER")
-            + ":"
-            + config("PASSWORD")
-            + "@"
-            + config("PORT")  # 127.0.0.1:5432
-            + "/"
-            + config("DBNAME")  # posserver
-        ),
-    )
-    # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
-    # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
-}
+DATABASES = {}
+if DEBUG is True:
+    DATABASES = {
+        "default": dj_database_url.config(
+            "DATABASE_URL",
+            default=(
+                "postgres://"
+                + config("USER")
+                + ":"
+                + config("PASSWORD")
+                + "@"
+                + config("PORT")  # 127.0.0.1:5432
+                + "/"
+                + config("DBNAME")  # posserver
+            ),
+        )
+        # psql posserver -c "GRANT ALL ON ALL TABLES IN SCHEMA public to <username>;"
+        # psql posserver -c "GRANT ALL ON ALL SEQUENCES IN SCHEMA public to <username>;"
+        # psql posserver -c "GRANT ALL ON ALL FUNCTIONS IN SCHEMA public to <username>;"
+    }
+else:
+    DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 AUTH_USER_MODEL = "server.User"
 
@@ -185,7 +207,7 @@ STATIC_URL = "/static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STRIPE_PUBLIC_KEY = "pk_test_4kN2XG1xLysXr0GWDB07nt61"
+STRIPE_PUBLIC_KEY = "pk_test_VFg2TxWkoz0c2FsJlupSqTsl"
 
 
 SENDGRID_EMAIL_USERNAME = config("EMAIL_HOST_USER")
@@ -195,9 +217,6 @@ SENDGRID_EMAIL_PORT = config("SENDGRID_PORT")
 EMAIL_USE_TLS = True
 SENDGRID_API_KEY = config("SENDGRID_API_KEY")
 SERVER_EMAIL = "nphillips78@gmail.com"
-
-STRIPE_WEBHOOK_SECRET = "whsec_8KHXs8U07a2iRz4fequVxXo1tjN3PLRM"
-
 CORS_ORIGIN_WHITELIST = config(
     "CORS_ORIGIN_WHITELIST", cast=lambda v: [s.strip() for s in v.split(",")]
 )

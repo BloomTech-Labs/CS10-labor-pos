@@ -1,7 +1,6 @@
 .DS_Store
 /node_modules
 .env
-/POSserver/staticfiles/
 server.json
 data.json
 .pyc
@@ -10,3 +9,4 @@ __pycache__
 sendgrid.env
 .vscode
 debug.log
+pipenv.sh

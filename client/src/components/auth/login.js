@@ -58,7 +58,7 @@ class Login extends Component {
                         username: values.username,
                         password: values.password
                       };
-                      tokenAuth({
+                      return tokenAuth({
                         variables: user_variables
                       });
                     }}

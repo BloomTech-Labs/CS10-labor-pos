@@ -32,8 +32,19 @@ class JobInvoice extends Component {
         const file = new Blob([response.data], { type: "application/pdf" });
         //Build a URL from the file
         const fileURL = URL.createObjectURL(file);
-        //Open the URL on new Window
-        window.open(fileURL, "Data");
+        // Create a link element
+        const link = document.createElement("a");
+        link.href = fileURL;
+        link.download = 'invoice.pdf';
+        document.body.appendChild(link);
+        link.dispatchEvent(
+          new MouseEvent("click", {
+            bubbles: true,
+            cancelable: true,
+            view: window
+          })
+        );
+      document.body.removeChild(link);
       })
       .catch(error => {
         console.log(error);

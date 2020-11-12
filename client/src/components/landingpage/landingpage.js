@@ -91,27 +91,16 @@ class LandingPage extends Component {
     //TODO: make this actually present a case for using our app.
     else {
       return (
-        <div>
-          <Grid container>
-            <Grid item md={2}>
+        <Grid container direction="column"  style={{height: "100vh"}}>
+          <Grid container justify="space-between" style={{height: '25%'}}>
+            <Grid item xs={3} md={2}>
               <img
                 alt="A golden raccoon logo"
                 src={require("../../racoonbowtie.svg")}
                 className={classes.image_large}
               />
             </Grid>
-            <Grid item md={6} />
-            <Grid item xs={6} md={2}>
-              <Button
-                className={classes.padded_button}
-                variant="contained"
-                color="primary"
-                onClick={this.handleCreateButton}
-              >
-                Create Account
-              </Button>
-            </Grid>
-            <Grid item xs={6} md={2}>
+            <Grid item xs={9} md={10} className={classes.login_button}>
               <Button
                 variant="contained"
                 color="primary"
@@ -121,31 +110,38 @@ class LandingPage extends Component {
                 Log In
               </Button>
             </Grid>
-          </Grid>
-          <div>
-            <Typography
-              className={classes.typography_title_landing}
-              variant="title"
-            >
-              Contract Alchemy:
+            </Grid>
+            <Grid container direction="column" alignItems="center" justify="center">
+            <Grid item>
+              <Typography
+                className={classes.typography_title_landing}
+                variant="title"
+              >
+                Contract Alchemy:
               <br />
               Turning POS Into Gold
             </Typography>
-            <Typography className={classes.typography_paragraph_landing}>
-              {"Tired of balancing multiple projects?"} <br />
-              {"Struggling to keep track of how much you’re owed from whom?"}
+            </Grid>
+            <Grid item>
+              <Typography className={classes.typography_paragraph_landing}>
+                {"Tired of balancing multiple projects?"} <br />
+                {"Struggling to keep track of how much you’re owed from whom?"}
+              </Typography>
+              <Typography variant="title" className={classes.emphasis}>
+                Struggle no more!
             </Typography>
-            <Typography variant="title" className={classes.emphasis}>
-              Struggle no more!
-            </Typography>
-            <Button
-              className={classes.padded_button}
-              variant="contained"
-              color="primary"
-              onClick={this.handleCreateButton}
-            >
-              Create Account
+            </Grid>
+            <Grid item>
+              <Button
+                className={classes.padded_button}
+                variant="contained"
+                color="primary"
+                onClick={this.handleCreateButton}
+              >
+                Create Account
             </Button>
+            </Grid>
+            </Grid>
             {/*We use material ui dialog components for our modals.*/}
             <Dialog
               fullScreen={fullScreen}
@@ -166,8 +162,7 @@ class LandingPage extends Component {
                 <CreateUser modalDone={this.handleLogin} />
               </Paper>
             </Dialog>
-          </div>
-        </div>
+        </Grid>
       );
     }
   }
